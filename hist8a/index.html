@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>歷史穿越大冒險</title>
+<title>學習教材</title>
 <style>
-:root{--bg:#fdf6e9;--paper:#fffdf8;--ink:#3b2f2a;--sub:#7a6a60;--red:#c8462f;--gold:#e0a526;--jade:#2f8f7a;--sky:#3f7ec0;--line:#ead9bd;--hl:#ffe9a8;--ok:#2e9e5b;--bad:#d64545}
-@media (prefers-color-scheme:dark){:root{--bg:#1e1a16;--paper:#29241e;--ink:#f3e9dc;--sub:#bfae9c;--line:#4a3f33;--hl:#6b5418}}
+:root{--bg:#fdf6e9;--paper:#fffdf8;--ink:#3b2f2a;--sub:#7a6a60;--main:#c8462f;--gold:#e0a526;--jade:#2f8f7a;--sky:#3f7ec0;--line:#ead9bd;--hl:#ffe9a8;--ok:#2e9e5b;--bad:#d64545;--a:#f5d9a8;--b:#bfe0d6}
+@media (prefers-color-scheme:dark){:root:not(.print){--bg:#1e1a16;--paper:#29241e;--ink:#f3e9dc;--sub:#bfae9c;--line:#4a3f33;--hl:#6b5418}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.8 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
-header{position:sticky;top:0;z-index:9;background:var(--red);color:#fff;box-shadow:0 2px 8px #0003}
+header{position:sticky;top:0;z-index:9;background:var(--main);color:#fff;box-shadow:0 2px 8px #0003}
 .top{display:flex;align-items:center;gap:10px;padding:8px 16px}
 .top h1{margin:0;font-size:19px;flex:1}
 .xp{background:#0003;border-radius:999px;padding:2px 12px;font-size:14px;white-space:nowrap}
 nav{display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto}
 nav button{flex:0 0 auto;border:0;background:#fff3;color:#fff;border-radius:999px;padding:6px 13px;font-size:15px}
-nav button.on{background:#fff;color:var(--red);font-weight:700}
+nav button.on{background:#fff;color:var(--main);font-weight:700}
 main{max-width:880px;margin:0 auto;padding:16px}
 section{display:none;animation:fade .35s}section.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
@@ -27,21 +27,28 @@ b{background:linear-gradient(transparent 55%,var(--hl) 55%);font-weight:700}
 .guide .ava{font-size:42px;line-height:1;flex:0 0 auto}
 .bubble{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:8px 14px;position:relative}
 .bubble:before{content:"";position:absolute;left:-10px;top:14px;border:8px solid transparent;border-right-color:var(--line)}
-.scene{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:8px 0}
 .tile{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:12px 14px}
-.tile .em{font-size:34px}
-.tile h4{margin:2px 0 4px;font-size:17px}
-.tile p{margin:0;font-size:15px}
-.chant{background:var(--red);color:#fff;border-radius:14px;padding:10px 14px;margin:12px 0;font-weight:700;font-size:18px;text-align:center}
+.tile .em{font-size:34px}.tile h4{margin:2px 0 4px;font-size:17px}.tile p{margin:0;font-size:15px}
+.chant{background:var(--main);color:#fff;border-radius:14px;padding:10px 14px;margin:12px 0;font-weight:700;font-size:18px;text-align:center}
 .chant small{display:block;font-weight:400;font-size:14px;opacity:.9}
 .trap{border:2px dashed var(--bad);border-radius:14px;padding:8px 12px;margin:10px 0;font-size:15px}
 .trap:before{content:"⚠️ 陷阱題注意　";font-weight:700;color:var(--bad)}
-svg{width:100%;height:auto;display:block}
-svg text{font-family:inherit}
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.vs>div{border-radius:14px;padding:10px 12px;font-size:15px}
-.vs .a{background:#f5d9a8;color:#3b2f2a}.vs .b{background:#bfe0d6;color:#2a3b35}
+.lab{border:2px solid var(--sky);border-radius:14px;padding:8px 14px;margin:10px 0}
+.lab h4{margin:0 0 4px;color:var(--sky)}
+svg{width:100%;height:auto;display:block;max-width:560px;margin:6px auto}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.vs>div{border-radius:14px;padding:10px 12px;font-size:15px;color:#3b2f2a}
+.vs>div:first-child{background:var(--a)}.vs>div:last-child{background:var(--b)}
 .vs h4{margin:0 0 4px;font-size:17px}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+th{background:var(--bg)}
+.tl{position:relative;padding-left:28px;margin:8px 0}
+.tl:before{content:"";position:absolute;left:11px;top:0;bottom:0;width:4px;background:var(--main);border-radius:2px}
+.tl div{position:relative;margin:0 0 12px}
+.tl div:before{content:"";position:absolute;left:-23px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--paper)}
+.tl span{font-weight:700;color:var(--main);margin-right:6px}
 .flip{perspective:800px;height:130px;cursor:pointer}
 .flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
 .flip.on .in{transform:rotateY(180deg)}
@@ -49,10 +56,9 @@ svg text{font-family:inherit}
 .flip .f{background:var(--sky);color:#fff;font-size:18px}
 .flip .k{background:var(--gold);color:#3b2f2a;transform:rotateY(180deg);font-size:15px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-/* quiz */
-.qbox{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:16px}
+.qbox{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
 .prog{height:12px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 12px}
-.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--red));transition:width .4s}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--main));transition:width .4s}
 .qhead{display:flex;justify-content:space-between;font-size:14px;color:var(--sub)}
 .stem{font-weight:700;font-size:18px;white-space:pre-line;margin:6px 0}
 .src{background:var(--bg);border-left:4px solid var(--sky);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:16px}
@@ -61,354 +67,142 @@ svg text{font-family:inherit}
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .fb{display:none;border-radius:12px;padding:10px 12px;margin-top:8px;font-size:16px}
 .fb.ok{display:block;background:#2e9e5b22}.fb.bad{display:block;background:#d6454522}
-.btn{border:0;background:var(--red);color:#fff;border-radius:12px;padding:10px 18px;font-size:16px;font-weight:700;margin-top:10px}
+.btn{border:0;background:var(--main);color:#fff;border-radius:12px;padding:10px 18px;font-size:16px;font-weight:700;margin-top:10px}
 .btn.alt{background:var(--sky)}
-.combo{font-weight:700;color:var(--red)}
-.rank{text-align:center;padding:10px}
-.rank .big{font-size:60px}
+.say{border:0;background:var(--sky);color:#fff;border-radius:999px;padding:0 10px;font-size:14px;margin-left:6px;vertical-align:middle}
+.combo{font-weight:700;color:var(--main)}
+.rank{text-align:center;padding:10px}.rank .big{font-size:60px}
 .order li{list-style:none;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 12px;margin:6px 0;cursor:pointer}
 .order li.pick{background:var(--hl);border-color:var(--gold)}
 .order li .n{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#fff;text-align:center;line-height:26px;margin-right:8px;font-size:14px}
-.tl{position:relative;padding-left:28px}
-.tl:before{content:"";position:absolute;left:11px;top:0;bottom:0;width:4px;background:var(--red);border-radius:2px}
-.tl div{position:relative;margin:0 0 12px}
-.tl div:before{content:"";position:absolute;left:-23px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--paper)}
-.tl span{font-weight:700;color:var(--red);margin-right:6px}
+.tag{display:inline-block;font-size:13px;color:#fff;background:var(--sky);border-radius:6px;padding:0 6px;margin-right:6px;font-weight:400}
+.srcs{font-size:13px;color:var(--sub)}
 #boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+/* print */
+.print header{position:static;box-shadow:none}.print nav,.print .xp{display:none}
+.print section{display:block;animation:none}
+.print .card,.print .qbox{box-shadow:none;break-inside:avoid}
+.print .pbreak{break-before:page}
+.print .cards{grid-template-columns:1fr 1fr}
+.print .fc{border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+@page{size:A4;margin:12mm}
 </style>
 </head>
 <body>
 <canvas id="boom"></canvas>
-<header>
-<div class="top"><h1>🏯 歷史穿越大冒險</h1><span class="xp" id="xp">⭐ 0</span></div>
-<nav id="nav">
-<button data-s="home" class="on">🗺️ 出發</button>
-<button data-s="s11">👑 1-1 封建</button>
-<button data-s="s12">🏛️ 1-2 帝國</button>
-<button data-s="s21">🐎 2-1 民族</button>
-<button data-s="flash">🃏 記憶卡</button>
-<button data-s="order">🧩 排順序</button>
-<button data-s="quiz">⚔️ 闖關</button>
-<button data-s="wrong">📕 錯題</button>
-</nav>
-</header>
-<main>
-
-<!-- HOME -->
-<section id="home" class="on">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">嗨！我是時光嚮導<b>小史</b>。今晚我們要穿越<b>一千五百年</b>：從商朝的龜殼占卜，一路走到唐朝的天可汗。看完三站故事，再去闖關拿星星，明天就能輕鬆應戰！</div></div>
-<div class="card">
-<h2>🗺️ 今晚路線（約 90 分鐘）</h2>
-<div class="scene">
-<div class="tile"><div class="em">👑</div><h4>第一站・1-1 封建</h4><p>周天子怎麼分封土地？為什麼後來大家都不聽他的？（20 分）</p></div>
-<div class="tile"><div class="em">🏛️</div><h4>第二站・1-2 帝國</h4><p>秦始皇的郡縣制，以及「當官的方法」怎麼一路演變。（20 分）</p></div>
-<div class="tile"><div class="em">🐎</div><h4>第三站・2-1 民族</h4><p>種田的人和騎馬的人：打仗、和親、通婚的故事。（15 分）</p></div>
-<div class="tile"><div class="em">⚔️</div><h4>最終關・闖關</h4><p>先翻記憶卡、玩排順序，再挑戰 30 題，錯的去錯題本重做到全對。（35 分）</p></div>
-</div>
-</div>
-<div class="card">
-<h2>🎯 老師最愛考的五件事</h2>
-<p>1️⃣ 封建和郡縣：官位能不能<b>世襲</b>？<br>2️⃣ 當官方法的順序：<b>推薦 → 看家世 → 考試</b><br>3️⃣ 封建為什麼會瓦解<br>4️⃣ 張騫的<b>原本目的</b>和<b>實際結果</b>不一樣<br>5️⃣ 北魏孝文帝的漢化、唐太宗的「天可汗」</p>
-</div>
-</section>
-
-<!-- 1-1 -->
-<section id="s11">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">第一站：周朝。想像你是<b>周天子</b>，剛打下一大片土地，但手下的人不夠多，你會怎麼管？答案就是──把土地<b>分給自己人</b>！</div></div>
-
-<div class="card">
-<h2>🐢 商朝：什麼都要問龜殼</h2>
-<div class="scene">
-<div class="tile"><div class="em">🦴</div><h4>甲骨文</h4><p>刻在龜甲、獸骨上的占卜紀錄，是目前發現<b>最早的成熟文字</b>。</p></div>
-<div class="tile"><div class="em">🔔</div><h4>青銅器</h4><p>商朝的青銅技術非常發達。</p></div>
-<div class="tile"><div class="em">🔮</div><h4>神權政治</h4><p>打仗、祭祀都要先占卜問鬼神。晚期的首都在「殷」（遺址稱為殷墟）。</p></div>
-</div>
-</div>
-
-<div class="card">
-<h2>👑 西周：封建金字塔</h2>
-<p>周武王滅商，<b>周公</b>東征平亂後開始大規模分封。<b>目的</b>：周人人口少、土地大，所以派親戚和功臣到各地建國，一起保衛周王室。</p>
-<svg viewBox="0 0 400 230" role="img" aria-label="封建金字塔">
-<polygon points="200,10 380,220 20,220" fill="#f5d9a8" stroke="#c8462f" stroke-width="3"/>
-<line x1="152" y1="66" x2="248" y2="66" stroke="#c8462f" stroke-width="2"/>
-<line x1="104" y1="122" x2="296" y2="122" stroke="#c8462f" stroke-width="2"/>
-<line x1="60" y1="173" x2="340" y2="173" stroke="#c8462f" stroke-width="2"/>
-<text x="200" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="#3b2f2a">👑 天子</text>
-<text x="200" y="102" text-anchor="middle" font-size="17" font-weight="700" fill="#3b2f2a">🏯 諸侯</text>
-<text x="200" y="155" text-anchor="middle" font-size="17" font-weight="700" fill="#3b2f2a">📜 卿大夫</text>
-<text x="200" y="205" text-anchor="middle" font-size="17" font-weight="700" fill="#3b2f2a">🗡️ 士</text>
-</svg>
-<p>🔽 一層一層往下分封。諸侯要做三件事：<b>守住疆土、定期朝貢、出兵幫天子打仗</b>。</p>
-<h3>👨‍👦 宗法制度：爸爸的位子給誰？</h3>
-<p>由<b>嫡長子</b>（正妻生的長子）繼承，稱為大宗；其他兒子另外分封，稱為小宗。宗法和封建綁在一起，用<b>血緣</b>維持政治秩序。</p>
-</div>
-
-<div class="card">
-<h2>💥 東周：金字塔崩塌了</h2>
-<p>前 771 年，犬戎攻破首都鎬京 → 前 770 年<b>周平王東遷洛邑</b>，東周開始。</p>
-<div class="vs">
-<div class="a"><h4>🌸 春秋</h4>天子衰弱，強大的諸侯成為<b>霸主</b>，口號是「<b>尊王攘夷</b>」（齊桓公、晉文公）。</div>
-<div class="b"><h4>⚔️ 戰國</h4>從三家分晉（約前 403 年）開始，<b>七雄</b>互相兼併。<b>商鞅變法</b>獎勵耕戰，讓秦國最強。</div>
-</div>
-<h3>🧱 封建為什麼會倒？四個原因</h3>
-<div class="scene">
-<div class="tile"><div class="em">😵</div><h4>天子弱</h4><p>周天子沒力量了，諸侯不聽話。</p></div>
-<div class="tile"><div class="em">🐂</div><h4>鐵牛來</h4><p>鐵器、牛耕普及，生產力大增，土地可以買賣。</p></div>
-<div class="tile"><div class="em">🙋</div><h4>平民上</h4><p>平民可以靠<b>軍功、才能</b>當官，不再只有貴族世襲。</p></div>
-<div class="tile"><div class="em">💡</div><h4>百家開</h4><p>諸子百家：孔子（儒）、老子（道）、墨子（墨）、韓非（法）。</p></div>
-</div>
-<div class="chant">🎵 天子弱、鐵牛來、平民上、百家開<small>封建瓦解四原因口訣</small></div>
-</div>
-</section>
-
-<!-- 1-2 -->
-<section id="s12">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">第二站：秦始皇登場！他說：「分封會讓諸侯坐大，<b>官員全部由我派、不准傳給兒子</b>！」這就是<b>郡縣制</b>。</div></div>
-
-<div class="card">
-<h2>⚖️ 封建 vs 郡縣（必考對決）</h2>
-<svg viewBox="0 0 400 200" role="img" aria-label="封建與郡縣比較圖">
-<rect x="5" y="5" width="190" height="190" rx="14" fill="#f5d9a8"/>
-<rect x="205" y="5" width="190" height="190" rx="14" fill="#bfe0d6"/>
-<text x="100" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#3b2f2a">封建（西周）</text>
-<text x="300" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#2a3b35">郡縣（秦）</text>
-<text x="100" y="62" text-anchor="middle" font-size="22">👑</text>
-<line x1="100" y1="70" x2="55" y2="105" stroke="#c8462f" stroke-width="2"/><line x1="100" y1="70" x2="145" y2="105" stroke="#c8462f" stroke-width="2"/>
-<text x="55" y="125" text-anchor="middle" font-size="20">🏯</text><text x="145" y="125" text-anchor="middle" font-size="20">🏯</text>
-<text x="55" y="150" text-anchor="middle" font-size="13" fill="#3b2f2a">傳兒子 👶</text><text x="145" y="150" text-anchor="middle" font-size="13" fill="#3b2f2a">傳兒子 👶</text>
-<text x="100" y="182" text-anchor="middle" font-size="14" font-weight="700" fill="#c8462f">可以世襲</text>
-<text x="300" y="62" text-anchor="middle" font-size="22">🤴</text>
-<line x1="300" y1="70" x2="255" y2="105" stroke="#2f8f7a" stroke-width="2"/><line x1="300" y1="70" x2="345" y2="105" stroke="#2f8f7a" stroke-width="2"/>
-<text x="255" y="125" text-anchor="middle" font-size="20">🧑‍💼</text><text x="345" y="125" text-anchor="middle" font-size="20">🧑‍💼</text>
-<text x="255" y="150" text-anchor="middle" font-size="13" fill="#2a3b35">中央派 📨</text><text x="345" y="150" text-anchor="middle" font-size="13" fill="#2a3b35">任滿調走 🔄</text>
-<text x="300" y="182" text-anchor="middle" font-size="14" font-weight="700" fill="#2f8f7a">不能世襲・中央集權</text>
-</svg>
-</div>
-
-<div class="card">
-<h2>🏯 秦：第一個統一帝國（前 221 年）</h2>
-<div class="scene">
-<div class="tile"><div class="em">🤴</div><h4>始皇帝</h4><p>秦王政統一六國，自稱「始皇帝」。</p></div>
-<div class="tile"><div class="em">🏛️</div><h4>三公</h4><p>丞相（政務）、太尉（軍事）、御史大夫（監察）。</p></div>
-<div class="tile"><div class="em">📏</div><h4>四大統一</h4><p><b>文字（小篆）</b>、度量衡、貨幣、車軌。</p></div>
-<div class="tile"><div class="em">🧱</div><h4>其他</h4><p>焚書坑儒、修長城、北擊匈奴。太嚴苛 → <b>二世而亡</b>。</p></div>
-</div>
-<h2 style="margin-top:14px">🐉 漢：先妥協，再收權</h2>
-<p>漢高祖劉邦：<b>郡國並行</b>（一半郡縣、一半封王）→ 景帝時爆發<b>七國之亂</b> → 武帝推出<b>推恩令</b>，讓王國越分越小，並<b>獨尊儒術</b>。</p>
-<p>東漢末年發生黃巾之亂 → 三國 → 西晉 → 南北朝，進入長期分裂。</p>
-</div>
-
-<div class="card">
-<h2>🎓 當官之路三部曲</h2>
-<svg viewBox="0 0 400 150" role="img" aria-label="選才制度演變">
-<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#c8462f"/></marker></defs>
-<rect x="5" y="20" width="115" height="110" rx="14" fill="#f5d9a8"/>
-<rect x="142" y="20" width="115" height="110" rx="14" fill="#f7c6b9"/>
-<rect x="280" y="20" width="115" height="110" rx="14" fill="#bfe0d6"/>
-<line x1="120" y1="75" x2="140" y2="75" stroke="#c8462f" stroke-width="3" marker-end="url(#ar)"/>
-<line x1="257" y1="75" x2="278" y2="75" stroke="#c8462f" stroke-width="3" marker-end="url(#ar)"/>
-<text x="62" y="50" text-anchor="middle" font-size="26">🙋</text><text x="62" y="80" text-anchor="middle" font-size="16" font-weight="700" fill="#3b2f2a">察舉</text><text x="62" y="102" text-anchor="middle" font-size="13" fill="#3b2f2a">漢・地方推薦</text><text x="62" y="120" text-anchor="middle" font-size="12" fill="#3b2f2a">（孝廉）</text>
-<text x="200" y="50" text-anchor="middle" font-size="26">🏰</text><text x="200" y="80" text-anchor="middle" font-size="15" font-weight="700" fill="#3b2f2a">九品官人法</text><text x="200" y="102" text-anchor="middle" font-size="13" fill="#3b2f2a">魏晉・看家世</text><text x="200" y="120" text-anchor="middle" font-size="12" fill="#3b2f2a">世族壟斷</text>
-<text x="337" y="50" text-anchor="middle" font-size="26">📝</text><text x="337" y="80" text-anchor="middle" font-size="16" font-weight="700" fill="#2a3b35">科舉</text><text x="337" y="102" text-anchor="middle" font-size="13" fill="#2a3b35">隋唐・考試</text><text x="337" y="120" text-anchor="middle" font-size="12" fill="#2a3b35">打破門第</text>
-</svg>
-<div class="chant">🎵 漢靠推薦、魏看家世、隋唐考試<small>察舉 → 九品官人法 → 科舉</small></div>
-<p>九品官人法後來被罵：「<b>上品無寒門，下品無勢族</b>」，意思是好的等級全被有錢有勢的世家拿走了。</p>
-<div class="trap">科舉是<b>隋朝</b>開始的（隋煬帝設進士科），唐朝只是讓它更完備。</div>
-</div>
-
-<div class="card">
-<h2>🏢 唐朝的三省六部</h2>
-<div class="scene">
-<div class="tile"><div class="em">💭</div><h4>中書省</h4><p>負責<b>想</b>：起草命令（決策）。</p></div>
-<div class="tile"><div class="em">🔍</div><h4>門下省</h4><p>負責<b>審</b>：檢查命令有沒有問題。</p></div>
-<div class="tile"><div class="em">🔨</div><h4>尚書省</h4><p>負責<b>做</b>：執行命令，底下有六部。</p></div>
-</div>
-<div class="chant">🎵 中書想、門下審、尚書做</div>
-<p>💔 755 年<b>安史之亂</b> → 唐朝由盛轉衰 → 藩鎮割據 → 907 年滅亡。</p>
-</div>
-</section>
-
-<!-- 2-1 -->
-<section id="s21">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">第三站：長城的兩邊！南邊的人<b>種田</b> 🌾，北邊的人<b>騎馬放牧</b> 🐎。他們需要彼此的東西，所以有時做生意，有時打架。</div></div>
-
-<div class="card">
-<h2>🌾 vs 🐎 為什麼會又合作又打仗？</h2>
-<div class="vs">
-<div class="a"><h4>🌾 農業民族</h4>住在中原，種田、定居。生產糧食、布帛。</div>
-<div class="b"><h4>🐎 游牧民族</h4>住在北方草原，氣候乾燥，逐水草而居，需要糧食和布帛。</div>
-</div>
-<p style="margin-top:10px">🤝 貿易順利 → 和平交流　｜　🚫 貿易不順 → 南下搶奪<br>👉 結論：<b>經濟互補，交流與衝突並存</b>。周朝區分「華夏」和「夷狄」，看的是<b>文化（禮儀）</b>，不是血統。</p>
-</div>
-
-<div class="card">
-<h2>🗺️ 漢朝打通西域地圖</h2>
-<svg viewBox="0 0 420 240" role="img" aria-label="漢代西域簡圖">
-<rect x="0" y="0" width="420" height="240" rx="14" fill="#efe3c8"/>
-<path d="M0,0 H420 V80 Q300,95 200,70 Q100,55 0,85z" fill="#d9e8c4"/>
-<text x="250" y="35" font-size="16" font-weight="700" fill="#3b5a2a">🐎 匈奴（草原）</text>
-<path d="M150,100 Q230,85 330,95" stroke="#8a5a2b" stroke-width="5" fill="none" stroke-dasharray="10 5"/>
-<text x="330" y="88" font-size="13" fill="#8a5a2b">🧱 長城</text>
-<path d="M345,170 L280,135 L215,120 L150,115 L60,130" stroke="#c8462f" stroke-width="4" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
-<circle cx="345" cy="170" r="7" fill="#c8462f"/><text x="355" y="175" font-size="15" font-weight="700" fill="#3b2f2a">長安</text>
-<text x="215" y="150" font-size="13" fill="#3b2f2a">河西四郡</text>
-<circle cx="150" cy="115" r="6" fill="#e0a526"/><text x="120" y="108" font-size="13" fill="#3b2f2a">敦煌</text>
-<text x="15" y="160" font-size="15" font-weight="700" fill="#3f7ec0">🐫 西域</text>
-<text x="15" y="182" font-size="12" fill="#3b2f2a">（西域都護府）</text>
-<text x="250" y="215" font-size="14" fill="#c8462f">🔴 張騫・絲路</text>
-</svg>
-<div class="chant">🎵 武威、張掖、酒泉、敦煌<small>河西四郡，從長安往西依序排列</small></div>
-</div>
-
-<div class="card">
-<h2>📜 漢朝怎麼對付匈奴？</h2>
-<div class="tl">
-<div><span>秦</span>蒙恬北擊匈奴，把各國原有的長城連接起來 🧱</div>
-<div><span>漢高祖</span>在白登被匈奴包圍 😱 → 改採<b>和親</b>（送公主、送禮物、開放市集）</div>
-<div><span>漢武帝</span>派<b>衛青、霍去病</b>北伐 🏇；派<b>張騫出使西域</b>；設<b>河西四郡</b></div>
-<div><span>漢宣帝</span>設立<b>西域都護府</b> 🏴</div>
-<div><span>東漢</span>匈奴分裂為南、北兩部，南匈奴歸附；班超經營西域</div>
-</div>
-<div class="trap">張騫<b>原本</b>是要找<b>大月氏</b>一起夾擊匈奴（沒成功）；<b>結果</b>卻打通東西交通，後來形成<b>絲路</b> 🐫。</div>
-</div>
-
-<div class="card">
-<h2>🌊 魏晉南北朝：大搬家＋大融合</h2>
-<div class="scene">
-<div class="tile"><div class="em">🏹</div><h4>五胡入中原</h4><p>匈奴、鮮卑、羯、氐、羌紛紛建國。</p></div>
-<div class="tile"><div class="em">🧳</div><h4>永嘉之禍（311 年）</h4><p>晉室南遷，建立東晉 → 北方漢人大量<b>南遷</b> → <b>江南逐漸開發</b>。</p></div>
-<div class="tile"><div class="em">👘</div><h4>北魏孝文帝漢化</h4><p>遷都<b>洛陽</b>、改漢姓（拓跋改為<b>元</b>）、穿漢服、說漢語、<b>鼓勵胡漢通婚</b>。</p></div>
-</div>
-<div class="chant">🎵 匈、鮮、羯、氐、羌<small>五胡（「兄弟姊妹一起搶」：匈鮮羯氐羌）</small></div>
-<div class="trap">孝文帝是<b>鼓勵</b>胡漢通婚，不是禁止！</div>
-</div>
-
-<div class="card">
-<h2>🌟 唐朝：皇帝兼「草原老大」</h2>
-<div class="scene">
-<div class="tile"><div class="em">🦅</div><h4>天可汗</h4><p><b>唐太宗</b>擊敗<b>東突厥</b>，草原各族尊稱他為「天可汗」（游牧民族共同的領袖）。</p></div>
-<div class="tile"><div class="em">🤝</div><h4>羈縻政策</h4><p>設<b>都護府</b>，讓<b>當地首領</b>擔任都督、刺史，<b>保留原本風俗</b>，只要服從唐朝就好。</p></div>
-<div class="tile"><div class="em">👸</div><h4>文成公主</h4><p>嫁給<b>吐蕃</b>的松贊干布，促進漢藏交流。</p></div>
-<div class="tile"><div class="em">🛡️</div><h4>胡人將領</h4><p>唐朝重用胡將（例如安祿山）；安史之亂時，回紇曾出兵幫忙。</p></div>
-</div>
-</div>
-</section>
-
-<!-- FLASH -->
-<section id="flash">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">點一下卡片就會翻面。先自己說出答案，再翻過來對答案！</div></div>
-<div class="cards" id="fc"></div>
-</section>
-
-<!-- ORDER -->
-<section id="order">
-<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">時光機故障了！請依照<b>發生先後</b>，依序點選事件。全部排對可以拿到 ⭐×5！</div></div>
-<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div>
-<button class="btn alt" id="oNext">換一組 🔄</button></div>
-</section>
-
-<!-- QUIZ -->
-<section id="quiz"><div class="qbox" id="qbox"></div></section>
-
-<!-- WRONG -->
-<section id="wrong"><div id="wbox"></div></section>
-
-</main>
+<header><div class="top"><h1 id="ttl"></h1><span class="xp" id="xp">⭐ 0</span></div><nav id="nav"></nav></header>
+<main id="main"></main>
 <script>
-const Q=[
-{s:"西周為了控制剛征服的廣大土地，實施了哪一種制度？",o:["郡縣制","封建制度","郡國並行","羈縻政策"],a:1,e:"西周分封宗室、功臣到各地建立諸侯國，用來保衛周室。"},
-{s:"和封建制度互相配合的宗法制度，最主要的繼承原則是什麼？",o:["兄終弟及","嫡長子繼承","選賢與能","考試取才"],a:1,e:"宗法由嫡長子繼承（大宗），其他兒子另外分封（小宗）。"},
-{s:"下列哪一件事代表東周的開始？",o:["武王伐紂","周公東征","平王東遷洛邑","三家分晉"],a:2,e:"前 770 年平王東遷洛邑，東周開始。三家分晉則是戰國的開始。"},
-{s:"春秋時期的霸主常打著哪一個口號號召諸侯？",o:["尊王攘夷","獨尊儒術","天下為公","兼愛非攻"],a:0,e:"尊王（尊崇周天子）、攘夷（抵抗外族）。「獨尊儒術」是漢武帝的政策。"},
-{s:"戰國時期，哪一位人物在秦國推動變法，使秦國富強？",o:["管仲","商鞅","董仲舒","張騫"],a:1,e:"商鞅變法獎勵耕戰、論軍功授爵，並推行縣制。管仲輔佐的是春秋的齊桓公。"},
-{s:"下列哪一項「不是」封建制度瓦解的原因？",o:["周天子勢力衰弱","鐵器牛耕提高生產力","平民可以憑軍功當官","隋唐實施科舉制度"],a:3,e:"科舉是隋唐的事，時間比東周晚了將近一千年，和封建瓦解無關。"},
-{s:"秦朝郡縣制的地方官有什麼特點？",o:["官位可以世襲","由中央任免，不能世襲","由諸侯自己選派","由當地部族首領擔任"],a:1,e:"郡縣制最重要的特點是「中央任免、不能世襲」，這也是和封建的最大差別。"},
-{s:"秦始皇統一文字時，以哪一種字體為標準？",o:["甲骨文","金文","小篆","楷書"],a:2,e:"秦朝以小篆統一文字。"},
-{s:"漢初實施郡國並行，後來發生哪一事件，使中央決心削弱諸侯王國？",o:["七國之亂","安史之亂","黃巾之亂","永嘉之禍"],a:0,e:"漢景帝時發生七國之亂，平定後中央開始削藩；漢武帝再推行推恩令。"},
-{s:"漢代主要用哪一種方式選拔人才？",o:["科舉","察舉","九品官人法","世卿世祿"],a:1,e:"漢代實施察舉，由地方官推薦孝廉等人才。"},
-{s:"「上品無寒門，下品無勢族」是在批評哪一種制度？",o:["察舉","九品官人法","科舉","封建"],a:1,e:"九品官人法後來偏重家世，使世族壟斷高級官位。"},
-{s:"隋唐科舉制度最重要的影響是什麼？",o:["讓世族壟斷官位","打破門第限制，平民可以透過考試當官","恢復封建制度","改由地方官推薦人才"],a:1,e:"科舉用考試選才，打破了門第限制。"},
-{s:"唐朝的三省之中，負責「執行」政令的是哪一個？",o:["中書省","門下省","尚書省","御史台"],a:2,e:"中書省決策、門下省審核、尚書省執行（下設六部）。口訣：中書想、門下審、尚書做。"},
-{s:"使唐朝由盛轉衰的關鍵事件是什麼？",o:["黃巾之亂","七國之亂","永嘉之禍","安史之亂"],a:3,e:"755 年發生安史之亂，之後藩鎮割據，唐朝由盛轉衰。"},
-{s:"漢高祖被匈奴圍困於白登後，改採哪一種政策？",o:["羈縻","和親","漢化","設都護府"],a:1,e:"漢初國力不足，採用和親，送公主和財物給匈奴。"},
-{s:"漢武帝派張騫出使西域，「原本」的目的是什麼？",o:["開拓絲路貿易","傳播佛教","聯合大月氏夾擊匈奴","迎娶西域公主"],a:2,e:"原本是要聯合大月氏，但沒有成功；後來的結果是打通了東西交通（絲路）。"},
-{s:"漢武帝在河西走廊設立了什麼？",o:["河西四郡","安西都護府","天可汗","燕雲十六州"],a:0,e:"河西四郡為武威、張掖、酒泉、敦煌，是通往西域的走廊。"},
-{s:"西晉末年發生永嘉之禍、晉室南遷，對江南有什麼影響？",o:["江南人口減少，變得更荒涼","北方人口南遷，江南逐漸開發","江南變成游牧地區","政治中心遷到西域"],a:1,e:"大量北方漢人南遷，帶去技術和人力，江南逐漸開發。"},
-{s:"下列哪一項「不是」北魏孝文帝的漢化政策？",o:["遷都洛陽","改用漢姓","禁止和漢人通婚","穿漢服、說漢語"],a:2,e:"孝文帝是「鼓勵」胡漢通婚，不是禁止。"},
-{s:"唐太宗擊敗哪一個民族後，被尊為「天可汗」？",o:["匈奴","東突厥","吐蕃","鮮卑"],a:1,e:"630 年唐朝滅東突厥，各族尊唐太宗為天可汗。"},
-{s:"唐朝對歸附民族實施的羈縻政策，內容是什麼？",o:["撤換當地首領，全部改派漢人官員","由當地首領擔任都督、刺史，保留原本風俗","強迫他們改用漢姓","把他們全部遷到長安"],a:1,e:"羈縻政策是讓當地首領自己治理、保留風俗，只要服從唐朝。"},
-{s:"唐朝的文成公主嫁給了誰？",o:["匈奴單于","突厥可汗","吐蕃的松贊干布","北魏孝文帝"],a:2,e:"文成公主和親吐蕃，促進漢藏文化交流。"},
-{s:"閱讀史料後回答：",src:"「天子建國，諸侯立家，卿置側室，大夫有貳宗，士有隸子弟。」──《左傳》",s2:"這段文字描述的是哪一種政治體制？",o:["郡縣制的層級","封建制度的層層分封","科舉考試的層級","三省六部的分工"],a:1,e:"天子 → 諸侯 → 卿大夫 → 士，正是封建的層層分封。看到「天子、諸侯、大夫、士」就要想到封建金字塔。"},
-{s:"一位地方官說：「我由朝廷派來治理這裡，任期滿了就會調走，我的兒子不能繼承這個官位。」這段話最可能出現在哪一個時期？",o:["西周","春秋","秦朝","五胡十六國的部落中"],a:2,e:"「朝廷派任、不能世襲」是郡縣制的特徵，最早全面實施郡縣的是秦朝。"},
-{s:"將下列選才制度依時間先後排列：\n甲、九品官人法　乙、科舉　丙、察舉",o:["甲→乙→丙","丙→甲→乙","乙→丙→甲","丙→乙→甲"],a:1,e:"察舉（漢）→ 九品官人法（魏晉）→ 科舉（隋唐）。口訣：漢靠推薦、魏看家世、隋唐考試。"},
-{s:"一位出身貧寒的讀書人說：「只要苦讀考上進士，我也能進入朝廷當官。」他最可能生活在哪一個朝代？",o:["西周","東漢","魏晉","唐朝"],a:3,e:"關鍵字是「考上進士」，表示已經有科舉；隋唐時期才有可能。"},
-{s:"某位皇帝推行下列政策：遷都洛陽、把皇室姓氏改為「元」、禁止在朝廷上說本族語言。他的主要目的是什麼？",o:["加強和匈奴的聯盟","促進胡漢融合，鞏固對中原的統治","恢復游牧民族的傳統","抵抗唐朝的進攻"],a:1,e:"這是北魏孝文帝的漢化政策，目的是融合胡漢、鞏固統治。"},
-{s:"一支商隊從長安出發，經過河西走廊、敦煌，前往西域各國。這條路線的開通，和哪一位人物關係最密切？",o:["張騫","商鞅","周公","董仲舒"],a:0,e:"張騫出使西域，打通了東西交通，後來形成絲路。"},
-{s:"閱讀下文後回答：",src:"游牧民族所需要的糧食、布帛等物資，大多仰賴農業地區供應。當雙方貿易順利時，邊境較為和平；貿易受阻時，游牧民族常常南下劫掠。",s2:"這段文字最能說明什麼？",o:["游牧民族不需要農產品","農業與游牧經濟可以互補，交流和衝突同時存在","農業民族常常主動北上占領草原","兩個民族之間從來沒有往來"],a:1,e:"這是 2-1 的核心觀念：農牧互補，交流和衝突並存。"},
-{s:"三位同學討論秦朝的統一措施：\n小明：統一文字，讓各地公文可以互相看懂。\n小華：統一度量衡，方便收稅和買賣。\n小美：設置郡縣，郡守由貴族世襲。\n哪一位同學說錯了？",o:["小明","小華","小美","三人都對"],a:2,e:"郡縣制的官員由中央任免，不能世襲。"},
-{s:"唐太宗同時擁有中原的「皇帝」和草原的「天可汗」兩個身分。這最能說明什麼？",o:["唐朝被突厥統治","唐朝皇帝也被游牧民族承認為共同領袖","唐朝放棄了中原","唐朝和突厥從來沒有往來"],a:1,e:"天可汗是游牧民族對唐太宗的尊稱，表示他也被承認為草原的共主。"}
-];
-const FC=[["甲骨文","商朝刻在龜甲、獸骨上的占卜文字"],["封建的目的","人少地大，派親族功臣建國保衛周室"],["宗法制度","嫡長子繼承（大宗），其他兒子是小宗"],["東周開始","前 770 年平王東遷洛邑"],["尊王攘夷","春秋霸主的口號（齊桓公、晉文公）"],["商鞅變法","獎勵耕戰、論軍功授爵、推行縣制，秦國變強"],["封建瓦解四原因","天子弱、鐵牛來、平民上、百家開"],["郡縣制","中央任免、不能世襲 → 中央集權"],["秦四大統一","文字（小篆）、度量衡、貨幣、車軌"],["郡國並行","漢高祖：一半郡縣、一半封王"],["推恩令","漢武帝：讓王國越分越小"],["察舉","漢：地方官推薦（孝廉）"],["九品官人法","魏晉：中正官評等，偏重家世"],["科舉","隋朝開始、唐朝完備：考試選才，打破門第"],["三省","中書想、門下審、尚書做"],["安史之亂","755 年，唐朝由盛轉衰"],["和親","漢初對匈奴；唐朝文成公主嫁吐蕃"],["張騫","原本：聯合大月氏打匈奴｜結果：打通絲路"],["河西四郡","武威、張掖、酒泉、敦煌"],["永嘉之禍","311 年，晉室南遷，江南開發"],["北魏孝文帝","遷都洛陽、改姓元、漢服漢語、胡漢通婚"],["天可汗","唐太宗擊敗東突厥後獲得的尊稱"],["羈縻政策","當地首領自治、保留風俗，設都護府"]];
-const OR=[
-{t:"🧩 第一組：周到秦",items:["周武王滅商","平王東遷洛邑","三家分晉","秦統一天下"]},
-{t:"🧩 第二組：當官之路",items:["漢代察舉孝廉","曹魏實施九品官人法","隋朝開始科舉","唐朝科舉制度完備"]},
-{t:"🧩 第三組：民族關係",items:["漢高祖白登被圍、和親","張騫出使西域","永嘉之禍、晉室南遷","北魏孝文帝遷都洛陽","唐太宗成為天可汗"]},
-{t:"🧩 第四組：分分合合",items:["七國之亂","黃巾之亂","隋統一南北","安史之亂"]}];
-const ST="hist8a_v2";let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
+const DATA={"id":"hist8a","title":"歷史穿越大冒險","icon":"🏯","kid":"大女兒","grade":"國二","subject":"歷史","version":"翰林","range":"1-1、1-2、2-1","exam":"第一次段考","guide":{"ava":"🧙‍♀️","name":"小史"},"theme":{"main":"#c8462f"},"home":{"intro":"嗨！我是時光嚮導<b>小史<\/b>。今晚我們要穿越<b>一千五百年<\/b>：從商朝的龜殼占卜，一路走到唐朝的天可汗。看完三站故事，再去闖關拿星星，明天就能輕鬆應戰！","cards":[{"h":"🗺️ 今晚路線（約 90 分鐘）","body":[{"t":"tiles","v":[{"em":"👑","h":"第一站・1-1 封建","p":"周天子怎麼分封土地？為什麼後來大家都不聽他的？（20 分）"},{"em":"🏛️","h":"第二站・1-2 帝國","p":"秦始皇的郡縣制，以及「當官的方法」怎麼一路演變。（20 分）"},{"em":"🐎","h":"第三站・2-1 民族","p":"種田的人和騎馬的人：打仗、和親、通婚的故事。（15 分）"},{"em":"⚔️","h":"最終關・闖關","p":"先翻記憶卡、玩排順序，再挑戰 30 題，錯的去錯題本重做到全對。（35 分）"}]}]},{"h":"🎯 老師最愛考的五件事","body":[{"t":"list","v":["封建和郡縣：官位能不能<b>世襲<\/b>？","當官方法的順序：<b>推薦 → 看家世 → 考試<\/b>","封建為什麼會瓦解","張騫的<b>原本目的<\/b>和<b>實際結果<\/b>不一樣","北魏孝文帝的漢化、唐太宗的「天可汗」"]}]}]},"stations":[{"id":"s11","nav":"👑 1-1 封建","intro":"第一站：周朝。想像你是<b>周天子<\/b>，剛打下一大片土地，但手下的人不夠多，你會怎麼管？答案就是──把土地<b>分給自己人<\/b>！","cards":[{"h":"🐢 商朝：什麼都要問龜殼","body":[{"t":"tiles","v":[{"em":"🦴","h":"甲骨文","p":"刻在龜甲、獸骨上的占卜紀錄，是目前發現<b>最早的成熟文字<\/b>。"},{"em":"🔔","h":"青銅器","p":"商朝的青銅技術非常發達。"},{"em":"🔮","h":"神權政治","p":"打仗、祭祀都要先占卜問鬼神。晚期的首都在「殷」（遺址稱為殷墟）。"}]}]},{"h":"👑 西周：封建金字塔","body":["周武王滅商，<b>周公<\/b>東征平亂後開始大規模分封。<b>目的<\/b>：周人人口少、土地大，所以派親戚和功臣到各地建國，一起保衛周王室。",{"t":"svg","v":"<svg viewBox=\"0 0 400 230\" role=\"img\" aria-label=\"封建金字塔\">\n<polygon points=\"200,10 380,220 20,220\" fill=\"#f5d9a8\" stroke=\"#c8462f\" stroke-width=\"3\"/>\n<line x1=\"152\" y1=\"66\" x2=\"248\" y2=\"66\" stroke=\"#c8462f\" stroke-width=\"2\"/>\n<line x1=\"104\" y1=\"122\" x2=\"296\" y2=\"122\" stroke=\"#c8462f\" stroke-width=\"2\"/>\n<line x1=\"60\" y1=\"173\" x2=\"340\" y2=\"173\" stroke=\"#c8462f\" stroke-width=\"2\"/>\n<text x=\"200\" y=\"52\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"700\" fill=\"#3b2f2a\">👑 天子<\/text>\n<text x=\"200\" y=\"102\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#3b2f2a\">🏯 諸侯<\/text>\n<text x=\"200\" y=\"155\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#3b2f2a\">📜 卿大夫<\/text>\n<text x=\"200\" y=\"205\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#3b2f2a\">🗡️ 士<\/text><\/svg>"},"🔽 一層一層往下分封。諸侯要做三件事：<b>守住疆土、定期朝貢、出兵幫天子打仗<\/b>。",{"t":"h3","v":"👨‍👦 宗法制度：爸爸的位子給誰？"},"由<b>嫡長子<\/b>（正妻生的長子）繼承，稱為大宗；其他兒子另外分封，稱為小宗。宗法和封建綁在一起，用<b>血緣<\/b>維持政治秩序。"]},{"h":"💥 東周：金字塔崩塌了","body":["前 771 年，犬戎攻破首都鎬京 → 前 770 年<b>周平王東遷洛邑<\/b>，東周開始。",{"t":"vs","v":[{"h":"🌸 春秋","p":"天子衰弱，強大的諸侯成為<b>霸主<\/b>，口號是「<b>尊王攘夷<\/b>」（齊桓公、晉文公）。"},{"h":"⚔️ 戰國","p":"從三家分晉（約前 403 年）開始，<b>七雄<\/b>互相兼併。<b>商鞅變法<\/b>獎勵耕戰，讓秦國最強。"}]},{"t":"h3","v":"🧱 封建為什麼會倒？四個原因"},{"t":"tiles","v":[{"em":"😵","h":"天子弱","p":"周天子沒力量了，諸侯不聽話。"},{"em":"🐂","h":"鐵牛來","p":"鐵器、牛耕普及，生產力大增，土地可以買賣。"},{"em":"🙋","h":"平民上","p":"平民可以靠<b>軍功、才能<\/b>當官，不再只有貴族世襲。"},{"em":"💡","h":"百家開","p":"諸子百家：孔子（儒）、老子（道）、墨子（墨）、韓非（法）。"}]},{"t":"chant","v":"天子弱、鐵牛來、平民上、百家開","sub":"封建瓦解四原因口訣"}]}]},{"id":"s12","nav":"🏛️ 1-2 帝國","intro":"第二站：秦始皇登場！他說：「分封會讓諸侯坐大，<b>官員全部由我派、不准傳給兒子<\/b>！」這就是<b>郡縣制<\/b>。","cards":[{"h":"⚖️ 封建 vs 郡縣（必考對決）","body":[{"t":"svg","v":"<svg viewBox=\"0 0 400 200\" role=\"img\" aria-label=\"封建與郡縣比較圖\">\n<rect x=\"5\" y=\"5\" width=\"190\" height=\"190\" rx=\"14\" fill=\"#f5d9a8\"/><rect x=\"205\" y=\"5\" width=\"190\" height=\"190\" rx=\"14\" fill=\"#bfe0d6\"/>\n<text x=\"100\" y=\"32\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#3b2f2a\">封建（西周）<\/text>\n<text x=\"300\" y=\"32\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#2a3b35\">郡縣（秦）<\/text>\n<text x=\"100\" y=\"62\" text-anchor=\"middle\" font-size=\"22\">👑<\/text>\n<line x1=\"100\" y1=\"70\" x2=\"55\" y2=\"105\" stroke=\"#c8462f\" stroke-width=\"2\"/><line x1=\"100\" y1=\"70\" x2=\"145\" y2=\"105\" stroke=\"#c8462f\" stroke-width=\"2\"/>\n<text x=\"55\" y=\"125\" text-anchor=\"middle\" font-size=\"20\">🏯<\/text><text x=\"145\" y=\"125\" text-anchor=\"middle\" font-size=\"20\">🏯<\/text>\n<text x=\"55\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#3b2f2a\">傳兒子 👶<\/text><text x=\"145\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#3b2f2a\">傳兒子 👶<\/text>\n<text x=\"100\" y=\"182\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#c8462f\">可以世襲<\/text>\n<text x=\"300\" y=\"62\" text-anchor=\"middle\" font-size=\"22\">🤴<\/text>\n<line x1=\"300\" y1=\"70\" x2=\"255\" y2=\"105\" stroke=\"#2f8f7a\" stroke-width=\"2\"/><line x1=\"300\" y1=\"70\" x2=\"345\" y2=\"105\" stroke=\"#2f8f7a\" stroke-width=\"2\"/>\n<text x=\"255\" y=\"125\" text-anchor=\"middle\" font-size=\"20\">🧑‍💼<\/text><text x=\"345\" y=\"125\" text-anchor=\"middle\" font-size=\"20\">🧑‍💼<\/text>\n<text x=\"255\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2a3b35\">中央派 📨<\/text><text x=\"345\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2a3b35\">任滿調走 🔄<\/text>\n<text x=\"300\" y=\"182\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#2f8f7a\">不能世襲・中央集權<\/text><\/svg>"}]},{"h":"🏯 秦：第一個統一帝國（前 221 年）","body":[{"t":"tiles","v":[{"em":"🤴","h":"始皇帝","p":"秦王政統一六國，自稱「始皇帝」。"},{"em":"🏛️","h":"三公","p":"丞相（政務）、太尉（軍事）、御史大夫（監察）。"},{"em":"📏","h":"四大統一","p":"<b>文字（小篆）<\/b>、度量衡、貨幣、車軌。"},{"em":"🧱","h":"其他","p":"焚書坑儒、修長城、北擊匈奴。太嚴苛 → <b>二世而亡<\/b>。"}]},{"t":"h3","v":"🐉 漢：先妥協，再收權"},"漢高祖劉邦：<b>郡國並行<\/b>（一半郡縣、一半封王）→ 景帝時爆發<b>七國之亂<\/b> → 武帝推出<b>推恩令<\/b>，讓王國越分越小，並<b>獨尊儒術<\/b>。","東漢末年發生黃巾之亂 → 三國 → 西晉 → 南北朝，進入長期分裂。"]},{"h":"🎓 當官之路三部曲","body":[{"t":"svg","v":"<svg viewBox=\"0 0 400 150\" role=\"img\" aria-label=\"選才制度演變\">\n<defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#c8462f\"/><\/marker><\/defs>\n<rect x=\"5\" y=\"20\" width=\"115\" height=\"110\" rx=\"14\" fill=\"#f5d9a8\"/><rect x=\"142\" y=\"20\" width=\"115\" height=\"110\" rx=\"14\" fill=\"#f7c6b9\"/><rect x=\"280\" y=\"20\" width=\"115\" height=\"110\" rx=\"14\" fill=\"#bfe0d6\"/>\n<line x1=\"120\" y1=\"75\" x2=\"140\" y2=\"75\" stroke=\"#c8462f\" stroke-width=\"3\" marker-end=\"url(#ar)\"/><line x1=\"257\" y1=\"75\" x2=\"278\" y2=\"75\" stroke=\"#c8462f\" stroke-width=\"3\" marker-end=\"url(#ar)\"/>\n<text x=\"62\" y=\"50\" text-anchor=\"middle\" font-size=\"26\">🙋<\/text><text x=\"62\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"700\" fill=\"#3b2f2a\">察舉<\/text><text x=\"62\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#3b2f2a\">漢・地方推薦<\/text><text x=\"62\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#3b2f2a\">（孝廉）<\/text>\n<text x=\"200\" y=\"50\" text-anchor=\"middle\" font-size=\"26\">🏰<\/text><text x=\"200\" y=\"80\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#3b2f2a\">九品官人法<\/text><text x=\"200\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#3b2f2a\">魏晉・看家世<\/text><text x=\"200\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#3b2f2a\">世族壟斷<\/text>\n<text x=\"337\" y=\"50\" text-anchor=\"middle\" font-size=\"26\">📝<\/text><text x=\"337\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"700\" fill=\"#2a3b35\">科舉<\/text><text x=\"337\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2a3b35\">隋唐・考試<\/text><text x=\"337\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2a3b35\">打破門第<\/text><\/svg>"},{"t":"chant","v":"漢靠推薦、魏看家世、隋唐考試","sub":"察舉 → 九品官人法 → 科舉"},"九品官人法後來被罵：「<b>上品無寒門，下品無勢族<\/b>」，意思是好的等級全被有錢有勢的世家拿走了。",{"t":"trap","v":"科舉是<b>隋朝<\/b>開始的（隋煬帝設進士科），唐朝只是讓它更完備。"}]},{"h":"🏢 唐朝的三省六部","body":[{"t":"tiles","v":[{"em":"💭","h":"中書省","p":"負責<b>想<\/b>：起草命令（決策）。"},{"em":"🔍","h":"門下省","p":"負責<b>審<\/b>：檢查命令有沒有問題。"},{"em":"🔨","h":"尚書省","p":"負責<b>做<\/b>：執行命令，底下有六部。"}]},{"t":"chant","v":"中書想、門下審、尚書做"},"💔 755 年<b>安史之亂<\/b> → 唐朝由盛轉衰 → 藩鎮割據 → 907 年滅亡。"]}]},{"id":"s21","nav":"🐎 2-1 民族","intro":"第三站：長城的兩邊！南邊的人<b>種田<\/b> 🌾，北邊的人<b>騎馬放牧<\/b> 🐎。他們需要彼此的東西，所以有時做生意，有時打架。","cards":[{"h":"🌾 vs 🐎 為什麼會又合作又打仗？","body":[{"t":"vs","v":[{"h":"🌾 農業民族","p":"住在中原，種田、定居。生產糧食、布帛。"},{"h":"🐎 游牧民族","p":"住在北方草原，氣候乾燥，逐水草而居，需要糧食和布帛。"}]},"🤝 貿易順利 → 和平交流　｜　🚫 貿易不順 → 南下搶奪<br>👉 結論：<b>經濟互補，交流與衝突並存<\/b>。周朝區分「華夏」和「夷狄」，看的是<b>文化（禮儀）<\/b>，不是血統。"]},{"h":"🗺️ 漢朝打通西域地圖","body":[{"t":"svg","v":"<svg viewBox=\"0 0 420 240\" role=\"img\" aria-label=\"漢代西域簡圖\">\n<rect x=\"0\" y=\"0\" width=\"420\" height=\"240\" rx=\"14\" fill=\"#efe3c8\"/><path d=\"M0,0 H420 V80 Q300,95 200,70 Q100,55 0,85z\" fill=\"#d9e8c4\"/>\n<text x=\"250\" y=\"35\" font-size=\"16\" font-weight=\"700\" fill=\"#3b5a2a\">🐎 匈奴（草原）<\/text>\n<path d=\"M150,100 Q230,85 330,95\" stroke=\"#8a5a2b\" stroke-width=\"5\" fill=\"none\" stroke-dasharray=\"10 5\"/><text x=\"330\" y=\"88\" font-size=\"13\" fill=\"#8a5a2b\">🧱 長城<\/text>\n<path d=\"M345,170 L280,135 L215,120 L150,115 L60,130\" stroke=\"#c8462f\" stroke-width=\"4\" fill=\"none\" stroke-dasharray=\"2 7\" stroke-linecap=\"round\"/>\n<circle cx=\"345\" cy=\"170\" r=\"7\" fill=\"#c8462f\"/><text x=\"355\" y=\"175\" font-size=\"15\" font-weight=\"700\" fill=\"#3b2f2a\">長安<\/text>\n<text x=\"215\" y=\"150\" font-size=\"13\" fill=\"#3b2f2a\">河西四郡<\/text><circle cx=\"150\" cy=\"115\" r=\"6\" fill=\"#e0a526\"/><text x=\"120\" y=\"108\" font-size=\"13\" fill=\"#3b2f2a\">敦煌<\/text>\n<text x=\"15\" y=\"160\" font-size=\"15\" font-weight=\"700\" fill=\"#3f7ec0\">🐫 西域<\/text><text x=\"15\" y=\"182\" font-size=\"12\" fill=\"#3b2f2a\">（西域都護府）<\/text>\n<text x=\"250\" y=\"215\" font-size=\"14\" fill=\"#c8462f\">🔴 張騫・絲路<\/text><\/svg>"},{"t":"chant","v":"武威、張掖、酒泉、敦煌","sub":"河西四郡，從長安往西依序排列"}]},{"h":"📜 漢朝怎麼對付匈奴？","body":[{"t":"tl","v":[["秦","蒙恬北擊匈奴，把各國原有的長城連接起來 🧱"],["漢高祖","在白登被匈奴包圍 😱 → 改採<b>和親<\/b>（送公主、送禮物、開放市集）"],["漢武帝","派<b>衛青、霍去病<\/b>北伐 🏇；派<b>張騫出使西域<\/b>；設<b>河西四郡<\/b>"],["漢宣帝","設立<b>西域都護府<\/b> 🏴"],["東漢","匈奴分裂為南、北兩部，南匈奴歸附；班超經營西域"]]},{"t":"trap","v":"張騫<b>原本<\/b>是要找<b>大月氏<\/b>一起夾擊匈奴（沒成功）；<b>結果<\/b>卻打通東西交通，後來形成<b>絲路<\/b> 🐫。"}]},{"h":"🌊 魏晉南北朝：大搬家＋大融合","body":[{"t":"tiles","v":[{"em":"🏹","h":"五胡入中原","p":"匈奴、鮮卑、羯、氐、羌紛紛建國。"},{"em":"🧳","h":"永嘉之禍（311 年）","p":"晉室南遷，建立東晉 → 北方漢人大量<b>南遷<\/b> → <b>江南逐漸開發<\/b>。"},{"em":"👘","h":"北魏孝文帝漢化","p":"遷都<b>洛陽<\/b>、改漢姓（拓跋改為<b>元<\/b>）、穿漢服、說漢語、<b>鼓勵胡漢通婚<\/b>。"}]},{"t":"chant","v":"匈、鮮、羯、氐、羌","sub":"五胡"},{"t":"trap","v":"孝文帝是<b>鼓勵<\/b>胡漢通婚，不是禁止！"}]},{"h":"🌟 唐朝：皇帝兼「草原老大」","body":[{"t":"tiles","v":[{"em":"🦅","h":"天可汗","p":"<b>唐太宗<\/b>擊敗<b>東突厥<\/b>，草原各族尊稱他為「天可汗」（游牧民族共同的領袖）。"},{"em":"🤝","h":"羈縻政策","p":"設<b>都護府<\/b>，讓<b>當地首領<\/b>擔任都督、刺史，<b>保留原本風俗<\/b>，只要服從唐朝就好。"},{"em":"👸","h":"文成公主","p":"嫁給<b>吐蕃<\/b>的松贊干布，促進漢藏交流。"},{"em":"🛡️","h":"胡人將領","p":"唐朝重用胡將（例如安祿山）；安史之亂時，回紇曾出兵幫忙。"}]}]}]}],"flash":[["甲骨文","商朝刻在龜甲、獸骨上的占卜文字"],["封建的目的","人少地大，派親族功臣建國保衛周室"],["宗法制度","嫡長子繼承（大宗），其他兒子是小宗"],["東周開始","前 770 年平王東遷洛邑"],["尊王攘夷","春秋霸主的口號（齊桓公、晉文公）"],["商鞅變法","獎勵耕戰、論軍功授爵、推行縣制，秦國變強"],["封建瓦解四原因","天子弱、鐵牛來、平民上、百家開"],["郡縣制","中央任免、不能世襲 → 中央集權"],["秦四大統一","文字（小篆）、度量衡、貨幣、車軌"],["郡國並行","漢高祖：一半郡縣、一半封王"],["推恩令","漢武帝：讓王國越分越小"],["察舉","漢：地方官推薦（孝廉）"],["九品官人法","魏晉：中正官評等，偏重家世"],["科舉","隋朝開始、唐朝完備：考試選才，打破門第"],["三省","中書想、門下審、尚書做"],["安史之亂","755 年，唐朝由盛轉衰"],["和親","漢初對匈奴；唐朝文成公主嫁吐蕃"],["張騫","原本：聯合大月氏打匈奴｜結果：打通絲路"],["河西四郡","武威、張掖、酒泉、敦煌"],["永嘉之禍","311 年，晉室南遷，江南開發"],["北魏孝文帝","遷都洛陽、改姓元、漢服漢語、胡漢通婚"],["天可汗","唐太宗擊敗東突厥後獲得的尊稱"],["羈縻政策","當地首領自治、保留風俗，設都護府"]],"order":[{"t":"🧩 第一組：周到秦","items":["周武王滅商","平王東遷洛邑","三家分晉","秦統一天下"]},{"t":"🧩 第二組：當官之路","items":["漢代察舉孝廉","曹魏實施九品官人法","隋朝開始科舉","唐朝科舉制度完備"]},{"t":"🧩 第三組：民族關係","items":["漢高祖白登被圍、和親","張騫出使西域","永嘉之禍、晉室南遷","北魏孝文帝遷都洛陽","唐太宗成為天可汗"]},{"t":"🧩 第四組：分分合合","items":["七國之亂","黃巾之亂","隋統一南北","安史之亂"]}],"ranks":[[0,"🧑‍🌾","庶民"],[10,"🗡️","士"],[18,"📜","卿大夫"],[24,"🏯","諸侯"],[28,"👑","天子"]],"quiz":[{"s":"西周為了控制剛征服的廣大土地，實施了哪一種制度？","o":["郡縣制","封建制度","郡國並行","羈縻政策"],"a":1,"e":"西周分封宗室、功臣到各地建立諸侯國，用來保衛周室。"},{"s":"和封建制度互相配合的宗法制度，最主要的繼承原則是什麼？","o":["兄終弟及","嫡長子繼承","選賢與能","考試取才"],"a":1,"e":"宗法由嫡長子繼承（大宗），其他兒子另外分封（小宗）。"},{"s":"下列哪一件事代表東周的開始？","o":["武王伐紂","周公東征","平王東遷洛邑","三家分晉"],"a":2,"e":"前 770 年平王東遷洛邑，東周開始。三家分晉則是戰國的開始。"},{"s":"春秋時期的霸主常打著哪一個口號號召諸侯？","o":["尊王攘夷","獨尊儒術","天下為公","兼愛非攻"],"a":0,"e":"尊王（尊崇周天子）、攘夷（抵抗外族）。「獨尊儒術」是漢武帝的政策。"},{"s":"戰國時期，哪一位人物在秦國推動變法，使秦國富強？","o":["管仲","商鞅","董仲舒","張騫"],"a":1,"e":"商鞅變法獎勵耕戰、論軍功授爵，並推行縣制。管仲輔佐的是春秋的齊桓公。"},{"s":"下列哪一項「不是」封建制度瓦解的原因？","o":["周天子勢力衰弱","鐵器牛耕提高生產力","平民可以憑軍功當官","隋唐實施科舉制度"],"a":3,"e":"科舉是隋唐的事，時間比東周晚了將近一千年，和封建瓦解無關。"},{"s":"秦朝郡縣制的地方官有什麼特點？","o":["官位可以世襲","由中央任免，不能世襲","由諸侯自己選派","由當地部族首領擔任"],"a":1,"e":"郡縣制最重要的特點是「中央任免、不能世襲」，這也是和封建的最大差別。"},{"s":"秦始皇統一文字時，以哪一種字體為標準？","o":["甲骨文","金文","小篆","楷書"],"a":2,"e":"秦朝以小篆統一文字。"},{"s":"漢初實施郡國並行，後來發生哪一事件，使中央決心削弱諸侯王國？","o":["七國之亂","安史之亂","黃巾之亂","永嘉之禍"],"a":0,"e":"漢景帝時發生七國之亂，平定後中央開始削藩；漢武帝再推行推恩令。"},{"s":"漢代主要用哪一種方式選拔人才？","o":["科舉","察舉","九品官人法","世卿世祿"],"a":1,"e":"漢代實施察舉，由地方官推薦孝廉等人才。"},{"s":"「上品無寒門，下品無勢族」是在批評哪一種制度？","o":["察舉","九品官人法","科舉","封建"],"a":1,"e":"九品官人法後來偏重家世，使世族壟斷高級官位。"},{"s":"隋唐科舉制度最重要的影響是什麼？","o":["讓世族壟斷官位","打破門第限制，平民可以透過考試當官","恢復封建制度","改由地方官推薦人才"],"a":1,"e":"科舉用考試選才，打破了門第限制。"},{"s":"唐朝的三省之中，負責「執行」政令的是哪一個？","o":["中書省","門下省","尚書省","御史台"],"a":2,"e":"中書省決策、門下省審核、尚書省執行（下設六部）。口訣：中書想、門下審、尚書做。"},{"s":"使唐朝由盛轉衰的關鍵事件是什麼？","o":["黃巾之亂","七國之亂","永嘉之禍","安史之亂"],"a":3,"e":"755 年發生安史之亂，之後藩鎮割據，唐朝由盛轉衰。"},{"s":"漢高祖被匈奴圍困於白登後，改採哪一種政策？","o":["羈縻","和親","漢化","設都護府"],"a":1,"e":"漢初國力不足，採用和親，送公主和財物給匈奴。"},{"s":"漢武帝派張騫出使西域，「原本」的目的是什麼？","o":["開拓絲路貿易","傳播佛教","聯合大月氏夾擊匈奴","迎娶西域公主"],"a":2,"e":"原本是要聯合大月氏，但沒有成功；後來的結果是打通了東西交通（絲路）。"},{"s":"漢武帝在河西走廊設立了什麼？","o":["河西四郡","安西都護府","天可汗","燕雲十六州"],"a":0,"e":"河西四郡為武威、張掖、酒泉、敦煌，是通往西域的走廊。"},{"s":"西晉末年發生永嘉之禍、晉室南遷，對江南有什麼影響？","o":["江南人口減少，變得更荒涼","北方人口南遷，江南逐漸開發","江南變成游牧地區","政治中心遷到西域"],"a":1,"e":"大量北方漢人南遷，帶去技術和人力，江南逐漸開發。"},{"s":"下列哪一項「不是」北魏孝文帝的漢化政策？","o":["遷都洛陽","改用漢姓","禁止和漢人通婚","穿漢服、說漢語"],"a":2,"e":"孝文帝是「鼓勵」胡漢通婚，不是禁止。"},{"s":"唐太宗擊敗哪一個民族後，被尊為「天可汗」？","o":["匈奴","東突厥","吐蕃","鮮卑"],"a":1,"e":"630 年唐朝滅東突厥，各族尊唐太宗為天可汗。"},{"s":"唐朝對歸附民族實施的羈縻政策，內容是什麼？","o":["撤換當地首領，全部改派漢人官員","由當地首領擔任都督、刺史，保留原本風俗","強迫他們改用漢姓","把他們全部遷到長安"],"a":1,"e":"羈縻政策是讓當地首領自己治理、保留風俗，只要服從唐朝。"},{"s":"唐朝的文成公主嫁給了誰？","o":["匈奴單于","突厥可汗","吐蕃的松贊干布","北魏孝文帝"],"a":2,"e":"文成公主和親吐蕃，促進漢藏文化交流。"},{"tag":"素養","s":"閱讀史料後回答：","src":"「天子建國，諸侯立家，卿置側室，大夫有貳宗，士有隸子弟。」──《左傳》","s2":"這段文字描述的是哪一種政治體制？","o":["郡縣制的層級","封建制度的層層分封","科舉考試的層級","三省六部的分工"],"a":1,"e":"天子 → 諸侯 → 卿大夫 → 士，正是封建的層層分封。"},{"tag":"素養","s":"一位地方官說：「我由朝廷派來治理這裡，任期滿了就會調走，我的兒子不能繼承這個官位。」這段話最可能出現在哪一個時期？","o":["西周","春秋","秦朝","五胡十六國的部落中"],"a":2,"e":"「朝廷派任、不能世襲」是郡縣制的特徵，最早全面實施郡縣的是秦朝。"},{"tag":"素養","s":"將下列選才制度依時間先後排列：\n甲、九品官人法　乙、科舉　丙、察舉","o":["甲→乙→丙","丙→甲→乙","乙→丙→甲","丙→乙→甲"],"a":1,"e":"察舉（漢）→ 九品官人法（魏晉）→ 科舉（隋唐）。"},{"tag":"素養","s":"一位出身貧寒的讀書人說：「只要苦讀考上進士，我也能進入朝廷當官。」他最可能生活在哪一個朝代？","o":["西周","東漢","魏晉","唐朝"],"a":3,"e":"關鍵字是「考上進士」，表示已經有科舉；隋唐時期才有可能。"},{"tag":"素養","s":"某位皇帝推行下列政策：遷都洛陽、把皇室姓氏改為「元」、禁止在朝廷上說本族語言。他的主要目的是什麼？","o":["加強和匈奴的聯盟","促進胡漢融合，鞏固對中原的統治","恢復游牧民族的傳統","抵抗唐朝的進攻"],"a":1,"e":"這是北魏孝文帝的漢化政策，目的是融合胡漢、鞏固統治。"},{"tag":"素養","s":"一支商隊從長安出發，經過河西走廊、敦煌，前往西域各國。這條路線的開通，和哪一位人物關係最密切？","o":["張騫","商鞅","周公","董仲舒"],"a":0,"e":"張騫出使西域，打通了東西交通，後來形成絲路。"},{"tag":"素養","s":"閱讀下文後回答：","src":"游牧民族所需要的糧食、布帛等物資，大多仰賴農業地區供應。當雙方貿易順利時，邊境較為和平；貿易受阻時，游牧民族常常南下劫掠。","s2":"這段文字最能說明什麼？","o":["游牧民族不需要農產品","農業與游牧經濟可以互補，交流和衝突同時存在","農業民族常常主動北上占領草原","兩個民族之間從來沒有往來"],"a":1,"e":"這是 2-1 的核心觀念：農牧互補，交流和衝突並存。"},{"tag":"素養","s":"三位同學討論秦朝的統一措施：\n小明：統一文字，讓各地公文可以互相看懂。\n小華：統一度量衡，方便收稅和買賣。\n小美：設置郡縣，郡守由貴族世襲。\n哪一位同學說錯了？","o":["小明","小華","小美","三人都對"],"a":2,"e":"郡縣制的官員由中央任免，不能世襲。"},{"tag":"素養","s":"唐太宗同時擁有中原的「皇帝」和草原的「天可汗」兩個身分。這最能說明什麼？","o":["唐朝被突厥統治","唐朝皇帝也被游牧民族承認為共同領袖","唐朝放棄了中原","唐朝和突厥從來沒有往來"],"a":1,"e":"天可汗是游牧民族對唐太宗的尊稱，表示他也被承認為草原的共主。"}],"sources":[{"t":"新竹市富禮國中 115 學年八年級歷史課程計畫（翰林）","u":"https://www.fljh.hc.edu.tw/uploads/1785482649613YsWKvP6M.pdf"},{"t":"嘉義縣新港國中 113 學年八年級歷史教學計畫（翰林第三冊）","u":"https://course.cyc.edu.tw/upfile/course113/sub1/15650129222026573.pdf"}]};
+const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
+const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
+if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
+document.title=DATA.title;$("ttl").textContent=(DATA.icon||"📚")+" "+DATA.title;
+const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
 const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){}};
-const $=id=>document.getElementById(id),L="ABCD";
-function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;$("xp").animate([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
+function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const guide=t=>`<div class="guide"><div class="ava">${G.ava}</div><div class="bubble">${t}</div></div>`;
+// ---------- blocks ----------
+function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
+ switch(b.t){
+ case"h3":return `<h3>${b.v}</h3>`;
+ case"p":return `<p>${b.v}</p>`;
+ case"list":return `<ul>${b.v.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ case"tiles":return `<div class="tiles">${b.v.map(x=>`<div class="tile"><div class="em">${x.em||""}</div><h4>${x.h}</h4><p>${x.p}</p></div>`).join("")}</div>`;
+ case"chant":return `<div class="chant">🎵 ${b.v}${b.sub?`<small>${b.sub}</small>`:""}</div>`;
+ case"trap":return `<div class="trap">${b.v}</div>`;
+ case"vs":return `<div class="vs">${b.v.map(x=>`<div><h4>${x.h}</h4>${x.p}</div>`).join("")}</div>`;
+ case"table":return `<table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table>`;
+ case"svg":return b.v;
+ case"img":return `<img src="${b.v}" alt="${b.alt||""}" style="max-width:100%;border-radius:12px">`;
+ case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
+ case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
+ case"guide":return guide(b.v);
+ default:return "";}}
+const card=c=>`<div class="card">${c.h?`<h2>${c.h}</h2>`:""}${(c.body||[]).map(blk).join("")}</div>`;
+// ---------- pages ----------
+const pages=[];
+pages.push({id:"home",nav:"🗺️ 出發",html:()=>guide(DATA.home.intro)+(DATA.home.cards||[]).map(card).join("")});
+DATA.stations.forEach(s=>pages.push({id:s.id,nav:s.nav,html:()=>(s.intro?guide(s.intro):"")+s.cards.map(card).join("")}));
+if(DATA.flash?.length)pages.push({id:"flash",nav:"🃏 記憶卡",html:()=>PRINT?
+ `<div class="card"><h2>🃏 記憶卡（遮住右邊自我測驗）</h2><div class="cards">${DATA.flash.map(f=>`<div class="fc"><b>${f[0]}</b>：${f[1]}</div>`).join("")}</div></div>`:
+ guide("點一下卡片就會翻面。先自己說出答案，再翻過來對答案！")+`<div class="cards" id="fc"></div>`,init:initFlash});
+if(DATA.order?.length)pages.push({id:"order",nav:"🧩 排順序",html:()=>PRINT?
+ `<div class="card"><h2>🧩 排順序練習</h2>${DATA.order.map((g,i)=>`<h3>${g.t}</h3><p>${shuffle(g.items.map((v,k)=>k)).map(k=>"（　）"+g.items[k]).join("<br>")}</p>`).join("")}</div>`:
+ guide("請依照<b>正確順序</b>依序點選，全部排對可以拿到 ⭐×5！")+`<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div><button class="btn alt" id="oNext">換一組 🔄</button></div>`,init:initOrder});
+pages.push({id:"quiz",nav:"⚔️ 闖關",html:()=>PRINT?printQuiz():`<div class="qbox" id="qbox"></div>`,init:qStart});
+if(!PRINT)pages.push({id:"wrong",nav:"📕 錯題",html:()=>`<div id="wbox"></div>`,init:wRender});
+if(PRINT)pages.push({id:"key",nav:"",html:printKey});
+// ---------- render ----------
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const M=$("main"),N=$("nav");
+pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;N.appendChild(b)}});
+if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+function show(id){document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x.dataset.s===id));
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));const p=pages.find(p=>p.id===id);p&&p.init&&p.init();scrollTo(0,0)}
+if(!PRINT){N.querySelectorAll("button").forEach(b=>b.onclick=()=>show(b.dataset.s));show("home")}
+// ---------- stars & confetti ----------
+function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
 $("xp").textContent="⭐ "+S.star;
-// confetti
 function boom(){const c=$("boom"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
  const P=[...Array(90)].map(()=>({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-10-3,c:["#c8462f","#e0a526","#2f8f7a","#3f7ec0"][Math.random()*4|0],r:Math.random()*6+3}));
  let f=0;(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r)});if(++f<90)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})()}
-// flashcards
-FC.forEach(([f,k])=>{const d=document.createElement("div");d.className="flip";d.innerHTML=`<div class="in"><div class="f">${f}</div><div class="k">${k}</div></div>`;d.onclick=()=>d.classList.toggle("on");$("fc").appendChild(d)});
-// order game
-let oi=0,picked=[],shuf=[];
-function oRender(){const g=OR[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";
- shuf=g.items.map((v,i)=>i).sort(()=>Math.random()-.5);$("oList").innerHTML="";
- shuf.forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
+// ---------- flash ----------
+function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
+ DATA.flash.forEach(([f,k,lang])=>{const d=document.createElement("div");d.className="flip";
+  d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
+  d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
+// ---------- order ----------
+let oi=0,picked=[];
+function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
+ shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
   li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
    if(picked.length===g.items.length){const ok=picked.every((v,k)=>v===k);
-    $("oMsg").innerHTML=ok?"<p>🎉 全對！時光機修好了！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' onclick='oRender()'>再試一次</button>";
-    if(ok){star(5);boom()}}};$("oList").appendChild(li)})}
-$("oNext").onclick=()=>{oi=(oi+1)%OR.length;oRender()};oRender();
-// quiz
-let cur=0,combo=0;
-const ranks=[[0,"🧑‍🌾","庶民"],[10,"🗡️","士"],[18,"📜","卿大夫"],[24,"🏯","諸侯"],[28,"👑","天子"]];
-function qRender(){const box=$("qbox");
- if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i].a===v).length;const r=ranks.filter(r=>ok>=r[0]).pop();
-  box.innerHTML=`<div class="rank"><div class="big">${r[1]}</div><h2>你的爵位：${r[2]}</h2><p>30 題答對 ${ok} 題</p><p>${ok>=28?"太強了，明天穩穩的！":"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
-  if(ok>=24)boom();$("again").onclick=()=>{S.ans={};save();cur=0;combo=0;qRender()};return}
- const q=Q[cur];const done=Object.keys(S.ans).length;
+    $("oMsg").innerHTML=ok?"<p>🎉 全對！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' id='oRe'>再試一次</button>";
+    if(ok){star(5);boom()}else $("oRe").onclick=initOrder}};$("oList").appendChild(li)});
+ $("oNext").onclick=()=>{oi=(oi+1)%DATA.order.length;initOrder()}}
+// ---------- quiz（含隨機計算題 gen） ----------
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
+ if(g.op==="÷"){r=a;a=a*b} r=g.op==="+"?a+b:g.op==="-"?a-b:g.op==="×"?a*b:r;
+ if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
+ const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
+ const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
+let QZ=null,cur=0,combo=0;
+function qList(){if(!QZ)QZ=DATA.quiz.map(q=>q.gen?genQ(q.gen):q);return QZ}
+const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+function qRender(){const Q=qList(),box=$("qbox");
+ if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
+  box.innerHTML=`<div class="rank"><div class="big">${r[1]}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p><p>${rate>=.9?"太強了，考試穩穩的！":"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};save();QZ=null;cur=0;combo=0;qRender()};return}
+ const q=Q[cur],done=Object.keys(S.ans).length;
  let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
- h+=`<div class="stem">${q.s}</div>`;if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2}</div>`;
- q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);
- h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
- box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(S.ans[cur]!==undefined&&box.dataset.lock)return;box.dataset.lock=1;
+ h+=`<div class="stem">${q.tag?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`;
+ q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
+ if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
   const j=+b.dataset.j,ok=j===q.a;S.ans[cur]=j;save();
   box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});
   if(!ok)b.classList.add("bad");combo=ok?combo+1:0;if(ok){star(combo>=3?2:1);if(combo%5===0)boom()}
   const fb=$("fb");fb.className="fb "+(ok?"ok":"bad");
   fb.innerHTML=(ok?["✅ 答對了！","✅ 太棒了！","✅ 完全正確！"][Math.random()*3|0]:"❌ 差一點！")+`<br>${q.e}<br><button class="btn" id="nx">下一關 ➜</button>`;
-  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}});}
-function qStart(){cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
-// wrong
-function wRender(){const w=$("wbox");const wr=Object.entries(S.ans).filter(([i,v])=>Q[i].a!==v).map(([i])=>+i);
- if(!wr.length){w.innerHTML=`<div class="card"><div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">${Object.keys(S.ans).length?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！"}</div></div></div>`;return}
- w.innerHTML=`<div class="guide"><div class="ava">🧙‍♀️</div><div class="bubble">還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。</div></div>`;
- wr.forEach(i=>{const q=Q[i];const d=document.createElement("div");d.className="qbox";d.style.marginBottom="12px";
-  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2}</div>`;
+  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}})}
+function qStart(){const Q=qList();cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
+function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v).map(([i])=>+i);
+ if(!wr.length){w.innerHTML=`<div class="card">${guide(Object.keys(S.ans).length?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}</div>`;return}
+ w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
+ wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`;
   q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
   d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
    if(j===q.a){b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
    else{b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
-document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
- document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x===b));
- document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.s));
- if(b.dataset.s==="quiz")qStart();if(b.dataset.s==="wrong")wRender();scrollTo(0,0)});
+// ---------- print ----------
+function printQuiz(){return `<div class="card"><h2>⚔️ 練習題</h2>${qList().map((q,i)=>`<div class="qbox"><div class="stem">${i+1}. ${q.tag?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
 </script>
 </body>
 </html>
