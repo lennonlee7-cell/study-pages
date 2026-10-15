@@ -81,7 +81,10 @@ th{background:var(--bg)}
 /* print */
 .print header{position:static;box-shadow:none}.print nav,.print .xp{display:none}
 .print section{display:block;animation:none}
-.print .card,.print .qbox{box-shadow:none;break-inside:avoid}
+.print body{background:#fff}
+.print .card{box-shadow:none;break-inside:auto}
+.print .qbox,.print .tile,.print svg,.print .chant,.print .trap,.print .vs,.print table{break-inside:avoid}
+.srcs a{color:var(--sky)}
 .print .pbreak{break-before:page}
 .print .cards{grid-template-columns:1fr 1fr}
 .print .fc{border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
