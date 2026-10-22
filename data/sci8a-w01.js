@@ -147,8 +147,10 @@ module.exports = {
   home: {
     intro: "嗨！我是<b>小P學姊</b>。理化不是背公式，是在解釋你每天遇到的怪事：為什麼打雷要等一下才聽到？為什麼太空電影的爆炸聲是假的？接下來每個星期一，我們一起花一個小時，一邊<b>補上第一次段考的洞</b>，一邊<b>跟上學校的新進度</b>。",
     cards: [
+      { h: "🎬 上課前先看：聲音是怎麼跑進你耳朵的？（74 秒）", body: [
+        { t: "video", v: "w01-sound.mp4", poster: "w01-poster.jpg", cap: "小P學姊的預習動畫。可以先在週日看一次，上課暖身再看一次。" } ] },
       { h: "⏱️ 今晚 60 分鐘路線", body: [{ t: "tiles", v: [
-        { em: "🔁", h: "暖身 5 分", p: "三個生活謎題，<b>先猜再學</b>，猜錯也沒關係。" },
+        { em: "🔁", h: "暖身 5 分", p: "看完上面的動畫，再做三個生活謎題，<b>先猜再學</b>。" },
         { em: "🔧", h: "補底 15 分", p: "測量的祕密：估計值、單位換算、量筒（第一次段考 1-1、1-2）。" },
         { em: "🌊", h: "跟上 20 分", p: "波和聲音（學校正在教的 3-1、3-2）。" },
         { em: "🧪", h: "實驗＋出場券 10 分", p: "用一根湯匙聽見教堂鐘聲，再用自己的話講給爸爸聽。" },
@@ -381,6 +383,10 @@ module.exports = {
       e: "空氣溫度越高，聲速越快。用 331 ＋ 0.6 × 氣溫：10°C 約 337 m/s，30°C 約 349 m/s。音量大小不影響聲速。" },
     { tag: "進階", s: "聲音從空氣傳進水裡，下列哪一個<b>不會</b>改變？", o: ["波速", "波長", "振幅和波速", "頻率"], a: 3,
       e: "頻率由波源決定，換介質也不變；水中聲速變快，由 v ＝ λ × f 可知波長也會變長。" },
+  ],
+  assets: [
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-聲音是怎麼跑進你耳朵的.mp4", to: "w01-sound.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-poster.jpg", to: "w01-poster.jpg" },
   ],
   sources: [
     { t: "彰化縣和美國中 115 學年度八年級自然課程計畫（南一版，章節與週次參考）", u: "https://www.curriculum.chc.edu.tw/years/115/plans/1392/views/5-8自然科學.pdf" },
