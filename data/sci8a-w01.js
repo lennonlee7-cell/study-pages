@@ -138,7 +138,7 @@ const svgThunder = (() => {
 
 module.exports = {
   id: "sci8a-w01",
-  title: "週一理化課 #1：尺上的祕密 × 會走路的聲音",
+  title: "理化週課 #1：尺上的秘密 × 會走路的聲音",
   icon: "🔊",
   kid: "大女兒", grade: "國二", subject: "理化", version: "南一", range: "補 1-1、1-2｜跟 3-1、3-2", exam: "第 1 週 10/26",
   guide: { ava: "👩‍🔬", name: "小P學姊" },
@@ -152,8 +152,11 @@ module.exports = {
         { em: "📘", h: "週一・補底（30 分）", p: "讀「一 補底」站：估計值、單位換算、量筒、找錯誤 → 玩排順序。" },
         { em: "🧪", h: "週三・練習（30 分）", p: "湯匙實驗 → 闖關 17 題 → 錯題本清空 → 手寫 2 題 → 出場券講給爸爸聽。" } ] },
         { t: "guide", v: "不用每天讀！只要這三天，每次 30 分鐘，其他時間好好休息。" } ] },
-      { h: "🎬 週日先看：聲音是怎麼跑進你耳朵的？", body: [
-        { t: "video", v: "w01-sound.mp4", poster: "w01-poster.jpg", cap: "小P學姊的預習動畫，週日先看一次，週三練習前想複習也可以再看。" } ] },
+      { h: "🎬 本週動畫課（5 集，約 8 分鐘）", body: [
+        { t: "tiles", v: [
+          { em: "☀️", h: "週日看 3 集（約 5 分）", p: "第 1 集 電影騙了你十幾年？／第 2 集 人浪的秘密／第 3 集 聲音跑多快？" },
+          { em: "📘", h: "週一看 2 集（約 3 分）", p: "第 4 集 尺上的秘密／第 5 集 單位樓梯和排水法" } ] },
+        { t: "guide", v: "動畫放在每一站的最上面。小P學姊和阿波會吵吵鬧鬧地把重點講完，看完再往下讀，會輕鬆很多！" } ] },
       { h: "🗓️ 我的理化 12 週地圖", body: [
         "每週日預習新課、週一補舊洞、週三練習。補底大約 6 週補完，之後全力衝期末。日期是那一週的週一，可能隨學校進度調整。",
         { t: "table", head: ["週", "週一", "📘 補底", "☀️ 預習新課"], rows: [
@@ -177,8 +180,9 @@ module.exports = {
     ],
   },
   stations: [
-    { id: "warm", nav: "☀️日 暖身", intro: "週日預習，先看首頁的動畫，再來猜！科學家研究東西之前也是先<b>猜</b>，再想辦法驗證。拿一張紙，把你的猜測寫下來。",
+    { id: "warm", nav: "☀️日 暖身", intro: "週日預習：先看第 1 集動畫，再來猜！科學家研究東西之前也是先<b>猜</b>，再想辦法驗證。拿一張紙，把你的猜測寫下來。",
       cards: [
+        { h: "🎬 動畫課第 1 集", body: [{ t: "video", v: "w01-ep1.mp4", poster: "w01-ep1.jpg", cap: "電影騙了你十幾年？聲音、振動、介質、真空。" }] },
         { h: "🤔 三個生活謎題", body: [{ t: "tiles", v: [
           { em: "🚀", h: "謎題 1", p: "電影裡太空船爆炸「轟！」一聲。在真正的太空裡，太空人聽得到嗎？" },
           { em: "⚡", h: "謎題 2", p: "打雷時，為什麼總是<b>先看到閃電</b>、過一下才聽到雷聲？兩個是同時發生的嗎？" },
@@ -187,6 +191,8 @@ module.exports = {
       ] },
     { id: "s1", nav: "📘一 補底", intro: "週一的 30 分鐘：第一次段考卡住的地方，我們換個方式再走一次。測量是理化的<b>地基</b>：密度、濃度、聲速都要先量得準、換得對。",
       cards: [
+        { h: "🎬 動畫課第 4 集", body: [{ t: "video", v: "w01-ep4.mp4", poster: "w01-ep4.jpg", cap: "尺上的秘密：最小刻度、估計值、誤差。" }] },
+        { h: "🎬 動畫課第 5 集", body: [{ t: "video", v: "w01-ep5.mp4", poster: "w01-ep5.jpg", cap: "單位樓梯和排水法：單位換算、1 mL＝1 cm³、量筒、質量和重量。" }] },
         { h: "📏 讀尺的祕密：刻度讀到底，再多猜一位", body: [
           "一般直尺最小的一格是 1 mm（0.1 cm），叫做<b>最小刻度</b>。讀數的時候，先讀到最小刻度，<b>再用眼睛多估一位</b>。",
           { t: "svg", v: svgRuler },
@@ -231,6 +237,7 @@ module.exports = {
       ] },
     { id: "s2", nav: "☀️日 波", intro: "你看過演唱會或球場的<b>人浪</b>嗎？每個人只是站起來再坐下，「浪」卻繞了整個場館一圈。這就是今天的主角：<b>波</b>。",
       cards: [
+        { h: "🎬 動畫課第 2 集", body: [{ t: "video", v: "w01-ep2.mp4", poster: "w01-ep2.jpg", cap: "人浪的秘密：波、介質、橫波縱波、波長、頻率、波速。" }] },
         { h: "🌊 波到底在傳什麼？", body: [
           { t: "tiles", v: [
             { em: "🙋", h: "人浪", p: "觀眾留在座位上，傳出去的是「站起來」這個動作。" },
@@ -261,6 +268,7 @@ module.exports = {
       ] },
     { id: "s3", nav: "☀️日 聲音", intro: "電影裡太空船爆炸「轟」一聲超震撼。可是在真正的太空，<b>你什麼都聽不到</b>。為什麼？",
       cards: [
+        { h: "🎬 動畫課第 3 集", body: [{ t: "video", v: "w01-ep3.mp4", poster: "w01-ep3.jpg", cap: "聲音跑多快？縱波、聲速賽跑、氣溫、打雷算距離。" }] },
         { h: "🎸 聲音從振動開始", body: [
           { t: "tiles", v: [
             { em: "🗣️", h: "摸摸喉嚨", p: "說話時手放在喉嚨上，會感覺到在振動。" },
@@ -384,8 +392,16 @@ module.exports = {
       e: "頻率由波源決定，換介質也不變；水中聲速變快，由 v ＝ λ × f 可知波長也會變長。" },
   ],
   assets: [
-    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-聲音是怎麼跑進你耳朵的.mp4", to: "w01-sound.mp4" },
-    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-poster.jpg", to: "w01-poster.jpg" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep1.mp4", to: "w01-ep1.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep1.jpg", to: "w01-ep1.jpg" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep2.mp4", to: "w01-ep2.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep2.jpg", to: "w01-ep2.jpg" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep3.mp4", to: "w01-ep3.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep3.jpg", to: "w01-ep3.jpg" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep4.mp4", to: "w01-ep4.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep4.jpg", to: "w01-ep4.jpg" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep5.mp4", to: "w01-ep5.mp4" },
+    { from: "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟/codex/學習中心/大女兒-理化/動畫/w01-ep5.jpg", to: "w01-ep5.jpg" },
   ],
   sources: [
     { t: "彰化縣和美國中 115 學年度八年級自然課程計畫（南一版，章節與週次參考）", u: "https://www.curriculum.chc.edu.tw/years/115/plans/1392/views/5-8自然科學.pdf" },
