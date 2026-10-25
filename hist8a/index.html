@@ -276,10 +276,13 @@ const HUB = (() => {
   const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
   const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  // 首頁不清掉網址上的鑰匙：iPad「加入主畫面」的圖示和 Safari 分開存資料，網址帶著鑰匙，圖示打開時才會自己記住
   const takeKey = () => {
     const m = location.hash.match(/[#&]k=([\w-]+)/);
     if (!m) return false;
-    put("hub_k", m[1] === "off" ? null : m[1]); history.replaceState(null, "", location.pathname + location.search); return true;
+    put("hub_k", m[1] === "off" ? null : m[1]);
+    if (typeof DATA !== "undefined") history.replaceState(null, "", location.pathname + location.search);
+    return true;
   };
   takeKey();
   addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
