@@ -130,6 +130,12 @@ tr:last-child td{border-bottom:0}
 .rank .deco{display:flex;align-items:flex-end;justify-content:center;gap:10px}
 .rank .big{width:116px;height:116px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:58px;line-height:1}
 .empty{text-align:center}.empty .art{margin:4px auto 0}
+.lvl{border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:2px 0 10px;background:var(--yellow-soft)}
+.lvl b{display:block;font-size:18px;box-shadow:none;padding:0}.lvl small{display:block;font-size:14.5px;color:var(--muted);line-height:1.5}
+.lv-g{background:var(--green-soft)}.lv-m{background:var(--mizu-soft)}.lv-c{background:var(--coral-soft)}
+.lvsum{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0}
+.lvchip{border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:15px}
+.src svg{display:block;width:100%;max-width:520px;margin:4px auto}
 .order{padding:0;margin:8px 0}
 .order li{list-style:none;display:flex;align-items:center;border:var(--bw) solid var(--ink);background:#fff;border-radius:16px;padding:8px 14px;margin:10px 0;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
 .order li.pick{background:var(--yellow-soft);box-shadow:0 0 0 var(--ink);transform:translateY(3px)}
@@ -280,6 +286,8 @@ const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
   set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
    .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
 const INL={};const reg=b=>{INL[b.id]=b;return b};
+// 闖關、排順序的狀態一定要在這裡宣告：下面產生頁面（列印版會直接產生題目）時就會用到，宣告在後面會讀不到而中斷
+let QZ=null,cur=0,combo=0,oi=0,picked=[];
 function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
 const hero=()=>`<div class="hero"><div class="txt"><div class="chips">${[DATA.grade,DATA.subject,DATA.version].filter(Boolean).map(x=>`<span class="chip">${x}</span>`).join("")}${DATA.exam?`<span class="chip y">${DATA.exam}</span>`:""}</div><h2>${DATA.title}</h2>${DATA.range?`<div class="srcs">範圍：${DATA.range}</div>`:""}</div><div class="pics">${art("star","sm float d2 s1")}${art("cloud","md float d3 s2")}<span class="stamp">${art(DATA.art||subjArt(DATA.subject),"float")}</span></div></div>`;
@@ -329,14 +337,13 @@ if(PRINT)pages.push({id:"key",nav:"",html:printKey});
 // ---------- render ----------
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 const M=$("main"),N=$("nav");
-pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
- if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;N.appendChild(b)}});
-if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+// 產生全部分頁：在檔尾才呼叫（見最後一行）。列印版會在這時直接產生題目，用到的 let／const 都要先宣告好，放前面會中斷、PDF 少掉練習題與解答
+function render(){pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;b.onclick=()=>show(p.id);N.appendChild(b)}});
+ if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}}
 function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
  document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});
  const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
-// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
-if(!PRINT){N.querySelectorAll("button").forEach(b=>b.onclick=()=>show(b.dataset.s));show(pages.some(p=>p.id===S.tab)?S.tab:"home")}
 // ---------- stars & confetti ----------
 function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
 $("xp").textContent="⭐ "+S.star;
@@ -349,7 +356,6 @@ function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
   d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
   d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
 // ---------- order ----------
-let oi=0,picked=[];
 function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
  shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
   li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
@@ -364,18 +370,24 @@ function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
  if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
  const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
  const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
-let QZ=null,cur=0,combo=0;
 // 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
 function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
 const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+// 難度階梯：tag 寫 看懂／課本／段考挑戰（國小用 挑戰）就會分區顯示
+const LV={看懂:["🌱","看懂區","先暖身，一步就能答","g"],課本:["📘","課本區","課本和習作的程度","m"],段考挑戰:["🔥","段考挑戰區","真正段考的題型，錯了很正常，錯題本重做到對就好","c"],挑戰:["🔥","挑戰區","最難的一區，錯了很正常，錯題本重做到對就好","c"]};
+const srcBox=q=>q.src?`<div class="src">${/^\s*</.test(q.src)?"":"📜 "}${q.src}</div>`:"";
 function qRender(){const Q=qList(),box=$("qbox");
  if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
-  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p><p>${rate>=.9?"太強了，考試穩穩的！":"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
+  const lvs=[...new Set(Q.map(q=>q.tag).filter(t=>LV[t]))].map(t=>{const ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t),k=ix.filter(i=>S.ans[i]===Q[i].a).length;return{t,k,n:ix.length}});
+  const weak=lvs.filter(l=>l.k/l.n<.7).map(l=>LV[l.t][1]);
+  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p>${lvs.length?`<div class="lvsum">${lvs.map(l=>`<span class="lvchip lv-${LV[l.t][3]}">${LV[l.t][0]} ${LV[l.t][1]} ${l.k}/${l.n}</span>`).join("")}</div>`:""}<p>${rate>=.9?"太強了，考試穩穩的！":weak.length?`「${weak.join("」「")}」還要加油：去「📕 錯題」把錯的題目重做到全對，就能升級！`:"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
   if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};save();QZ=null;cur=0;combo=0;qRender()};return}
  const q=Q[cur],done=Object.keys(S.ans).length;
- let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
- h+=`<div class="stem">${q.tag?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
- if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`;
+ const lv=LV[q.tag],first=lv&&(cur===0||Q[cur-1].tag!==q.tag);
+ let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關${lv?`・${lv[0]} ${lv[1]}`:""}</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
+ if(first)h+=`<div class="lvl lv-${lv[3]}"><b>${lv[0]} 進入${lv[1]}</b><small>${lv[2]}</small></div>`;
+ h+=`<div class="stem">${q.tag&&!lv?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
  q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
  if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
  box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
@@ -390,7 +402,7 @@ function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter((
  if(!wr.length){const any=Object.keys(S.ans).length;w.innerHTML=`<div class="card empty">${art(any?"star":"book","lg float")}${guide(any?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}</div>`;return}
  w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
  wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
-  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`;
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
   q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
   d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
    if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
@@ -454,8 +466,12 @@ async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTM
  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:DATA.title,text:DATA.title+" 作答報告"});fb.innerHTML="✅ 傳好了！謝謝你，這週辛苦了 🎉";star(3);boom();return}catch(e){}}
  fb.innerHTML=`📷 報告圖做好了（在下面）。<b>長按圖片</b>就能存起來或分享到 LINE 給爸爸。<br><a href="${url}" download="${DATA.id}-作答報告.jpg">或按這裡下載圖片</a>`}
 // ---------- print ----------
-function printQuiz(){return `<div class="card"><h2>⚔️ 練習題</h2>${qList().map((q,i)=>`<div class="qbox"><div class="stem">${i+1}. ${q.tag?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printQuiz(){const Q=qList();return `<div class="card"><h2>⚔️ 練習題</h2>${Q.map((q,i)=>`${LV[q.tag]&&(i===0||Q[i-1].tag!==q.tag)?`<h3>${LV[q.tag][0]} ${LV[q.tag][1]}：${LV[q.tag][2]}</h3>`:""}<div class="qbox"><div class="stem">${i+1}. ${q.tag&&!LV[q.tag]?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
 function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
+// ---------- 開始：一定放在檔尾，所有 let／const 都宣告好之後才產生頁面、開第一個分頁 ----------
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+render();
+if(!PRINT)show(pages.some(p=>p.id===S.tab)?S.tab:"home");
 </script>
 </body>
 </html>
