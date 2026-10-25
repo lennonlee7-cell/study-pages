@@ -47,4 +47,113 @@ h2.kid{display:flex;align-items:center;gap:10px;font-size:22px;margin:24px 0 10p
 <small>範圍：1-1、1-2、2-1</small></span></a>
 <div class="ft"><span>更新 10/15</span><a class="pdf" href="hist8a/%E6%AD%B7%E5%8F%B2%E7%A9%BF%E8%B6%8A%E5%A4%A7%E5%86%92%E9%9A%AA.pdf">📄 列印版</a></div></div></div>
 <p class="tip">平板小撇步：瀏覽器按「分享」→「加入主畫面」，下次一點就打開。</p>
-</main></body></html>
+<p class="tip" id="hubst"></p>
+</main><script>// 作答同步（學習小站 study-hub）：網頁 → ntfy.sh → Mac mini。renderPage／renderHome 會把整份檔案嵌進頁面。
+// 鑰匙：第一次用「網址#k=鑰匙」打開任何一頁就記在這台平板（同網域每頁共用），#k=off 取消；沒有鑰匙時完全不作用。
+// 頻道與加密鑰匙都由鑰匙推出（和 Mac 的 study_hub.py 同一套規則）：
+//   收件 sh-<sha256("in:"+鑰匙) 前 24 碼>、回條 sh-<sha256("st:"+鑰匙) 前 24 碼>、AES-GCM 鑰匙 sha256("enc:"+鑰匙)
+// 作答先排進本機佇列，送出後等 Mac 在回條頻道確認才刪；沒網路或 Mac 沒回，20 分鐘後重送（Mac 會去重）。
+const HUB = (() => {
+  const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
+  const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  const takeKey = () => {
+    const m = location.hash.match(/[#&]k=([\w-]+)/);
+    if (!m) return false;
+    put("hub_k", m[1] === "off" ? null : m[1]); history.replaceState(null, "", location.pathname + location.search); return true;
+  };
+  takeKey();
+  addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
+  const KEY = get("hub_k"), ON = !!(KEY && window.crypto && crypto.subtle && window.fetch);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const sha = (s) => crypto.subtle.digest("SHA-256", enc.encode(s));
+  const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  let ch = null;
+  const chan = () => ch || (ch = Promise.all([sha("in:" + KEY), sha("st:" + KEY), sha("enc:" + KEY)]).then(async ([a, b, c]) =>
+    ({ tin: "sh-" + hex(a).slice(0, 24), tst: "sh-" + hex(b).slice(0, 24), k: await crypto.subtle.importKey("raw", c, "AES-GCM", false, ["encrypt", "decrypt"]) })));
+  async function seal(k, u8) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, u8));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  }
+  const open = async (k, u8) => new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8.slice(0, 12) }, k, u8.slice(12)));
+  const DEV = get("hub_dev") || (() => { const d = Math.random().toString(36).slice(2, 10); put("hub_dev", d); return d; })();
+  const queue = () => { try { return JSON.parse(get(QK) || "[]"); } catch (e) { return []; } };
+  const save = (a) => put(QK, JSON.stringify(a.slice(-500)));
+  const pg = () => (typeof DATA !== "undefined" && DATA && DATA.id) || "home";
+
+  // 記一筆作答；key 相同又還沒送出的舊筆會被取代（打字題只送最後的內容）。題目代號用 id2，id 是這筆事件自己的
+  let lastTs = 0;
+  function log(t, d = {}, wait = 2500) {
+    if (!ON) return;
+    const a = queue(), ts = lastTs = Math.max(Date.now(), lastTs + 1); // 同一毫秒連點兩下也要分得出先後
+    if (d.key) { const i = a.findIndex((e) => !e.s && e.key === d.key); if (i >= 0) a.splice(i, 1); }
+    a.push({ ...d, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts, pg: pg(), t, s: 0 });
+    save(a); soon(wait); ui();
+  }
+  let tm = null, busy = false;
+  const soon = (ms) => { clearTimeout(tm); tm = setTimeout(flush, ms); };
+  async function flush(keepalive) {
+    if (!ON || busy || navigator.onLine === false) return;
+    busy = true;
+    try {
+      const c = await chan(), now = Date.now(), todo = queue().filter((e) => !e.s || now - e.s > 20 * 60e3);
+      while (todo.length) {
+        const batch = []; let size = 0;
+        while (todo.length) {
+          const { s, key, ...ev } = todo[0], j = JSON.stringify(ev), n = enc.encode(j).length;
+          if (batch.length && size + n > MAXB) break;
+          batch.push({ id: ev.id, j }); size += n; todo.shift();
+        }
+        const body = b64u(await seal(c.k, enc.encode(`{"v":1,"dev":"${DEV}","ev":[${batch.map((x) => x.j).join(",")}]}`)));
+        const r = await fetch(NT + c.tin, { method: "POST", body, keepalive: !!keepalive });
+        if (!r.ok) break;
+        const ids = new Set(batch.map((x) => x.id)), t = Date.now(), cur = queue();
+        cur.forEach((e) => { if (ids.has(e.id)) e.s = t; }); save(cur);
+      }
+      if (!keepalive) { setTimeout(poll, 8000); setTimeout(poll, 30000); }
+    } catch (e) {} finally { busy = false; ui(); }
+  }
+  // 讀 Mac 的回條：確認收到的就從佇列刪掉
+  async function poll() {
+    if (!ON) return;
+    try {
+      const c = await chan(), r = await fetch(NT + c.tst + "/json?poll=1&since=" + (get("hub_since") || "12h"));
+      if (!r.ok) return;
+      const acked = new Set();
+      for (const ln of (await r.text()).split("\n")) {
+        let msg; try { msg = JSON.parse(ln); } catch (e) { continue; }
+        if (msg.event !== "message") continue;
+        put("hub_since", msg.id);
+        try { const o = JSON.parse(dec.decode(await open(c.k, unb64u(msg.message)))); (o.ack || []).forEach((x) => acked.add(x)); if (o.at) put("hub_last", o.at); } catch (e) {}
+      }
+      if (acked.size) save(queue().filter((e) => !acked.has(e.id)));
+    } catch (e) {} finally { ui(); }
+  }
+  // 整個檔案（作答報告圖）加密後當 ntfy 附件上傳；成功回 true
+  async function sendFile(u8, meta) {
+    if (!ON) return false;
+    try {
+      const c = await chan(), m2 = b64u(await seal(c.k, enc.encode(JSON.stringify({ v: 1, dev: DEV, pg: pg(), ts: Date.now(), ...meta }))));
+      const r = await fetch(NT + c.tin + "?filename=r.bin&message=" + m2, { method: "POST", body: new Blob([await seal(c.k, u8)], { type: "text/plain" }) });
+      return r.ok;
+    } catch (e) { return false; }
+  }
+  // 頁尾一行：讓孩子知道作答會傳給爸爸、同步到哪
+  function ui() {
+    const el = document.getElementById("hubst"); if (!el) return;
+    if (!ON) { el.textContent = ""; return; }
+    const n = queue().filter((e) => !e.s).length, last = get("hub_last");
+    el.textContent = "📡 你的作答會自動傳給爸爸" + (n ? `・有 ${n} 筆等網路，連上會自動補傳` : last ? `・已同步（${last}）` : "");
+  }
+  if (ON) {
+    addEventListener("online", () => flush());
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(true); else poll(); });
+    setInterval(() => { if (document.visibilityState === "visible") flush(); }, 60000);
+    setTimeout(() => { flush(); poll(); }, 1500);
+  }
+  return { on: ON, log, sendFile, ui };
+})();
+
+HUB.ui();</script></body></html>
