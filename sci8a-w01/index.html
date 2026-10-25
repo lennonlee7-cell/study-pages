@@ -138,6 +138,7 @@ tr:last-child td{border-bottom:0}
 .tag{display:inline-block;font-size:13px;line-height:1.6;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
 .srcs{font-size:13px;color:var(--muted);margin-top:8px}.srcs a{color:var(--accent-text)}
 #boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100% - 32px);background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);padding:10px 16px;font-size:16px}
 /* ---- 作答區塊 ---- */
 .how{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:10px 0 8px;font-size:15px}
 .ask,.fill,.wbox,.tbox,.sub{background:var(--paper);border:var(--bw) dashed var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0}
@@ -268,7 +269,16 @@ if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentEleme
 document.title=DATA.title;$("ttl").textContent=DATA.title;$("logo").textContent=DATA.icon||"📚";
 const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
 S.inl=S.inl||{};S.first=S.first||{};
-const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){}};
+let warned=false;
+const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){if(!warned){warned=true;toast("⚠️ 平板的空間不夠，作答可能存不起來，請跟爸爸說一聲")}}};
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),6000)}
+// 手寫與照片很大，改存 IndexedDB：全部週課共用同一個網域的 localStorage（約 5MB），放圖片幾週後就會撐爆，連作答都存不進去
+const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
+ const open=()=>p||(p=new Promise((ok,no)=>{try{const r=indexedDB.open("study-img",1);r.onupgradeneeded=()=>r.result.createObjectStore("i");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}));
+ const run=(m,f)=>open().then(d=>new Promise((ok,no)=>{const t=d.transaction("i",m),q=f(t.objectStore("i"));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>no(t.error)}));
+ return{get:(id,f)=>run("readonly",s=>s.get(k(id,f))).catch(()=>undefined).then(v=>v??S.inl[id]?.[f]),
+  set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
+   .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
 const INL={};const reg=b=>{INL[b.id]=b;return b};
 function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
@@ -323,8 +333,10 @@ pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;se
  if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;N.appendChild(b)}});
 if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
 function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
- document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0)}
-if(!PRINT){N.querySelectorAll("button").forEach(b=>b.onclick=()=>show(b.dataset.s));show("home")}
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});
+ const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+if(!PRINT){N.querySelectorAll("button").forEach(b=>b.onclick=()=>show(b.dataset.s));show(pages.some(p=>p.id===S.tab)?S.tab:"home")}
 // ---------- stars & confetti ----------
 function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
 $("xp").textContent="⭐ "+S.star;
@@ -353,12 +365,13 @@ function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
  const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
  const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
 let QZ=null,cur=0,combo=0;
-function qList(){if(!QZ)QZ=DATA.quiz.map(q=>q.gen?genQ(q.gen):q);return QZ}
+// 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
+function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
 const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
 function qRender(){const Q=qList(),box=$("qbox");
  if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
   box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p><p>${rate>=.9?"太強了，考試穩穩的！":"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
-  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};save();QZ=null;cur=0;combo=0;qRender()};return}
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};save();QZ=null;cur=0;combo=0;qRender()};return}
  const q=Q[cur],done=Object.keys(S.ans).length;
  let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
  h+=`<div class="stem">${q.tag?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
@@ -380,7 +393,7 @@ function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter((
   let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=`<div class="src">📜 ${q.src}</div><div class="stem">${q.s2||""}</div>`;
   q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
   d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
-   if(j===q.a){b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
+   if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
    else{b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
 // ---------- 作答區塊：點選猜、填空、手寫、打字、傳給爸爸 ----------
 const normNum=v=>String(v).trim().replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[，,\s]/g,"").replace(/[a-zA-Z³²μ％%]+$/,"");
@@ -395,24 +408,26 @@ function initInline(sec){if(!sec||PRINT)return;
  sec.querySelectorAll("[data-fill]").forEach(i=>{const r=S.inl[i.dataset.fill];if(r&&r.v!==undefined&&!i.value){i.value=r.v;if(r.ok){const fb=i.closest(".fill").querySelector(".fb");fb.className="fb ok";fb.innerHTML="✅ 答對了！"+(INL[i.dataset.fill].e?"<br>"+INL[i.dataset.fill].e:"")}}});
  sec.querySelectorAll("[data-text]").forEach(t=>{const r=S.inl[t.dataset.text];if(r&&r.v&&!t.value)t.value=r.v});
  sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
- sec.querySelectorAll("img[data-wimg]").forEach(img=>{const r=S.inl[img.dataset.wimg];if(r&&r.photo){img.src=r.photo;img.style.display="block"}})}
+ sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
 function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
  const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
- const id=c.dataset.w,r=S.inl[id];if(r&&r.img){const im=new Image();im.onload=()=>x.drawImage(im,0,0,w,c.clientHeight);im.src=r.img}
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
  let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
  c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
  c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
- c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;S.inl[id]=Object.assign(S.inl[id]||{},{img:c.toDataURL("image/jpeg",0.7)});save()}}
+ c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+// 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
 function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-ask],[data-check],[data-wclear],[data-submit]");if(!t)return;
- if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j;S.inl[b.id]={j};save();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a)star(1)}
+ if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j,got=S.inl[b.id]?.got;S.inl[b.id]={j,got:got||j===b.a};save();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a&&!got)star(1)}
  else if(t.dataset.check){const b=INL[t.dataset.check],box=t.closest(".fill"),v=box.querySelector("input").value,fb=box.querySelector(".fb"),r=S.inl[b.id]||{n:0};
   r.n=(r.n||0)+1;r.v=v;const ok=fillOK(b,v);r.ok=ok;S.inl[b.id]=r;save();fb.className="fb "+(ok?"ok":"bad");
   fb.innerHTML=ok?"✅ 答對了！"+(b.e?"<br>"+b.e:""):(r.n<2?"❌ 再試一次！"+(b.hint?"<br>提示："+b.hint:""):"❌ 正確答案是 <b>"+b.ans[0]+" "+(b.unit||"")+"</b>"+(b.e?"<br>"+b.e:""));if(ok&&r.n===1)star(1)}
- else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;const r=S.inl[t.dataset.wclear]||{};delete r.img;S.inl[t.dataset.wclear]=r;save();initCanvas(c)}
+ else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;IMG.set(t.dataset.wclear,"img",null).then(()=>initCanvas(c))}
  else if(t.dataset.submit)makeReport()});
 document.addEventListener("input",e=>{const t=e.target;if(t.dataset.text){S.inl[t.dataset.text]={v:t.value};save()}});
-document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;S.inl[id]=Object.assign(S.inl[id]||{},{photo:u});save();const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;IMG.set(id,"photo",u);const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
 function wrapTxt(x,s,w){const out=[];String(s).replace(/<[^>]+>/g,"").split("\n").forEach(p=>{let l="";for(const ch of p){if(x.measureText(l+ch).width>w){out.push(l);l=ch}else l+=ch}out.push(l)});return out}
 async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTML="⏳ 正在整理你的作答…";
  const Q=qList(),W=1080,P=48,FN='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',items=[],INK="#3E3A39",HD="#B65544";
@@ -426,7 +441,7 @@ async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTM
  if(asks.length){T("🤔 猜謎／點選",34,HD);asks.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.j!==undefined?b.o[r.j]+(r.j===b.a?" ✓":" ✗"):"（沒作答）"}`,26)})}
  if(fills.length){T("⌨️ 填空",34,HD);fills.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.v?normNum(r.v)+" "+(b.unit||"")+(r.ok?" ✓":" ✗")+"（試了 "+r.n+" 次）":"（沒作答）"}`,26)})}
  if(texts.length){T("💬 打字回答",34,HD);texts.forEach(b=>{const r=S.inl[b.id];T("Q："+b.q.replace(/<[^>]+>/g,""),26,"#7C7571");T("A："+(r&&r.v?r.v:"（沒作答）"),28)})}
- const imgs=[];for(const b of writes){const r=S.inl[b.id]||{};for(const u of [r.img,r.photo].filter(Boolean)){const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
+ const imgs=[];for(const b of writes){for(const f of ["img","photo"]){const u=await IMG.get(b.id,f);if(!u)continue;const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
  const cv=document.createElement("canvas"),x=cv.getContext("2d");let H=P;x.font=`30px ${FN}`;
  const lay=[];items.forEach(it=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;const ls=wrapTxt(x,it.s,W-2*P);lay.push({it,ls});H+=ls.length*it.sz*1.45+6});
  imgs.forEach(o=>{H+=60+o.im.height*((W-2*P)/o.im.width)+20});if(imgs.length)H+=50;
