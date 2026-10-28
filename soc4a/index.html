@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFCF6">
+<title>學習教材</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* 繪本風（和紙白、3px 墨灰框、珊瑚粉／山吹黃／水色／若竹綠平塗、Huninn 粉圓）。只用淺色底，不做深色模式。 */
+:root{--ink:#3E3A39;--paper:#FFFCF6;--coral:#F2A497;--yellow:#F6D27A;--mizu:#A8D3E6;--green:#B9DAA5;
+ --coral-soft:#FCE7E2;--yellow-soft:#FDF3D6;--mizu-soft:#E2F1F7;--green-soft:#E8F3E0;
+ --bg-2:#F5EEE2;--muted:#7C7571;--line:#E8DFD2;--accent-text:#B65544;--bw:3px;--r:24px;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.8 "Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+h1,h2,h3,h4,b,strong,th{font-weight:400}
+button{font-family:inherit}
+/* ---- 頂部 ---- */
+header{position:sticky;top:0;z-index:9;background:var(--paper);border-bottom:var(--bw) solid var(--ink)}
+.top{display:flex;align-items:center;gap:10px;max-width:880px;margin:0 auto;padding:10px 16px 4px}
+.logo{flex:none;width:42px;height:42px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:21px;line-height:1}
+.top h1{margin:0;font-size:19px;line-height:1.5;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xp{flex:none;background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:15px;white-space:nowrap}
+nav{display:flex;gap:8px;max-width:880px;margin:0 auto;padding:6px 16px 12px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer}
+nav button.on{background:var(--yellow);box-shadow:0 3px 0 var(--ink)}
+main{max-width:880px;margin:0 auto;padding:18px 16px 48px}
+section{display:none}section.on{display:block;animation:pop .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{0%{transform:scale(.97);opacity:0}60%{transform:scale(1.008);opacity:1}100%{transform:scale(1)}}
+/* ---- 插圖 ---- */
+.art{display:block;width:72px;height:72px;flex:none}
+.art.sm{width:40px;height:40px}.art.md{width:54px;height:54px}.art.lg{width:104px;height:104px}
+.stamp{display:grid;place-items:center;background:#fff;border:var(--bw) solid var(--ink);border-radius:50%}
+.float{animation:float 3.4s ease-in-out infinite;transform-origin:50% 90%}
+.float.d2{animation-delay:-1.2s}.float.d3{animation-delay:-2.3s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-2deg)}}
+/* ---- 首頁橫幅 ---- */
+.hero{display:flex;align-items:center;gap:12px;background:var(--yellow-soft);border:var(--bw) solid var(--ink);border-radius:28px;padding:16px 18px;margin:0 0 18px}
+.hero .txt{flex:1;min-width:0}
+.hero h2{font-size:25px;line-height:1.4;margin:8px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;font-size:13.5px;line-height:1.7;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px}
+.chip.y{background:var(--yellow)}.chip.c{background:var(--coral)}
+.pics{flex:none;position:relative;width:140px;height:124px}
+.pics .stamp{position:absolute;right:4px;bottom:0;width:104px;height:104px}
+.pics .stamp .art{width:80px;height:80px}
+.pics .s1{position:absolute;left:0;top:0}.pics .s2{position:absolute;right:-6px;top:-10px}
+/* ---- 卡片與文字 ---- */
+.card{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px 20px;margin:0 0 18px}
+h2{font-size:23px;line-height:1.45;margin:0 0 8px}
+h3{font-size:19px;line-height:1.5;margin:16px 0 6px;display:flex;align-items:center;gap:8px}
+h3:before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--coral);border:2px solid var(--ink)}
+b{box-shadow:inset 0 -.42em 0 var(--yellow);padding:0 2px}/* 用 box-shadow 畫螢光筆：透明漸層在 PDF 會多一條黑線 */
+.card ul,.card ol{padding-left:1.4em}li::marker{color:var(--accent-text)}
+.guide{display:flex;gap:12px;align-items:flex-start;margin:4px 0 16px}
+.who{flex:none;width:60px;text-align:center}
+.ava{width:58px;height:58px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:30px;line-height:1;animation:float 3.4s ease-in-out infinite}
+.who small{display:block;font-size:12px;line-height:1.3;margin-top:4px;color:var(--muted)}
+.bubble{background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;position:relative;min-width:0;flex:1}
+.bubble:before{content:"";position:absolute;left:-10px;top:19px;width:14px;height:14px;background:#fff;border-left:var(--bw) solid var(--ink);border-bottom:var(--bw) solid var(--ink);transform:rotate(45deg)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.tile{border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 14px;background:var(--coral-soft)}
+.tile:nth-child(4n+2){background:var(--mizu-soft)}.tile:nth-child(4n+3){background:var(--yellow-soft)}.tile:nth-child(4n){background:var(--green-soft)}
+.tile .em{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:25px;line-height:1;margin-bottom:6px}
+.tile .em:empty{display:none}
+.tile h4{margin:0 0 2px;font-size:18px;line-height:1.5}.tile p{margin:0;font-size:15.5px}
+.chant{background:var(--yellow);border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0 18px;font-size:19px;text-align:center;box-shadow:0 4px 0 var(--ink)}
+.chant small{display:block;font-size:14.5px;opacity:.85}
+.chant b{box-shadow:inset 0 -.42em 0 #fff}
+.trap{background:var(--coral-soft);border:var(--bw) dashed var(--ink);border-radius:18px;padding:10px 14px;margin:12px 0;font-size:15.5px}
+.trap:before{content:"⚠️ 陷阱題注意";display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin:0 8px 4px 0;font-size:14px;line-height:1.7}
+.lab{background:var(--mizu-soft);border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;margin:12px 0}
+.lab h4{margin:2px 0 4px;font-size:18px}
+.fig{max-width:580px;margin:10px auto;background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden}
+.fig svg{width:100%;height:auto;display:block}
+main svg:not(.art){max-width:100%;height:auto}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:10px 0}
+.vs>div{border:var(--bw) solid var(--ink);border-radius:18px;padding:10px 14px;font-size:15.5px;background:var(--coral-soft)}
+.vs>div:nth-child(2n){background:var(--mizu-soft)}
+.vs h4{margin:0 0 4px;font-size:18px;line-height:1.5}
+.tw{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;overflow:hidden}
+th,td{padding:7px 10px;vertical-align:top;text-align:left;border-bottom:2px solid var(--line)}
+th{background:var(--yellow-soft);border-bottom:2px solid var(--ink)}
+td+td,th+th{border-left:2px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.tl{position:relative;padding-left:32px;margin:10px 0}
+.tl:before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:var(--ink);border-radius:2px}
+.tl div{position:relative;margin:0 0 12px}
+.tl div:before{content:"";position:absolute;left:-31px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink)}
+.tl span{display:inline-block;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-right:6px;font-size:15px}
+.vid{width:100%;display:block;background:var(--ink);border:var(--bw) solid var(--ink);border-radius:20px}
+.pic{max-width:100%;border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 記憶卡 ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.flip{perspective:900px;height:140px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .k{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--bw) solid var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:auto}
+.flip .f{background:var(--mizu);font-size:19px}
+.flip:nth-child(4n+2) .f{background:var(--coral)}.flip:nth-child(4n+3) .f{background:var(--green)}.flip:nth-child(4n) .f{background:var(--yellow)}
+.flip .k{background:#fff;font-size:15.5px;transform:rotateY(180deg)}
+/* ---- 闖關 ---- */
+.qbox{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.prog{height:16px;background:var(--bg-2);border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--yellow);border-right:2px solid var(--ink);transition:width .4s}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--muted)}
+.stem{font-size:19px;white-space:pre-line;margin:8px 0}
+.src{background:var(--mizu-soft);border:2px solid var(--ink);border-radius:14px;padding:8px 14px;margin:10px 0;font-size:16px}
+.opt{display:block;width:100%;text-align:left;font-size:17px;line-height:1.6;border:var(--bw) solid var(--ink);background:#fff;color:var(--ink);border-radius:18px;padding:10px 16px;margin:10px 0;box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.opt:disabled{cursor:default}.opt:disabled:not(.ok):not(.bad){opacity:.55}
+.opt.ok{background:var(--green)}
+.opt.bad{background:var(--coral);animation:shake .3s}
+.opt.pick{background:var(--yellow-soft);box-shadow:0 0 0 3px var(--yellow),0 3px 0 var(--ink)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{display:none;border:2px solid var(--ink);border-radius:16px;padding:10px 14px;margin-top:10px;font-size:16px}
+.fb.ok{display:block;background:var(--green-soft)}.fb.bad{display:block;background:var(--coral-soft)}
+.btn{display:inline-block;font-size:16px;line-height:1.5;border:var(--bw) solid var(--ink);background:var(--coral);color:var(--ink);border-radius:16px;padding:8px 20px;margin-top:12px;box-shadow:0 4px 0 var(--ink);cursor:pointer;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--mizu)}
+.say{font-size:14px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:0 10px;margin-left:6px;vertical-align:middle;cursor:pointer}
+.combo{background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;color:var(--ink)}
+.combo:empty{display:none}
+.rank{text-align:center;padding:6px 4px}
+.rank .deco{display:flex;align-items:flex-end;justify-content:center;gap:10px}
+.rank .big{width:116px;height:116px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:58px;line-height:1}
+.empty{text-align:center}.empty .art{margin:4px auto 0}
+.lvl{border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:2px 0 10px;background:var(--yellow-soft)}
+.lvl b{display:block;font-size:18px;box-shadow:none;padding:0}.lvl small{display:block;font-size:14.5px;color:var(--muted);line-height:1.5}
+.lv-g{background:var(--green-soft)}.lv-m{background:var(--mizu-soft)}.lv-c{background:var(--coral-soft)}
+.lvsum{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0}
+.lvchip{border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:15px}
+.src svg{display:block;width:100%;max-width:520px;margin:4px auto}
+.order{padding:0;margin:8px 0}
+.order li{list-style:none;display:flex;align-items:center;border:var(--bw) solid var(--ink);background:#fff;border-radius:16px;padding:8px 14px;margin:10px 0;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.order li.pick{background:var(--yellow-soft);box-shadow:0 0 0 var(--ink);transform:translateY(3px)}
+.order li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;margin-right:10px;font-size:15px;line-height:1}
+.order li.pick .n{background:var(--yellow)}
+.tag{display:inline-block;font-size:13px;line-height:1.6;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
+.srcs{font-size:13px;color:var(--muted);margin-top:8px}.srcs a{color:var(--accent-text)}
+#boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100% - 32px);background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);padding:10px 16px;font-size:16px}
+/* ---- 作答區塊 ---- */
+.how{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:10px 0 8px;font-size:15px}
+.ask,.fill,.wbox,.tbox,.sub{background:var(--paper);border:var(--bw) dashed var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0}
+.fill .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.fill .row .btn{margin-top:0}
+.fill input,.tbox textarea{font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);outline:0}
+.fill input:focus,.tbox textarea:focus{box-shadow:0 0 0 3px var(--yellow)}
+.fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
+.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block}
+.wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
+.wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
+.reveal{background:var(--green-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:12px 0}
+@media (max-width:520px){
+ body{font-size:16.5px}.card{padding:16px}.qbox{padding:16px}
+ .hero{padding:14px}.hero h2{font-size:21px}
+ .pics{width:96px;height:100px}.pics .stamp{width:84px;height:84px;right:0}.pics .stamp .art{width:62px;height:62px}
+ .pics .s1{width:34px;height:34px}.pics .s2{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ section.on,.float,.ava,.opt.bad{animation:none}
+ .flip .in,.btn,.opt,.order li,.prog i{transition:none}
+}
+/* ---- 列印（PDF） ---- */
+.print body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.print header{position:static}.print nav,.print .xp{display:none}
+.print .top h1{white-space:normal}
+.print section{display:block;animation:none}
+.print .float,.print .ava{animation:none}
+.print .card{break-inside:auto}
+.print .qbox,.print .tile,.print .fig,.print .chant,.print .trap,.print .vs,.print table,.print .hero{break-inside:avoid}
+.print .chant,.print .btn,.print .opt{box-shadow:none}
+.print .pbreak{break-before:page}
+.print .cards{grid-template-columns:1fr 1fr}
+.print .fc{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-size:15px}
+.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+@page{size:A4;margin:12mm}
+</style>
+</head>
+<body>
+<canvas id="boom"></canvas>
+<header><div class="top"><span class="logo" id="logo">📚</span><h1 id="ttl"></h1><span class="xp" id="xp">⭐ 0</span></div><nav id="nav"></nav></header>
+<main id="main"></main>
+<script>
+// 繪本風插圖（原創 SVG）：墨灰 3px 線框＋四色平塗，不用漸層。
+// 網頁範本（renderPage 會把整份檔案嵌進 page.html）與首頁目錄（node require）共用這一份。
+const INK = "#3E3A39", CORAL = "#F2A497", YELLOW = "#F6D27A", MIZU = "#A8D3E6", GREEN = "#B9DAA5", PAPER = "#FFFCF6";
+const SK = `stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+const FACE = (x, y) => `<circle cx="${x - 6}" cy="${y}" r="2.8" fill="${INK}"/><circle cx="${x + 6}" cy="${y}" r="2.8" fill="${INK}"/><path d="M${x - 4} ${y + 7}c2.5 2.5 5.5 2.5 8 0" ${SK} fill="none"/>`;
+
+const ART = {
+  book: `<g ${SK}>
+    <path d="M50 30c-8-6-20-6-30-2v50c10-4 22-4 30 2z" fill="${YELLOW}"/>
+    <path d="M50 30c8-6 20-6 30-2v50c-10-4-22-4-30 2z" fill="${MIZU}"/>
+    <path d="M28 42h14M28 52h14M58 42h14M58 52h14" fill="none"/></g>`,
+  star: `<g ${SK}><path d="M50 18l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z" fill="${YELLOW}"/></g>${FACE(50, 47)}`,
+  cloud: `<path d="M24 70c-8 0-12-6-10-12 2-6 8-8 13-6 1-10 10-16 20-14 7 1 12 7 13 13 7-2 14 3 14 10 0 5-4 9-10 9z" fill="#fff" ${SK}/>`,
+  sun: `<g ${SK}><circle cx="50" cy="50" r="18" fill="${YELLOW}"/>
+    <path d="M50 18v-8M50 90v-8M18 50h-8M90 50h-8M27 27l-6-6M79 79l-6-6M27 73l-6 6M79 21l-6 6" fill="none"/></g>`,
+  // 理化／自然：錐形瓶
+  flask: `<g ${SK}>
+    <path d="M43 18v22L24 76c-3 6 1 12 8 12h36c7 0 11-6 8-12L57 40V18z" fill="#fff"/>
+    <path d="M32.4 60h35.2L76 76c3 6-1 12-8 12H32c-7 0-11-6-8-12z" fill="${MIZU}"/>
+    <path d="M38 18h24" fill="none"/>
+    <circle cx="47" cy="50" r="3" fill="#fff"/><circle cx="54" cy="42" r="2.2" fill="#fff"/></g>${FACE(50, 72)}`,
+  // 歷史／社會：卷軸
+  scroll: `<g ${SK}>
+    <rect x="24" y="27" width="52" height="50" fill="${PAPER}"/>
+    <path d="M32 40h36M32 50h28M32 60h32" fill="none"/>
+    <rect x="18" y="22" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <rect x="18" y="72" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <circle cx="15" cy="27" r="5" fill="${YELLOW}"/><circle cx="85" cy="27" r="5" fill="${YELLOW}"/>
+    <circle cx="15" cy="77" r="5" fill="${YELLOW}"/><circle cx="85" cy="77" r="5" fill="${YELLOW}"/></g>`,
+  // 地理：地球儀
+  globe: `<g ${SK}>
+    <circle cx="50" cy="44" r="25" fill="${MIZU}"/>
+    <path d="M34 36c4-6 14-6 16 0s-4 10-10 10-10-4-6-10z" fill="${GREEN}"/>
+    <path d="M55 50c4-4 12-2 12 4s-6 10-12 8-4-8 0-12z" fill="${GREEN}"/>
+    <path d="M22 50a29 29 0 0 0 50 16M50 73v11M38 86h24" fill="none"/></g>`,
+  // 數學：三角尺
+  ruler: `<g ${SK}>
+    <path d="M20 84V20l64 64z" fill="${MIZU}"/>
+    <path d="M31 72V48l24 24z" fill="${PAPER}"/>
+    <path d="M20 32h7M20 42h5M20 52h7M20 62h5M20 72h7" fill="none"/></g>`,
+  // 英文：字母積木
+  blocks: `<g ${SK}>
+    <rect x="16" y="52" width="32" height="32" rx="6" fill="${CORAL}"/>
+    <rect x="52" y="52" width="32" height="32" rx="6" fill="${MIZU}"/>
+    <rect x="34" y="16" width="32" height="32" rx="6" fill="${YELLOW}"/></g>
+    <g fill="${INK}" font-family="Huninn, sans-serif" font-size="20" text-anchor="middle">
+    <text x="50" y="39">A</text><text x="32" y="75">B</text><text x="68" y="75">C</text></g>`,
+  // 國語：鉛筆
+  pencil: `<g transform="rotate(35 50 50)"><g ${SK}>
+    <path d="M41 12h18v8H41z" fill="${CORAL}"/>
+    <rect x="41" y="20" width="18" height="52" fill="${YELLOW}"/>
+    <path d="M41 72h18l-9 17z" fill="${PAPER}"/>
+    <path d="M50 20v52" fill="none"/></g>
+    <path d="M47 83.3 50 89l3-5.7z" fill="${INK}"/></g>`,
+  // 闖關結果：獎盃
+  trophy: `<g ${SK}>
+    <path d="M32 20h36v18c0 12-8 21-18 21s-18-9-18-21z" fill="${YELLOW}"/>
+    <path d="M32 26h-8c0 10 4 16 10 16M68 26h8c0 10-4 16-10 16M50 59v10" fill="none"/>
+    <path d="M38 69h24l4 15H34z" fill="${CORAL}"/></g>${FACE(50, 34)}`,
+  // 首頁吉祥物：書包
+  backpack: `<g ${SK}>
+    <path d="M38 27c0-10 24-10 24 0" fill="none"/>
+    <rect x="22" y="26" width="56" height="62" rx="16" fill="${CORAL}"/>
+    <rect x="33" y="58" width="34" height="22" rx="6" fill="${YELLOW}"/>
+    <path d="M33 66h34" fill="none"/></g>${FACE(50, 42)}
+    <circle cx="35" cy="47" r="3.4" fill="#fff" opacity=".7"/><circle cx="65" cy="47" r="3.4" fill="#fff" opacity=".7"/>`,
+};
+
+function art(name, cls) {
+  return `<svg class="art ${cls || ""}" viewBox="0 0 100 100" aria-hidden="true">${ART[name] || ART.book}</svg>`;
+}
+// 依科目挑主插圖；內容檔可用 art:"flask" 指定
+function subjArt(s) {
+  s = s || "";
+  return /理化|自然|生物|物理|化學|科學/.test(s) ? "flask" : /歷史|社會|公民/.test(s) ? "scroll" : /地理/.test(s) ? "globe"
+    : /數學|算/.test(s) ? "ruler" : /英/.test(s) ? "blocks" : /國語|國文|作文|閱讀/.test(s) ? "pencil" : "book";
+}
+if (typeof module !== "undefined") module.exports = { ART, art, subjArt, INK, CORAL, YELLOW, MIZU, GREEN, PAPER };
+
+const DATA={"id":"soc4a","title":"家鄉小偵探：地圖・地形・老房子","icon":"🗺️","kid":"小女兒","grade":"國小四年級","subject":"社會","version":"康軒","range":"第一、二單元（5 課）","exam":"第一次段考","guide":{"ava":"🐿️","name":"栗栗"},"art":"globe","tts":true,"ranks":[[0,"🌱","小芽芽"],[0.5,"🐣","小小偵探"],[0.7,"🗺️","地圖小達人"],[0.9,"🏅","家鄉博士"],[1,"👑","社會小天才"]],"home":{"intro":"嗨！我是住在阿里山的小松鼠<b>栗栗<\/b> 🐿️。這次段考要考「我們的家鄉」：家鄉在哪裡、有什麼地形、天氣怎麼樣、以前的人住什麼房子、用什麼東西。我們一天只學一點點，每次 <b>20 分鐘<\/b>，下週就能輕鬆上場！","cards":[{"h":"📅 考前五天，每天 20 分鐘","body":[{"t":"tiles","v":[{"em":"1️⃣","h":"第 1 天","p":"暖身猜謎 → 「🗺️ 1-1 地圖」那一站 → 翻記憶卡。"},{"em":"2️⃣","h":"第 2 天","p":"「⛰️ 1-2 地形」那一站。"},{"em":"3️⃣","h":"第 3 天","p":"「🌦️ 1-3 氣候和水」那一站 → 排順序遊戲。"},{"em":"4️⃣","h":"第 4 天","p":"「🏠 2-1 老房子」和「🧺 2-2 器物」兩站。"},{"em":"5️⃣","h":"第 5 天","p":"闖關 22 題（越後面越難）→ 錯題本清空 → 出場券 → 📤 傳給爸爸。"}]},{"t":"guide","v":"看不懂的字，按題目旁邊的 🔊 我念給你聽！不用一次讀完，讀累了就休息。"}]},{"h":"📝 第一次用？先看這裡：怎麼作答","body":[{"t":"tiles","v":[{"em":"👆","h":"點選題","p":"看到一排 (A)(B)(C) 按鈕，<b>點一個<\/b>你覺得對的就好。"},{"em":"⌨️","h":"填空題","p":"在白色框框<b>打數字<\/b>，再按「對答案」。錯了會給提示。"},{"em":"✍️","h":"手寫題","p":"用<b>手指<\/b>畫在白板上；畫在紙上的話按「📷 拍紙本」。"},{"em":"📤","h":"傳給爸爸","p":"最後一天按「📤 傳給爸爸」，就完成了！"}]},{"t":"guide","v":"答錯沒關係！錯的題目會跑到「錯題本」，再做一次做對就好。"}]},{"h":"🎯 老師最愛考的五件事","body":[{"t":"list","v":["地圖四要素：<b>圖名、圖例、方向標、比例尺<\/b>","看地圖找方向：方向標箭頭指的是<b>北方<\/b>","五種地形：<b>平原、臺地、盆地、丘陵、山地<\/b>，以及人們怎麼利用","以前的人蓋房子、做東西都<b>就地取材<\/b>","三合院：<b>正身、護龍、禾埕<\/b>；塑膠很方便，但<b>很難分解<\/b>"]}]},{"h":"👨 給爸爸的陪讀小抄","body":[{"t":"list","v":["第 1 天：先讓她玩暖身三題，<b>不要先講答案<\/b>，後面的站會揭曉。","每站最後有一張「📝 考試會這樣問」，請她念給你聽，就是考卷上的問法。","她作答的結果會自動傳到 Mac mini 的學習小站（需先用帶鑰匙的連結開過一次），完成闖關你會收到推播，Claude 也讀得到錯在哪。","這科是弱科：先求看得懂圖，再求背名詞。"]}]}]},"stations":[{"id":"warm","nav":"🤔 暖身","intro":"第 1 天先來猜猜看！偵探辦案之前都會先<b>猜<\/b>，再去找證據。下面三題<b>點一個你猜的答案<\/b>就好，答案會在後面的站揭曉。","cards":[{"h":"🤔 三個家鄉謎題（先猜再學）","body":[{"t":"ask","id":"g1","reveal":"「🗺️ 1-1 地圖」那一站","how":"憑感覺點一個就好，猜錯沒關係！","q":"🧭 謎題 1：地圖上那個小箭頭，箭頭指的是哪個方向？","o":["東方","北方","我現在面對的方向"],"a":1},{"t":"ask","id":"g2","reveal":"「⛰️ 1-2 地形」那一站","how":"憑感覺點一個就好！","q":"🍵 謎題 2：茶園常常種在哪裡？","o":["海邊的沙灘上","低低的山坡上","大城市的馬路旁"],"a":1},{"t":"ask","id":"g3","reveal":"「🏠 2-1 老房子」那一站","how":"憑感覺點一個就好！","q":"🪨 謎題 3：排灣族以前用大石板蓋房子，石板是從哪裡來的？","o":["從外國用船運來","山上附近就有很多","工廠做出來的"],"a":1},{"t":"guide","v":"三題都點完，就可以去下一站「🗺️ 1-1 地圖」囉！"}]}]},{"id":"s11","nav":"🗺️ 1-1 地圖","intro":"第一站：家鄉在哪裡？想像你要跟新加坡的朋友介紹你住的地方，光用講的很難懂，這時候就需要<b>地圖<\/b>！","cards":[{"h":"📍 我們的家鄉在哪裡？","body":[{"t":"tiles","v":[{"em":"🏝️","h":"臺灣","p":"我們住在臺灣，四周都是海。"},{"em":"📍","h":"嘉義市","p":"在臺灣的<b>西南部<\/b>，分成<b>東區<\/b>和<b>西區<\/b>兩個區。"},{"em":"🌾","h":"嘉南平原","p":"嘉義市大部分是平平的土地，屬於<b>嘉南平原<\/b>。"}]},{"t":"guide","v":"說家鄉的位置，可以說「在臺灣的哪一邊」，也可以說「旁邊有哪些縣市」，例如嘉義市被嘉義縣包圍著。"}]},{"h":"🗂️ 地圖有很多種","body":[{"t":"tiles","v":[{"em":"🗾","h":"行政區圖","p":"看縣市、區的<b>範圍和界線<\/b>。"},{"em":"⛰️","h":"地形圖","p":"用不同<b>顏色<\/b>表示高低：綠色低、褐色高。"},{"em":"🚌","h":"交通圖","p":"看公車、火車、道路怎麼走。"},{"em":"🎡","h":"觀光導覽圖","p":"看好玩的景點在哪裡。"}]},{"t":"chant","v":"要找什麼，就看什麼圖","sub":"找界線看行政區圖、找高低看地形圖、找路線看交通圖"}]},{"h":"🧩 地圖四要素","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 370\" role=\"img\" aria-label=\"幸福小鎮地圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"370\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><text x=\"170\" y=\"40\" font-size=\"20\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">📛 幸福小鎮地圖<\/text><line x1=\"40\" y1=\"70\" x2=\"40\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"140\" y1=\"70\" x2=\"140\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"190\" y1=\"70\" x2=\"190\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"240\" y1=\"70\" x2=\"240\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"70\" x2=\"290\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"70\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"70\" x2=\"340\" y2=\"70\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"120\" x2=\"340\" y2=\"120\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"170\" x2=\"340\" y2=\"170\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"220\" x2=\"340\" y2=\"220\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"270\" x2=\"340\" y2=\"270\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"320\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"70\" width=\"300\" height=\"250\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"165\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏫<\/text><text x=\"165\" y=\"105\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌳<\/text><text x=\"315\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🚉<\/text><text x=\"65\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🛒<\/text><text x=\"165\" y=\"305\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏥<\/text><line x1=\"420\" y1=\"78\" x2=\"420\" y2=\"38\" stroke=\"#3E3A39\" stroke-width=\"3\" marker-end=\"url(#ar)\"/><text x=\"420\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">N 北<\/text><text x=\"420\" y=\"98\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">方向標<\/text><rect x=\"360\" y=\"112\" width=\"104\" height=\"186\" rx=\"10\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"412\" y=\"134\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">圖例<\/text><text x=\"378\" y=\"162\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏫<\/text><text x=\"404\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">學校<\/text><text x=\"378\" y=\"190\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🌳<\/text><text x=\"404\" y=\"190\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">公園<\/text><text x=\"378\" y=\"218\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🚉<\/text><text x=\"404\" y=\"218\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">火車站<\/text><text x=\"378\" y=\"246\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🛒<\/text><text x=\"404\" y=\"246\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">市場<\/text><text x=\"378\" y=\"274\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏥<\/text><text x=\"404\" y=\"274\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">醫院<\/text><line x1=\"40\" y1=\"342\" x2=\"90\" y2=\"342\" stroke=\"#3E3A39\" stroke-width=\"4\"/><line x1=\"40\" y1=\"335\" x2=\"40\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"90\" y1=\"335\" x2=\"90\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"102\" y=\"348\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">比例尺：1 格 ＝ 500 公尺<\/text><\/svg>"},{"t":"tiles","v":[{"em":"📛","h":"圖名","p":"這張地圖的<b>名字<\/b>，告訴你在畫哪裡。"},{"em":"🔣","h":"圖例","p":"說明地圖上每個<b>符號<\/b>代表什麼。"},{"em":"🧭","h":"方向標","p":"箭頭指的是<b>北方<\/b>。"},{"em":"📏","h":"比例尺","p":"地圖上的長度，等於<b>真正的距離<\/b>多遠。"}]},{"t":"chant","v":"名字、符號、方向、距離","sub":"圖名、圖例、方向標、比例尺"},{"t":"reveal","ref":"g1","v":"方向標的箭頭指的是<b>北方<\/b>，不是你面對的方向。知道北，就能找出其他方向：<b>面向北，右手是東、左手是西、背後是南<\/b>。"},{"t":"trap","v":"方向標不一定朝上！如果箭頭指向右邊，那右邊才是北方，這時地圖的上方就變成<b>西方<\/b>。一定要先看方向標再判斷。"}]},{"h":"📏 比例尺算一算","body":[{"t":"how","v":"看上面的小鎮地圖：比例尺是「1 格 ＝ 500 公尺」。"},{"t":"list","v":["例題：學校 🏫 往北走到公園 🌳，地圖上是 2 格。","① 1 格是 500 公尺","② 2 格就是 500 ＋ 500 ＝ <b>1000 公尺<\/b>"]},{"t":"fill","id":"f1","q":"地圖上有 4 格，真正的距離是幾公尺？","ans":["2000"],"unit":"公尺","hint":"1 格是 500 公尺，4 格就是 4 個 500 加起來","e":"500 × 4 ＝ 2000 公尺"}]},{"h":"📱 電子地圖","body":[{"t":"tiles","v":[{"em":"🔍","h":"放大縮小","p":"手指一撥就能放大看細節、縮小看大範圍。"},{"em":"🛰️","h":"換模式","p":"可以換成<b>衛星照片<\/b>，看到真正的屋頂和樹。"},{"em":"🧭","h":"定位導航","p":"知道「我在哪」，還能告訴你怎麼走過去。"}]},{"t":"trap","v":"電子地圖很方便，但沒電、沒網路就不能用；紙本地圖也要會看喔！"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「下列何者<b>不是<\/b>地圖的四要素？」→ 四要素是圖名、圖例、方向標、比例尺，其他的（例如顏色、作者）都不是。","「想知道地圖上 🏥 代表什麼，要看哪一個要素？」→ <b>圖例<\/b>。","「比例尺 1 公分代表 1 公里，地圖上量到 3 公分，實際距離是多少？」→ <b>3 公里<\/b>。"]}]}]},{"id":"s12","nav":"⛰️ 1-2 地形","intro":"第二站：地形。地面有的地方<b>高<\/b>、有的地方<b>低<\/b>，有的<b>平<\/b>、有的<b>陡<\/b>。不同的地形，住在那裡的人生活也不一樣！","cards":[{"h":"🏞️ 五種地形，一張圖看懂","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 250\" role=\"img\" aria-label=\"地形剖面圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"250\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"0\" y=\"200\" width=\"470\" height=\"50\" fill=\"#A8D3E6\"/><path d=\"M0,210 L30,80 L60,140 L95,50 L130,150 L150,165 L175,135 L200,160 L225,140 L250,175 L262,175 L268,110 L330,110 L336,180 L430,192 L440,205 L0,205 Z\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><rect x=\"0\" y=\"205\" width=\"440\" height=\"45\" fill=\"#E8D9B8\"/><text x=\"65\" y=\"38\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">⛰️ 山地<\/text><text x=\"65\" y=\"230\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">又高又陡<\/text><text x=\"200\" y=\"112\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">丘陵<\/text><text x=\"200\" y=\"230\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">低低的小山<\/text><text x=\"299\" y=\"98\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">臺地<\/text><text x=\"299\" y=\"230\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">高高的、頂上平<\/text><text x=\"390\" y=\"172\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">平原<\/text><text x=\"392\" y=\"230\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">低又平<\/text><text x=\"455\" y=\"222\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌊<\/text><\/svg>"},{"t":"svg","v":"<svg viewBox=\"0 0 470 170\" role=\"img\" aria-label=\"臺地與盆地比較\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"170\" rx=\"14\" fill=\"#FFFCF6\"/><path d=\"M20,140 L60,60 L180,60 L215,140 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><text x=\"118\" y=\"40\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">臺地：像一張大桌子<\/text><text x=\"118\" y=\"105\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">頂上平、四周陡<\/text><path d=\"M250,140 L270,50 L310,100 L360,112 L410,100 L450,50 L462,140 Z\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><ellipse cx=\"360\" cy=\"112\" rx=\"40\" ry=\"6\" fill=\"#A8D3E6\"/><text x=\"358\" y=\"40\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">盆地：像一個臉盆<\/text><text x=\"358\" y=\"134\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">四周高、中間低<\/text><\/svg>"},{"t":"chant","v":"平原低又平，臺地像桌子，盆地像臉盆，丘陵小山坡，山地高又陡"}]},{"h":"👨‍🌾 地形和生活","body":[{"t":"tiles","v":[{"em":"🌾","h":"平原","p":"地勢低平，方便<b>種稻、蓋房子、修馬路<\/b>，所以人多、城市多。嘉義市大多是平原。"},{"em":"🏖️","h":"臺地","p":"比較高、頂上平，水不容易留住，以前的人挖<b>埤塘<\/b>存水（桃園臺地最有名）。"},{"em":"🥣","h":"盆地","p":"四周是山、中間低平，例如<b>臺北盆地<\/b>、<b>埔里盆地<\/b>。"},{"em":"🍵","h":"丘陵","p":"低低的山坡，適合種<b>茶樹、果樹<\/b>。嘉義市東邊蘭潭一帶就比較高低起伏。"},{"em":"🌲","h":"山地","p":"又高又陡，人比較少，有<b>森林<\/b>和<b>高山蔬菜<\/b>，也適合觀光，例如<b>阿里山<\/b>。"}]},{"t":"reveal","ref":"g2","v":"茶園常常種在<b>丘陵的山坡上<\/b>：坡地排水好、不積水，茶樹長得好。"},{"t":"trap","v":"臺地和盆地很容易搞混！臺地是「<b>中間高<\/b>、頂上平」，盆地是「<b>四周高、中間低<\/b>」，剛好相反。"}]},{"h":"🏔️ 人們怎麼改變地形來生活？","body":[{"t":"tiles","v":[{"em":"🪜","h":"梯田","p":"在山坡上一層一層整平，才能種田。"},{"em":"🛣️","h":"開路、挖隧道","p":"讓山區的人出入更方便。"},{"em":"⚠️","h":"過度開發","p":"砍太多樹、亂蓋房子，下大雨容易發生<b>土石流<\/b>。"}]},{"t":"guide","v":"地形會影響我們怎麼生活，我們的生活也會改變地形，所以要好好愛護山坡地！"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「下列哪一種地形<b>四周高、中間低<\/b>？」→ <b>盆地<\/b>。","「為什麼平原地區人口比較多？」→ 地勢<b>平坦<\/b>，方便耕種、建房子和交通。","「在山坡地過度開發，可能造成什麼災害？」→ <b>土石流<\/b>。"]}]}]},{"id":"s13","nav":"🌦️ 1-3 氣候和水","intro":"第三站：天氣和水。你有沒有發現，冬天看氣象，臺北常常在下雨，嘉義卻出大太陽？這就是不同地方的<b>氣候<\/b>不一樣！","cards":[{"h":"☀️ 臺灣的氣候","body":[{"t":"tiles","v":[{"em":"🥵","h":"夏天","p":"<b>又熱又多雨<\/b>，常有午後雷陣雨，夏天和秋天還會有<b>颱風<\/b>。"},{"em":"🧭","h":"北回歸線","p":"北回歸線<b>經過嘉義<\/b>，嘉義縣水上鄉有北回歸線的標誌。"}]},{"t":"vs","v":[{"h":"❄️ 冬天的北部、東北部","p":"吹<b>東北季風<\/b><br>又濕又冷、常下雨<br>例如基隆、宜蘭"},{"h":"🌤️ 冬天的南部（嘉義也是）","p":"雨很少、比較<b>乾<\/b><br>白天溫暖<br>水要靠水庫存起來"}]},{"t":"chant","v":"夏天熱又雨，冬天北濕南乾"}]},{"h":"🏠 氣候和生活","body":[{"t":"tiles","v":[{"em":"🏬","h":"騎樓","p":"店門口有屋簷的走廊，夏天<b>遮太陽<\/b>、下雨<b>擋雨<\/b>。"},{"em":"🧥","h":"穿著","p":"冬天北部要帶傘、穿厚外套；南部早晚冷、中午熱，要洋蔥式穿法。"},{"em":"🌀","h":"防颱","p":"颱風來之前要固定物品、準備手電筒和飲用水。"}]}]},{"h":"💧 水從哪裡來？","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 150\" role=\"img\" aria-label=\"自來水從哪裡來\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"150\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><rect x=\"10\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"49.4\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌧️<\/text><text x=\"49.4\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">下雨<\/text><line x1=\"89.8\" y1=\"75\" x2=\"100.8\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"102.8\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"142.2\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏞️<\/text><text x=\"142.2\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">河流<\/text><text x=\"142.2\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">雨水匯集<\/text><line x1=\"182.6\" y1=\"75\" x2=\"193.6\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"195.6\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"235\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">💧<\/text><text x=\"235\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">水庫<\/text><text x=\"235\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">把水存起來<\/text><line x1=\"275.4\" y1=\"75\" x2=\"286.4\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"288.4\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"327.79999999999995\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏭<\/text><text x=\"327.79999999999995\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">淨水場<\/text><text x=\"327.79999999999995\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">把水變乾淨<\/text><line x1=\"368.2\" y1=\"75\" x2=\"379.2\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"381.2\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"420.59999999999997\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🚰<\/text><text x=\"420.59999999999997\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">家裡<\/text><text x=\"420.59999999999997\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">水龍頭<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🏞️","h":"河流","p":"臺灣的河流<b>短又急<\/b>，雨水很快就流進海裡，所以要想辦法存水。嘉義市旁邊有<b>八掌溪<\/b>。"},{"em":"💧","h":"水庫","p":"把下雨時的水存起來，缺水時再用。嘉義人常去的<b>蘭潭<\/b>就是水庫。"},{"em":"🕳️","h":"地下水","p":"藏在地底下的水。抽太多，地面會慢慢往下沉，叫做<b>地層下陷<\/b>。"}]},{"t":"trap","v":"雨下得多不代表水夠用！臺灣雨多半集中在夏天，河流又短又急，留不住水，所以還是要<b>節約用水<\/b>。"}]},{"h":"🚿 我可以怎麼省水？","body":[{"t":"tiles","v":[{"em":"🪥","h":"刷牙用杯子","p":"不要讓水一直流。"},{"em":"🪣","h":"水再利用","p":"洗菜的水可以拿來澆花、沖馬桶。"},{"em":"🌧️","h":"雨水回收","p":"學校、公園可以收集雨水來澆花。"}]}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「冬天時，臺灣<b>北部<\/b>常常下雨的原因是？」→ 受到<b>東北季風<\/b>影響。","「臺灣雨量多，為什麼還會缺水？」→ 雨集中在夏天，河流<b>短又急<\/b>，水很快流進海裡。","「大量抽取地下水會造成什麼問題？」→ <b>地層下陷<\/b>。"]}]}]},{"id":"s21","nav":"🏠 2-1 老房子","intro":"第四站：以前的人住什麼房子？以前沒有卡車和水泥工廠，要蓋房子怎麼辦？答案是──<b>附近有什麼，就用什麼<\/b>！這叫做<b>就地取材<\/b>。","cards":[{"h":"🏕️ 原住民族的傳統住屋","body":[{"t":"tiles","v":[{"em":"🪨","h":"排灣族・石板屋","p":"住在山上，山裡有很多<b>石板<\/b>，用石板蓋房子，<b>冬暖夏涼<\/b>。"},{"em":"🌬️","h":"達悟族・地下屋","p":"住在<b>蘭嶼<\/b>，颱風和海風很強，房子蓋在<b>地面下<\/b>，才不會被吹壞。"},{"em":"🎋","h":"竹屋、茅草屋","p":"住在平地或山腳的族群，用附近的<b>竹子、茅草、木頭<\/b>蓋房子。"}]},{"t":"reveal","ref":"g3","v":"石板是<b>山上附近就有的<\/b>！住在哪裡、附近有什麼材料，就用什麼蓋房子，這就是就地取材。"}]},{"h":"🧱 漢人的傳統住屋","body":[{"t":"tiles","v":[{"em":"🎍","h":"竹管厝","p":"用<b>竹子<\/b>當骨架，外面糊上泥土。"},{"em":"🟫","h":"土角厝","p":"<b>泥土拌稻草<\/b>放進木框壓實、曬乾成「土角」，再一塊塊疊成牆。"},{"em":"🪨","h":"石頭屋","p":"海邊或澎湖用<b>石頭、咾咕石<\/b>（珊瑚礁石）蓋。"},{"em":"🧱","h":"紅磚屋","p":"用燒過的<b>紅磚<\/b>蓋，比較堅固。"}]},{"t":"chant","v":"附近有什麼，就用什麼蓋","sub":"就地取材"}]},{"h":"🏯 三合院","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 320\" role=\"img\" aria-label=\"三合院平面圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"320\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"140\" y=\"30\" width=\"190\" height=\"62\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"200\" y=\"30\" width=\"70\" height=\"62\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"235\" y=\"58\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">正廳<\/text><text x=\"235\" y=\"80\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">拜祖先<\/text><text x=\"170\" y=\"66\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">正身<\/text><text x=\"300\" y=\"66\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">正身<\/text><rect x=\"80\" y=\"30\" width=\"60\" height=\"200\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"330\" y=\"30\" width=\"60\" height=\"200\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"110\" y=\"130\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">護<\/text><text x=\"110\" y=\"152\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">龍<\/text><text x=\"360\" y=\"130\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">護<\/text><text x=\"360\" y=\"152\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">龍<\/text><rect x=\"140\" y=\"92\" width=\"190\" height=\"138\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"1.5\" stroke-dasharray=\"6 5\"/><text x=\"235\" y=\"150\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">禾埕（曬穀場）<\/text><text x=\"235\" y=\"176\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌾 曬稻穀・玩耍・晒衣服<\/text><text x=\"235\" y=\"265\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">👴 長輩住正身　👦 晚輩住護龍<\/text><text x=\"235\" y=\"295\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">像一個「ㄇ」字，三邊房子圍著中間的禾埕<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🙏","h":"正身・正廳","p":"最中間的房子，<b>正廳<\/b>拜<b>祖先和神明<\/b>，過年、拜拜都在這裡。"},{"em":"🐉","h":"護龍","p":"左右兩邊的房子，家族人多了就往外加蓋。"},{"em":"🌾","h":"禾埕","p":"中間的空地，用來<b>曬稻穀<\/b>，也是小朋友玩耍的地方。"}]},{"t":"trap","v":"正廳是拜祖先的地方，<b>不是<\/b>廚房也不是放農具的倉庫！"}]},{"h":"🔄 老房子後來怎麼了？","body":[{"t":"tiles","v":[{"em":"🏢","h":"改建","p":"很多改成<b>水泥樓房、公寓<\/b>，比較堅固。"},{"em":"🏚️","h":"沒人住","p":"年輕人搬到城市，有些老房子沒人住、慢慢壞掉。"},{"em":"☕","h":"保存再利用","p":"整修後變成<b>民宿、餐廳、文化館<\/b>，讓大家認識以前的生活。"}]},{"t":"guide","v":"老房子裡藏著家鄉的故事，好好保存，下一代才看得到喔！"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「以前的人蓋房子大多<b>就地取材<\/b>，意思是？」→ 用住家<b>附近<\/b>容易取得的材料。","「達悟族的地下屋，主要是為了抵擋什麼？」→ <b>強風、颱風<\/b>。","「三合院中，祭拜祖先的地方是？」→ <b>正廳<\/b>（在正身中間）。"]}]}]},{"id":"s22","nav":"🧺 2-2 器物","intro":"第五站：器物。器物就是我們生活中用的<b>東西<\/b>，像碗、籃子、桶子。以前沒有塑膠，阿公阿嬤小時候用什麼呢？","cards":[{"h":"🧺 以前的器物：也是就地取材","body":[{"t":"tiles","v":[{"em":"🎋","h":"竹子","p":"竹籃、竹椅、竹蒸籠、竹掃把。"},{"em":"🪵","h":"木頭","p":"木桶、木盆、木頭餅模。"},{"em":"🏺","h":"陶土","p":"陶甕用來<b>醃菜、存米、裝水<\/b>。"},{"em":"🪨","h":"石頭","p":"石磨把米磨成米漿，做粿和年糕。"}]},{"t":"chant","v":"竹木陶石，身邊就有","sub":"以前的器物也是就地取材"}]},{"h":"🔄 器物越變越方便","body":[{"t":"table","head":["要做的事","以前","現在"],"rows":[["🍚 煮飯","大灶燒柴","電鍋"],["👕 洗衣服","洗衣板、河邊洗","洗衣機"],["💡 照明","油燈","電燈"],["🥤 裝飲料","竹筒、陶杯","塑膠杯、寶特瓶"]]},{"t":"guide","v":"科技讓生活更方便，可是有一樣東西帶來了大麻煩……就是<b>塑膠<\/b>！"}]},{"h":"🛍️ 塑膠的好處和壞處","body":[{"t":"vs","v":[{"h":"👍 好處","p":"輕、便宜<br>不怕水、不容易破<br>可以做成各種形狀"},{"h":"👎 壞處","p":"<b>很難分解<\/b>（要幾百年）<br>丟到海裡，海龜、魚會誤吃<br>燒掉會產生有毒的煙"}]},{"t":"svg","v":"<svg viewBox=\"0 0 470 150\" role=\"img\" aria-label=\"塑膠袋的旅程\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"150\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><rect x=\"10\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"49.4\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🛍️<\/text><text x=\"49.4\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">用一次<\/text><text x=\"49.4\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">很方便<\/text><line x1=\"89.8\" y1=\"75\" x2=\"100.8\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"102.8\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"142.2\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🗑️<\/text><text x=\"142.2\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">丟掉<\/text><line x1=\"182.6\" y1=\"75\" x2=\"193.6\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"195.6\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"235\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌊<\/text><text x=\"235\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">流進河海<\/text><line x1=\"275.4\" y1=\"75\" x2=\"286.4\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"288.4\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"327.79999999999995\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🐢<\/text><text x=\"327.79999999999995\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">動物誤吃<\/text><line x1=\"368.2\" y1=\"75\" x2=\"379.2\" y2=\"75\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><rect x=\"381.2\" y=\"20\" width=\"78.8\" height=\"110\" rx=\"12\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"420.59999999999997\" y=\"58\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">⏳<\/text><text x=\"420.59999999999997\" y=\"90\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">很難分解<\/text><text x=\"420.59999999999997\" y=\"114\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">要幾百年<\/text><\/svg>"},{"t":"trap","v":"「塑膠很便宜，所以多用沒關係」是<b>錯的<\/b>！便宜不代表對環境好。"}]},{"h":"🌏 我可以怎麼減塑？","body":[{"t":"tiles","v":[{"em":"🥤","h":"自備環保杯","p":"買飲料不用塑膠杯。"},{"em":"🛍️","h":"自備購物袋","p":"不拿塑膠袋。"},{"em":"🥢","h":"自備餐具","p":"不用免洗筷、塑膠湯匙。"},{"em":"♻️","h":"重複使用、回收","p":"東西用久一點，丟之前先分類回收。"}]},{"t":"chant","v":"少用、重複用、回收","sub":"減少塑膠垃圾三步驟"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「以前的人用竹子做籃子、用陶土做甕，說明了什麼？」→ 器物也是<b>就地取材<\/b>，和自然環境有關。","「塑膠製品對環境最大的問題是？」→ <b>很難分解<\/b>，造成汙染。","「下列哪一個做法可以減少塑膠垃圾？」→ 自備環保杯、購物袋、餐具。"]}]}]},{"id":"fin","nav":"✍️ 出場券","intro":"第 5 天：闖關和錯題本都做完了嗎？最後完成這兩題，再按「📤 傳給爸爸」，你就是家鄉小偵探了！","cards":[{"h":"✍️ 畫一畫","body":[{"t":"write","id":"w1","q":"畫出三合院的樣子，並寫上「正身」「護龍」「禾埕」三個名字。","how":"用手指畫在白板上；畫在紙上的話按「📷 拍紙本」。"}]},{"h":"💬 說一說","body":[{"t":"text","id":"x1","q":"用自己的話說說看：為什麼以前的人蓋房子、做器物都要「就地取材」？","how":"打一兩句就好，例如「因為……，所以……」。"}]},{"h":"📤 完成！","body":[{"t":"submit","how":"按下去，選 LINE 傳給爸爸。"},{"t":"guide","v":"你好棒！考試的時候記得：<b>先看圖、再看選項<\/b>，遇到「不是」「錯誤」要圈起來喔！"}]}]}],"flash":[["地圖四要素","圖名、圖例、方向標、比例尺"],["圖名","地圖的名字，告訴你畫的是哪裡"],["圖例","說明地圖上每個符號代表什麼"],["方向標","箭頭指的是北方"],["比例尺","地圖上的長度代表真正的距離多遠"],["面向北方時","右手東、左手西、背後南"],["行政區圖","看縣市、區的範圍和界線"],["嘉義市在哪裡","臺灣西南部，分成東區和西區"],["平原","低又平，方便種田、蓋房子，人口多"],["臺地","比較高、頂上平，像一張桌子"],["盆地","四周高、中間低，像臉盆（臺北盆地）"],["丘陵","低低的山坡，適合種茶、果樹"],["山地","又高又陡，有森林，例如阿里山"],["土石流","山坡地過度開發，下大雨時容易發生"],["東北季風","冬天讓北部、東北部又濕又冷常下雨"],["臺灣河流的特色","短又急，雨水很快流進海裡"],["水庫","把下雨時的水存起來，例如蘭潭"],["地層下陷","地下水抽太多，地面慢慢往下沉"],["就地取材","用住家附近容易取得的材料"],["石板屋","排灣族，用山上的石板蓋，冬暖夏涼"],["地下屋","達悟族（蘭嶼），蓋在地面下防強風"],["土角厝","泥土拌稻草曬乾成土角，疊成牆"],["三合院的正廳","在正身中間，拜祖先和神明"],["禾埕","三合院中間的空地，用來曬稻穀"],["塑膠的壞處","很難分解，會汙染環境、傷害動物"]],"order":[{"t":"💧 自來水的旅程","items":["天空下雨","雨水流進河流","水庫把水存起來","淨水場把水變乾淨","從家裡的水龍頭流出來"]},{"t":"🟫 怎麼做土角厝","items":["泥土拌稻草","放進木框壓實","曬乾變成土角","一塊一塊疊成牆"]},{"t":"📱 用電子地圖去公園","items":["打開地圖 App","輸入「公園」","選擇走路或騎車","按下開始導航"]}],"quiz":[{"tag":"看懂","s":"嘉義市分成東區和西區。想看這兩個區的範圍和界線，最適合看哪一種地圖？","o":["地形圖","公車路線圖","天氣圖","行政區圖"],"a":3,"e":"看縣市、區的範圍和界線，要看行政區圖。地形圖是看高低，公車路線圖是看怎麼坐車。"},{"tag":"看懂","s":"地圖上用小符號代表學校、醫院、公園。這些符號的說明，要看地圖的哪個地方？","o":["圖名","方向標","圖例","比例尺"],"a":2,"e":"圖例專門說明每個符號代表什麼。圖名是地圖的名字，方向標指北方，比例尺看距離。"},{"tag":"看懂","s":"哪一種地形「四周高、中間低」，像一個臉盆？","o":["盆地","平原","臺地","海岸"],"a":0,"e":"盆地四周是山、中間低平，像臉盆，例如臺北盆地。臺地剛好相反，是中間高、頂上平。"},{"tag":"看懂","s":"住在蘭嶼的達悟族，以前把房子蓋在地面下（地下屋），主要是為了抵擋什麼？","o":["地震","下雪","強風和颱風","野獸"],"a":2,"e":"蘭嶼在海上，颱風和海風很強，房子蓋在地面下比較不會被吹壞。臺灣平地不會下雪。"},{"tag":"看懂","s":"下列哪一個是「可以重複使用」、比較愛護地球的選擇？","o":["免洗筷","塑膠吸管","自備環保杯","一次性塑膠袋"],"a":2,"e":"環保杯可以一直重複用。免洗筷、塑膠吸管、一次性塑膠袋用一次就丟，會製造很多垃圾。"},{"tag":"看懂","s":"三合院中間那一大塊空地叫「禾埕」，以前最常用來做什麼？","o":["停汽車","曬稻穀","養魚","種大樹"],"a":1,"e":"禾埕又叫曬穀場，以前用來曬稻穀，也是小朋友玩耍、晒衣服的地方。"},{"tag":"課本","s":"地圖的「四要素」是下列哪一組？","o":["圖名、圖例、方向標、比例尺","圖名、顏色、作者、日期","方向標、溫度、圖例、地址","比例尺、電話、圖名、照片"],"a":0,"e":"地圖四要素：圖名（名字）、圖例（符號）、方向標（方向）、比例尺（距離）。口訣：名字、符號、方向、距離。"},{"tag":"課本","s":"地圖上的「比例尺」可以告訴我們什麼？","o":["這張地圖的名字","地圖上的長度代表真正的距離有多遠","每個符號代表什麼","哪一邊是北方"],"a":1,"e":"比例尺是看距離用的。名字看圖名、符號看圖例、北方看方向標。"},{"tag":"課本","s":"為什麼平原地區常常人口多、城市多？","o":["地勢很高、很涼快","地勢平坦，方便種田、蓋房子和修馬路","四周都是高山，很安全","地底下有很多金子"],"a":1,"e":"平原又低又平，種田、蓋房子、交通都方便，所以人多、城市多。嘉義市大部分就是平原。"},{"tag":"課本","s":"低低的山坡地（丘陵），居民最常拿來種什麼？","o":["海帶和紫菜","珊瑚","虱目魚","茶樹和果樹"],"a":3,"e":"丘陵的山坡排水好，適合種茶樹和果樹。海帶、珊瑚、虱目魚都在海邊或魚塭。"},{"tag":"課本","s":"冬天吹東北季風時，臺灣哪裡最常又濕又冷、一直下雨？","o":["嘉義","屏東","臺南","基隆和宜蘭"],"a":3,"e":"東北季風從東北方吹來，冬天的北部和東北部（基隆、宜蘭）常下雨。嘉義、臺南、屏東在南部，冬天比較乾。"},{"tag":"課本","s":"嘉義冬天很少下雨，所以要靠什麼把下雨季節的水存起來使用？","o":["水庫","冷氣機","路燈","紅綠燈"],"a":0,"e":"水庫可以把雨季的水存起來，乾季再慢慢用，例如嘉義的蘭潭。"},{"tag":"課本","s":"排灣族以前用石板蓋房子，最主要的原因是什麼？","o":["石板從外國運來，比較漂亮","山上附近就有很多石板，就地取材","石板可以浮在水上","政府規定一定要用石板"],"a":1,"e":"排灣族住在山區，附近就有很多石板，所以拿來蓋房子，這就是就地取材。"},{"tag":"課本","s":"漢人傳統的「土角厝」，土角是用什麼做的？","o":["珊瑚礁石","水泥和鋼筋","玻璃和鐵","泥土拌稻草後曬乾"],"a":3,"e":"土角是泥土拌稻草，放進木框壓實再曬乾做成的。珊瑚礁石是澎湖石頭屋用的。"},{"tag":"課本","s":"三合院正身中間的「正廳」，主要是做什麼用的？","o":["放農具的倉庫","祭拜祖先和神明","養雞養鴨","煮飯的廚房"],"a":1,"e":"正廳在正身最中間，是拜祖先和神明的地方，過年、拜拜都在這裡。"},{"tag":"挑戰","s":"【題組】看「幸福小鎮地圖」回答：","src":"<svg viewBox=\"0 0 470 370\" role=\"img\" aria-label=\"幸福小鎮地圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"370\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><text x=\"170\" y=\"40\" font-size=\"20\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">📛 幸福小鎮地圖<\/text><line x1=\"40\" y1=\"70\" x2=\"40\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"140\" y1=\"70\" x2=\"140\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"190\" y1=\"70\" x2=\"190\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"240\" y1=\"70\" x2=\"240\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"70\" x2=\"290\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"70\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"70\" x2=\"340\" y2=\"70\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"120\" x2=\"340\" y2=\"120\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"170\" x2=\"340\" y2=\"170\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"220\" x2=\"340\" y2=\"220\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"270\" x2=\"340\" y2=\"270\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"320\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"70\" width=\"300\" height=\"250\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"165\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏫<\/text><text x=\"165\" y=\"105\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌳<\/text><text x=\"315\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🚉<\/text><text x=\"65\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🛒<\/text><text x=\"165\" y=\"305\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏥<\/text><line x1=\"420\" y1=\"78\" x2=\"420\" y2=\"38\" stroke=\"#3E3A39\" stroke-width=\"3\" marker-end=\"url(#ar)\"/><text x=\"420\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">N 北<\/text><text x=\"420\" y=\"98\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">方向標<\/text><rect x=\"360\" y=\"112\" width=\"104\" height=\"186\" rx=\"10\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"412\" y=\"134\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">圖例<\/text><text x=\"378\" y=\"162\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏫<\/text><text x=\"404\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">學校<\/text><text x=\"378\" y=\"190\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🌳<\/text><text x=\"404\" y=\"190\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">公園<\/text><text x=\"378\" y=\"218\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🚉<\/text><text x=\"404\" y=\"218\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">火車站<\/text><text x=\"378\" y=\"246\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🛒<\/text><text x=\"404\" y=\"246\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">市場<\/text><text x=\"378\" y=\"274\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏥<\/text><text x=\"404\" y=\"274\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">醫院<\/text><line x1=\"40\" y1=\"342\" x2=\"90\" y2=\"342\" stroke=\"#3E3A39\" stroke-width=\"4\"/><line x1=\"40\" y1=\"335\" x2=\"40\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"90\" y1=\"335\" x2=\"90\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"102\" y=\"348\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">比例尺：1 格 ＝ 500 公尺<\/text><\/svg>","s2":"公園 🌳 在學校 🏫 的哪一個方向？","o":["東","西","南","北"],"a":3,"e":"方向標箭頭朝上，所以上面是北。公園在學校的上面，就是在學校的北邊。"},{"tag":"挑戰","s":"【題組・承上圖】","src":"<svg viewBox=\"0 0 470 370\" role=\"img\" aria-label=\"幸福小鎮地圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"370\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><text x=\"170\" y=\"40\" font-size=\"20\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">📛 幸福小鎮地圖<\/text><line x1=\"40\" y1=\"70\" x2=\"40\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"140\" y1=\"70\" x2=\"140\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"190\" y1=\"70\" x2=\"190\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"240\" y1=\"70\" x2=\"240\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"70\" x2=\"290\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"70\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"70\" x2=\"340\" y2=\"70\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"120\" x2=\"340\" y2=\"120\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"170\" x2=\"340\" y2=\"170\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"220\" x2=\"340\" y2=\"220\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"270\" x2=\"340\" y2=\"270\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"320\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"70\" width=\"300\" height=\"250\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"165\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏫<\/text><text x=\"165\" y=\"105\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌳<\/text><text x=\"315\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🚉<\/text><text x=\"65\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🛒<\/text><text x=\"165\" y=\"305\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏥<\/text><line x1=\"420\" y1=\"78\" x2=\"420\" y2=\"38\" stroke=\"#3E3A39\" stroke-width=\"3\" marker-end=\"url(#ar)\"/><text x=\"420\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">N 北<\/text><text x=\"420\" y=\"98\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">方向標<\/text><rect x=\"360\" y=\"112\" width=\"104\" height=\"186\" rx=\"10\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"412\" y=\"134\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">圖例<\/text><text x=\"378\" y=\"162\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏫<\/text><text x=\"404\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">學校<\/text><text x=\"378\" y=\"190\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🌳<\/text><text x=\"404\" y=\"190\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">公園<\/text><text x=\"378\" y=\"218\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🚉<\/text><text x=\"404\" y=\"218\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">火車站<\/text><text x=\"378\" y=\"246\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🛒<\/text><text x=\"404\" y=\"246\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">市場<\/text><text x=\"378\" y=\"274\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏥<\/text><text x=\"404\" y=\"274\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">醫院<\/text><line x1=\"40\" y1=\"342\" x2=\"90\" y2=\"342\" stroke=\"#3E3A39\" stroke-width=\"4\"/><line x1=\"40\" y1=\"335\" x2=\"40\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"90\" y1=\"335\" x2=\"90\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"102\" y=\"348\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">比例尺：1 格 ＝ 500 公尺<\/text><\/svg>","s2":"從學校 🏫 往東走到火車站 🚉，地圖上是 3 格。依照比例尺，實際大約要走多遠？","o":["500 公尺","1000 公尺","1500 公尺","3000 公尺"],"a":2,"e":"比例尺 1 格 ＝ 500 公尺，3 格就是 500 × 3 ＝ 1500 公尺。"},{"tag":"挑戰","s":"【題組・承上圖】","src":"<svg viewBox=\"0 0 470 370\" role=\"img\" aria-label=\"幸福小鎮地圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"370\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><text x=\"170\" y=\"40\" font-size=\"20\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">📛 幸福小鎮地圖<\/text><line x1=\"40\" y1=\"70\" x2=\"40\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"140\" y1=\"70\" x2=\"140\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"190\" y1=\"70\" x2=\"190\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"240\" y1=\"70\" x2=\"240\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"70\" x2=\"290\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"70\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"70\" x2=\"340\" y2=\"70\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"120\" x2=\"340\" y2=\"120\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"170\" x2=\"340\" y2=\"170\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"220\" x2=\"340\" y2=\"220\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"270\" x2=\"340\" y2=\"270\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"320\" x2=\"340\" y2=\"320\" stroke=\"#D8CFC0\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"70\" width=\"300\" height=\"250\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"165\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏫<\/text><text x=\"165\" y=\"105\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌳<\/text><text x=\"315\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🚉<\/text><text x=\"65\" y=\"205\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🛒<\/text><text x=\"165\" y=\"305\" font-size=\"28\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏥<\/text><line x1=\"420\" y1=\"78\" x2=\"420\" y2=\"38\" stroke=\"#3E3A39\" stroke-width=\"3\" marker-end=\"url(#ar)\"/><text x=\"420\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">N 北<\/text><text x=\"420\" y=\"98\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">方向標<\/text><rect x=\"360\" y=\"112\" width=\"104\" height=\"186\" rx=\"10\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"412\" y=\"134\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">圖例<\/text><text x=\"378\" y=\"162\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏫<\/text><text x=\"404\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">學校<\/text><text x=\"378\" y=\"190\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🌳<\/text><text x=\"404\" y=\"190\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">公園<\/text><text x=\"378\" y=\"218\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🚉<\/text><text x=\"404\" y=\"218\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">火車站<\/text><text x=\"378\" y=\"246\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🛒<\/text><text x=\"404\" y=\"246\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">市場<\/text><text x=\"378\" y=\"274\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"start\">🏥<\/text><text x=\"404\" y=\"274\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">醫院<\/text><line x1=\"40\" y1=\"342\" x2=\"90\" y2=\"342\" stroke=\"#3E3A39\" stroke-width=\"4\"/><line x1=\"40\" y1=\"335\" x2=\"40\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"90\" y1=\"335\" x2=\"90\" y2=\"349\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"102\" y=\"348\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">比例尺：1 格 ＝ 500 公尺<\/text><\/svg>","s2":"小美站在學校 🏫，面向北方。市場 🛒 會在她的哪一邊？","o":["左手邊（西）","右手邊（東）","前面（北）","背後（南）"],"a":0,"e":"市場在學校的左邊，也就是西邊。面向北方時，左手是西，所以市場在她的左手邊。"},{"tag":"挑戰","s":"有一張地圖的方向標箭頭指向「右邊」。這張地圖的「上方」是哪個方向？","o":["東","北","南","西"],"a":3,"e":"箭頭指的是北，所以右邊是北。面向北（右邊）時，左手邊是西，而左手邊在地圖上剛好是上方，所以上方是西。方向標不一定朝上，一定要先看！"},{"tag":"挑戰","s":"某個村子的人說：「我們抽了很多地下水養魚，結果地面一年比一年低，下大雨就淹水。」這是什麼問題？比較好的做法是什麼？","o":["地震，應該多蓋高樓","土石流，應該多種樹","地層下陷，應該減少抽地下水","颱風，應該把窗戶關好"],"a":2,"e":"地下水抽太多，地面會往下沉，叫做地層下陷，要減少抽地下水。土石流是山坡地的災害，不是平地抽水造成的。"},{"tag":"挑戰","s":"三位同學在討論塑膠：\n小安：塑膠又輕又便宜，所以多用沒關係。\n小芸：塑膠很難分解，丟到海裡可能被海龜吃下肚。\n小凱：出門自備購物袋和餐具，可以減少塑膠垃圾。\n哪一位同學說錯了？","o":["小安","小芸","小凱","三個人都對"],"a":0,"e":"小安錯了：便宜不代表對環境好，塑膠很難分解，用太多會汙染環境。小芸和小凱都說對了。"},{"tag":"挑戰","s":"有一座一百年的三合院，已經沒人住，快要壞掉了。下列哪一個做法，最能「保存老房子」又讓它繼續被大家使用？","o":["拆掉蓋成停車場","整修後改成文化館或民宿，讓大家來參觀","放著不管，讓它自己倒","把它全部換成鐵皮屋"],"a":1,"e":"整修後再利用（文化館、民宿、餐廳），房子保存下來，大家也能認識以前的生活。拆掉或改成鐵皮屋，老房子就不見了。"}],"sources":[{"t":"屏東縣國小 115 學年四年級社會領域教學計畫（康軒）","u":"https://www.cp.ptc.edu.tw/storage/134700/134700_115_B-05_4A.pdf"},{"t":"EduBaania 嘉義市大同國小 115 學年教科書版本","u":"https://school.edubaania.com/textbooks/c8b93010-eb83-5b35-a3b2-22e1dcc13ec3.html"}]};
+// 作答同步（學習小站 study-hub）：網頁 → ntfy.sh → Mac mini。renderPage／renderHome 會把整份檔案嵌進頁面。
+// 鑰匙：第一次用「網址#k=鑰匙」打開任何一頁就記在這台平板（同網域每頁共用），#k=off 取消；沒有鑰匙時完全不作用。
+// 頻道與加密鑰匙都由鑰匙推出（和 Mac 的 study_hub.py 同一套規則）：
+//   收件 sh-<sha256("in:"+鑰匙) 前 24 碼>、回條 sh-<sha256("st:"+鑰匙) 前 24 碼>、AES-GCM 鑰匙 sha256("enc:"+鑰匙)
+// 作答先排進本機佇列，送出後等 Mac 在回條頻道確認才刪；沒網路或 Mac 沒回，20 分鐘後重送（Mac 會去重）。
+const HUB = (() => {
+  const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
+  const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  // 首頁不清掉網址上的鑰匙：iPad「加入主畫面」的圖示和 Safari 分開存資料，網址帶著鑰匙，圖示打開時才會自己記住
+  const takeKey = () => {
+    const m = location.hash.match(/[#&]k=([\w-]+)/);
+    if (!m) return false;
+    put("hub_k", m[1] === "off" ? null : m[1]);
+    if (typeof DATA !== "undefined") history.replaceState(null, "", location.pathname + location.search);
+    return true;
+  };
+  takeKey();
+  addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
+  const KEY = get("hub_k"), ON = !!(KEY && window.crypto && crypto.subtle && window.fetch);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const sha = (s) => crypto.subtle.digest("SHA-256", enc.encode(s));
+  const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  let ch = null;
+  const chan = () => ch || (ch = Promise.all([sha("in:" + KEY), sha("st:" + KEY), sha("enc:" + KEY)]).then(async ([a, b, c]) =>
+    ({ tin: "sh-" + hex(a).slice(0, 24), tst: "sh-" + hex(b).slice(0, 24), k: await crypto.subtle.importKey("raw", c, "AES-GCM", false, ["encrypt", "decrypt"]) })));
+  async function seal(k, u8) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, u8));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  }
+  const open = async (k, u8) => new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8.slice(0, 12) }, k, u8.slice(12)));
+  const DEV = get("hub_dev") || (() => { const d = Math.random().toString(36).slice(2, 10); put("hub_dev", d); return d; })();
+  const queue = () => { try { return JSON.parse(get(QK) || "[]"); } catch (e) { return []; } };
+  const save = (a) => put(QK, JSON.stringify(a.slice(-500)));
+  const pg = () => (typeof DATA !== "undefined" && DATA && DATA.id) || "home";
+
+  // 記一筆作答；key 相同又還沒送出的舊筆會被取代（打字題只送最後的內容）。題目代號用 id2，id 是這筆事件自己的
+  let lastTs = 0;
+  function log(t, d = {}, wait = 2500) {
+    if (!ON) return;
+    const a = queue(), ts = lastTs = Math.max(Date.now(), lastTs + 1); // 同一毫秒連點兩下也要分得出先後
+    if (d.key) { const i = a.findIndex((e) => !e.s && e.key === d.key); if (i >= 0) a.splice(i, 1); }
+    a.push({ ...d, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts, pg: pg(), t, s: 0 });
+    save(a); soon(wait); ui();
+  }
+  let tm = null, busy = false;
+  const soon = (ms) => { clearTimeout(tm); tm = setTimeout(flush, ms); };
+  async function flush(keepalive) {
+    if (!ON || busy || navigator.onLine === false) return;
+    busy = true;
+    try {
+      const c = await chan(), now = Date.now(), todo = queue().filter((e) => !e.s || now - e.s > 20 * 60e3);
+      while (todo.length) {
+        const batch = []; let size = 0;
+        while (todo.length) {
+          const { s, key, ...ev } = todo[0], j = JSON.stringify(ev), n = enc.encode(j).length;
+          if (batch.length && size + n > MAXB) break;
+          batch.push({ id: ev.id, j }); size += n; todo.shift();
+        }
+        const body = b64u(await seal(c.k, enc.encode(`{"v":1,"dev":"${DEV}","ev":[${batch.map((x) => x.j).join(",")}]}`)));
+        const r = await fetch(NT + c.tin, { method: "POST", body, keepalive: !!keepalive });
+        if (!r.ok) break;
+        const ids = new Set(batch.map((x) => x.id)), t = Date.now(), cur = queue();
+        cur.forEach((e) => { if (ids.has(e.id)) e.s = t; }); save(cur);
+      }
+      if (!keepalive) { setTimeout(poll, 8000); setTimeout(poll, 30000); }
+    } catch (e) {} finally { busy = false; ui(); }
+  }
+  // 讀 Mac 的回條：確認收到的就從佇列刪掉
+  async function poll() {
+    if (!ON) return;
+    try {
+      const c = await chan(), r = await fetch(NT + c.tst + "/json?poll=1&since=" + (get("hub_since") || "12h"));
+      if (!r.ok) return;
+      const acked = new Set();
+      for (const ln of (await r.text()).split("\n")) {
+        let msg; try { msg = JSON.parse(ln); } catch (e) { continue; }
+        if (msg.event !== "message") continue;
+        put("hub_since", msg.id);
+        try { const o = JSON.parse(dec.decode(await open(c.k, unb64u(msg.message)))); (o.ack || []).forEach((x) => acked.add(x)); if (o.at) put("hub_last", o.at); } catch (e) {}
+      }
+      if (acked.size) save(queue().filter((e) => !acked.has(e.id)));
+    } catch (e) {} finally { ui(); }
+  }
+  // 整個檔案（作答報告圖）加密後當 ntfy 附件上傳；成功回 true
+  async function sendFile(u8, meta) {
+    if (!ON) return false;
+    try {
+      const c = await chan(), m2 = b64u(await seal(c.k, enc.encode(JSON.stringify({ v: 1, dev: DEV, pg: pg(), ts: Date.now(), ...meta }))));
+      const r = await fetch(NT + c.tin + "?filename=r.bin&message=" + m2, { method: "POST", body: new Blob([await seal(c.k, u8)], { type: "text/plain" }) });
+      return r.ok;
+    } catch (e) { return false; }
+  }
+  // 頁尾一行：讓孩子知道作答會傳給爸爸、同步到哪
+  function ui() {
+    const el = document.getElementById("hubst"); if (!el) return;
+    if (!ON) { el.textContent = ""; return; }
+    const n = queue().filter((e) => !e.s).length, last = get("hub_last");
+    el.textContent = "📡 你的作答會自動傳給爸爸" + (n ? `・有 ${n} 筆等網路，連上會自動補傳` : last ? `・已同步（${last}）` : "");
+  }
+  if (ON) {
+    addEventListener("online", () => flush());
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(true); else poll(); });
+    setInterval(() => { if (document.visibilityState === "visible") flush(); }, 60000);
+    setTimeout(() => { flush(); poll(); }, 1500);
+  }
+  return { on: ON, log, sendFile, ui };
+})();
+
+const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
+const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const CALM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
+if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
+document.title=DATA.title;$("ttl").textContent=DATA.title;$("logo").textContent=DATA.icon||"📚";
+const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
+S.inl=S.inl||{};S.first=S.first||{};S.round=S.round||1;
+let warned=false;
+const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){if(!warned){warned=true;toast("⚠️ 平板的空間不夠，作答可能存不起來，請跟爸爸說一聲")}}};
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),6000)}
+// 手寫與照片很大，改存 IndexedDB：全部週課共用同一個網域的 localStorage（約 5MB），放圖片幾週後就會撐爆，連作答都存不進去
+const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
+ const open=()=>p||(p=new Promise((ok,no)=>{try{const r=indexedDB.open("study-img",1);r.onupgradeneeded=()=>r.result.createObjectStore("i");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}));
+ const run=(m,f)=>open().then(d=>new Promise((ok,no)=>{const t=d.transaction("i",m),q=f(t.objectStore("i"));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>no(t.error)}));
+ return{get:(id,f)=>run("readonly",s=>s.get(k(id,f))).catch(()=>undefined).then(v=>v??S.inl[id]?.[f]),
+  set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
+   .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
+const INL={};const reg=b=>{INL[b.id]=b;return b};
+// 闖關、排順序的狀態一定要在這裡宣告：下面產生頁面（列印版會直接產生題目）時就會用到，宣告在後面會讀不到而中斷
+let QZ=null,cur=0,combo=0,oi=0,picked=[];
+function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
+const hero=()=>`<div class="hero"><div class="txt"><div class="chips">${[DATA.grade,DATA.subject,DATA.version].filter(Boolean).map(x=>`<span class="chip">${x}</span>`).join("")}${DATA.exam?`<span class="chip y">${DATA.exam}</span>`:""}</div><h2>${DATA.title}</h2>${DATA.range?`<div class="srcs">範圍：${DATA.range}</div>`:""}</div><div class="pics">${art("star","sm float d2 s1")}${art("cloud","md float d3 s2")}<span class="stamp">${art(DATA.art||subjArt(DATA.subject),"float")}</span></div></div>`;
+// ---------- blocks ----------
+function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
+ switch(b.t){
+ case"h3":return `<h3>${b.v}</h3>`;
+ case"p":return `<p>${b.v}</p>`;
+ case"list":return `<ul>${b.v.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ case"tiles":return `<div class="tiles">${b.v.map(x=>`<div class="tile"><div class="em">${x.em||""}</div><h4>${x.h}</h4><p>${x.p}</p></div>`).join("")}</div>`;
+ case"chant":return `<div class="chant">🎵 ${b.v}${b.sub?`<small>${b.sub}</small>`:""}</div>`;
+ case"trap":return `<div class="trap">${b.v}</div>`;
+ case"vs":return `<div class="vs">${b.v.map(x=>`<div><h4>${x.h}</h4>${x.p}</div>`).join("")}</div>`;
+ case"table":return `<div class="tw"><table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
+ case"svg":return `<div class="fig">${b.v}</div>`;
+ case"img":return `<img class="pic" src="${b.v}" alt="${b.alt||""}">`;
+ case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
+ case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
+ case"guide":return guide(b.v);
+ case"how":return `<div class="how">📝 怎麼作答：${b.v}</div>`;
+ case"ask":reg(b);return PRINT?`<div class="ask"><div class="stem">${b.q}</div><p>${b.o.map((o,j)=>`（　）${L[j]}. ${o}`).join("<br>")}</p></div>`:
+  `<div class="ask" data-id="${b.id}"><div class="how">📝 ${b.how||"點一個你覺得對的答案"}</div><div class="stem">${b.q}</div>${b.o.map((o,j)=>`<button class="opt" data-ask="${b.id}" data-j="${j}">(${L[j]}) ${o}</button>`).join("")}<div class="fb"></div></div>`;
+ case"reveal":return PRINT?"":`<div class="reveal" data-ref="${b.ref}" data-v="${encodeURIComponent(b.v||"")}"></div>`;
+ case"fill":reg(b);return PRINT?`<div class="fill"><div class="stem">${b.q}</div><p>答：＿＿＿＿＿＿ ${b.unit||""}</p></div>`:
+  `<div class="fill" data-id="${b.id}"><div class="how">📝 ${b.how||"在框框裡打答案（只打數字就好），再按「對答案」"}</div><div class="stem">${b.q}</div><div class="row"><input inputmode="decimal" autocomplete="off" data-fill="${b.id}"> <span>${b.unit||""}</span><button class="btn" data-check="${b.id}">對答案</button></div><div class="fb"></div></div>`;
+ case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint"></div></div>`:
+  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍紙本」拍照"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍紙本<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片"></div>`;
+ case"text":reg(b);return PRINT?`<div class="tbox"><div class="stem">${b.q}</div><p>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p></div>`:
+  `<div class="tbox"><div class="how">📝 ${b.how||"用自己的話打一兩句就好，不用很長"}</div><div class="stem">${b.q}</div><textarea data-text="${b.id}" placeholder="在這裡打字…"></textarea></div>`;
+ case"submit":return PRINT?"":`<div class="sub"><div class="how">📝 ${HUB.on?"全部做完後按下面的按鈕，作答報告（含手寫）會自動傳給爸爸，不用開 LINE":b.how||"全部做完後按下面的按鈕，選 LINE 傳給爸爸"}</div><button class="btn" data-submit="1">📤 傳給爸爸</button><div class="fb" id="subfb"></div><img class="subimg" id="subimg" alt="作答報告"></div>`;
+ default:return "";}}
+const card=c=>`<div class="card">${c.h?`<h2>${c.h}</h2>`:""}${(c.body||[]).map(blk).join("")}</div>`;
+// ---------- pages ----------
+const pages=[];
+pages.push({id:"home",nav:"🗺️ 出發",html:()=>hero()+guide(DATA.home.intro)+(DATA.home.cards||[]).map(card).join("")});
+DATA.stations.forEach(s=>pages.push({id:s.id,nav:s.nav,html:()=>(s.intro?guide(s.intro):"")+s.cards.map(card).join("")}));
+if(DATA.flash?.length)pages.push({id:"flash",nav:"🃏 記憶卡",html:()=>PRINT?
+ `<div class="card"><h2>🃏 記憶卡（遮住右邊自我測驗）</h2><div class="cards">${DATA.flash.map(f=>`<div class="fc"><b>${f[0]}</b>：${f[1]}</div>`).join("")}</div></div>`:
+ guide("點一下卡片就會翻面。先自己說出答案，再翻過來對答案！")+`<div class="cards" id="fc"></div>`,init:initFlash});
+if(DATA.order?.length)pages.push({id:"order",nav:"🧩 排順序",html:()=>PRINT?
+ `<div class="card"><h2>🧩 排順序練習</h2>${DATA.order.map((g,i)=>`<h3>${g.t}</h3><p>${shuffle(g.items.map((v,k)=>k)).map(k=>"（　）"+g.items[k]).join("<br>")}</p>`).join("")}</div>`:
+ guide("請依照<b>正確順序</b>依序點選，全部排對可以拿到 ⭐×5！")+`<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div><button class="btn alt" id="oNext">換一組 🔄</button></div>`,init:initOrder});
+pages.push({id:"quiz",nav:"⚔️ 闖關",html:()=>PRINT?printQuiz():guide(DATA.quizHow||"📝 怎麼作答：每題<b>點一個</b>你覺得對的答案，馬上會告訴你對錯和原因，再按「下一關」。答錯沒關係，錯的題目會自動放進「📕 錯題」，最後回去重做到全對就過關！")+`<div class="qbox" id="qbox"></div>`,init:qStart});
+if(!PRINT)pages.push({id:"wrong",nav:"📕 錯題",html:()=>`<div id="wbox"></div>`,init:wRender});
+if(PRINT)pages.push({id:"key",nav:"",html:printKey});
+// ---------- render ----------
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const M=$("main"),N=$("nav");
+// 產生全部分頁：在檔尾才呼叫（見最後一行）。列印版會在這時直接產生題目，用到的 let／const 都要先宣告好，放前面會中斷、PDF 少掉練習題與解答
+function render(){pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;b.onclick=()=>show(p.id);N.appendChild(b)}});
+ if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+ if(!PRINT){const h=document.createElement("div");h.id="hubst";h.className="srcs";M.appendChild(h);HUB.ui()}}
+function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});
+ const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// ---------- stars & confetti ----------
+function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
+$("xp").textContent="⭐ "+S.star;
+function boom(){if(CALM)return;const c=$("boom"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+ const P=[...Array(90)].map(()=>({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-10-3,c:["#F2A497","#F6D27A","#A8D3E6","#B9DAA5"][Math.random()*4|0],r:Math.random()*6+5}));
+ let f=0;x.lineWidth=1.5;x.strokeStyle="#3E3A39";(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r);x.strokeRect(p.x,p.y,p.r,p.r)});if(++f<90)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})()}
+// ---------- flash ----------
+function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
+ DATA.flash.forEach(([f,k,lang])=>{const d=document.createElement("div");d.className="flip";
+  d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
+  d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
+// ---------- order ----------
+function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
+ shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
+  li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
+   if(picked.length===g.items.length){const ok=picked.every((v,k)=>v===k);
+    HUB.log("order",{g:g.t.slice(0,30),ok});
+    $("oMsg").innerHTML=ok?"<p>🎉 全對！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' id='oRe'>再試一次</button>";
+    if(ok){star(5);boom()}else $("oRe").onclick=initOrder}};$("oList").appendChild(li)});
+ $("oNext").onclick=()=>{oi=(oi+1)%DATA.order.length;initOrder()}}
+// ---------- quiz（含隨機計算題 gen） ----------
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
+ if(g.op==="÷"){r=a;a=a*b} r=g.op==="+"?a+b:g.op==="-"?a-b:g.op==="×"?a*b:r;
+ if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
+ const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
+ const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
+// 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
+function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
+const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+// 難度階梯：tag 寫 看懂／課本／段考挑戰（國小用 挑戰）就會分區顯示
+const LV={看懂:["🌱","看懂區","先暖身，一步就能答","g"],課本:["📘","課本區","課本和習作的程度","m"],段考挑戰:["🔥","段考挑戰區","真正段考的題型，錯了很正常，錯題本重做到對就好","c"],挑戰:["🔥","挑戰區","最難的一區，錯了很正常，錯題本重做到對就好","c"]};
+const srcBox=q=>q.src?`<div class="src">${/^\s*</.test(q.src)?"":"📜 "}${q.src}</div>`:"";
+function qRender(){const Q=qList(),box=$("qbox");
+ if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
+  const lvs=[...new Set(Q.map(q=>q.tag).filter(t=>LV[t]))].map(t=>{const ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t),k=ix.filter(i=>S.ans[i]===Q[i].a).length;return{t,k,n:ix.length}});
+  const weak=lvs.filter(l=>l.k/l.n<.7).map(l=>LV[l.t][1]);
+  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p>${lvs.length?`<div class="lvsum">${lvs.map(l=>`<span class="lvchip lv-${LV[l.t][3]}">${LV[l.t][0]} ${LV[l.t][1]} ${l.k}/${l.n}</span>`).join("")}</div>`:""}<p>${rate>=.9?"太強了，考試穩穩的！":weak.length?`「${weak.join("」「")}」還要加油：去「📕 錯題」把錯的題目重做到全對，就能升級！`:"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
+  if(S.doneR!==S.round){S.doneR=S.round;save();HUB.log("done",{r:S.round,ok,n:Q.length,lv:lvs.map(l=>[l.t,l.k,l.n])},500)}
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};S.round++;save();QZ=null;cur=0;combo=0;qRender()};return}
+ const q=Q[cur],done=Object.keys(S.ans).length;
+ const lv=LV[q.tag],first=lv&&(cur===0||Q[cur-1].tag!==q.tag);
+ let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關${lv?`・${lv[0]} ${lv[1]}`:""}</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
+ if(first)h+=`<div class="lvl lv-${lv[3]}"><b>${lv[0]} 進入${lv[1]}</b><small>${lv[2]}</small></div>`;
+ h+=`<div class="stem">${q.tag&&!lv?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+ q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
+ if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
+  const j=+b.dataset.j,ok=j===q.a,fst=S.first[cur]===undefined;if(fst)S.first[cur]=j;S.ans[cur]=j;save();HUB.log("q",{r:S.round,i:cur,j,ok,fst,tag:q.tag||""});
+  box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");combo=ok?combo+1:0;if(ok){star(combo>=3?2:1);if(combo%5===0)boom()}
+  const fb=$("fb");fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=(ok?["✅ 答對了！","✅ 太棒了！","✅ 完全正確！"][Math.random()*3|0]:"❌ 差一點！")+`<br>${q.e}<br><button class="btn" id="nx">下一關 ➜</button>`;
+  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}})}
+function qStart(){const Q=qList();cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
+function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v).map(([i])=>+i);
+ if(!wr.length){const any=Object.keys(S.ans).length;w.innerHTML=`<div class="card empty">${art(any?"star":"book","lg float")}${guide(any?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}</div>`;return}
+ w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
+ wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+  q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
+  d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
+   HUB.log("fix",{r:S.round,i,j,ok:j===q.a});
+   if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
+   else{b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
+// ---------- 作答區塊：點選猜、填空、手寫、打字、傳給爸爸 ----------
+const normNum=v=>String(v).trim().replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[，,\s]/g,"").replace(/[a-zA-Z³²μ％%]+$/,"");
+function fillOK(b,v){const x=normNum(v);if(!x)return false;return b.ans.some(a=>{const y=normNum(a);if(x===y)return true;const fx=x.includes("/")?x.split("/").reduce((p,q)=>p/q):+x,fy=+y;return isFinite(fx)&&isFinite(fy)&&Math.abs(fx-fy)<1e-9})}
+function askMark(box,b,j){box.querySelectorAll(".opt").forEach(x=>{x.classList.toggle("pick",+x.dataset.j===j)});const fb=box.querySelector(".fb");
+ if(b.reveal){fb.className="fb ok";fb.innerHTML=`✅ 已記下你的猜測：<b>${b.o[j]}</b><br>答案在${b.reveal}揭曉，讀到那裡記得看看猜對沒！`}
+ else{const ok=j===b.a;fb.className="fb "+(ok?"ok":"bad");fb.innerHTML=(ok?"✅ 答對了！":"❌ 再想想！")+(b.e?"<br>"+b.e:"")}}
+function initInline(sec){if(!sec||PRINT)return;
+ sec.querySelectorAll(".ask[data-id]").forEach(box=>{const b=INL[box.dataset.id],r=S.inl[b.id];if(r&&r.j!==undefined)askMark(box,b,r.j)});
+ sec.querySelectorAll(".reveal").forEach(d=>{const b=INL[d.dataset.ref],r=S.inl[d.dataset.ref],v=decodeURIComponent(d.dataset.v);if(!b)return;
+  d.innerHTML=(r&&r.j!==undefined?`🔎 你在暖身猜的是「${b.o[r.j]}」${r.j===b.a?"，<b>猜對了！</b>🎉":"，正確答案是「"+b.o[b.a]+"」，現在知道為什麼了吧！"}`:`🔎 正確答案是「${b.o[b.a]}」。（你還沒在「暖身」猜過，可以回去猜猜看！）`)+(v?"<br>"+v:"")});
+ sec.querySelectorAll("[data-fill]").forEach(i=>{const r=S.inl[i.dataset.fill];if(r&&r.v!==undefined&&!i.value){i.value=r.v;if(r.ok){const fb=i.closest(".fill").querySelector(".fb");fb.className="fb ok";fb.innerHTML="✅ 答對了！"+(INL[i.dataset.fill].e?"<br>"+INL[i.dataset.fill].e:"")}}});
+ sec.querySelectorAll("[data-text]").forEach(t=>{const r=S.inl[t.dataset.text];if(r&&r.v&&!t.value)t.value=r.v});
+ sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
+ sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
+function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
+ const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
+ let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
+ c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
+ c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
+ c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+// 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
+function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ask],[data-check],[data-wclear],[data-submit]");if(!t)return;
+ if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j,got=S.inl[b.id]?.got;S.inl[b.id]={j,got:got||j===b.a};save();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a&&!got)star(1);HUB.log("ask",{id2:b.id,j,ok:b.reveal?null:j===b.a})}
+ else if(t.dataset.check){const b=INL[t.dataset.check],box=t.closest(".fill"),v=box.querySelector("input").value,fb=box.querySelector(".fb"),r=S.inl[b.id]||{n:0};
+  r.n=(r.n||0)+1;r.v=v;const ok=fillOK(b,v);r.ok=ok;S.inl[b.id]=r;save();HUB.log("fill",{id2:b.id,v:String(v).slice(0,40),ok,n:r.n});fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=ok?"✅ 答對了！"+(b.e?"<br>"+b.e:""):(r.n<2?"❌ 再試一次！"+(b.hint?"<br>提示："+b.hint:""):"❌ 正確答案是 <b>"+b.ans[0]+" "+(b.unit||"")+"</b>"+(b.e?"<br>"+b.e:""));if(ok&&r.n===1)star(1)}
+ else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;IMG.set(t.dataset.wclear,"img",null).then(()=>initCanvas(c))}
+ else if(t.dataset.submit)makeReport()});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.text){S.inl[t.dataset.text]={v:t.value};save();HUB.log("text",{id2:t.dataset.text,v:t.value.slice(0,600),key:"text:"+t.dataset.text},15000)}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;IMG.set(id,"photo",u);const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
+function wrapTxt(x,s,w){const out=[];String(s).replace(/<[^>]+>/g,"").split("\n").forEach(p=>{let l="";for(const ch of p){if(x.measureText(l+ch).width>w){out.push(l);l=ch}else l+=ch}out.push(l)});return out}
+async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTML="⏳ 正在整理你的作答…";
+ const Q=qList(),W=1080,P=48,FN='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',items=[],INK="#3E3A39",HD="#B65544";
+ const T=(s,sz=30,c=INK,b=false)=>items.push({t:"t",s,sz,c,b});
+ const now=new Date(),ds=`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+ T(DATA.title,40,INK);T("作答報告　"+ds+"　⭐ "+S.star,28,"#7C7571");
+ const done=Object.keys(S.ans).length,first=Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a===v).length,wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v);
+ T("⚔️ 闖關",34,HD);T(`已作答 ${done}/${Q.length} 題，第一次就答對 ${first} 題，目前還錯 ${wr.length} 題`);
+ Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a!==v).forEach(([i,v])=>T(`　第 ${+i+1} 題第一次選 ${L[v]}（正解 ${L[Q[i].a]}）：${Q[i].s.replace(/<[^>]+>/g,"").slice(0,28)}`,26,"#5A5452"));
+ const asks=Object.values(INL).filter(b=>b.t==="ask"),fills=Object.values(INL).filter(b=>b.t==="fill"),texts=Object.values(INL).filter(b=>b.t==="text"),writes=Object.values(INL).filter(b=>b.t==="write");
+ if(asks.length){T("🤔 猜謎／點選",34,HD);asks.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.j!==undefined?b.o[r.j]+(r.j===b.a?" ✓":" ✗"):"（沒作答）"}`,26)})}
+ if(fills.length){T("⌨️ 填空",34,HD);fills.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.v?normNum(r.v)+" "+(b.unit||"")+(r.ok?" ✓":" ✗")+"（試了 "+r.n+" 次）":"（沒作答）"}`,26)})}
+ if(texts.length){T("💬 打字回答",34,HD);texts.forEach(b=>{const r=S.inl[b.id];T("Q："+b.q.replace(/<[^>]+>/g,""),26,"#7C7571");T("A："+(r&&r.v?r.v:"（沒作答）"),28)})}
+ const imgs=[];for(const b of writes){for(const f of ["img","photo"]){const u=await IMG.get(b.id,f);if(!u)continue;const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
+ const cv=document.createElement("canvas"),x=cv.getContext("2d");let H=P;x.font=`30px ${FN}`;
+ const lay=[];items.forEach(it=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;const ls=wrapTxt(x,it.s,W-2*P);lay.push({it,ls});H+=ls.length*it.sz*1.45+6});
+ imgs.forEach(o=>{H+=60+o.im.height*((W-2*P)/o.im.width)+20});if(imgs.length)H+=50;
+ cv.width=W;cv.height=H+P;x.fillStyle="#FFFCF6";x.fillRect(0,0,W,cv.height);x.strokeStyle=INK;x.lineWidth=6;x.strokeRect(14,14,W-28,cv.height-28);let y=P;
+ lay.forEach(({it,ls})=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;x.fillStyle=it.c;ls.forEach(l=>{y+=it.sz*1.45;x.fillText(l,P,y-it.sz*0.35)});y+=6});
+ if(imgs.length){y+=50;x.font=`34px ${FN}`;x.fillStyle=HD;x.fillText("✍️ 手寫",P,y-10)}
+ imgs.forEach(o=>{x.font=`26px ${FN}`;x.fillStyle="#7C7571";y+=40;x.fillText(wrapTxt(x,o.q,W-2*P)[0],P,y);y+=20;const h=o.im.height*((W-2*P)/o.im.width);x.drawImage(o.im,P,y,W-2*P,h);x.lineWidth=3;x.strokeStyle=INK;x.strokeRect(P,y,W-2*P,h);y+=h+20});
+ const url=cv.toDataURL("image/jpeg",0.82),img=$("subimg");img.src=url;img.style.display="block";
+ const blob=await (await fetch(url)).blob(),file=new File([blob],DATA.id+"-作答報告.jpg",{type:"image/jpeg"});
+ if(HUB.on){fb.innerHTML="⏳ 正在傳給爸爸…";if(await HUB.sendFile(new Uint8Array(await blob.arrayBuffer()),{t:"report",star:S.star})){fb.innerHTML="✅ 已經自動傳給爸爸了！謝謝你，這週辛苦了 🎉";star(3);boom();return}}
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:DATA.title,text:DATA.title+" 作答報告"});fb.innerHTML="✅ 傳好了！謝謝你，這週辛苦了 🎉";star(3);boom();return}catch(e){}}
+ fb.innerHTML=`📷 報告圖做好了（在下面）。<b>長按圖片</b>就能存起來或分享到 LINE 給爸爸。<br><a href="${url}" download="${DATA.id}-作答報告.jpg">或按這裡下載圖片</a>`}
+// ---------- print ----------
+function printQuiz(){const Q=qList();return `<div class="card"><h2>⚔️ 練習題</h2>${Q.map((q,i)=>`${LV[q.tag]&&(i===0||Q[i-1].tag!==q.tag)?`<h3>${LV[q.tag][0]} ${LV[q.tag][1]}：${LV[q.tag][2]}</h3>`:""}<div class="qbox"><div class="stem">${i+1}. ${q.tag&&!LV[q.tag]?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
+// ---------- 開始：一定放在檔尾，所有 let／const 都宣告好之後才產生頁面、開第一個分頁 ----------
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+render();
+if(!PRINT){show(pages.some(p=>p.id===S.tab)?S.tab:"home");HUB.log("open",{tab:S.tab||"home"},4000)}
+</script>
+</body>
+</html>
