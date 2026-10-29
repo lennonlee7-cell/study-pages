@@ -94,6 +94,27 @@ tr:last-child td{border-bottom:0}
 .tl div:before{content:"";position:absolute;left:-31px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink)}
 .tl span{display:inline-block;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-right:6px;font-size:15px}
 .vid{width:100%;display:block;background:var(--ink);border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 影片放大、YouTube 名師影片 ---- */
+.vbox{position:relative}
+.zoom{position:absolute;right:10px;top:10px;z-index:2;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:3px 12px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+.yt{border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden;background:#fff;margin:12px 0}
+.yt .scr{position:relative;display:block;width:100%;aspect-ratio:16/9;background:var(--ink);cursor:pointer;overflow:hidden}
+.yt .scr img{width:100%;height:100%;object-fit:cover;display:block}
+.yt .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:var(--coral);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:28px;line-height:1;box-shadow:0 4px 0 var(--ink);padding-left:5px}
+.yt .dur{position:absolute;left:10px;bottom:10px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:14px;line-height:1.7}
+.yt .scr .zoom{top:auto;bottom:10px}.yt .scr.live .zoom{top:10px;bottom:auto}
+.ytm{padding:10px 16px 12px;border-top:var(--bw) solid var(--ink)}
+.ytm h4{margin:0;font-size:17.5px;line-height:1.5}
+.ytm p{margin:2px 0 0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ytm .tag{color:var(--ink)}
+#big{position:fixed;inset:0;z-index:200;background:rgba(40,36,35,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:56px 12px 16px}
+#big.on{display:flex}
+#big .stage{width:min(100%,calc((100vh - 120px)*16/9));aspect-ratio:16/9;background:#000;border:var(--bw) solid #fff;border-radius:16px;overflow:hidden}
+#big .stage iframe,#big .stage video{width:100%;height:100%;border:0;display:block;background:#000}
+#big .bt{color:#fff;font-size:16px;text-align:center;max-width:880px}
+#big .x{position:absolute;top:10px;right:12px;font-size:18px;line-height:1.5;border:2px solid var(--ink);background:var(--coral);color:var(--ink);border-radius:999px;padding:4px 16px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+body.big{overflow:hidden}
 .pic{max-width:100%;border:var(--bw) solid var(--ink);border-radius:20px}
 /* ---- 記憶卡 ---- */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
@@ -380,6 +401,7 @@ const HUB = (() => {
 
 const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
 const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const mmss=t=>`${t/60|0}:${String(t%60).padStart(2,"0")}`;
 const CALM=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
 if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
@@ -415,7 +437,11 @@ function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
  case"table":return `<div class="tw"><table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
  case"svg":return `<div class="fig">${b.v}</div>`;
  case"img":return `<img class="pic" src="${b.v}" alt="${b.alt||""}">`;
- case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<div class="vbox"><video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video><button class="zoom" data-vbig>⛶ 放大看</button></div>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ // YouTube 名師影片：直接顯示影片畫面，點一下就地播放、按「放大看」滿版播放；s／e 是只播的片段（秒）
+ case"yt":{const seg=b.s||b.e?`・只看 ${mmss(b.s||0)}～${b.e?mmss(b.e):"結束"}`:"";
+  return PRINT?`<p>📺 ${b.title}（${b.who}${seg}）：youtu.be/${b.id}${b.s?"?t="+b.s:""}</p>`:
+  `<div class="yt" data-yt="${b.id}" data-s="${b.s||0}" data-e="${b.e||""}" data-title="${b.title}"><div class="scr" role="button" tabindex="0" data-ytplay aria-label="播放：${b.title}"><img loading="lazy" src="https://i.ytimg.com/vi/${b.id}/hqdefault.jpg" alt=""><span class="play">▶</span>${b.len?`<span class="dur">⏱ ${b.len}</span>`:""}<button class="zoom" data-ytbig>⛶ 放大看</button></div><div class="ytm"><h4>${b.tag?`<span class="tag">${b.tag}</span>`:""}${b.title}</h4><p>${b.who}${seg}</p>${b.cap?`<p>${b.cap}</p>`:""}</div></div>`}
  case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
  case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
  case"guide":return guide(b.v);
@@ -454,8 +480,31 @@ function render(){pages.forEach((p,i)=>{const sec=document.createElement("sectio
  if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
  if(!PRINT){const h=document.createElement("div");h.id="hubst";h.className="srcs";M.appendChild(h);HUB.ui()}}
 function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
- document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});bigClose();ytReset();
  const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// ---------- 影片：YouTube 就地播放、放大看 ----------
+const ytSrc=y=>`https://www.youtube-nocookie.com/embed/${y.dataset.yt}?autoplay=1&playsinline=1&rel=0&modestbranding=1${+y.dataset.s?"&start="+y.dataset.s:""}${y.dataset.e?"&end="+y.dataset.e:""}`;
+const YTA=`allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen`;
+// 同時只播一支：開新的就把其他就地播放的換回縮圖（拿掉 iframe 才會停聲音）
+function ytReset(keep){document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function ytPlay(y){const s=y.querySelector(".scr");if(s.classList.contains("live"))return;ytReset();document.querySelectorAll("video").forEach(v=>v.pause());
+ s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`}
+let bigFrom=null;
+function bigOpen(html,title){let d=$("big");if(!d){d=document.createElement("div");d.id="big";d.innerHTML=`<button class="x" data-bigx>✕ 關閉</button><div class="stage"></div><div class="bt"></div>`;document.body.appendChild(d);
+  d.addEventListener("click",e=>{if(e.target===d||e.target.closest("[data-bigx]"))bigClose()})}
+ d.querySelector(".stage").innerHTML=html;d.querySelector(".bt").textContent=title||"";d.classList.add("on");document.body.classList.add("big");
+ try{(d.requestFullscreen||d.webkitRequestFullscreen)?.call(d)?.catch?.(()=>{})}catch(e){}}
+function bigClose(){const d=$("big");if(!d||!d.classList.contains("on"))return;const nv=d.querySelector("video");
+ if(nv&&bigFrom){bigFrom.currentTime=nv.currentTime}bigFrom=null;d.querySelector(".stage").innerHTML="";d.classList.remove("on");document.body.classList.remove("big");
+ try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")bigClose()});
+document.addEventListener("click",e=>{
+ const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);return}
+ const vb=e.target.closest("[data-vbig]");if(vb){const v=vb.closest(".vbox").querySelector("video");v.pause();bigFrom=v;ytReset();
+  bigOpen(`<video controls playsinline autoplay src="${v.getAttribute("src")}"${v.poster?` poster="${v.getAttribute("poster")}"`:""}></video>`,vb.closest(".card")?.querySelector("h2")?.textContent);
+  const nv=$("big").querySelector("video"),t=v.currentTime;if(t)nv.addEventListener("loadedmetadata",()=>{nv.currentTime=t},{once:true});return}
+ const p=e.target.closest("[data-ytplay]");if(p)ytPlay(p.closest(".yt"))});
+document.addEventListener("keydown",e=>{const p=e.target.closest?.("[data-ytplay]");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();ytPlay(p.closest(".yt"))}});
 // ---------- stars & confetti ----------
 function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
 $("xp").textContent="⭐ "+S.star;
