@@ -486,20 +486,39 @@ function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=
 const ytSrc=y=>`https://www.youtube-nocookie.com/embed/${y.dataset.yt}?autoplay=1&playsinline=1&rel=0&modestbranding=1${+y.dataset.s?"&start="+y.dataset.s:""}${y.dataset.e?"&end="+y.dataset.e:""}`;
 const YTA=`allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen`;
 // 同時只播一支：開新的就把其他就地播放的換回縮圖（拿掉 iframe 才會停聲音）
-function ytReset(keep){document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function ytReset(keep){if(!keep)ytStop();document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
 function ytPlay(y){const s=y.querySelector(".scr");if(s.classList.contains("live"))return;ytReset();document.querySelectorAll("video").forEach(v=>v.pause());
- s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`}
+ s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`;ytStart(y,"就地")}
+// 看片紀錄（送學習小站）：動畫課記「實際播放秒數」和「看到幾 %」；YouTube 是別人的播放器讀不到進度，只記點開幾次、開著多久（暫停也算，約略值）
+// 送的是這次打開網頁以來的累計，同一支影片未送出的舊筆會被新的取代（key），Mac 端同一次觀看（vw）取最大值
+const ACC={},acc=(t,k)=>ACC[t+k]||(ACC[t+k]={vw:Math.random().toString(36).slice(2,8),sec:0,n:0,pct:0,tag:""});
+const wSend=(t,k,g,r)=>HUB.log(t,{id2:String(k).slice(0,16),g:String(g||"").slice(0,30),vw:r.vw,sec:Math.round(r.sec),n:r.n,pct:Math.round(r.pct),tag:r.tag,key:t+":"+k},3000);
+let ytNow=null,ytBack=null;
+function ytStart(y,mode){ytStop();ytNow={y,mode,t0:Date.now(),max:(+y.dataset.e||0)-(+y.dataset.s||0)}}
+function ytStop(){if(!ytNow)return;const x=ytNow;ytNow=null;const len=x.max>0?x.max:3600,s=Math.min((Date.now()-x.t0)/1000,len);if(s<3)return;
+ const k=x.y.dataset.yt+(+x.y.dataset.s?"@"+x.y.dataset.s:""),r=acc("yt",k);/* 同一支影片在不同站播不同片段，用起始秒數分開 */r.sec+=s;r.n++;r.tag=x.mode;r.pct=x.max>0?Math.min(100,r.sec/x.max*100):0;wSend("yt",k,x.y.dataset.title,r)}
+const vKey=v=>(v.getAttribute("src")||"").split("?")[0].split("/").pop().replace(/\.\w+$/,"");
+const VP=new WeakMap();
+function vSend(v){if(!v||v.tagName!=="VIDEO")return;const k=vKey(v),r=ACC["vid"+k];if(!r||r.sec<2||r.sent===Math.round(r.sec))return;r.sent=Math.round(r.sec);wSend("vid",k,v.dataset.title,r)}
+document.addEventListener("timeupdate",e=>{const v=e.target;if(v.tagName!=="VIDEO")return;const p=VP.get(v),t=v.currentTime;VP.set(v,t);
+ if(p!==undefined&&t>p&&t-p<1.5){const r=acc("vid",vKey(v));r.sec+=t-p;if(v.duration)r.pct=Math.max(r.pct,Math.min(100,t/v.duration*100+(v.duration-t<1.5?100:0)))}},true);
+document.addEventListener("seeked",e=>{if(e.target.tagName==="VIDEO")VP.set(e.target,e.target.currentTime)},true);
+document.addEventListener("play",e=>{if(e.target.tagName==="VIDEO"){acc("vid",vKey(e.target)).n++;ytReset()}},true);
+["pause","ended"].forEach(n=>document.addEventListener(n,e=>vSend(e.target),true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){document.querySelectorAll("video").forEach(vSend);if(ytNow){ytBack=ytNow;ytStop()}}
+ else if(ytBack){const b=ytBack;ytBack=null;if(b.y.querySelector(".scr.live")||$("big")?.querySelector("iframe"))ytStart(b.y,b.mode)}});
 let bigFrom=null;
 function bigOpen(html,title){let d=$("big");if(!d){d=document.createElement("div");d.id="big";d.innerHTML=`<button class="x" data-bigx>✕ 關閉</button><div class="stage"></div><div class="bt"></div>`;document.body.appendChild(d);
   d.addEventListener("click",e=>{if(e.target===d||e.target.closest("[data-bigx]"))bigClose()})}
  d.querySelector(".stage").innerHTML=html;d.querySelector(".bt").textContent=title||"";d.classList.add("on");document.body.classList.add("big");
  try{(d.requestFullscreen||d.webkitRequestFullscreen)?.call(d)?.catch?.(()=>{})}catch(e){}}
 function bigClose(){const d=$("big");if(!d||!d.classList.contains("on"))return;const nv=d.querySelector("video");
+ if(d.querySelector("iframe"))ytStop();if(nv)vSend(nv);
  if(nv&&bigFrom){bigFrom.currentTime=nv.currentTime}bigFrom=null;d.querySelector(".stage").innerHTML="";d.classList.remove("on");document.body.classList.remove("big");
  try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")bigClose()});
 document.addEventListener("click",e=>{
- const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);return}
+ const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);ytStart(y,"放大");return}
  const vb=e.target.closest("[data-vbig]");if(vb){const v=vb.closest(".vbox").querySelector("video");v.pause();bigFrom=v;ytReset();
   bigOpen(`<video controls playsinline autoplay src="${v.getAttribute("src")}"${v.poster?` poster="${v.getAttribute("poster")}"`:""}></video>`,vb.closest(".card")?.querySelector("h2")?.textContent);
   const nv=$("big").querySelector("video"),t=v.currentTime;if(t)nv.addEventListener("loadedmetadata",()=>{nv.currentTime=t},{once:true});return}
