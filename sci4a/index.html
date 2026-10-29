@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFCF6">
+<title>學習教材</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* 繪本風（和紙白、3px 墨灰框、珊瑚粉／山吹黃／水色／若竹綠平塗、Huninn 粉圓）。只用淺色底，不做深色模式。 */
+:root{--ink:#3E3A39;--paper:#FFFCF6;--coral:#F2A497;--yellow:#F6D27A;--mizu:#A8D3E6;--green:#B9DAA5;
+ --coral-soft:#FCE7E2;--yellow-soft:#FDF3D6;--mizu-soft:#E2F1F7;--green-soft:#E8F3E0;
+ --bg-2:#F5EEE2;--muted:#7C7571;--line:#E8DFD2;--accent-text:#B65544;--bw:3px;--r:24px;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.8 "Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+h1,h2,h3,h4,b,strong,th{font-weight:400}
+button{font-family:inherit}
+/* ---- 頂部 ---- */
+header{position:sticky;top:0;z-index:9;background:var(--paper);border-bottom:var(--bw) solid var(--ink)}
+.top{display:flex;align-items:center;gap:10px;max-width:880px;margin:0 auto;padding:10px 16px 4px}
+.logo{flex:none;width:42px;height:42px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:21px;line-height:1}
+.top h1{margin:0;font-size:19px;line-height:1.5;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xp{flex:none;background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:15px;white-space:nowrap}
+nav{display:flex;gap:8px;max-width:880px;margin:0 auto;padding:6px 16px 12px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer}
+nav button.on{background:var(--yellow);box-shadow:0 3px 0 var(--ink)}
+main{max-width:880px;margin:0 auto;padding:18px 16px 48px}
+section{display:none}section.on{display:block;animation:pop .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{0%{transform:scale(.97);opacity:0}60%{transform:scale(1.008);opacity:1}100%{transform:scale(1)}}
+/* ---- 插圖 ---- */
+.art{display:block;width:72px;height:72px;flex:none}
+.art.sm{width:40px;height:40px}.art.md{width:54px;height:54px}.art.lg{width:104px;height:104px}
+.stamp{display:grid;place-items:center;background:#fff;border:var(--bw) solid var(--ink);border-radius:50%}
+.float{animation:float 3.4s ease-in-out infinite;transform-origin:50% 90%}
+.float.d2{animation-delay:-1.2s}.float.d3{animation-delay:-2.3s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-2deg)}}
+/* ---- 首頁橫幅 ---- */
+.hero{display:flex;align-items:center;gap:12px;background:var(--yellow-soft);border:var(--bw) solid var(--ink);border-radius:28px;padding:16px 18px;margin:0 0 18px}
+.hero .txt{flex:1;min-width:0}
+.hero h2{font-size:25px;line-height:1.4;margin:8px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;font-size:13.5px;line-height:1.7;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px}
+.chip.y{background:var(--yellow)}.chip.c{background:var(--coral)}
+.pics{flex:none;position:relative;width:140px;height:124px}
+.pics .stamp{position:absolute;right:4px;bottom:0;width:104px;height:104px}
+.pics .stamp .art{width:80px;height:80px}
+.pics .s1{position:absolute;left:0;top:0}.pics .s2{position:absolute;right:-6px;top:-10px}
+/* ---- 卡片與文字 ---- */
+.card{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px 20px;margin:0 0 18px}
+h2{font-size:23px;line-height:1.45;margin:0 0 8px}
+h3{font-size:19px;line-height:1.5;margin:16px 0 6px;display:flex;align-items:center;gap:8px}
+h3:before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--coral);border:2px solid var(--ink)}
+b{box-shadow:inset 0 -.42em 0 var(--yellow);padding:0 2px}/* 用 box-shadow 畫螢光筆：透明漸層在 PDF 會多一條黑線 */
+.card ul,.card ol{padding-left:1.4em}li::marker{color:var(--accent-text)}
+.guide{display:flex;gap:12px;align-items:flex-start;margin:4px 0 16px}
+.who{flex:none;width:60px;text-align:center}
+.ava{width:58px;height:58px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:30px;line-height:1;animation:float 3.4s ease-in-out infinite}
+.who small{display:block;font-size:12px;line-height:1.3;margin-top:4px;color:var(--muted)}
+.bubble{background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;position:relative;min-width:0;flex:1}
+.bubble:before{content:"";position:absolute;left:-10px;top:19px;width:14px;height:14px;background:#fff;border-left:var(--bw) solid var(--ink);border-bottom:var(--bw) solid var(--ink);transform:rotate(45deg)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.tile{border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 14px;background:var(--coral-soft)}
+.tile:nth-child(4n+2){background:var(--mizu-soft)}.tile:nth-child(4n+3){background:var(--yellow-soft)}.tile:nth-child(4n){background:var(--green-soft)}
+.tile .em{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:25px;line-height:1;margin-bottom:6px}
+.tile .em:empty{display:none}
+.tile h4{margin:0 0 2px;font-size:18px;line-height:1.5}.tile p{margin:0;font-size:15.5px}
+.chant{background:var(--yellow);border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0 18px;font-size:19px;text-align:center;box-shadow:0 4px 0 var(--ink)}
+.chant small{display:block;font-size:14.5px;opacity:.85}
+.chant b{box-shadow:inset 0 -.42em 0 #fff}
+.trap{background:var(--coral-soft);border:var(--bw) dashed var(--ink);border-radius:18px;padding:10px 14px;margin:12px 0;font-size:15.5px}
+.trap:before{content:"⚠️ 陷阱題注意";display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin:0 8px 4px 0;font-size:14px;line-height:1.7}
+.lab{background:var(--mizu-soft);border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;margin:12px 0}
+.lab h4{margin:2px 0 4px;font-size:18px}
+.fig{max-width:580px;margin:10px auto;background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden}
+.fig svg{width:100%;height:auto;display:block}
+main svg:not(.art){max-width:100%;height:auto}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:10px 0}
+.vs>div{border:var(--bw) solid var(--ink);border-radius:18px;padding:10px 14px;font-size:15.5px;background:var(--coral-soft)}
+.vs>div:nth-child(2n){background:var(--mizu-soft)}
+.vs h4{margin:0 0 4px;font-size:18px;line-height:1.5}
+.tw{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;overflow:hidden}
+th,td{padding:7px 10px;vertical-align:top;text-align:left;border-bottom:2px solid var(--line)}
+th{background:var(--yellow-soft);border-bottom:2px solid var(--ink)}
+td+td,th+th{border-left:2px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.tl{position:relative;padding-left:32px;margin:10px 0}
+.tl:before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:var(--ink);border-radius:2px}
+.tl div{position:relative;margin:0 0 12px}
+.tl div:before{content:"";position:absolute;left:-31px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink)}
+.tl span{display:inline-block;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-right:6px;font-size:15px}
+.vid{width:100%;display:block;background:var(--ink);border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 影片放大、YouTube 名師影片 ---- */
+.vbox{position:relative}
+.zoom{position:absolute;right:10px;top:10px;z-index:2;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:3px 12px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+.yt{border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden;background:#fff;margin:12px 0}
+.yt .scr{position:relative;display:block;width:100%;aspect-ratio:16/9;background:var(--ink);cursor:pointer;overflow:hidden}
+.yt .scr img{width:100%;height:100%;object-fit:cover;display:block}
+.yt .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:var(--coral);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:28px;line-height:1;box-shadow:0 4px 0 var(--ink);padding-left:5px}
+.yt .dur{position:absolute;left:10px;bottom:10px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:14px;line-height:1.7}
+.yt .scr .zoom{top:auto;bottom:10px}.yt .scr.live .zoom{top:10px;bottom:auto}
+.ytm{padding:10px 16px 12px;border-top:var(--bw) solid var(--ink)}
+.ytm h4{margin:0;font-size:17.5px;line-height:1.5}
+.ytm p{margin:2px 0 0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ytm .tag{color:var(--ink)}
+#big{position:fixed;inset:0;z-index:200;background:rgba(40,36,35,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:56px 12px 16px}
+#big.on{display:flex}
+#big .stage{width:min(100%,calc((100vh - 120px)*16/9));aspect-ratio:16/9;background:#000;border:var(--bw) solid #fff;border-radius:16px;overflow:hidden}
+#big .stage iframe,#big .stage video{width:100%;height:100%;border:0;display:block;background:#000}
+#big .bt{color:#fff;font-size:16px;text-align:center;max-width:880px}
+#big .x{position:absolute;top:10px;right:12px;font-size:18px;line-height:1.5;border:2px solid var(--ink);background:var(--coral);color:var(--ink);border-radius:999px;padding:4px 16px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+body.big{overflow:hidden}
+.pic{max-width:100%;border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 記憶卡 ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.flip{perspective:900px;height:140px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .k{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--bw) solid var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:auto}
+.flip .f{background:var(--mizu);font-size:19px}
+.flip:nth-child(4n+2) .f{background:var(--coral)}.flip:nth-child(4n+3) .f{background:var(--green)}.flip:nth-child(4n) .f{background:var(--yellow)}
+.flip .k{background:#fff;font-size:15.5px;transform:rotateY(180deg)}
+/* ---- 闖關 ---- */
+.qbox{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.prog{height:16px;background:var(--bg-2);border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--yellow);border-right:2px solid var(--ink);transition:width .4s}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--muted)}
+.stem{font-size:19px;white-space:pre-line;margin:8px 0}
+.src{background:var(--mizu-soft);border:2px solid var(--ink);border-radius:14px;padding:8px 14px;margin:10px 0;font-size:16px}
+.opt{display:block;width:100%;text-align:left;font-size:17px;line-height:1.6;border:var(--bw) solid var(--ink);background:#fff;color:var(--ink);border-radius:18px;padding:10px 16px;margin:10px 0;box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.opt:disabled{cursor:default}.opt:disabled:not(.ok):not(.bad){opacity:.55}
+.opt.ok{background:var(--green)}
+.opt.bad{background:var(--coral);animation:shake .3s}
+.opt.pick{background:var(--yellow-soft);box-shadow:0 0 0 3px var(--yellow),0 3px 0 var(--ink)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{display:none;border:2px solid var(--ink);border-radius:16px;padding:10px 14px;margin-top:10px;font-size:16px}
+.fb.ok{display:block;background:var(--green-soft)}.fb.bad{display:block;background:var(--coral-soft)}
+.btn{display:inline-block;font-size:16px;line-height:1.5;border:var(--bw) solid var(--ink);background:var(--coral);color:var(--ink);border-radius:16px;padding:8px 20px;margin-top:12px;box-shadow:0 4px 0 var(--ink);cursor:pointer;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--mizu)}
+.say{font-size:14px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:0 10px;margin-left:6px;vertical-align:middle;cursor:pointer}
+.combo{background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;color:var(--ink)}
+.combo:empty{display:none}
+.rank{text-align:center;padding:6px 4px}
+.rank .deco{display:flex;align-items:flex-end;justify-content:center;gap:10px}
+.rank .big{width:116px;height:116px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:58px;line-height:1}
+.empty{text-align:center}.empty .art{margin:4px auto 0}
+.lvl{border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:2px 0 10px;background:var(--yellow-soft)}
+.lvl b{display:block;font-size:18px;box-shadow:none;padding:0}.lvl small{display:block;font-size:14.5px;color:var(--muted);line-height:1.5}
+.lv-g{background:var(--green-soft)}.lv-m{background:var(--mizu-soft)}.lv-c{background:var(--coral-soft)}
+.lvsum{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0}
+.lvchip{border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:15px}
+.src svg{display:block;width:100%;max-width:520px;margin:4px auto}
+.order{padding:0;margin:8px 0}
+.order li{list-style:none;display:flex;align-items:center;border:var(--bw) solid var(--ink);background:#fff;border-radius:16px;padding:8px 14px;margin:10px 0;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.order li.pick{background:var(--yellow-soft);box-shadow:0 0 0 var(--ink);transform:translateY(3px)}
+.order li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;margin-right:10px;font-size:15px;line-height:1}
+.order li.pick .n{background:var(--yellow)}
+.tag{display:inline-block;font-size:13px;line-height:1.6;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
+.srcs{font-size:13px;color:var(--muted);margin-top:8px}.srcs a{color:var(--accent-text)}
+#boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100% - 32px);background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);padding:10px 16px;font-size:16px}
+/* ---- 作答區塊 ---- */
+.how{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:10px 0 8px;font-size:15px}
+.ask,.fill,.wbox,.tbox,.sub{background:var(--paper);border:var(--bw) dashed var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0}
+.fill .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.fill .row .btn{margin-top:0}
+.fill input,.tbox textarea{font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);outline:0}
+.fill input:focus,.tbox textarea:focus{box-shadow:0 0 0 3px var(--yellow)}
+.fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
+.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block}
+.wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
+.wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
+.reveal{background:var(--green-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:12px 0}
+@media (max-width:520px){
+ body{font-size:16.5px}.card{padding:16px}.qbox{padding:16px}
+ .hero{padding:14px}.hero h2{font-size:21px}
+ .pics{width:96px;height:100px}.pics .stamp{width:84px;height:84px;right:0}.pics .stamp .art{width:62px;height:62px}
+ .pics .s1{width:34px;height:34px}.pics .s2{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ section.on,.float,.ava,.opt.bad{animation:none}
+ .flip .in,.btn,.opt,.order li,.prog i{transition:none}
+}
+/* ---- 列印（PDF） ---- */
+.print body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.print header{position:static}.print nav,.print .xp{display:none}
+.print .top h1{white-space:normal}
+.print section{display:block;animation:none}
+.print .float,.print .ava{animation:none}
+.print .card{break-inside:auto}
+.print .qbox,.print .tile,.print .fig,.print .chant,.print .trap,.print .vs,.print table,.print .hero{break-inside:avoid}
+.print .chant,.print .btn,.print .opt{box-shadow:none}
+.print .pbreak{break-before:page}
+.print .cards{grid-template-columns:1fr 1fr}
+.print .fc{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-size:15px}
+.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+@page{size:A4;margin:12mm}
+</style>
+</head>
+<body>
+<canvas id="boom"></canvas>
+<header><div class="top"><span class="logo" id="logo">📚</span><h1 id="ttl"></h1><span class="xp" id="xp">⭐ 0</span></div><nav id="nav"></nav></header>
+<main id="main"></main>
+<script>
+// 繪本風插圖（原創 SVG）：墨灰 3px 線框＋四色平塗，不用漸層。
+// 網頁範本（renderPage 會把整份檔案嵌進 page.html）與首頁目錄（node require）共用這一份。
+const INK = "#3E3A39", CORAL = "#F2A497", YELLOW = "#F6D27A", MIZU = "#A8D3E6", GREEN = "#B9DAA5", PAPER = "#FFFCF6";
+const SK = `stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+const FACE = (x, y) => `<circle cx="${x - 6}" cy="${y}" r="2.8" fill="${INK}"/><circle cx="${x + 6}" cy="${y}" r="2.8" fill="${INK}"/><path d="M${x - 4} ${y + 7}c2.5 2.5 5.5 2.5 8 0" ${SK} fill="none"/>`;
+
+const ART = {
+  book: `<g ${SK}>
+    <path d="M50 30c-8-6-20-6-30-2v50c10-4 22-4 30 2z" fill="${YELLOW}"/>
+    <path d="M50 30c8-6 20-6 30-2v50c-10-4-22-4-30 2z" fill="${MIZU}"/>
+    <path d="M28 42h14M28 52h14M58 42h14M58 52h14" fill="none"/></g>`,
+  star: `<g ${SK}><path d="M50 18l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z" fill="${YELLOW}"/></g>${FACE(50, 47)}`,
+  cloud: `<path d="M24 70c-8 0-12-6-10-12 2-6 8-8 13-6 1-10 10-16 20-14 7 1 12 7 13 13 7-2 14 3 14 10 0 5-4 9-10 9z" fill="#fff" ${SK}/>`,
+  sun: `<g ${SK}><circle cx="50" cy="50" r="18" fill="${YELLOW}"/>
+    <path d="M50 18v-8M50 90v-8M18 50h-8M90 50h-8M27 27l-6-6M79 79l-6-6M27 73l-6 6M79 21l-6 6" fill="none"/></g>`,
+  // 理化／自然：錐形瓶
+  flask: `<g ${SK}>
+    <path d="M43 18v22L24 76c-3 6 1 12 8 12h36c7 0 11-6 8-12L57 40V18z" fill="#fff"/>
+    <path d="M32.4 60h35.2L76 76c3 6-1 12-8 12H32c-7 0-11-6-8-12z" fill="${MIZU}"/>
+    <path d="M38 18h24" fill="none"/>
+    <circle cx="47" cy="50" r="3" fill="#fff"/><circle cx="54" cy="42" r="2.2" fill="#fff"/></g>${FACE(50, 72)}`,
+  // 歷史／社會：卷軸
+  scroll: `<g ${SK}>
+    <rect x="24" y="27" width="52" height="50" fill="${PAPER}"/>
+    <path d="M32 40h36M32 50h28M32 60h32" fill="none"/>
+    <rect x="18" y="22" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <rect x="18" y="72" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <circle cx="15" cy="27" r="5" fill="${YELLOW}"/><circle cx="85" cy="27" r="5" fill="${YELLOW}"/>
+    <circle cx="15" cy="77" r="5" fill="${YELLOW}"/><circle cx="85" cy="77" r="5" fill="${YELLOW}"/></g>`,
+  // 地理：地球儀
+  globe: `<g ${SK}>
+    <circle cx="50" cy="44" r="25" fill="${MIZU}"/>
+    <path d="M34 36c4-6 14-6 16 0s-4 10-10 10-10-4-6-10z" fill="${GREEN}"/>
+    <path d="M55 50c4-4 12-2 12 4s-6 10-12 8-4-8 0-12z" fill="${GREEN}"/>
+    <path d="M22 50a29 29 0 0 0 50 16M50 73v11M38 86h24" fill="none"/></g>`,
+  // 數學：三角尺
+  ruler: `<g ${SK}>
+    <path d="M20 84V20l64 64z" fill="${MIZU}"/>
+    <path d="M31 72V48l24 24z" fill="${PAPER}"/>
+    <path d="M20 32h7M20 42h5M20 52h7M20 62h5M20 72h7" fill="none"/></g>`,
+  // 英文：字母積木
+  blocks: `<g ${SK}>
+    <rect x="16" y="52" width="32" height="32" rx="6" fill="${CORAL}"/>
+    <rect x="52" y="52" width="32" height="32" rx="6" fill="${MIZU}"/>
+    <rect x="34" y="16" width="32" height="32" rx="6" fill="${YELLOW}"/></g>
+    <g fill="${INK}" font-family="Huninn, sans-serif" font-size="20" text-anchor="middle">
+    <text x="50" y="39">A</text><text x="32" y="75">B</text><text x="68" y="75">C</text></g>`,
+  // 國語：鉛筆
+  pencil: `<g transform="rotate(35 50 50)"><g ${SK}>
+    <path d="M41 12h18v8H41z" fill="${CORAL}"/>
+    <rect x="41" y="20" width="18" height="52" fill="${YELLOW}"/>
+    <path d="M41 72h18l-9 17z" fill="${PAPER}"/>
+    <path d="M50 20v52" fill="none"/></g>
+    <path d="M47 83.3 50 89l3-5.7z" fill="${INK}"/></g>`,
+  // 闖關結果：獎盃
+  trophy: `<g ${SK}>
+    <path d="M32 20h36v18c0 12-8 21-18 21s-18-9-18-21z" fill="${YELLOW}"/>
+    <path d="M32 26h-8c0 10 4 16 10 16M68 26h8c0 10-4 16-10 16M50 59v10" fill="none"/>
+    <path d="M38 69h24l4 15H34z" fill="${CORAL}"/></g>${FACE(50, 34)}`,
+  // 首頁吉祥物：書包
+  backpack: `<g ${SK}>
+    <path d="M38 27c0-10 24-10 24 0" fill="none"/>
+    <rect x="22" y="26" width="56" height="62" rx="16" fill="${CORAL}"/>
+    <rect x="33" y="58" width="34" height="22" rx="6" fill="${YELLOW}"/>
+    <path d="M33 66h34" fill="none"/></g>${FACE(50, 42)}
+    <circle cx="35" cy="47" r="3.4" fill="#fff" opacity=".7"/><circle cx="65" cy="47" r="3.4" fill="#fff" opacity=".7"/>`,
+};
+
+function art(name, cls) {
+  return `<svg class="art ${cls || ""}" viewBox="0 0 100 100" aria-hidden="true">${ART[name] || ART.book}</svg>`;
+}
+// 依科目挑主插圖；內容檔可用 art:"flask" 指定
+function subjArt(s) {
+  s = s || "";
+  return /理化|自然|生物|物理|化學|科學/.test(s) ? "flask" : /歷史|社會|公民/.test(s) ? "scroll" : /地理/.test(s) ? "globe"
+    : /數學|算/.test(s) ? "ruler" : /英/.test(s) ? "blocks" : /國語|國文|作文|閱讀/.test(s) ? "pencil" : "book";
+}
+if (typeof module !== "undefined") module.exports = { ART, art, subjArt, INK, CORAL, YELLOW, MIZU, GREEN, PAPER };
+
+const DATA={"id":"sci4a","title":"天空和水邊的小偵探：月亮・水生植物・水生動物","icon":"🌙","kid":"小女兒","grade":"國小四年級","subject":"自然","version":"翰林","range":"第一、二單元（7 課）","exam":"第一次段考","guide":{"ava":"🦦","name":"獺獺"},"art":"flask","tts":true,"ranks":[[0,"🌱","小芽芽"],[0.5,"🔭","小小觀測員"],[0.7,"🌙","月亮達人"],[0.9,"🪷","水邊博士"],[1,"👑","自然小天才"]],"home":{"intro":"嗨！我是住在溪邊的小水獺<b>獺獺<\/b> 🦦。白天我看太陽，晚上我看月亮，還每天在水裡游來游去。這次段考要考「天空」和「水生世界」兩個單元，我們一天只學一點點，每次 <b>20 分鐘<\/b>，考試就能輕鬆上場！","cards":[{"h":"📅 考前五天，每天 20 分鐘","body":[{"t":"tiles","v":[{"em":"1️⃣","h":"第 1 天","p":"暖身猜謎 → 「☀️ 1-1 天空」和「🔭 1-2 月亮位置」兩站。"},{"em":"2️⃣","h":"第 2 天","p":"「🌓 1-3 月相」那一站 → 排順序遊戲 → 翻記憶卡。"},{"em":"3️⃣","h":"第 3 天","p":"「🏞️ 2-1 水域」和「🪷 2-2 水生植物」兩站。"},{"em":"4️⃣","h":"第 4 天","p":"「🐟 2-3 水生動物」和「💧 2-4 珍惜水域」兩站。"},{"em":"5️⃣","h":"第 5 天","p":"闖關（越後面越難）→ 錯題本清空 → 出場券 → 📤 傳給爸爸。"}]},{"t":"guide","v":"看不懂的字，按題目旁邊的 🔊 我念給你聽！讀累了就休息，明天再來。"}]},{"h":"📝 第一次用？先看這裡：怎麼作答","body":[{"t":"tiles","v":[{"em":"👆","h":"點選題","p":"看到一排 (A)(B)(C) 按鈕，<b>點一個<\/b>你覺得對的就好。"},{"em":"⌨️","h":"填空題","p":"在白色框框<b>打數字<\/b>，再按「對答案」。錯了會給提示。"},{"em":"✍️","h":"手寫題","p":"用<b>手指<\/b>畫在白板上；畫在紙上的話按「📷 拍紙本」。"},{"em":"📤","h":"傳給爸爸","p":"最後一天按「📤 傳給爸爸」，就完成了！"}]},{"t":"guide","v":"答錯沒關係！錯的題目會跑到「錯題本」，再做一次做對就好。"}]},{"h":"📺 每一站都有老師影片","body":[{"t":"tiles","v":[{"em":"🎨","h":"卡通","p":"臺北酷課雲的卡通老師，會做實驗、會故意講錯讓你抓。"},{"em":"📘","h":"課本","p":"麥斯老師照<b>翰林<\/b>課本講，跟學校進度一樣。"},{"em":"⛶","h":"放大看","p":"影片右上角按「⛶ 放大看」會變成整個畫面，按「✕ 關閉」回來。"}]},{"t":"guide","v":"先讀我的卡片，<b>看不懂、或想再聽一次才點影片<\/b>，挑一支就好。"}]},{"h":"🎯 練習卷最常考、也最容易錯的八件事","body":[{"t":"list","v":["月相跟<b>農曆<\/b>有關，跟國曆、天氣都沒關係","描述月亮位置要說<b>方位＋高度角<\/b>；月亮也是<b>東升西落<\/b>","很遠的東西（月亮、星星、遠山）換位置量，高度角<b>差不多<\/b>；近的東西（黑板頂端）會<b>差很多<\/b>","元宵節、中秋節是農曆 15 日，晚上看得到<b>滿月<\/b>","<b>蓮<\/b>的葉子挺出水面；<b>睡蓮<\/b>的葉子平貼水面","布袋蓮、大萍是<b>漂浮<\/b>性：根漂在水裡，不長在泥土裡","紅娘華用<b>腹部末端的呼吸管<\/b>呼吸；蛙用<b>肺<\/b>（還有皮膚）","蝦用胸足走路、<b>腹足游泳<\/b>；螺用<b>腹足爬行<\/b>"]}]},{"h":"👨 給爸爸的陪讀小抄","body":[{"t":"list","v":["這份是照她兩張練習卷（82、92 分）扣分的地方加重的：國曆／農曆、蓮／睡蓮、紅娘華、高度角遠近、蝦和螃蟹、大萍、節日滿月、月蝕閱讀題。","每站最後有一張「📝 考試會這樣問」，請她念給你聽，就是考卷上的問法。","晚上有空可以一起到陽台看月亮，用拳頭量一次高度角，比讀十遍還記得住。","她作答的結果會自動傳到 Mac mini 的學習小站（平板要先用帶鑰匙的連結開過一次），完成闖關你會收到推播。"]}]}]},"stations":[{"id":"warm","nav":"🤔 暖身","intro":"第 1 天先來猜猜看！科學家做實驗之前都會先<b>猜<\/b>，再去找證據。下面三題<b>點一個你猜的答案<\/b>就好，答案會在後面的站揭曉。","cards":[{"h":"🤔 三個自然謎題（先猜再學）","body":[{"t":"ask","id":"g1","reveal":"「🔭 1-2 月亮位置」那一站","how":"憑感覺點一個就好，猜錯沒關係！","q":"🌙 謎題 1：月亮在天空中會怎麼移動？","o":["跟太陽一樣，從東邊升起、西邊落下","從西邊升起、東邊落下","一直停在同一個地方"],"a":0},{"t":"ask","id":"g2","reveal":"「🌓 1-3 月相」那一站","how":"憑感覺點一個就好！","q":"📅 謎題 2：想知道今晚的月亮是不是圓的，要看哪一種日曆？","o":["國曆（學校行事曆那種）","農曆","看天氣預報就知道"],"a":1},{"t":"ask","id":"g3","reveal":"「🪷 2-2 水生植物」那一站","how":"憑感覺點一個就好！","q":"🎈 謎題 3：布袋蓮為什麼能浮在水面上？","o":["它的根很長，勾住岸邊","它的葉柄鼓鼓的，裡面有很多空氣","它很輕，因為沒有葉子"],"a":1},{"t":"guide","v":"三題都點完，就可以去下一站「☀️ 1-1 天空」囉！"}]}]},{"id":"s11","nav":"☀️ 1-1 天空","intro":"第一站：一天的天空。抬頭看看，白天和晚上的天空長得一樣嗎？白天有<b>太陽<\/b>，晚上有<b>月亮和星星<\/b>，可是它們都會<b>移動<\/b>喔！","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"還想再聽一次？🎨<b>卡通<\/b>的有實驗、比較好玩；📘<b>課本<\/b>的照翰林課本一頁一頁講。挑一支就好！"},{"t":"yt","id":"wt-9jQWlpjs","title":"觀察太陽的方法","who":"臺北酷課雲","len":"6 分半","tag":"卡通"},{"t":"yt","id":"GPzrq7GgHjw","title":"1-1 一天的天空","who":"麥斯","len":"11 分","tag":"課本"}]},{"h":"🌞🌙 白天和晚上的天空","body":[{"t":"vs","v":[{"h":"☀️ 白天","p":"看得到<b>太陽、雲<\/b><br>有時候也看得到月亮<br>星星其實還在，只是太陽太亮看不見"},{"h":"🌙 晚上","p":"看得到<b>月亮、星星<\/b><br>星星有的<b>亮<\/b>、有的<b>暗<\/b><br>顏色也不太一樣"}]},{"t":"trap","v":"千萬<b>不可以直接看太陽<\/b>，眼睛會受傷！要用遮光片，或觀察地上的影子。"}]},{"h":"🌅 太陽東升西落","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 260\" role=\"img\" aria-label=\"太陽一天中的位置\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"260\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><path d=\"M60,200 Q235,-10 410,200\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\" stroke-dasharray=\"7 6\"/><line x1=\"20\" y1=\"200\" x2=\"450\" y2=\"200\" stroke=\"#3E3A39\" stroke-width=\"3\"/><rect x=\"20\" y=\"200\" width=\"430\" height=\"46\" fill=\"#B9DAA5\"/><circle cx=\"78\" cy=\"168\" r=\"16\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"78\" y=\"140\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">甲<\/text><circle cx=\"235\" cy=\"70\" r=\"18\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"235\" y=\"40\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">乙<\/text><circle cx=\"392\" cy=\"168\" r=\"16\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"392\" y=\"140\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">丙<\/text><line x1=\"300\" y1=\"95\" x2=\"345\" y2=\"130\" stroke=\"#3E3A39\" stroke-width=\"2.5\" marker-end=\"url(#ar)\"/><text x=\"235\" y=\"228\" font-size=\"26\"  fill=\"#3E3A39\" text-anchor=\"middle\">🏫<\/text><text x=\"40\" y=\"228\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">東<\/text><text x=\"430\" y=\"228\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">西<\/text><text x=\"235\" y=\"120\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">南方天空<\/text><text x=\"78\" y=\"254\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">早上<\/text><text x=\"392\" y=\"254\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">傍晚<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🌄","h":"早上","p":"太陽從<b>東方<\/b>升起，位置比較低（甲）。"},{"em":"🕛","h":"中午","p":"太陽在<b>南方<\/b>天空，位置<b>最高<\/b>（乙），影子最短。"},{"em":"🌇","h":"傍晚","p":"太陽往<b>西方<\/b>落下，位置又變低（丙）。"}]},{"t":"chant","v":"太陽月亮都一樣，東邊升起西邊落"},{"t":"trap","v":"影子一定在太陽的<b>相反方向<\/b>：早上太陽在東，影子在西。"}]},{"h":"🧭 方位：先找北方","body":[{"t":"tiles","v":[{"em":"🧭","h":"指北針","p":"觀察天空之前，先用<b>指北針<\/b>確認方位，<b>紅色那端指北方<\/b>。"},{"em":"🙋","h":"面向北方","p":"右手是<b>東<\/b>、左手是<b>西<\/b>、背後是<b>南<\/b>。"}]}]},{"h":"📐 高度角：月亮有多高？","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 250\" role=\"img\" aria-label=\"高度角示意圖\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"250\" rx=\"14\" fill=\"#FFFCF6\"/><line x1=\"40\" y1=\"200\" x2=\"440\" y2=\"200\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"400\" y=\"225\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">地平線 0°<\/text><line x1=\"90\" y1=\"200\" x2=\"90\" y2=\"30\" stroke=\"#3E3A39\" stroke-width=\"2\" stroke-dasharray=\"6 5\"/><text x=\"110\" y=\"32\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">頭頂 90°<\/text><line x1=\"90\" y1=\"200\" x2=\"350\" y2=\"62\" stroke=\"#F2A497\" stroke-width=\"3\"/><circle cx=\"370\" cy=\"52\" r=\"20\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M170,200 A80,80 0 0 0 160,163\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"200\" y=\"185\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">高度角<\/text><text x=\"90\" y=\"222\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">👀 我在這裡<\/text><rect x=\"300\" y=\"110\" width=\"140\" height=\"58\" rx=\"10\" fill=\"#FFF3D6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"370\" y=\"134\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">✊ 手臂伸直<\/text><text x=\"370\" y=\"157\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">一個拳頭約 10°<\/text><\/svg>"},{"t":"tiles","v":[{"em":"➖","h":"0°","p":"剛好在地平線上。"},{"em":"⬆️","h":"90°","p":"在頭頂正上方，最高就是 90°。"},{"em":"✊","h":"拳頭量","p":"手臂伸直，一個拳頭大約 <b>10°<\/b>。<b>方便<\/b>，但比較不準。"},{"em":"📐","h":"高度角觀測器","p":"用量角器做的，量起來<b>比較準確<\/b>。"}]},{"t":"lab","h":"動手做：高度角觀測器","steps":["準備一個量角器、一根吸管、一條棉線、一個小重物（橡皮擦或迴紋針）。","把吸管貼在量角器的直邊上，當作瞄準器。","棉線綁在量角器中間的圓心，下面吊重物，讓線自然垂下來。","從吸管看到目標（例如路燈頂端），棉線指到的角度就能換算出高度角。"],"think":"為什麼棉線要吊重物？（提示：要讓線永遠指著正下方）"},{"t":"fill","id":"f1","how":"在框框打數字，再按「對答案」。","q":"伸直手臂量月亮，月亮離地平線剛好 3 個拳頭高，高度角大約幾度？","ans":["30"],"unit":"度","hint":"一個拳頭約 10 度，3 個拳頭就是 3 個 10","e":"10 × 3 ＝ 30 度"}]},{"h":"📏 遠的東西 vs 近的東西","body":[{"t":"vs","v":[{"h":"🏫 近的東西","p":"教室黑板頂端、旗桿、電線桿<br>你<b>走近<\/b>，角度變大<br>你<b>走遠<\/b>，角度變小<br>→ 換位置量，<b>差很多<\/b>"},{"h":"🌙 很遠的東西","p":"月亮、星星、遠方的高山<br>在操場走來走去<br>角度幾乎不變<br>→ 換位置量，<b>大致相同<\/b>"}]},{"t":"guide","v":"月亮離我們超級遠，你在操場走幾步，對月亮來說跟沒動一樣，所以高度角量起來差不多。"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「天空晴朗時，哪個時間比較容易看到星星？」→ <b>晚上<\/b>（白天太陽太亮）。","「觀測月亮前，先用什麼確認方位？」→ <b>指北針<\/b>。","「用高度角觀測器測量，哪一個會因為遠近不同而量出不同角度？」→ <b>教室黑板頂端<\/b>這種近的東西。","「測量高度角，用觀測器比較<b>準確<\/b>，用拳頭比較<b>方便<\/b>。」→ ⭕ 對。"]}]}]},{"id":"s12","nav":"🔭 1-2 月亮位置","intro":"第二站：月亮在哪裡？想跟朋友說「月亮在那邊」，朋友一定找不到。科學家會說：「月亮在<b>東方<\/b>，高度角 <b>30 度<\/b>。」這樣大家都找得到！","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"還想再聽一次？🎨<b>卡通<\/b>的有實驗、比較好玩；📘<b>課本<\/b>的照翰林課本一頁一頁講。挑一支就好！"},{"t":"yt","id":"2HxvCkQPeYg","title":"月亮的觀察實驗（一）","who":"臺北酷課雲","len":"10 分","tag":"卡通"},{"t":"yt","id":"sNktnbjgrWo","title":"1-2 月亮的位置","who":"麥斯","len":"18 分","tag":"課本"}]},{"h":"📍 描述月亮的位置＝方位＋高度角","body":[{"t":"tiles","v":[{"em":"🧭","h":"方位","p":"月亮在東、西、南、北哪一邊？用<b>指北針<\/b>找。"},{"em":"📐","h":"高度角","p":"月亮離地平線多高？用<b>拳頭<\/b>或<b>高度角觀測器<\/b>量。"},{"em":"🌳","h":"找地標","p":"記下月亮旁邊的大樹、房子，每次站在<b>同一個地方<\/b>觀察。"}]},{"t":"chant","v":"方位加角度，月亮跑不掉"}]},{"h":"⏰ 月亮也會東升西落","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 300\" role=\"img\" aria-label=\"月亮觀測紀錄表\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"300\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"255\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">月亮觀測紀錄表　農曆 8 月 15 日<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"265\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">0°<\/text><line x1=\"70\" y1=\"237.77777777777777\" x2=\"440\" y2=\"237.77777777777777\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"242.77777777777777\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">10°<\/text><line x1=\"70\" y1=\"215.55555555555554\" x2=\"440\" y2=\"215.55555555555554\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"220.55555555555554\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">20°<\/text><line x1=\"70\" y1=\"193.33333333333334\" x2=\"440\" y2=\"193.33333333333334\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"198.33333333333334\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">30°<\/text><line x1=\"70\" y1=\"171.11111111111111\" x2=\"440\" y2=\"171.11111111111111\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"176.11111111111111\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">40°<\/text><line x1=\"70\" y1=\"148.88888888888889\" x2=\"440\" y2=\"148.88888888888889\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"153.88888888888889\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">50°<\/text><line x1=\"70\" y1=\"126.66666666666669\" x2=\"440\" y2=\"126.66666666666669\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"131.66666666666669\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">60°<\/text><line x1=\"70\" y1=\"104.44444444444443\" x2=\"440\" y2=\"104.44444444444443\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"109.44444444444443\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">70°<\/text><line x1=\"70\" y1=\"82.22222222222223\" x2=\"440\" y2=\"82.22222222222223\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"87.22222222222223\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">80°<\/text><line x1=\"70\" y1=\"60\" x2=\"440\" y2=\"60\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"65\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">90°<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"70\" y1=\"260\" x2=\"70\" y2=\"60\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"70\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">東<\/text><text x=\"440\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">西<\/text><text x=\"26\" y=\"150\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">高<\/text><text x=\"26\" y=\"168\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">度<\/text><text x=\"26\" y=\"186\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">角<\/text><circle cx=\"105\" cy=\"215.55555555555554\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"119\" y=\"220.55555555555554\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">18:30<\/text><circle cx=\"130\" cy=\"193.33333333333334\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"144\" y=\"198.33333333333334\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">19:30<\/text><circle cx=\"155\" cy=\"171.11111111111111\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"169\" y=\"176.11111111111111\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">20:30<\/text><\/svg>"},{"t":"tiles","v":[{"em":"⏱️","h":"每隔 1 小時","p":"同一天觀察，<b>每隔 1 小時<\/b>記錄一次，才看得出明顯的移動。"},{"em":"↗️","h":"東邊升起","p":"月亮從<b>東方<\/b>升起，慢慢往<b>西方<\/b>移動。"},{"em":"🌕","h":"滿月那晚","p":"越接近<b>半夜 12 點<\/b>，高度角越<b>大<\/b>；過了 12 點，高度角越來越<b>小<\/b>。"},{"em":"🌗","h":"同一天","p":"同一個晚上，月亮的<b>形狀不會變<\/b>，變的是<b>位置<\/b>。"}]},{"t":"reveal","ref":"g1","v":"月亮跟太陽一樣，都是<b>東升西落<\/b>！看紀錄表：18:30 在東方低低的，到 20:30 越爬越高，還往西邊移動了一點。"},{"t":"trap","v":"「太陽東升西落、月亮<b>西升東落<\/b>」是錯的！兩個都是東升西落。"}]},{"h":"🌑 月亮自己會發光嗎？","body":[{"t":"tiles","v":[{"em":"🔦","h":"反射太陽光","p":"月亮自己<b>不會發光<\/b>，是太陽照到它，我們才看得到。"},{"em":"🌚","h":"有亮有暗","p":"仔細看，月亮表面有<b>亮的地方<\/b>，也有<b>暗暗的斑點<\/b>。"}]}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「要清楚描述月亮的位置，必須包含？」→ <b>方位和高度角<\/b>。","「同一天觀測月亮，每隔多久觀測一次比較看得出變化？」→ <b>1 小時（60 分鐘）<\/b>。","「看紀錄表，月亮在 18:30 和 20:30，哪個時間高度角比較大？」→ 先找點的位置，<b>越高<\/b>的高度角越大。"]}]}]},{"id":"s13","nav":"🌓 1-3 月相","intro":"第三站：月相。月亮每天看起來的<b>形狀<\/b>都不一樣，有時是彎彎的，有時是圓圓的，這個形狀就叫做<b>月相<\/b>。猜猜看，它是隨便亂變的嗎？","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"月相是最常考的地方！📘<b>課本<\/b>那支照翰林課本講；🔬<b>原理<\/b>那支用電腦模擬月亮繞地球，比較長，想弄懂「為什麼」再看。"},{"t":"yt","id":"Pn_ENE8hYpI","title":"1-3 月相的變化","who":"麥斯","len":"12 分半","tag":"課本"},{"t":"yt","id":"X7Mmbwnj1k8","title":"月亮到底哪邊亮？畫完這張圖月相全對","who":"晟自然玩科學","len":"26 分","tag":"原理"}]},{"h":"🌙 月相跟著農曆走","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 225\" role=\"img\" aria-label=\"月相變化\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"225\" rx=\"14\" fill=\"#FFFCF6\"/><defs><marker id=\"ar\" markerWidth=\"9\" markerHeight=\"9\" refX=\"7\" refY=\"4.5\" orient=\"auto\"><path d=\"M0,0 L9,4.5 L0,9z\" fill=\"#3E3A39\"/><\/marker><\/defs><text x=\"235\" y=\"28\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">農曆日期和月相（在臺灣面向南方看）<\/text><circle cx=\"45\" cy=\"82\" r=\"26\" fill=\"#5B5F73\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"45\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">1 日<\/text><text x=\"45\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">朔（看不到）<\/text><circle cx=\"121\" cy=\"82\" r=\"26\" fill=\"#5B5F73\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M121,56 A26,26 0 0 1 121,108 A19.0,26 0 0 0 121,56 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"1.5\"/><text x=\"121\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">3 日<\/text><text x=\"121\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">眉月<\/text><circle cx=\"197\" cy=\"82\" r=\"26\" fill=\"#5B5F73\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M197,56 A26,26 0 0 1 197,108 A0.0,26 0 0 1 197,56 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"1.5\"/><text x=\"197\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">7、8 日<\/text><text x=\"197\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">上弦月<\/text><circle cx=\"273\" cy=\"82\" r=\"26\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"273\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">15、16 日<\/text><text x=\"273\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">望（滿月）<\/text><circle cx=\"349\" cy=\"82\" r=\"26\" fill=\"#5B5F73\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M349,56 A26,26 0 0 0 349,108 A0.0,26 0 0 1 349,56 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"1.5\"/><text x=\"349\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">22、23 日<\/text><text x=\"349\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">下弦月<\/text><circle cx=\"425\" cy=\"82\" r=\"26\" fill=\"#5B5F73\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M425,56 A26,26 0 0 0 425,108 A19.0,26 0 0 1 425,56 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"1.5\"/><text x=\"425\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">26 日<\/text><text x=\"425\" y=\"160\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">殘月<\/text><line x1=\"30\" y1=\"185\" x2=\"440\" y2=\"185\" stroke=\"#3E3A39\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"235\" y=\"210\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">右邊先亮 → 全亮 → 左邊亮 → 又看不到，約 29～30 天一輪<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🌑","h":"朔（農曆 1 日）","p":"看不到月亮。"},{"em":"🌓","h":"上弦月（7、8 日）","p":"<b>右<\/b>半邊亮。"},{"em":"🌕","h":"望（15、16 日）","p":"滿月，圓圓的。"},{"em":"🌗","h":"下弦月（22、23 日）","p":"<b>左<\/b>半邊亮。"}]},{"t":"chant","v":"初一看不到，初八右邊亮，十五圓又圓，廿三左邊亮"},{"t":"reveal","ref":"g2","v":"要看<b>農曆<\/b>！月相的變化有規律，而且跟<b>農曆日期<\/b>有關，大約 <b>29～30 天<\/b>循環一次。"}]},{"h":"⚠️ 最容易錯的三句話","body":[{"t":"trap","v":"「<b>國曆<\/b>每個月 15 日的月亮最圓」是錯的！要<b>農曆<\/b> 15、16 日才是滿月。"},{"t":"trap","v":"「月相跟當天的<b>天氣<\/b>有關」是錯的！下雨天只是被雲擋住看不到，月相照樣在變。"},{"t":"trap","v":"「月相由圓到缺、再由缺到圓，大約 15 天」是錯的！完整一輪大約 <b>29～30 天<\/b>（一個農曆月）。"}]},{"h":"🏮 月相和生活","body":[{"t":"table","head":["節日","農曆日期","月亮"],"rows":[["🏮 元宵節","1 月 15 日","🌕 滿月"],["🥮 中秋節","8 月 15 日","🌕 滿月"],["🧧 除夕","12 月最後一天","🌑 看不到"],["🐉 端午節","5 月 5 日","🌒 彎彎的月牙"]]},{"t":"fill","id":"f2","how":"在框框打數字，再按「對答案」。","q":"今天是農曆 1 日，看不到月亮。大約再過幾天，又會再看不到月亮？","ans":["29","30","29.5"],"unit":"天","hint":"月相繞一整圈要一個農曆月","e":"月相大約 29～30 天循環一次。"}]},{"h":"🐶 天狗食月？其實是月蝕","body":[{"t":"tiles","v":[{"em":"🐶","h":"古人的傳說","p":"古人看到滿月慢慢不見，以為是<b>天狗<\/b>把月亮吃掉了。"},{"em":"🌍","h":"真正的原因","p":"<b>太陽、地球、月球<\/b>排成一直線，<b>地球在中間<\/b>，擋住照向月球的陽光。"},{"em":"🌕","h":"什麼時候","p":"月蝕只會發生在<b>滿月<\/b>的晚上，也就是農曆 15、16 日前後。"}]},{"t":"chant","v":"地球站中間，擋住太陽光","sub":"月蝕：太陽－地球－月球"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「月相中的『朔』指的是農曆幾日？」→ <b>1 日<\/b>。","「在臺灣面向南方，看到月亮<b>右半邊亮<\/b>，是哪一種月相？」→ <b>上弦月<\/b>（農曆 7、8 日）。","「天氣晴朗的晚上，哪一個節日可能看見滿月？」→ <b>元宵節<\/b>或<b>中秋節<\/b>。","「農曆 1 日到 30 日，月相怎麼變？」→ <b>由缺到圓再到缺<\/b>。"]}]}]},{"id":"s21","nav":"🏞️ 2-1 水域","intro":"第四站：水域環境。我最喜歡的家就是<b>水邊<\/b>！河川、池塘、海洋都是水域，可是住在裡面的生物，每個地方都不一樣喔。","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"還想再聽一次？🎨<b>卡通<\/b>的有實驗、比較好玩；📘<b>課本<\/b>的照翰林課本一頁一頁講。挑一支就好！"},{"t":"yt","id":"nuQfXd2GVg8","title":"認識常見生物的生存環境","who":"臺北酷課雲","len":"6 分半","tag":"卡通"},{"t":"yt","id":"AXg6YIj12Wc","title":"2-1 認識水域環境","who":"麥斯","len":"14 分半","tag":"課本"}]},{"h":"🗺️ 各種水域環境","body":[{"t":"tiles","v":[{"em":"🏞️","h":"河川（溪流）","p":"水會流動。上游水流<b>湍急<\/b>，有苦花魚、拉氏清溪蟹。"},{"em":"🪷","h":"池塘、湖泊","p":"水流<b>平緩<\/b>，有睡蓮、浮萍、魚和螺。"},{"em":"🌾","h":"水田、溼地","p":"水比較<b>淺<\/b>，有水稻、青蛙、螺。學校的<b>生態池<\/b>也是水域。"},{"em":"🌊","h":"海洋","p":"<b>範圍很大<\/b>、海水<b>鹹鹹的<\/b>，深的地方陽光照不到。有小丑魚、海龜、珊瑚。"}]},{"t":"trap","v":"不同的水域，水流快慢、深淺、鹹不鹹都不一樣，所以住的生物<b>不一樣<\/b>。「池塘和溪流的生物完全一樣」是錯的！"}]},{"h":"🎒 去水邊調查，要帶什麼？","body":[{"t":"tiles","v":[{"em":"🥅","h":"撈網、水桶","p":"撈起小生物，放在裝水的桶子裡觀察。"},{"em":"🔍","h":"放大鏡","p":"看清楚小生物的身體。"},{"em":"📗","h":"圖鑑","p":"查出生物的<b>名字<\/b>。"},{"em":"📝","h":"紀錄表、筆","p":"把看到的記下來。"}]},{"t":"trap","v":"<b>不用帶<\/b>：電動玩具、計算機。安全第一：要有<b>大人陪<\/b>、結伴同行、不靠近深水。"},{"t":"guide","v":"觀察完一定要把生物<b>放回原來的水域<\/b>，不要帶回家，也不要倒進水溝！"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「下列哪些是水域環境？溼地、河川、水田、教室、學校生態池」→ <b>教室<\/b>不是，其他都是。","「下列何者<b>不是<\/b>海洋的特色？」→ 海洋生物很多，「<b>生物無法生存<\/b>」是錯的。","「調查水域環境時，<b>不用<\/b>攜帶哪一個？」→ <b>電動玩具<\/b>。"]}]}]},{"id":"s22","nav":"🪷 2-2 水生植物","intro":"第五站：水生植物。住在水裡的植物有個大麻煩：<b>泡在水裡吸不到空氣<\/b>、<b>水一流就被沖走<\/b>。它們各自想出了超厲害的辦法！","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"讀完卡片還想再聽一次？這支照翰林課本講四種水生植物，挑你不懂的地方看就好！"},{"t":"yt","id":"WzCYub0MM_Q","title":"2-2 水生植物","who":"麥斯","len":"15 分","tag":"課本"}]},{"h":"🌿 四種水生植物，一張圖看懂","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 280\" role=\"img\" aria-label=\"四種水生植物\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"280\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"10\" y=\"90\" width=\"450\" height=\"150\" fill=\"#A8D3E6\"/><line x1=\"10\" y1=\"90\" x2=\"460\" y2=\"90\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"10\" y=\"236\" width=\"450\" height=\"34\" fill=\"#C9A97A\"/><text x=\"445\" y=\"258\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">泥土<\/text><line x1=\"65\" y1=\"236\" x2=\"65\" y2=\"50\" stroke=\"#5E8C4A\" stroke-width=\"4\"/><ellipse cx=\"65\" cy=\"48\" rx=\"34\" ry=\"9\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2\"/><line x1=\"80\" y1=\"236\" x2=\"88\" y2=\"70\" stroke=\"#5E8C4A\" stroke-width=\"3\"/><text x=\"92\" y=\"66\" font-size=\"18\"  fill=\"#3E3A39\" text-anchor=\"middle\">🌸<\/text><text x=\"60\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">挺水：蓮<\/text><path d=\"M175,236 C165,180 190,140 178,88\" fill=\"none\" stroke=\"#5E8C4A\" stroke-width=\"3\"/><ellipse cx=\"178\" cy=\"88\" rx=\"32\" ry=\"6\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"178\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">浮葉：睡蓮<\/text><text x=\"178\" y=\"62\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">葉貼水面<\/text><ellipse cx=\"290\" cy=\"80\" rx=\"22\" ry=\"14\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2\"/><ellipse cx=\"290\" cy=\"90\" rx=\"14\" ry=\"8\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><path d=\"M282,98 L276,140 M290,98 L290,148 M298,98 L304,138\" stroke=\"#3E3A39\" stroke-width=\"1.8\"/><text x=\"290\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">漂浮：布袋蓮<\/text><text x=\"290\" y=\"170\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">根不碰泥土<\/text><path d=\"M400,236 C390,200 410,170 398,130 M412,236 C424,200 404,175 418,140\" fill=\"none\" stroke=\"#3F7A3A\" stroke-width=\"3\"/><text x=\"405\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">沉水：水蘊草<\/text><text x=\"405\" y=\"118\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"middle\">整株在水裡<\/text><\/svg>"},{"t":"table","head":["種類","長什麼樣","例子"],"rows":[["🌸 挺水性","根在泥土裡，莖和葉<b>挺出水面<\/b>","蓮、水稻、筊白筍、香蒲"],["🍃 浮葉性","根在泥土裡，葉子<b>平貼水面<\/b>","睡蓮、臺灣萍蓬草"],["🎈 漂浮性","根<b>漂在水中<\/b>，不碰泥土","布袋蓮、大萍、浮萍"],["🌊 沉水性","<b>整株<\/b>都在水裡","水蘊草、金魚藻"]]},{"t":"chant","v":"挺水站出來，浮葉貼水面，漂浮到處漂，沉水躲水裡"}]},{"h":"🦸 水生植物的超能力","body":[{"t":"tiles","v":[{"em":"🪷","h":"蓮","p":"葉柄和地下莖（<b>蓮藕<\/b>）有很多孔洞，叫<b>通氣組織<\/b>，可以<b>儲存和輸送空氣<\/b>。"},{"em":"🎈","h":"布袋蓮","p":"<b>葉柄膨大<\/b>，裡面有通氣組織，像游泳圈一樣讓它<b>浮在水面<\/b>。"},{"em":"🍃","h":"睡蓮","p":"葉柄<b>長又柔軟<\/b>，水變深變淺，葉子都能平貼水面。"},{"em":"🌊","h":"水蘊草","p":"莖葉<b>細長柔軟<\/b>，水一流就跟著擺動，<b>不容易折斷<\/b>。"}]},{"t":"reveal","ref":"g3","v":"布袋蓮的<b>葉柄鼓鼓的<\/b>，裡面有很多裝空氣的小格子（通氣組織），所以能浮在水面上。"},{"t":"lab","h":"迷你實驗：蓮藕會吐泡泡","steps":["請爸爸切一小段蓮藕（要大人用刀）。","把蓮藕放進一盆水裡，一端露出水面。","用吸管對著露出水面那端的小孔吹氣。","看看水裡那一端有沒有冒出泡泡？"],"think":"泡泡從哪裡跑出來的？這說明蓮藕的孔洞可以做什麼？"}]},{"h":"⚠️ 蓮和睡蓮，傻傻分不清","body":[{"t":"vs","v":[{"h":"🌸 蓮（荷花）","p":"<b>挺水性<\/b><br>葉子和花都<b>挺出水面<\/b><br>葉子上的水珠會滾來滾去<br>地下莖是蓮藕"},{"h":"🍃 睡蓮","p":"<b>浮葉性<\/b><br>葉子<b>平貼在水面<\/b><br>葉子有一個缺口<br>根長在泥土裡"}]},{"t":"trap","v":"「從岸上看，睡蓮和蓮的葉片都漂浮在水面上」是錯的！<b>蓮的葉子挺出水面<\/b>。"},{"t":"trap","v":"「水蘊草的莖是圓柱形，可以挺出水面」是錯的！水蘊草是<b>沉水性<\/b>，莖柔軟，整株在水裡。"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「哪一種植物的葉柄中有中空管道，能幫助適應水域環境？」→ <b>蓮<\/b>。","「大萍屬於哪一種水生植物？」→ <b>漂浮性<\/b>（根漂在水中，不長在土裡）。","「下列何者<b>不是<\/b>水生植物？蓮、玫瑰花、金魚藻、水稻」→ <b>玫瑰花<\/b>。","「根漂在水裡，有膨大葉柄的是？」→ <b>布袋蓮<\/b>。"]}]}]},{"id":"s23","nav":"🐟 2-3 水生動物","intro":"第六站：水生動物，就是我的鄰居們！住在水裡要解決兩件事：<b>怎麼移動<\/b>、<b>怎麼呼吸<\/b>。每個鄰居的辦法都不一樣喔。","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"還想再聽一次？🎨<b>卡通<\/b>的有實驗、比較好玩；📘<b>課本<\/b>的照翰林課本一頁一頁講。挑一支就好！"},{"t":"yt","id":"m0bZ83jUkDQ","title":"水生生物適應環境的本領","who":"臺北酷課雲","len":"8 分半","tag":"卡通"},{"t":"yt","id":"eeAowP9xNtA","title":"2-3 水生動物","who":"麥斯","len":"11 分半","tag":"課本"}]},{"h":"🏊 怎麼移動？","body":[{"t":"table","head":["動物","怎麼動"],"rows":[["🐟 魚","<b>擺動鰭<\/b>游泳；身體是<b>流線形<\/b>，在水裡游得快"],["🦐 蝦","<b>胸足<\/b>走路、<b>腹足<\/b>游泳"],["🦀 螃蟹","用<b>胸足<\/b>爬行，常常<b>橫著走<\/b>"],["🐌 石田螺","用<b>腹足<\/b>慢慢爬行"],["🐸 蝌蚪","<b>擺動尾巴<\/b>游泳"],["🦆 鴨子、青蛙","腳上有<b>蹼<\/b>，可以划水"]]},{"t":"trap","v":"蝦和螃蟹都有胸足，可是<b>用腹足游泳的是蝦<\/b>，螃蟹是用胸足爬行。考卷常常把兩個混在一起考！"}]},{"h":"🫧 怎麼呼吸？","body":[{"t":"tiles","v":[{"em":"🐟","h":"用鰓","p":"魚、蝦、螃蟹、螺、蝌蚪，都用<b>鰓<\/b>在水裡呼吸。"},{"em":"🐸","h":"用肺（和皮膚）","p":"長大的<b>青蛙<\/b>用<b>肺<\/b>，也用皮膚幫忙呼吸。"},{"em":"🐢","h":"浮上來換氣","p":"海龜、鯨魚、海豚用<b>肺<\/b>，要游到水面換氣。"}]},{"t":"svg","v":"<svg viewBox=\"0 0 470 170\" role=\"img\" aria-label=\"紅娘華的呼吸管\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"170\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"10\" y=\"60\" width=\"450\" height=\"100\" fill=\"#A8D3E6\"/><line x1=\"10\" y1=\"60\" x2=\"460\" y2=\"60\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><ellipse cx=\"200\" cy=\"105\" rx=\"70\" ry=\"24\" fill=\"#C9A97A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"268\" y1=\"100\" x2=\"330\" y2=\"52\" stroke=\"#3E3A39\" stroke-width=\"4\"/><text x=\"345\" y=\"40\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">呼吸管伸出水面吸空氣<\/text><text x=\"200\" y=\"112\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">紅娘華<\/text><text x=\"200\" y=\"150\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">管子長在「肚子的尾巴」（腹部末端）<\/text><\/svg>"},{"t":"trap","v":"紅娘華是住在水裡的昆蟲，<b>不是用鰓<\/b>，而是用<b>腹部末端的呼吸管<\/b>伸出水面吸空氣。"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「下列哪一種水生動物<b>不是<\/b>用鰓呼吸？紅娘華、螃蟹、蝦子、石田螺」→ <b>紅娘華<\/b>。","「下列哪一種動物主要用<b>肺<\/b>呼吸？紅娘華、蛙、蟹、鯉魚」→ <b>蛙<\/b>。","「石田螺怎麼運動？」→ 用<b>腹足爬行<\/b>。","「螃蟹用胸足步行、腹足游泳，並用鰓呼吸」→ ❌ 腹足游泳的是<b>蝦<\/b>。"]}]}]},{"id":"s24","nav":"💧 2-4 珍惜水域","intro":"第七站：珍惜水域。我住的小溪如果變髒了，我和鄰居們就沒有家了！我們能幫水域做些什麼呢？","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"還想再聽一次？🎨<b>卡通<\/b>的有實驗、比較好玩；📘<b>課本<\/b>的照翰林課本一頁一頁講。挑一支就好！"},{"t":"yt","id":"VHtW51YRvZM","title":"水與空氣的污染與防治","who":"臺北酷課雲","len":"約 7 分","tag":"卡通"},{"t":"yt","id":"ungEEIZ3xUM","title":"2-4 珍惜水域環境","who":"麥斯","len":"11 分","tag":"課本"}]},{"h":"😢 水域受傷了","body":[{"t":"tiles","v":[{"em":"🏭","h":"倒廢水","p":"工廠、家裡的廢水直接排進河裡，水會變髒、魚會死掉。"},{"em":"🛍️","h":"亂丟垃圾","p":"<b>塑膠袋<\/b>在海裡很像<b>水母<\/b>，海龜會誤吃而死亡。"},{"em":"🐠","h":"隨意放生","p":"把外來的生物放進水域，會搶食物、<b>破壞生態平衡<\/b>。"},{"em":"🎣","h":"抓太多","p":"魚抓光了，就再也沒有魚可以吃了。"}]}]},{"h":"💪 我可以這樣保護水域","body":[{"t":"tiles","v":[{"em":"🧹","h":"參加淨灘","p":"把海邊、河邊的垃圾撿起來。"},{"em":"🧴","h":"少用清潔劑","p":"洗碗、洗衣服少倒一點，廢水比較乾淨。"},{"em":"🔥","h":"不在水邊烤肉","p":"垃圾和油汙容易流進水裡。"},{"em":"🙅","h":"不隨意放生、不亂採","p":"看看就好，觀察完放回原處。"}]},{"t":"chant","v":"不倒廢水不亂丟，不亂放生少清潔","sub":"合理利用水域資源，才能和大自然一起永續生存"},{"t":"trap","v":"「工廠廢水直接排到水域比較方便」是錯的！方便不代表對環境好。"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["「下列哪些是保護水域的做法？參加淨灘、排放廢水、隨意採集、減少清潔劑」→ <b>淨灘、減少清潔劑<\/b>。","「哪一種海洋垃圾長得像水母，容易讓海龜誤食？」→ <b>塑膠袋<\/b>。","「不能隨意在水域環境放生，因為？」→ 可能<b>破壞生態平衡<\/b>。"]}]}]},{"id":"fin","nav":"✍️ 出場券","intro":"第 5 天：闖關和錯題本都做完了嗎？最後完成這兩題，再按「📤 傳給爸爸」，你就是天空和水邊的小偵探了！","cards":[{"h":"✍️ 畫一畫","body":[{"t":"write","id":"w1","q":"畫出農曆 8 日的「上弦月」，再畫出農曆 23 日的「下弦月」。記得是哪一邊亮！","how":"用手指畫在白板上；畫在紙上的話按「📷 拍紙本」。"}]},{"h":"💬 說一說","body":[{"t":"text","id":"x1","q":"用自己的話說說看：為什麼不能把家裡養的魚或烏龜隨便放到河裡？","how":"打一兩句就好，例如「因為……，所以……」。"}]},{"h":"📤 完成！","body":[{"t":"submit","how":"按下去，選 LINE 傳給爸爸。"},{"t":"guide","v":"你好棒！考試的時候記得：遇到「<b>國曆<\/b>」「<b>不是<\/b>」「<b>錯誤<\/b>」要圈起來，看清楚再作答喔！"}]}]}],"flash":[["描述月亮的位置","要說方位和高度角"],["確認方位的工具","指北針，紅色那端指北"],["高度角 0° 和 90°","0° 在地平線，90° 在頭頂正上方"],["一個拳頭","手臂伸直，大約 10°"],["高度角觀測器 vs 拳頭","觀測器比較準確，拳頭比較方便"],["遠的東西換位置量","月亮、星星、遠山：高度角大致相同"],["太陽和月亮怎麼移動","都是東升西落"],["月亮會發光嗎","不會，是反射太陽光"],["月相跟什麼有關","農曆日期（不是國曆、不是天氣）"],["月相多久一輪","大約 29～30 天"],["朔","農曆 1 日，看不到月亮"],["上弦月","農曆 7、8 日，右半邊亮"],["望（滿月）","農曆 15、16 日，元宵節、中秋節"],["下弦月","農曆 22、23 日，左半邊亮"],["月蝕","地球在太陽和月球中間，只在滿月發生"],["挺水性植物","蓮、水稻、筊白筍：葉子挺出水面"],["浮葉性植物","睡蓮、臺灣萍蓬草：葉子平貼水面"],["漂浮性植物","布袋蓮、大萍、浮萍：根漂在水中"],["沉水性植物","水蘊草、金魚藻：整株在水裡"],["蓮的通氣組織","葉柄和蓮藕有孔洞，儲存、輸送空氣"],["布袋蓮為什麼會浮","葉柄膨大，裡面有空氣"],["蝦怎麼運動","胸足走路、腹足游泳"],["石田螺怎麼運動","腹足爬行"],["紅娘華怎麼呼吸","腹部末端的呼吸管"],["青蛙（成蛙）怎麼呼吸","用肺，也用皮膚"],["保護水域","不倒廢水、不亂丟垃圾、不隨意放生、少用清潔劑"]],"order":[{"t":"🌙 農曆一個月的月相","items":["朔（1 日，看不到）","上弦月（8 日，右半亮）","望（15 日，滿月）","下弦月（23 日，左半亮）"]},{"t":"✊ 用拳頭量月亮的高度角","items":["先用指北針找到月亮的方位","面向月亮，手臂伸直","拳頭下緣對齊地平線","一個拳頭一個拳頭往上疊到月亮","數拳頭，一個算 10 度"]},{"t":"🥅 去水邊調查","items":["找大人陪同、結伴出發","準備撈網、水桶、圖鑑、紀錄表","撈起生物，放進水桶觀察記錄","查圖鑑找出名字","把生物放回原來的水域"]}],"quiz":[{"tag":"看懂","s":"要清楚描述月亮在天空中的位置，一定要說出哪兩件事？","o":["顏色和形狀","方位和高度角","大小和亮度","日期和天氣"],"a":1,"e":"描述位置要說「在哪個方向」（方位）和「有多高」（高度角）。顏色、大小、天氣都說不出月亮在哪裡。"},{"tag":"看懂","s":"天空晴朗的時候，下列哪個時間最容易看到星星？","o":["中午 12 點","下午 3 點","早上 9 點","晚上 8 點"],"a":3,"e":"星星白天也在，只是太陽光太亮看不見；晚上天黑了才看得到。"},{"tag":"看懂","s":"觀測月亮之前，要先用哪一種工具確認方位？","o":["指北針","溫度計","手電筒","放大鏡"],"a":0,"e":"指北針紅色那端指北方，找到北方就知道東西南北。"},{"tag":"看懂","s":"布袋蓮可以浮在水面上，主要是靠哪一個構造？","o":["很長很長的根","膨大的葉柄","漂亮的花","葉子上的刺"],"a":1,"e":"布袋蓮的葉柄膨大，裡面有很多裝空氣的通氣組織，像游泳圈一樣。"},{"tag":"看懂","s":"從水域撈起來的小魚、小蝦，觀察完應該怎麼處理？","o":["帶回家養","丟進垃圾桶","放回原來的水域","倒進水溝裡"],"a":2,"e":"觀察完要放回原來的水域，牠們才能繼續在自己的家生活。"},{"tag":"看懂","s":"下列哪一種植物是「漂浮性」水生植物，根漂在水中、不長在泥土裡？","o":["蓮","水稻","睡蓮","大萍"],"a":3,"e":"大萍的根漂在水中，屬於漂浮性。蓮和水稻是挺水性，睡蓮是浮葉性，它們的根都長在泥土裡。"},{"tag":"看懂","s":"下列哪一個地方「不是」水域環境？","o":["溼地","教室","水田","學校的生態池"],"a":1,"e":"溼地、水田、生態池都有水，有水生生物住在裡面；教室不是水域。"},{"tag":"課本","s":"月相的變化和什麼有關？","o":["國曆日期","當天的天氣","農曆日期","星期幾"],"a":2,"e":"月相跟農曆日期有關。國曆 15 日不一定是滿月；下雨只是被雲擋住，月相還是照樣在變。"},{"tag":"課本","s":"農曆 15 日前後，天氣晴朗的晚上，最可能看到哪一種月相？","o":["滿月","上弦月","看不到月亮","下弦月"],"a":0,"e":"農曆 15、16 日是「望」，就是滿月。上弦月在 7、8 日，下弦月在 22、23 日，1 日看不到月亮。"},{"tag":"課本","s":"同一天觀察月亮的位置，大約每隔多久記錄一次，比較看得出明顯的變化？","o":["1 分鐘","5 分鐘","1 小時","1 星期"],"a":2,"e":"月亮移動得很慢，1 分鐘、5 分鐘幾乎看不出來；每隔 1 小時記錄一次就看得出來。1 星期後月相都變了，就不是「同一天」了。"},{"tag":"課本","s":"在操場不同的位置，用高度角觀測器測量下列哪一個的高度角，量出來會「大致相同」？","o":["教室黑板頂端","旗桿頂端","電線桿頂端","月亮"],"a":3,"e":"月亮離我們非常遠，在操場走幾步，高度角幾乎不變。黑板、旗桿、電線桿很近，走近走遠角度就差很多。"},{"tag":"課本","s":"蓮的葉柄和地下莖（蓮藕）裡有許多孔洞，這些孔洞有什麼功用？","o":["裝水讓蓮變重","給小蟲住","是通氣組織，可以儲存和輸送空氣","用來吸收泥土"],"a":2,"e":"這些孔洞叫通氣組織，可以儲存和輸送空氣，幫助蓮在泥水裡生活。"},{"tag":"課本","s":"從岸上看，蓮和睡蓮的葉子有什麼不一樣？","o":["蓮的葉子挺出水面，睡蓮的葉子平貼水面","兩種葉子都漂浮在水面上","兩種葉子都整片泡在水裡","蓮的葉子平貼水面，睡蓮的葉子挺出水面"],"a":0,"e":"蓮是挺水性，葉子挺出水面；睡蓮是浮葉性，葉子平貼水面。考卷最愛考這兩個！"},{"tag":"課本","s":"紅娘華住在水裡，牠是用哪一個構造呼吸？","o":["鰓","腹部末端的呼吸管","背上的翅膀","牠不需要呼吸"],"a":1,"e":"紅娘華是水生昆蟲，把腹部末端的呼吸管伸出水面吸空氣，不是用鰓。"},{"tag":"課本","s":"蝦子在水中怎麼運動？","o":["用腹足慢慢爬行","只靠水流漂來漂去","用胸足走路、用腹足游泳","擺動尾巴游泳，像蝌蚪"],"a":2,"e":"蝦用胸足走路、腹足游泳。用腹足爬行的是螺，擺動尾巴游泳的是蝌蚪。"},{"tag":"挑戰","s":"【題組】看「月亮觀測紀錄表」回答：","src":"<svg viewBox=\"0 0 470 300\" role=\"img\" aria-label=\"月亮觀測紀錄表\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"300\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"255\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">月亮觀測紀錄表　農曆 8 月 15 日<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"265\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">0°<\/text><line x1=\"70\" y1=\"237.77777777777777\" x2=\"440\" y2=\"237.77777777777777\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"242.77777777777777\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">10°<\/text><line x1=\"70\" y1=\"215.55555555555554\" x2=\"440\" y2=\"215.55555555555554\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"220.55555555555554\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">20°<\/text><line x1=\"70\" y1=\"193.33333333333334\" x2=\"440\" y2=\"193.33333333333334\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"198.33333333333334\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">30°<\/text><line x1=\"70\" y1=\"171.11111111111111\" x2=\"440\" y2=\"171.11111111111111\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"176.11111111111111\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">40°<\/text><line x1=\"70\" y1=\"148.88888888888889\" x2=\"440\" y2=\"148.88888888888889\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"153.88888888888889\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">50°<\/text><line x1=\"70\" y1=\"126.66666666666669\" x2=\"440\" y2=\"126.66666666666669\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"131.66666666666669\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">60°<\/text><line x1=\"70\" y1=\"104.44444444444443\" x2=\"440\" y2=\"104.44444444444443\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"109.44444444444443\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">70°<\/text><line x1=\"70\" y1=\"82.22222222222223\" x2=\"440\" y2=\"82.22222222222223\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"87.22222222222223\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">80°<\/text><line x1=\"70\" y1=\"60\" x2=\"440\" y2=\"60\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"65\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">90°<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"70\" y1=\"260\" x2=\"70\" y2=\"60\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"70\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">東<\/text><text x=\"440\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">西<\/text><text x=\"26\" y=\"150\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">高<\/text><text x=\"26\" y=\"168\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">度<\/text><text x=\"26\" y=\"186\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">角<\/text><circle cx=\"105\" cy=\"215.55555555555554\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"119\" y=\"220.55555555555554\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">18:30<\/text><circle cx=\"130\" cy=\"193.33333333333334\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"144\" y=\"198.33333333333334\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">19:30<\/text><circle cx=\"155\" cy=\"171.11111111111111\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"169\" y=\"176.11111111111111\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">20:30<\/text><\/svg>","s2":"18:30 到 20:30，月亮的高度角怎麼變？","o":["越來越大","越來越小","都沒有變","先變大再變小"],"a":0,"e":"18:30 是 20°，19:30 是 30°，20:30 是 40°，越來越高，高度角越來越大。"},{"tag":"挑戰","s":"【題組・承上圖】","src":"<svg viewBox=\"0 0 470 300\" role=\"img\" aria-label=\"月亮觀測紀錄表\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"300\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"255\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">月亮觀測紀錄表　農曆 8 月 15 日<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"265\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">0°<\/text><line x1=\"70\" y1=\"237.77777777777777\" x2=\"440\" y2=\"237.77777777777777\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"242.77777777777777\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">10°<\/text><line x1=\"70\" y1=\"215.55555555555554\" x2=\"440\" y2=\"215.55555555555554\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"220.55555555555554\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">20°<\/text><line x1=\"70\" y1=\"193.33333333333334\" x2=\"440\" y2=\"193.33333333333334\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"198.33333333333334\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">30°<\/text><line x1=\"70\" y1=\"171.11111111111111\" x2=\"440\" y2=\"171.11111111111111\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"176.11111111111111\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">40°<\/text><line x1=\"70\" y1=\"148.88888888888889\" x2=\"440\" y2=\"148.88888888888889\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"153.88888888888889\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">50°<\/text><line x1=\"70\" y1=\"126.66666666666669\" x2=\"440\" y2=\"126.66666666666669\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"131.66666666666669\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">60°<\/text><line x1=\"70\" y1=\"104.44444444444443\" x2=\"440\" y2=\"104.44444444444443\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"109.44444444444443\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">70°<\/text><line x1=\"70\" y1=\"82.22222222222223\" x2=\"440\" y2=\"82.22222222222223\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"87.22222222222223\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">80°<\/text><line x1=\"70\" y1=\"60\" x2=\"440\" y2=\"60\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"65\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">90°<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"70\" y1=\"260\" x2=\"70\" y2=\"60\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"70\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">東<\/text><text x=\"440\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">西<\/text><text x=\"26\" y=\"150\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">高<\/text><text x=\"26\" y=\"168\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">度<\/text><text x=\"26\" y=\"186\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">角<\/text><circle cx=\"105\" cy=\"215.55555555555554\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"119\" y=\"220.55555555555554\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">18:30<\/text><circle cx=\"130\" cy=\"193.33333333333334\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"144\" y=\"198.33333333333334\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">19:30<\/text><circle cx=\"155\" cy=\"171.11111111111111\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"169\" y=\"176.11111111111111\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">20:30<\/text><\/svg>","s2":"這天是農曆 8 月 15 日，那天晚上看到的月相最可能是？","o":["朔","上弦月","望（滿月）","下弦月"],"a":2,"e":"農曆 15 日是望，也就是滿月（這天還是中秋節）。"},{"tag":"挑戰","s":"【題組・承上圖】","src":"<svg viewBox=\"0 0 470 300\" role=\"img\" aria-label=\"月亮觀測紀錄表\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"300\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"255\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">月亮觀測紀錄表　農曆 8 月 15 日<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"265\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">0°<\/text><line x1=\"70\" y1=\"237.77777777777777\" x2=\"440\" y2=\"237.77777777777777\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"242.77777777777777\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">10°<\/text><line x1=\"70\" y1=\"215.55555555555554\" x2=\"440\" y2=\"215.55555555555554\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"220.55555555555554\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">20°<\/text><line x1=\"70\" y1=\"193.33333333333334\" x2=\"440\" y2=\"193.33333333333334\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"198.33333333333334\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">30°<\/text><line x1=\"70\" y1=\"171.11111111111111\" x2=\"440\" y2=\"171.11111111111111\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"176.11111111111111\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">40°<\/text><line x1=\"70\" y1=\"148.88888888888889\" x2=\"440\" y2=\"148.88888888888889\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"153.88888888888889\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">50°<\/text><line x1=\"70\" y1=\"126.66666666666669\" x2=\"440\" y2=\"126.66666666666669\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"131.66666666666669\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">60°<\/text><line x1=\"70\" y1=\"104.44444444444443\" x2=\"440\" y2=\"104.44444444444443\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"109.44444444444443\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">70°<\/text><line x1=\"70\" y1=\"82.22222222222223\" x2=\"440\" y2=\"82.22222222222223\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"87.22222222222223\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">80°<\/text><line x1=\"70\" y1=\"60\" x2=\"440\" y2=\"60\" stroke=\"#D8CFC0\" stroke-width=\"1\"/><text x=\"60\" y=\"65\" font-size=\"13\"  fill=\"#3E3A39\" text-anchor=\"end\">90°<\/text><line x1=\"70\" y1=\"260\" x2=\"440\" y2=\"260\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"70\" y1=\"260\" x2=\"70\" y2=\"60\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"70\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">東<\/text><text x=\"440\" y=\"284\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">西<\/text><text x=\"26\" y=\"150\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">高<\/text><text x=\"26\" y=\"168\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">度<\/text><text x=\"26\" y=\"186\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">角<\/text><circle cx=\"105\" cy=\"215.55555555555554\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"119\" y=\"220.55555555555554\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">18:30<\/text><circle cx=\"130\" cy=\"193.33333333333334\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"144\" y=\"198.33333333333334\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">19:30<\/text><circle cx=\"155\" cy=\"171.11111111111111\" r=\"9\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"169\" y=\"176.11111111111111\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">20:30<\/text><\/svg>","s2":"如果繼續觀察到半夜，月亮會往哪個方向移動？","o":["回到東方往下沉","往西方移動","一直停在原地","往北方移動"],"a":1,"e":"月亮和太陽一樣東升西落，從東方升起，會慢慢往西方移動。"},{"tag":"挑戰","s":"小安在臺灣面向南方看月亮，看到月亮「右半邊亮、左半邊暗」。這天最可能是農曆幾日？","o":["1 日","8 日","15 日","23 日"],"a":1,"e":"右半邊亮是上弦月，在農曆 7、8 日。1 日看不到、15 日全圓、23 日是左半邊亮的下弦月。"},{"tag":"挑戰","s":"天氣晴朗的晚上，下列哪一個節日最可能看見滿月？","o":["除夕","端午節","重陽節","元宵節"],"a":3,"e":"元宵節是農曆 1 月 15 日，晚上是滿月。除夕看不到月亮，端午（5 日）和重陽（9 日）都不是滿月。"},{"tag":"挑戰","s":"三位同學在說月相：\n小美：國曆每個月 15 日的月亮最圓。\n小華：月相變化有規律，大約 29～30 天循環一次。\n小傑：下雨天看不到月亮，所以月相跟天氣有關。\n誰說對了？","o":["小美","小華","小傑","三個人都對"],"a":1,"e":"只有小華對。小美錯在「國曆」，要農曆 15 日才是滿月；小傑錯在月相跟天氣無關，下雨只是被雲擋住。"},{"tag":"挑戰","s":"閱讀後回答：","src":"古人看到滿月慢慢變暗、好像被咬掉一塊，就說是「天狗吃月亮」。其實這是「月蝕」：當太陽、地球、月球剛好排成一直線時，照向月球的太陽光被擋住，月亮就暗下來了。","s2":"月蝕發生時，三個星球是怎麼排的？","o":["地球在太陽和月球的中間","月球在太陽和地球的中間","太陽在地球和月球的中間","三個星球沒有排成一直線"],"a":0,"e":"照向月球的陽光被地球擋住，所以地球在中間：太陽－地球－月球。所以月蝕只會在滿月的晚上發生。"},{"tag":"挑戰","s":"小芸在生態池看到一種植物：「整株都長在水裡，莖和葉細細長長、軟軟的，水一流就跟著擺動。」它最可能是？","o":["睡蓮","布袋蓮","水蘊草","蓮"],"a":2,"e":"整株在水裡、莖葉柔軟細長，是沉水性植物水蘊草。睡蓮葉子貼水面，布袋蓮漂在水面，蓮挺出水面。"},{"tag":"挑戰","s":"小強把螃蟹、蝦子、紅娘華、鯉魚分成兩組：「用鰓呼吸」和「不是用鰓呼吸」。哪一隻要放在「不是用鰓呼吸」那一組？","o":["螃蟹","蝦子","鯉魚","紅娘華"],"a":3,"e":"紅娘華用腹部末端的呼吸管呼吸。螃蟹、蝦子、鯉魚都用鰓呼吸。"},{"tag":"挑戰","s":"有一條小河，常有人倒進含清潔劑的廢水，也有人把外來的魚放進河裡。下列哪一個是保護這條河的好做法？","o":["多放一些不同種類的魚","減少使用清潔劑，也不隨意放生","在河邊烤肉，順便清垃圾","把垃圾丟進河裡讓水沖走"],"a":1,"e":"少用清潔劑讓廢水比較乾淨，不隨意放生才不會破壞生態平衡。烤肉容易留下垃圾和油汙，丟垃圾更不行。"}],"sources":[{"t":"麥斯「小四自然(上)翰林2026」播放清單（確認翰林四上第一、二單元課名）","u":"https://www.youtube.com/@cornlee/playlists"},{"t":"臺北酷課雲 x 均一「108新課綱｜小四自然」","u":"https://www.youtube.com/@CooC-Cloud"},{"t":"屏東縣國小 115 學年四年級自然領域教學計畫","u":"https://www.cp.ptc.edu.tw/storage/134710/134710_115_B-06_4A.pdf"}]};
+// 作答同步（學習小站 study-hub）：網頁 → ntfy.sh → Mac mini。renderPage／renderHome 會把整份檔案嵌進頁面。
+// 鑰匙：第一次用「網址#k=鑰匙」打開任何一頁就記在這台平板（同網域每頁共用），#k=off 取消；沒有鑰匙時完全不作用。
+// 頻道與加密鑰匙都由鑰匙推出（和 Mac 的 study_hub.py 同一套規則）：
+//   收件 sh-<sha256("in:"+鑰匙) 前 24 碼>、回條 sh-<sha256("st:"+鑰匙) 前 24 碼>、AES-GCM 鑰匙 sha256("enc:"+鑰匙)
+// 作答先排進本機佇列，送出後等 Mac 在回條頻道確認才刪；沒網路或 Mac 沒回，20 分鐘後重送（Mac 會去重）。
+const HUB = (() => {
+  const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
+  const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  // 首頁不清掉網址上的鑰匙：iPad「加入主畫面」的圖示和 Safari 分開存資料，網址帶著鑰匙，圖示打開時才會自己記住
+  const takeKey = () => {
+    const m = location.hash.match(/[#&]k=([\w-]+)/);
+    if (!m) return false;
+    put("hub_k", m[1] === "off" ? null : m[1]);
+    if (typeof DATA !== "undefined") history.replaceState(null, "", location.pathname + location.search);
+    return true;
+  };
+  takeKey();
+  addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
+  const KEY = get("hub_k"), ON = !!(KEY && window.crypto && crypto.subtle && window.fetch);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const sha = (s) => crypto.subtle.digest("SHA-256", enc.encode(s));
+  const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  let ch = null;
+  const chan = () => ch || (ch = Promise.all([sha("in:" + KEY), sha("st:" + KEY), sha("enc:" + KEY)]).then(async ([a, b, c]) =>
+    ({ tin: "sh-" + hex(a).slice(0, 24), tst: "sh-" + hex(b).slice(0, 24), k: await crypto.subtle.importKey("raw", c, "AES-GCM", false, ["encrypt", "decrypt"]) })));
+  async function seal(k, u8) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, u8));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  }
+  const open = async (k, u8) => new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8.slice(0, 12) }, k, u8.slice(12)));
+  const DEV = get("hub_dev") || (() => { const d = Math.random().toString(36).slice(2, 10); put("hub_dev", d); return d; })();
+  const queue = () => { try { return JSON.parse(get(QK) || "[]"); } catch (e) { return []; } };
+  const save = (a) => put(QK, JSON.stringify(a.slice(-500)));
+  const pg = () => (typeof DATA !== "undefined" && DATA && DATA.id) || "home";
+
+  // 記一筆作答；key 相同又還沒送出的舊筆會被取代（打字題只送最後的內容）。題目代號用 id2，id 是這筆事件自己的
+  let lastTs = 0;
+  function log(t, d = {}, wait = 2500) {
+    if (!ON) return;
+    const a = queue(), ts = lastTs = Math.max(Date.now(), lastTs + 1); // 同一毫秒連點兩下也要分得出先後
+    if (d.key) { const i = a.findIndex((e) => !e.s && e.key === d.key); if (i >= 0) a.splice(i, 1); }
+    a.push({ ...d, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts, pg: pg(), t, s: 0 });
+    save(a); soon(wait); ui();
+  }
+  let tm = null, busy = false;
+  const soon = (ms) => { clearTimeout(tm); tm = setTimeout(flush, ms); };
+  async function flush(keepalive) {
+    if (!ON || busy || navigator.onLine === false) return;
+    busy = true;
+    try {
+      const c = await chan(), now = Date.now(), todo = queue().filter((e) => !e.s || now - e.s > 20 * 60e3);
+      while (todo.length) {
+        const batch = []; let size = 0;
+        while (todo.length) {
+          const { s, key, ...ev } = todo[0], j = JSON.stringify(ev), n = enc.encode(j).length;
+          if (batch.length && size + n > MAXB) break;
+          batch.push({ id: ev.id, j }); size += n; todo.shift();
+        }
+        const body = b64u(await seal(c.k, enc.encode(`{"v":1,"dev":"${DEV}","ev":[${batch.map((x) => x.j).join(",")}]}`)));
+        const r = await fetch(NT + c.tin, { method: "POST", body, keepalive: !!keepalive });
+        if (!r.ok) break;
+        const ids = new Set(batch.map((x) => x.id)), t = Date.now(), cur = queue();
+        cur.forEach((e) => { if (ids.has(e.id)) e.s = t; }); save(cur);
+      }
+      if (!keepalive) { setTimeout(poll, 8000); setTimeout(poll, 30000); }
+    } catch (e) {} finally { busy = false; ui(); }
+  }
+  // 讀 Mac 的回條：確認收到的就從佇列刪掉
+  async function poll() {
+    if (!ON) return;
+    try {
+      const c = await chan(), r = await fetch(NT + c.tst + "/json?poll=1&since=" + (get("hub_since") || "12h"));
+      if (!r.ok) return;
+      const acked = new Set();
+      for (const ln of (await r.text()).split("\n")) {
+        let msg; try { msg = JSON.parse(ln); } catch (e) { continue; }
+        if (msg.event !== "message") continue;
+        put("hub_since", msg.id);
+        try { const o = JSON.parse(dec.decode(await open(c.k, unb64u(msg.message)))); (o.ack || []).forEach((x) => acked.add(x)); if (o.at) put("hub_last", o.at); } catch (e) {}
+      }
+      if (acked.size) save(queue().filter((e) => !acked.has(e.id)));
+    } catch (e) {} finally { ui(); }
+  }
+  // 整個檔案（作答報告圖）加密後當 ntfy 附件上傳；成功回 true
+  async function sendFile(u8, meta) {
+    if (!ON) return false;
+    try {
+      const c = await chan(), m2 = b64u(await seal(c.k, enc.encode(JSON.stringify({ v: 1, dev: DEV, pg: pg(), ts: Date.now(), ...meta }))));
+      const r = await fetch(NT + c.tin + "?filename=r.bin&message=" + m2, { method: "POST", body: new Blob([await seal(c.k, u8)], { type: "text/plain" }) });
+      return r.ok;
+    } catch (e) { return false; }
+  }
+  // 頁尾一行：讓孩子知道作答會傳給爸爸、同步到哪
+  function ui() {
+    const el = document.getElementById("hubst"); if (!el) return;
+    if (!ON) { el.textContent = ""; return; }
+    const n = queue().filter((e) => !e.s).length, last = get("hub_last");
+    el.textContent = "📡 你的作答會自動傳給爸爸" + (n ? `・有 ${n} 筆等網路，連上會自動補傳` : last ? `・已同步（${last}）` : "");
+  }
+  if (ON) {
+    addEventListener("online", () => flush());
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(true); else poll(); });
+    setInterval(() => { if (document.visibilityState === "visible") flush(); }, 60000);
+    setTimeout(() => { flush(); poll(); }, 1500);
+  }
+  return { on: ON, log, sendFile, ui };
+})();
+
+const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
+const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const mmss=t=>`${t/60|0}:${String(t%60).padStart(2,"0")}`;
+const CALM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
+if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
+document.title=DATA.title;$("ttl").textContent=DATA.title;$("logo").textContent=DATA.icon||"📚";
+const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
+S.inl=S.inl||{};S.first=S.first||{};S.round=S.round||1;
+let warned=false;
+const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){if(!warned){warned=true;toast("⚠️ 平板的空間不夠，作答可能存不起來，請跟爸爸說一聲")}}};
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),6000)}
+// 手寫與照片很大，改存 IndexedDB：全部週課共用同一個網域的 localStorage（約 5MB），放圖片幾週後就會撐爆，連作答都存不進去
+const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
+ const open=()=>p||(p=new Promise((ok,no)=>{try{const r=indexedDB.open("study-img",1);r.onupgradeneeded=()=>r.result.createObjectStore("i");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}));
+ const run=(m,f)=>open().then(d=>new Promise((ok,no)=>{const t=d.transaction("i",m),q=f(t.objectStore("i"));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>no(t.error)}));
+ return{get:(id,f)=>run("readonly",s=>s.get(k(id,f))).catch(()=>undefined).then(v=>v??S.inl[id]?.[f]),
+  set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
+   .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
+const INL={};const reg=b=>{INL[b.id]=b;return b};
+// 闖關、排順序的狀態一定要在這裡宣告：下面產生頁面（列印版會直接產生題目）時就會用到，宣告在後面會讀不到而中斷
+let QZ=null,cur=0,combo=0,oi=0,picked=[];
+function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
+const hero=()=>`<div class="hero"><div class="txt"><div class="chips">${[DATA.grade,DATA.subject,DATA.version].filter(Boolean).map(x=>`<span class="chip">${x}</span>`).join("")}${DATA.exam?`<span class="chip y">${DATA.exam}</span>`:""}</div><h2>${DATA.title}</h2>${DATA.range?`<div class="srcs">範圍：${DATA.range}</div>`:""}</div><div class="pics">${art("star","sm float d2 s1")}${art("cloud","md float d3 s2")}<span class="stamp">${art(DATA.art||subjArt(DATA.subject),"float")}</span></div></div>`;
+// ---------- blocks ----------
+function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
+ switch(b.t){
+ case"h3":return `<h3>${b.v}</h3>`;
+ case"p":return `<p>${b.v}</p>`;
+ case"list":return `<ul>${b.v.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ case"tiles":return `<div class="tiles">${b.v.map(x=>`<div class="tile"><div class="em">${x.em||""}</div><h4>${x.h}</h4><p>${x.p}</p></div>`).join("")}</div>`;
+ case"chant":return `<div class="chant">🎵 ${b.v}${b.sub?`<small>${b.sub}</small>`:""}</div>`;
+ case"trap":return `<div class="trap">${b.v}</div>`;
+ case"vs":return `<div class="vs">${b.v.map(x=>`<div><h4>${x.h}</h4>${x.p}</div>`).join("")}</div>`;
+ case"table":return `<div class="tw"><table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
+ case"svg":return `<div class="fig">${b.v}</div>`;
+ case"img":return `<img class="pic" src="${b.v}" alt="${b.alt||""}">`;
+ case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<div class="vbox"><video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video><button class="zoom" data-vbig>⛶ 放大看</button></div>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ // YouTube 名師影片：直接顯示影片畫面，點一下就地播放、按「放大看」滿版播放；s／e 是只播的片段（秒）
+ case"yt":{const seg=b.s||b.e?`・只看 ${mmss(b.s||0)}～${b.e?mmss(b.e):"結束"}`:"";
+  return PRINT?`<p>📺 ${b.title}（${b.who}${seg}）：youtu.be/${b.id}${b.s?"?t="+b.s:""}</p>`:
+  `<div class="yt" data-yt="${b.id}" data-s="${b.s||0}" data-e="${b.e||""}" data-title="${b.title}"><div class="scr" role="button" tabindex="0" data-ytplay aria-label="播放：${b.title}"><img loading="lazy" src="https://i.ytimg.com/vi/${b.id}/hqdefault.jpg" alt=""><span class="play">▶</span>${b.len?`<span class="dur">⏱ ${b.len}</span>`:""}<button class="zoom" data-ytbig>⛶ 放大看</button></div><div class="ytm"><h4>${b.tag?`<span class="tag">${b.tag}</span>`:""}${b.title}</h4><p>${b.who}${seg}</p>${b.cap?`<p>${b.cap}</p>`:""}</div></div>`}
+ case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
+ case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
+ case"guide":return guide(b.v);
+ case"how":return `<div class="how">📝 怎麼作答：${b.v}</div>`;
+ case"ask":reg(b);return PRINT?`<div class="ask"><div class="stem">${b.q}</div><p>${b.o.map((o,j)=>`（　）${L[j]}. ${o}`).join("<br>")}</p></div>`:
+  `<div class="ask" data-id="${b.id}"><div class="how">📝 ${b.how||"點一個你覺得對的答案"}</div><div class="stem">${b.q}</div>${b.o.map((o,j)=>`<button class="opt" data-ask="${b.id}" data-j="${j}">(${L[j]}) ${o}</button>`).join("")}<div class="fb"></div></div>`;
+ case"reveal":return PRINT?"":`<div class="reveal" data-ref="${b.ref}" data-v="${encodeURIComponent(b.v||"")}"></div>`;
+ case"fill":reg(b);return PRINT?`<div class="fill"><div class="stem">${b.q}</div><p>答：＿＿＿＿＿＿ ${b.unit||""}</p></div>`:
+  `<div class="fill" data-id="${b.id}"><div class="how">📝 ${b.how||"在框框裡打答案（只打數字就好），再按「對答案」"}</div><div class="stem">${b.q}</div><div class="row"><input inputmode="decimal" autocomplete="off" data-fill="${b.id}"> <span>${b.unit||""}</span><button class="btn" data-check="${b.id}">對答案</button></div><div class="fb"></div></div>`;
+ case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint"></div></div>`:
+  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍紙本」拍照"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍紙本<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片"></div>`;
+ case"text":reg(b);return PRINT?`<div class="tbox"><div class="stem">${b.q}</div><p>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p></div>`:
+  `<div class="tbox"><div class="how">📝 ${b.how||"用自己的話打一兩句就好，不用很長"}</div><div class="stem">${b.q}</div><textarea data-text="${b.id}" placeholder="在這裡打字…"></textarea></div>`;
+ case"submit":return PRINT?"":`<div class="sub"><div class="how">📝 ${HUB.on?"全部做完後按下面的按鈕，作答報告（含手寫）會自動傳給爸爸，不用開 LINE":b.how||"全部做完後按下面的按鈕，選 LINE 傳給爸爸"}</div><button class="btn" data-submit="1">📤 傳給爸爸</button><div class="fb" id="subfb"></div><img class="subimg" id="subimg" alt="作答報告"></div>`;
+ default:return "";}}
+const card=c=>`<div class="card">${c.h?`<h2>${c.h}</h2>`:""}${(c.body||[]).map(blk).join("")}</div>`;
+// ---------- pages ----------
+const pages=[];
+pages.push({id:"home",nav:"🗺️ 出發",html:()=>hero()+guide(DATA.home.intro)+(DATA.home.cards||[]).map(card).join("")});
+DATA.stations.forEach(s=>pages.push({id:s.id,nav:s.nav,html:()=>(s.intro?guide(s.intro):"")+s.cards.map(card).join("")}));
+if(DATA.flash?.length)pages.push({id:"flash",nav:"🃏 記憶卡",html:()=>PRINT?
+ `<div class="card"><h2>🃏 記憶卡（遮住右邊自我測驗）</h2><div class="cards">${DATA.flash.map(f=>`<div class="fc"><b>${f[0]}</b>：${f[1]}</div>`).join("")}</div></div>`:
+ guide("點一下卡片就會翻面。先自己說出答案，再翻過來對答案！")+`<div class="cards" id="fc"></div>`,init:initFlash});
+if(DATA.order?.length)pages.push({id:"order",nav:"🧩 排順序",html:()=>PRINT?
+ `<div class="card"><h2>🧩 排順序練習</h2>${DATA.order.map((g,i)=>`<h3>${g.t}</h3><p>${shuffle(g.items.map((v,k)=>k)).map(k=>"（　）"+g.items[k]).join("<br>")}</p>`).join("")}</div>`:
+ guide("請依照<b>正確順序</b>依序點選，全部排對可以拿到 ⭐×5！")+`<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div><button class="btn alt" id="oNext">換一組 🔄</button></div>`,init:initOrder});
+pages.push({id:"quiz",nav:"⚔️ 闖關",html:()=>PRINT?printQuiz():guide(DATA.quizHow||"📝 怎麼作答：每題<b>點一個</b>你覺得對的答案，馬上會告訴你對錯和原因，再按「下一關」。答錯沒關係，錯的題目會自動放進「📕 錯題」，最後回去重做到全對就過關！")+`<div class="qbox" id="qbox"></div>`,init:qStart});
+if(!PRINT)pages.push({id:"wrong",nav:"📕 錯題",html:()=>`<div id="wbox"></div>`,init:wRender});
+if(PRINT)pages.push({id:"key",nav:"",html:printKey});
+// ---------- render ----------
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const M=$("main"),N=$("nav");
+// 產生全部分頁：在檔尾才呼叫（見最後一行）。列印版會在這時直接產生題目，用到的 let／const 都要先宣告好，放前面會中斷、PDF 少掉練習題與解答
+function render(){pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;b.onclick=()=>show(p.id);N.appendChild(b)}});
+ if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+ if(!PRINT){const h=document.createElement("div");h.id="hubst";h.className="srcs";M.appendChild(h);HUB.ui()}}
+function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});bigClose();ytReset();
+ const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// ---------- 影片：YouTube 就地播放、放大看 ----------
+const ytSrc=y=>`https://www.youtube-nocookie.com/embed/${y.dataset.yt}?autoplay=1&playsinline=1&rel=0&modestbranding=1${+y.dataset.s?"&start="+y.dataset.s:""}${y.dataset.e?"&end="+y.dataset.e:""}`;
+const YTA=`allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen`;
+// 同時只播一支：開新的就把其他就地播放的換回縮圖（拿掉 iframe 才會停聲音）
+function ytReset(keep){if(!keep)ytStop();document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function ytPlay(y){const s=y.querySelector(".scr");if(s.classList.contains("live"))return;ytReset();document.querySelectorAll("video").forEach(v=>v.pause());
+ s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`;ytStart(y,"就地")}
+// 看片紀錄（送學習小站）：動畫課記「實際播放秒數」和「看到幾 %」；YouTube 是別人的播放器讀不到進度，只記點開幾次、開著多久（暫停也算，約略值）
+// 送的是這次打開網頁以來的累計，同一支影片未送出的舊筆會被新的取代（key），Mac 端同一次觀看（vw）取最大值
+const ACC={},acc=(t,k)=>ACC[t+k]||(ACC[t+k]={vw:Math.random().toString(36).slice(2,8),sec:0,n:0,pct:0,tag:""});
+const wSend=(t,k,g,r)=>HUB.log(t,{id2:String(k).slice(0,16),g:String(g||"").slice(0,30),vw:r.vw,sec:Math.round(r.sec),n:r.n,pct:Math.round(r.pct),tag:r.tag,key:t+":"+k},3000);
+let ytNow=null,ytBack=null;
+function ytStart(y,mode){ytStop();ytNow={y,mode,t0:Date.now(),max:(+y.dataset.e||0)-(+y.dataset.s||0)}}
+function ytStop(){if(!ytNow)return;const x=ytNow;ytNow=null;const len=x.max>0?x.max:3600,s=Math.min((Date.now()-x.t0)/1000,len);if(s<3)return;
+ const k=x.y.dataset.yt+(+x.y.dataset.s?"@"+x.y.dataset.s:""),r=acc("yt",k);/* 同一支影片在不同站播不同片段，用起始秒數分開 */r.sec+=s;r.n++;r.tag=x.mode;r.pct=x.max>0?Math.min(100,r.sec/x.max*100):0;wSend("yt",k,x.y.dataset.title,r)}
+const vKey=v=>(v.getAttribute("src")||"").split("?")[0].split("/").pop().replace(/\.\w+$/,"");
+const VP=new WeakMap();
+function vSend(v){if(!v||v.tagName!=="VIDEO")return;const k=vKey(v),r=ACC["vid"+k];if(!r||r.sec<2||r.sent===Math.round(r.sec))return;r.sent=Math.round(r.sec);wSend("vid",k,v.dataset.title,r)}
+document.addEventListener("timeupdate",e=>{const v=e.target;if(v.tagName!=="VIDEO")return;const p=VP.get(v),t=v.currentTime;VP.set(v,t);
+ if(p!==undefined&&t>p&&t-p<1.5){const r=acc("vid",vKey(v));r.sec+=t-p;if(v.duration)r.pct=Math.max(r.pct,Math.min(100,t/v.duration*100+(v.duration-t<1.5?100:0)))}},true);
+document.addEventListener("seeked",e=>{if(e.target.tagName==="VIDEO")VP.set(e.target,e.target.currentTime)},true);
+document.addEventListener("play",e=>{if(e.target.tagName==="VIDEO"){acc("vid",vKey(e.target)).n++;ytReset()}},true);
+["pause","ended"].forEach(n=>document.addEventListener(n,e=>vSend(e.target),true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){document.querySelectorAll("video").forEach(vSend);if(ytNow){ytBack=ytNow;ytStop()}}
+ else if(ytBack){const b=ytBack;ytBack=null;if(b.y.querySelector(".scr.live")||$("big")?.querySelector("iframe"))ytStart(b.y,b.mode)}});
+let bigFrom=null;
+function bigOpen(html,title){let d=$("big");if(!d){d=document.createElement("div");d.id="big";d.innerHTML=`<button class="x" data-bigx>✕ 關閉</button><div class="stage"></div><div class="bt"></div>`;document.body.appendChild(d);
+  d.addEventListener("click",e=>{if(e.target===d||e.target.closest("[data-bigx]"))bigClose()})}
+ d.querySelector(".stage").innerHTML=html;d.querySelector(".bt").textContent=title||"";d.classList.add("on");document.body.classList.add("big");
+ try{(d.requestFullscreen||d.webkitRequestFullscreen)?.call(d)?.catch?.(()=>{})}catch(e){}}
+function bigClose(){const d=$("big");if(!d||!d.classList.contains("on"))return;const nv=d.querySelector("video");
+ if(d.querySelector("iframe"))ytStop();if(nv)vSend(nv);
+ if(nv&&bigFrom){bigFrom.currentTime=nv.currentTime}bigFrom=null;d.querySelector(".stage").innerHTML="";d.classList.remove("on");document.body.classList.remove("big");
+ try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")bigClose()});
+document.addEventListener("click",e=>{
+ const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);ytStart(y,"放大");return}
+ const vb=e.target.closest("[data-vbig]");if(vb){const v=vb.closest(".vbox").querySelector("video");v.pause();bigFrom=v;ytReset();
+  bigOpen(`<video controls playsinline autoplay src="${v.getAttribute("src")}"${v.poster?` poster="${v.getAttribute("poster")}"`:""}></video>`,vb.closest(".card")?.querySelector("h2")?.textContent);
+  const nv=$("big").querySelector("video"),t=v.currentTime;if(t)nv.addEventListener("loadedmetadata",()=>{nv.currentTime=t},{once:true});return}
+ const p=e.target.closest("[data-ytplay]");if(p)ytPlay(p.closest(".yt"))});
+document.addEventListener("keydown",e=>{const p=e.target.closest?.("[data-ytplay]");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();ytPlay(p.closest(".yt"))}});
+// ---------- stars & confetti ----------
+function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
+$("xp").textContent="⭐ "+S.star;
+function boom(){if(CALM)return;const c=$("boom"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+ const P=[...Array(90)].map(()=>({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-10-3,c:["#F2A497","#F6D27A","#A8D3E6","#B9DAA5"][Math.random()*4|0],r:Math.random()*6+5}));
+ let f=0;x.lineWidth=1.5;x.strokeStyle="#3E3A39";(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r);x.strokeRect(p.x,p.y,p.r,p.r)});if(++f<90)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})()}
+// ---------- flash ----------
+function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
+ DATA.flash.forEach(([f,k,lang])=>{const d=document.createElement("div");d.className="flip";
+  d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
+  d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
+// ---------- order ----------
+function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
+ shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
+  li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
+   if(picked.length===g.items.length){const ok=picked.every((v,k)=>v===k);
+    HUB.log("order",{g:g.t.slice(0,30),ok});
+    $("oMsg").innerHTML=ok?"<p>🎉 全對！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' id='oRe'>再試一次</button>";
+    if(ok){star(5);boom()}else $("oRe").onclick=initOrder}};$("oList").appendChild(li)});
+ $("oNext").onclick=()=>{oi=(oi+1)%DATA.order.length;initOrder()}}
+// ---------- quiz（含隨機計算題 gen） ----------
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
+ if(g.op==="÷"){r=a;a=a*b} r=g.op==="+"?a+b:g.op==="-"?a-b:g.op==="×"?a*b:r;
+ if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
+ const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
+ const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
+// 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
+function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
+const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+// 難度階梯：tag 寫 看懂／課本／段考挑戰（國小用 挑戰）就會分區顯示
+const LV={看懂:["🌱","看懂區","先暖身，一步就能答","g"],課本:["📘","課本區","課本和習作的程度","m"],段考挑戰:["🔥","段考挑戰區","真正段考的題型，錯了很正常，錯題本重做到對就好","c"],挑戰:["🔥","挑戰區","最難的一區，錯了很正常，錯題本重做到對就好","c"]};
+const srcBox=q=>q.src?`<div class="src">${/^\s*</.test(q.src)?"":"📜 "}${q.src}</div>`:"";
+function qRender(){const Q=qList(),box=$("qbox");
+ if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
+  const lvs=[...new Set(Q.map(q=>q.tag).filter(t=>LV[t]))].map(t=>{const ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t),k=ix.filter(i=>S.ans[i]===Q[i].a).length;return{t,k,n:ix.length}});
+  const weak=lvs.filter(l=>l.k/l.n<.7).map(l=>LV[l.t][1]);
+  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p>${lvs.length?`<div class="lvsum">${lvs.map(l=>`<span class="lvchip lv-${LV[l.t][3]}">${LV[l.t][0]} ${LV[l.t][1]} ${l.k}/${l.n}</span>`).join("")}</div>`:""}<p>${rate>=.9?"太強了，考試穩穩的！":weak.length?`「${weak.join("」「")}」還要加油：去「📕 錯題」把錯的題目重做到全對，就能升級！`:"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
+  if(S.doneR!==S.round){S.doneR=S.round;save();HUB.log("done",{r:S.round,ok,n:Q.length,lv:lvs.map(l=>[l.t,l.k,l.n])},500)}
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};S.round++;save();QZ=null;cur=0;combo=0;qRender()};return}
+ const q=Q[cur],done=Object.keys(S.ans).length;
+ const lv=LV[q.tag],first=lv&&(cur===0||Q[cur-1].tag!==q.tag);
+ let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關${lv?`・${lv[0]} ${lv[1]}`:""}</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
+ if(first)h+=`<div class="lvl lv-${lv[3]}"><b>${lv[0]} 進入${lv[1]}</b><small>${lv[2]}</small></div>`;
+ h+=`<div class="stem">${q.tag&&!lv?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+ q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
+ if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
+  const j=+b.dataset.j,ok=j===q.a,fst=S.first[cur]===undefined;if(fst)S.first[cur]=j;S.ans[cur]=j;save();HUB.log("q",{r:S.round,i:cur,j,ok,fst,tag:q.tag||""});
+  box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");combo=ok?combo+1:0;if(ok){star(combo>=3?2:1);if(combo%5===0)boom()}
+  const fb=$("fb");fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=(ok?["✅ 答對了！","✅ 太棒了！","✅ 完全正確！"][Math.random()*3|0]:"❌ 差一點！")+`<br>${q.e}<br><button class="btn" id="nx">下一關 ➜</button>`;
+  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}})}
+function qStart(){const Q=qList();cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
+function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v).map(([i])=>+i);
+ if(!wr.length){const any=Object.keys(S.ans).length;w.innerHTML=`<div class="card empty">${art(any?"star":"book","lg float")}${guide(any?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}</div>`;return}
+ w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
+ wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+  q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
+  d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
+   HUB.log("fix",{r:S.round,i,j,ok:j===q.a});
+   if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
+   else{b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
+// ---------- 作答區塊：點選猜、填空、手寫、打字、傳給爸爸 ----------
+const normNum=v=>String(v).trim().replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[，,\s]/g,"").replace(/[a-zA-Z³²μ％%]+$/,"");
+function fillOK(b,v){const x=normNum(v);if(!x)return false;return b.ans.some(a=>{const y=normNum(a);if(x===y)return true;const fx=x.includes("/")?x.split("/").reduce((p,q)=>p/q):+x,fy=+y;return isFinite(fx)&&isFinite(fy)&&Math.abs(fx-fy)<1e-9})}
+function askMark(box,b,j){box.querySelectorAll(".opt").forEach(x=>{x.classList.toggle("pick",+x.dataset.j===j)});const fb=box.querySelector(".fb");
+ if(b.reveal){fb.className="fb ok";fb.innerHTML=`✅ 已記下你的猜測：<b>${b.o[j]}</b><br>答案在${b.reveal}揭曉，讀到那裡記得看看猜對沒！`}
+ else{const ok=j===b.a;fb.className="fb "+(ok?"ok":"bad");fb.innerHTML=(ok?"✅ 答對了！":"❌ 再想想！")+(b.e?"<br>"+b.e:"")}}
+function initInline(sec){if(!sec||PRINT)return;
+ sec.querySelectorAll(".ask[data-id]").forEach(box=>{const b=INL[box.dataset.id],r=S.inl[b.id];if(r&&r.j!==undefined)askMark(box,b,r.j)});
+ sec.querySelectorAll(".reveal").forEach(d=>{const b=INL[d.dataset.ref],r=S.inl[d.dataset.ref],v=decodeURIComponent(d.dataset.v);if(!b)return;
+  d.innerHTML=(r&&r.j!==undefined?`🔎 你在暖身猜的是「${b.o[r.j]}」${r.j===b.a?"，<b>猜對了！</b>🎉":"，正確答案是「"+b.o[b.a]+"」，現在知道為什麼了吧！"}`:`🔎 正確答案是「${b.o[b.a]}」。（你還沒在「暖身」猜過，可以回去猜猜看！）`)+(v?"<br>"+v:"")});
+ sec.querySelectorAll("[data-fill]").forEach(i=>{const r=S.inl[i.dataset.fill];if(r&&r.v!==undefined&&!i.value){i.value=r.v;if(r.ok){const fb=i.closest(".fill").querySelector(".fb");fb.className="fb ok";fb.innerHTML="✅ 答對了！"+(INL[i.dataset.fill].e?"<br>"+INL[i.dataset.fill].e:"")}}});
+ sec.querySelectorAll("[data-text]").forEach(t=>{const r=S.inl[t.dataset.text];if(r&&r.v&&!t.value)t.value=r.v});
+ sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
+ sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
+function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
+ const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
+ let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
+ c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
+ c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
+ c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+// 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
+function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ask],[data-check],[data-wclear],[data-submit]");if(!t)return;
+ if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j,got=S.inl[b.id]?.got;S.inl[b.id]={j,got:got||j===b.a};save();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a&&!got)star(1);HUB.log("ask",{id2:b.id,j,ok:b.reveal?null:j===b.a})}
+ else if(t.dataset.check){const b=INL[t.dataset.check],box=t.closest(".fill"),v=box.querySelector("input").value,fb=box.querySelector(".fb"),r=S.inl[b.id]||{n:0};
+  r.n=(r.n||0)+1;r.v=v;const ok=fillOK(b,v);r.ok=ok;S.inl[b.id]=r;save();HUB.log("fill",{id2:b.id,v:String(v).slice(0,40),ok,n:r.n});fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=ok?"✅ 答對了！"+(b.e?"<br>"+b.e:""):(r.n<2?"❌ 再試一次！"+(b.hint?"<br>提示："+b.hint:""):"❌ 正確答案是 <b>"+b.ans[0]+" "+(b.unit||"")+"</b>"+(b.e?"<br>"+b.e:""));if(ok&&r.n===1)star(1)}
+ else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;IMG.set(t.dataset.wclear,"img",null).then(()=>initCanvas(c))}
+ else if(t.dataset.submit)makeReport()});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.text){S.inl[t.dataset.text]={v:t.value};save();HUB.log("text",{id2:t.dataset.text,v:t.value.slice(0,600),key:"text:"+t.dataset.text},15000)}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;IMG.set(id,"photo",u);const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
+function wrapTxt(x,s,w){const out=[];String(s).replace(/<[^>]+>/g,"").split("\n").forEach(p=>{let l="";for(const ch of p){if(x.measureText(l+ch).width>w){out.push(l);l=ch}else l+=ch}out.push(l)});return out}
+async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTML="⏳ 正在整理你的作答…";
+ const Q=qList(),W=1080,P=48,FN='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',items=[],INK="#3E3A39",HD="#B65544";
+ const T=(s,sz=30,c=INK,b=false)=>items.push({t:"t",s,sz,c,b});
+ const now=new Date(),ds=`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+ T(DATA.title,40,INK);T("作答報告　"+ds+"　⭐ "+S.star,28,"#7C7571");
+ const done=Object.keys(S.ans).length,first=Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a===v).length,wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v);
+ T("⚔️ 闖關",34,HD);T(`已作答 ${done}/${Q.length} 題，第一次就答對 ${first} 題，目前還錯 ${wr.length} 題`);
+ Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a!==v).forEach(([i,v])=>T(`　第 ${+i+1} 題第一次選 ${L[v]}（正解 ${L[Q[i].a]}）：${Q[i].s.replace(/<[^>]+>/g,"").slice(0,28)}`,26,"#5A5452"));
+ const asks=Object.values(INL).filter(b=>b.t==="ask"),fills=Object.values(INL).filter(b=>b.t==="fill"),texts=Object.values(INL).filter(b=>b.t==="text"),writes=Object.values(INL).filter(b=>b.t==="write");
+ if(asks.length){T("🤔 猜謎／點選",34,HD);asks.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.j!==undefined?b.o[r.j]+(r.j===b.a?" ✓":" ✗"):"（沒作答）"}`,26)})}
+ if(fills.length){T("⌨️ 填空",34,HD);fills.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.v?normNum(r.v)+" "+(b.unit||"")+(r.ok?" ✓":" ✗")+"（試了 "+r.n+" 次）":"（沒作答）"}`,26)})}
+ if(texts.length){T("💬 打字回答",34,HD);texts.forEach(b=>{const r=S.inl[b.id];T("Q："+b.q.replace(/<[^>]+>/g,""),26,"#7C7571");T("A："+(r&&r.v?r.v:"（沒作答）"),28)})}
+ const imgs=[];for(const b of writes){for(const f of ["img","photo"]){const u=await IMG.get(b.id,f);if(!u)continue;const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
+ const cv=document.createElement("canvas"),x=cv.getContext("2d");let H=P;x.font=`30px ${FN}`;
+ const lay=[];items.forEach(it=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;const ls=wrapTxt(x,it.s,W-2*P);lay.push({it,ls});H+=ls.length*it.sz*1.45+6});
+ imgs.forEach(o=>{H+=60+o.im.height*((W-2*P)/o.im.width)+20});if(imgs.length)H+=50;
+ cv.width=W;cv.height=H+P;x.fillStyle="#FFFCF6";x.fillRect(0,0,W,cv.height);x.strokeStyle=INK;x.lineWidth=6;x.strokeRect(14,14,W-28,cv.height-28);let y=P;
+ lay.forEach(({it,ls})=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;x.fillStyle=it.c;ls.forEach(l=>{y+=it.sz*1.45;x.fillText(l,P,y-it.sz*0.35)});y+=6});
+ if(imgs.length){y+=50;x.font=`34px ${FN}`;x.fillStyle=HD;x.fillText("✍️ 手寫",P,y-10)}
+ imgs.forEach(o=>{x.font=`26px ${FN}`;x.fillStyle="#7C7571";y+=40;x.fillText(wrapTxt(x,o.q,W-2*P)[0],P,y);y+=20;const h=o.im.height*((W-2*P)/o.im.width);x.drawImage(o.im,P,y,W-2*P,h);x.lineWidth=3;x.strokeStyle=INK;x.strokeRect(P,y,W-2*P,h);y+=h+20});
+ const url=cv.toDataURL("image/jpeg",0.82),img=$("subimg");img.src=url;img.style.display="block";
+ const blob=await (await fetch(url)).blob(),file=new File([blob],DATA.id+"-作答報告.jpg",{type:"image/jpeg"});
+ if(HUB.on){fb.innerHTML="⏳ 正在傳給爸爸…";if(await HUB.sendFile(new Uint8Array(await blob.arrayBuffer()),{t:"report",star:S.star})){fb.innerHTML="✅ 已經自動傳給爸爸了！謝謝你，這週辛苦了 🎉";star(3);boom();return}}
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:DATA.title,text:DATA.title+" 作答報告"});fb.innerHTML="✅ 傳好了！謝謝你，這週辛苦了 🎉";star(3);boom();return}catch(e){}}
+ fb.innerHTML=`📷 報告圖做好了（在下面）。<b>長按圖片</b>就能存起來或分享到 LINE 給爸爸。<br><a href="${url}" download="${DATA.id}-作答報告.jpg">或按這裡下載圖片</a>`}
+// ---------- print ----------
+function printQuiz(){const Q=qList();return `<div class="card"><h2>⚔️ 練習題</h2>${Q.map((q,i)=>`${LV[q.tag]&&(i===0||Q[i-1].tag!==q.tag)?`<h3>${LV[q.tag][0]} ${LV[q.tag][1]}：${LV[q.tag][2]}</h3>`:""}<div class="qbox"><div class="stem">${i+1}. ${q.tag&&!LV[q.tag]?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
+// ---------- 開始：一定放在檔尾，所有 let／const 都宣告好之後才產生頁面、開第一個分頁 ----------
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+render();
+if(!PRINT){show(pages.some(p=>p.id===S.tab)?S.tab:"home");HUB.log("open",{tab:S.tab||"home"},4000)}
+</script>
+</body>
+</html>
