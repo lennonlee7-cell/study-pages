@@ -3,7 +3,7 @@
 // 名師影片（YouTube，2026-10-29 查 ID）：酷課雲＝卡通加實驗、麥斯＝照翰林課本、晟自然＝月相原理
 const DRIVE = require("fs").existsSync("G:/我的雲端硬碟") ? "G:/我的雲端硬碟" : "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟";
 const ANI = `${DRIVE}/codex/學習中心/小女兒/自然/動畫`;
-const vid = (n, cap) => ({ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `sci4a-ep${n}.mp4?v=1029`, poster: `sci4a-ep${n}.jpg`, cap }] });
+const vid = (n, cap) => ({ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `sci4a-ep${n}.mp4?v=1030`, poster: `sci4a-ep${n}.jpg`, cap }] });
 const yt = (id, title, who, o = {}) => ({ t: "yt", id, title, who, ...o });
 const tube = (say, ...v) => ({ h: "📺 換老師再講一次", body: [{ t: "guide", v: say }, ...v] });
 const SAY = "還想再聽一次？🎨<b>卡通</b>的有實驗、比較好玩；📘<b>課本</b>的照翰林課本一頁一頁講。挑一支就好！";
