@@ -175,6 +175,7 @@ body.big{overflow:hidden}
 .fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
 .wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block}
 .wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
+.wans{margin-top:10px}.wans summary{display:inline-block;list-style:none;cursor:pointer}.wans summary::-webkit-details-marker{display:none}.wans div{font-size:20px;margin-top:10px;line-height:1.7}
 .wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
 .reveal{background:var(--green-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:12px 0}
 @media (max-width:520px){
@@ -194,12 +195,13 @@ body.big{overflow:hidden}
 .print section{display:block;animation:none}
 .print .float,.print .ava{animation:none}
 .print .card{break-inside:auto}
+.print h2,.print h3{break-after:avoid}
 .print .qbox,.print .tile,.print .fig,.print .chant,.print .trap,.print .vs,.print table,.print .hero{break-inside:avoid}
 .print .chant,.print .btn,.print .opt{box-shadow:none}
 .print .pbreak{break-before:page}
 .print .cards{grid-template-columns:1fr 1fr}
 .print .fc{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-size:15px}
-.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}.print .wgrid{height:auto;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}.print .wgrid span{height:70px;border:1px solid #D8D2C8;padding:2px 6px;font-size:13px;color:#7C7571}.print .wansp{transform:rotate(180deg);font-size:13px;color:#7C7571;margin:8px 0 0}
 @page{size:A4;margin:12mm}
 </style>
 </head>
@@ -451,8 +453,8 @@ function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
  case"reveal":return PRINT?"":`<div class="reveal" data-ref="${b.ref}" data-v="${encodeURIComponent(b.v||"")}"></div>`;
  case"fill":reg(b);return PRINT?`<div class="fill"><div class="stem">${b.q}</div><p>答：＿＿＿＿＿＿ ${b.unit||""}</p></div>`:
   `<div class="fill" data-id="${b.id}"><div class="how">📝 ${b.how||"在框框裡打答案（只打數字就好），再按「對答案」"}</div><div class="stem">${b.q}</div><div class="row"><input inputmode="decimal" autocomplete="off" data-fill="${b.id}"> <span>${b.unit||""}</span><button class="btn" data-check="${b.id}">對答案</button></div><div class="fb"></div></div>`;
- case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint"></div></div>`:
-  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍紙本」拍照"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍紙本<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片"></div>`;
+ case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint${b.grid?" wgrid":""}">${b.grid?Array.from({length:b.grid},(_,i)=>`<span>${i+1}</span>`).join(""):""}</div>${b.ans?`<p class="wansp">${b.ans}</p>`:""}</div>`:
+  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍照交」拍下來"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"${b.grid?` data-grid="${b.grid}" style="height:${Math.ceil(b.grid/2)*100}px"`:""}></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍照交<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片">${b.ans?`<details class="wans"><summary class="btn alt">✅ 寫完了，對答案</summary><div>${b.ans}</div></details>`:""}</div>`;
  case"text":reg(b);return PRINT?`<div class="tbox"><div class="stem">${b.q}</div><p>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p></div>`:
   `<div class="tbox"><div class="how">📝 ${b.how||"用自己的話打一兩句就好，不用很長"}</div><div class="stem">${b.q}</div><textarea data-text="${b.id}" placeholder="在這裡打字…"></textarea></div>`;
  case"submit":return PRINT?"":`<div class="sub"><div class="how">📝 ${HUB.on?"全部做完後按下面的按鈕，作答報告（含手寫）會自動傳給爸爸，不用開 LINE":b.how||"全部做完後按下面的按鈕，選 LINE 傳給爸爸"}</div><button class="btn" data-submit="1">📤 傳給爸爸</button><div class="fb" id="subfb"></div><img class="subimg" id="subimg" alt="作答報告"></div>`;
@@ -605,8 +607,11 @@ function initInline(sec){if(!sec||PRINT)return;
  sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
  sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
 function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
- const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
- const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
+ const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);
+ // 編號格子直接畫在白板上，傳給爸爸的報告圖才看得出哪個字是第幾題
+ const G=+c.dataset.grid||0;if(G){const ch=c.clientHeight/Math.ceil(G/2),cw=w/2;x.strokeStyle="#D8D2C8";x.lineWidth=1.5;x.fillStyle="#9A928C";x.font='16px "Huninn",sans-serif';for(let i=0;i<G;i++){const cx=i%2*cw,cy=Math.floor(i/2)*ch;x.strokeRect(cx,cy,cw,ch);x.fillText(i+1,cx+8,cy+22)}}
+ x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>G?x.drawImage(im,0,0,w,c.clientHeight):x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
  let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
  c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
  c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
