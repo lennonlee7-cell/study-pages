@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFCF6">
+<title>學習教材</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* 繪本風（和紙白、3px 墨灰框、珊瑚粉／山吹黃／水色／若竹綠平塗、Huninn 粉圓）。只用淺色底，不做深色模式。 */
+:root{--ink:#3E3A39;--paper:#FFFCF6;--coral:#F2A497;--yellow:#F6D27A;--mizu:#A8D3E6;--green:#B9DAA5;
+ --coral-soft:#FCE7E2;--yellow-soft:#FDF3D6;--mizu-soft:#E2F1F7;--green-soft:#E8F3E0;
+ --bg-2:#F5EEE2;--muted:#7C7571;--line:#E8DFD2;--accent-text:#B65544;--bw:3px;--r:24px;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.8 "Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+h1,h2,h3,h4,b,strong,th{font-weight:400}
+button{font-family:inherit}
+/* ---- 頂部 ---- */
+header{position:sticky;top:0;z-index:9;background:var(--paper);border-bottom:var(--bw) solid var(--ink)}
+.top{display:flex;align-items:center;gap:10px;max-width:880px;margin:0 auto;padding:10px 16px 4px}
+.logo{flex:none;width:42px;height:42px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:21px;line-height:1}
+.top h1{margin:0;font-size:19px;line-height:1.5;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xp{flex:none;background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:15px;white-space:nowrap}
+nav{display:flex;gap:8px;max-width:880px;margin:0 auto;padding:6px 16px 12px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer}
+nav button.on{background:var(--yellow);box-shadow:0 3px 0 var(--ink)}
+main{max-width:880px;margin:0 auto;padding:18px 16px 48px}
+section{display:none}section.on{display:block;animation:pop .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{0%{transform:scale(.97);opacity:0}60%{transform:scale(1.008);opacity:1}100%{transform:scale(1)}}
+/* ---- 插圖 ---- */
+.art{display:block;width:72px;height:72px;flex:none}
+.art.sm{width:40px;height:40px}.art.md{width:54px;height:54px}.art.lg{width:104px;height:104px}
+.stamp{display:grid;place-items:center;background:#fff;border:var(--bw) solid var(--ink);border-radius:50%}
+.float{animation:float 3.4s ease-in-out infinite;transform-origin:50% 90%}
+.float.d2{animation-delay:-1.2s}.float.d3{animation-delay:-2.3s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-2deg)}}
+/* ---- 首頁橫幅 ---- */
+.hero{display:flex;align-items:center;gap:12px;background:var(--yellow-soft);border:var(--bw) solid var(--ink);border-radius:28px;padding:16px 18px;margin:0 0 18px}
+.hero .txt{flex:1;min-width:0}
+.hero h2{font-size:25px;line-height:1.4;margin:8px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;font-size:13.5px;line-height:1.7;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px}
+.chip.y{background:var(--yellow)}.chip.c{background:var(--coral)}
+.pics{flex:none;position:relative;width:140px;height:124px}
+.pics .stamp{position:absolute;right:4px;bottom:0;width:104px;height:104px}
+.pics .stamp .art{width:80px;height:80px}
+.pics .s1{position:absolute;left:0;top:0}.pics .s2{position:absolute;right:-6px;top:-10px}
+/* ---- 卡片與文字 ---- */
+.card{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px 20px;margin:0 0 18px}
+h2{font-size:23px;line-height:1.45;margin:0 0 8px}
+h3{font-size:19px;line-height:1.5;margin:16px 0 6px;display:flex;align-items:center;gap:8px}
+h3:before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--coral);border:2px solid var(--ink)}
+b{box-shadow:inset 0 -.42em 0 var(--yellow);padding:0 2px}/* 用 box-shadow 畫螢光筆：透明漸層在 PDF 會多一條黑線 */
+.card ul,.card ol{padding-left:1.4em}li::marker{color:var(--accent-text)}
+.guide{display:flex;gap:12px;align-items:flex-start;margin:4px 0 16px}
+.who{flex:none;width:60px;text-align:center}
+.ava{width:58px;height:58px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:30px;line-height:1;animation:float 3.4s ease-in-out infinite}
+.who small{display:block;font-size:12px;line-height:1.3;margin-top:4px;color:var(--muted)}
+.bubble{background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;position:relative;min-width:0;flex:1}
+.bubble:before{content:"";position:absolute;left:-10px;top:19px;width:14px;height:14px;background:#fff;border-left:var(--bw) solid var(--ink);border-bottom:var(--bw) solid var(--ink);transform:rotate(45deg)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.tile{border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 14px;background:var(--coral-soft)}
+.tile:nth-child(4n+2){background:var(--mizu-soft)}.tile:nth-child(4n+3){background:var(--yellow-soft)}.tile:nth-child(4n){background:var(--green-soft)}
+.tile .em{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:25px;line-height:1;margin-bottom:6px}
+.tile .em:empty{display:none}
+.tile h4{margin:0 0 2px;font-size:18px;line-height:1.5}.tile p{margin:0;font-size:15.5px}
+.chant{background:var(--yellow);border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0 18px;font-size:19px;text-align:center;box-shadow:0 4px 0 var(--ink)}
+.chant small{display:block;font-size:14.5px;opacity:.85}
+.chant b{box-shadow:inset 0 -.42em 0 #fff}
+.trap{background:var(--coral-soft);border:var(--bw) dashed var(--ink);border-radius:18px;padding:10px 14px;margin:12px 0;font-size:15.5px}
+.trap:before{content:"⚠️ 陷阱題注意";display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin:0 8px 4px 0;font-size:14px;line-height:1.7}
+.lab{background:var(--mizu-soft);border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;margin:12px 0}
+.lab h4{margin:2px 0 4px;font-size:18px}
+.fig{max-width:580px;margin:10px auto;background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden}
+.fig svg{width:100%;height:auto;display:block}
+main svg:not(.art){max-width:100%;height:auto}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:10px 0}
+.vs>div{border:var(--bw) solid var(--ink);border-radius:18px;padding:10px 14px;font-size:15.5px;background:var(--coral-soft)}
+.vs>div:nth-child(2n){background:var(--mizu-soft)}
+.vs h4{margin:0 0 4px;font-size:18px;line-height:1.5}
+.tw{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;overflow:hidden}
+th,td{padding:7px 10px;vertical-align:top;text-align:left;border-bottom:2px solid var(--line)}
+th{background:var(--yellow-soft);border-bottom:2px solid var(--ink)}
+td+td,th+th{border-left:2px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.tl{position:relative;padding-left:32px;margin:10px 0}
+.tl:before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:var(--ink);border-radius:2px}
+.tl div{position:relative;margin:0 0 12px}
+.tl div:before{content:"";position:absolute;left:-31px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink)}
+.tl span{display:inline-block;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-right:6px;font-size:15px}
+.vid{width:100%;display:block;background:var(--ink);border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 影片放大、YouTube 名師影片 ---- */
+.vbox{position:relative}
+.zoom{position:absolute;right:10px;top:10px;z-index:2;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:3px 12px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+.yt{border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden;background:#fff;margin:12px 0}
+.yt .scr{position:relative;display:block;width:100%;aspect-ratio:16/9;background:var(--ink);cursor:pointer;overflow:hidden}
+.yt .scr img{width:100%;height:100%;object-fit:cover;display:block}
+.yt .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:var(--coral);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:28px;line-height:1;box-shadow:0 4px 0 var(--ink);padding-left:5px}
+.yt .dur{position:absolute;left:10px;bottom:10px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:14px;line-height:1.7}
+.yt .scr .zoom{top:auto;bottom:10px}.yt .scr.live .zoom{top:10px;bottom:auto}
+.ytm{padding:10px 16px 12px;border-top:var(--bw) solid var(--ink)}
+.ytm h4{margin:0;font-size:17.5px;line-height:1.5}
+.ytm p{margin:2px 0 0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ytm .tag{color:var(--ink)}
+#big{position:fixed;inset:0;z-index:200;background:rgba(40,36,35,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:56px 12px 16px}
+#big.on{display:flex}
+#big .stage{width:min(100%,calc((100vh - 120px)*16/9));aspect-ratio:16/9;background:#000;border:var(--bw) solid #fff;border-radius:16px;overflow:hidden}
+#big .stage iframe,#big .stage video{width:100%;height:100%;border:0;display:block;background:#000}
+#big .bt{color:#fff;font-size:16px;text-align:center;max-width:880px}
+#big .x{position:absolute;top:10px;right:12px;font-size:18px;line-height:1.5;border:2px solid var(--ink);background:var(--coral);color:var(--ink);border-radius:999px;padding:4px 16px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+body.big{overflow:hidden}
+.pic{max-width:100%;border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 記憶卡 ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.flip{perspective:900px;height:140px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .k{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--bw) solid var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:auto}
+.flip .f{background:var(--mizu);font-size:19px}
+.flip:nth-child(4n+2) .f{background:var(--coral)}.flip:nth-child(4n+3) .f{background:var(--green)}.flip:nth-child(4n) .f{background:var(--yellow)}
+.flip .k{background:#fff;font-size:15.5px;transform:rotateY(180deg)}
+/* ---- 闖關 ---- */
+.qbox{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.prog{height:16px;background:var(--bg-2);border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--yellow);border-right:2px solid var(--ink);transition:width .4s}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--muted)}
+.stem{font-size:19px;white-space:pre-line;margin:8px 0}
+.src{background:var(--mizu-soft);border:2px solid var(--ink);border-radius:14px;padding:8px 14px;margin:10px 0;font-size:16px}
+.opt{display:block;width:100%;text-align:left;font-size:17px;line-height:1.6;border:var(--bw) solid var(--ink);background:#fff;color:var(--ink);border-radius:18px;padding:10px 16px;margin:10px 0;box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.opt:disabled{cursor:default}.opt:disabled:not(.ok):not(.bad){opacity:.55}
+.opt.ok{background:var(--green)}
+.opt.bad{background:var(--coral);animation:shake .3s}
+.opt.pick{background:var(--yellow-soft);box-shadow:0 0 0 3px var(--yellow),0 3px 0 var(--ink)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{display:none;border:2px solid var(--ink);border-radius:16px;padding:10px 14px;margin-top:10px;font-size:16px}
+.fb.ok{display:block;background:var(--green-soft)}.fb.bad{display:block;background:var(--coral-soft)}
+.btn{display:inline-block;font-size:16px;line-height:1.5;border:var(--bw) solid var(--ink);background:var(--coral);color:var(--ink);border-radius:16px;padding:8px 20px;margin-top:12px;box-shadow:0 4px 0 var(--ink);cursor:pointer;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--mizu)}
+.say{font-size:14px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:0 10px;margin-left:6px;vertical-align:middle;cursor:pointer}
+.combo{background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;color:var(--ink)}
+.combo:empty{display:none}
+.rank{text-align:center;padding:6px 4px}
+.rank .deco{display:flex;align-items:flex-end;justify-content:center;gap:10px}
+.rank .big{width:116px;height:116px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:58px;line-height:1}
+.empty{text-align:center}.empty .art{margin:4px auto 0}
+.lvl{border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:2px 0 10px;background:var(--yellow-soft)}
+.lvl b{display:block;font-size:18px;box-shadow:none;padding:0}.lvl small{display:block;font-size:14.5px;color:var(--muted);line-height:1.5}
+.lv-g{background:var(--green-soft)}.lv-m{background:var(--mizu-soft)}.lv-c{background:var(--coral-soft)}
+.lvsum{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0}
+.lvchip{border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:15px}
+.src svg{display:block;width:100%;max-width:520px;margin:4px auto}
+.order{padding:0;margin:8px 0}
+.order li{list-style:none;display:flex;align-items:center;border:var(--bw) solid var(--ink);background:#fff;border-radius:16px;padding:8px 14px;margin:10px 0;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.order li.pick{background:var(--yellow-soft);box-shadow:0 0 0 var(--ink);transform:translateY(3px)}
+.order li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;margin-right:10px;font-size:15px;line-height:1}
+.order li.pick .n{background:var(--yellow)}
+.tag{display:inline-block;font-size:13px;line-height:1.6;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
+.srcs{font-size:13px;color:var(--muted);margin-top:8px}.srcs a{color:var(--accent-text)}
+#boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100% - 32px);background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);padding:10px 16px;font-size:16px}
+/* ---- 作答區塊 ---- */
+.how{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:10px 0 8px;font-size:15px}
+.ask,.fill,.wbox,.tbox,.sub{background:var(--paper);border:var(--bw) dashed var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0}
+.fill .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.fill .row .btn{margin-top:0}
+.fill input,.tbox textarea{font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);outline:0}
+.fill input:focus,.tbox textarea:focus{box-shadow:0 0 0 3px var(--yellow)}
+.fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
+.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block}
+.wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
+.wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
+.reveal{background:var(--green-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:12px 0}
+@media (max-width:520px){
+ body{font-size:16.5px}.card{padding:16px}.qbox{padding:16px}
+ .hero{padding:14px}.hero h2{font-size:21px}
+ .pics{width:96px;height:100px}.pics .stamp{width:84px;height:84px;right:0}.pics .stamp .art{width:62px;height:62px}
+ .pics .s1{width:34px;height:34px}.pics .s2{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ section.on,.float,.ava,.opt.bad{animation:none}
+ .flip .in,.btn,.opt,.order li,.prog i{transition:none}
+}
+/* ---- 列印（PDF） ---- */
+.print body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.print header{position:static}.print nav,.print .xp{display:none}
+.print .top h1{white-space:normal}
+.print section{display:block;animation:none}
+.print .float,.print .ava{animation:none}
+.print .card{break-inside:auto}
+.print h2,.print h3{break-after:avoid}
+.print .qbox,.print .tile,.print .fig,.print .chant,.print .trap,.print .vs,.print table,.print .hero{break-inside:avoid}
+.print .chant,.print .btn,.print .opt{box-shadow:none}
+.print .pbreak{break-before:page}
+.print .cards{grid-template-columns:1fr 1fr}
+.print .fc{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-size:15px}
+.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+@page{size:A4;margin:12mm}
+</style>
+</head>
+<body>
+<canvas id="boom"></canvas>
+<header><div class="top"><span class="logo" id="logo">📚</span><h1 id="ttl"></h1><span class="xp" id="xp">⭐ 0</span></div><nav id="nav"></nav></header>
+<main id="main"></main>
+<script>
+// 繪本風插圖（原創 SVG）：墨灰 3px 線框＋四色平塗，不用漸層。
+// 網頁範本（renderPage 會把整份檔案嵌進 page.html）與首頁目錄（node require）共用這一份。
+const INK = "#3E3A39", CORAL = "#F2A497", YELLOW = "#F6D27A", MIZU = "#A8D3E6", GREEN = "#B9DAA5", PAPER = "#FFFCF6";
+const SK = `stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+const FACE = (x, y) => `<circle cx="${x - 6}" cy="${y}" r="2.8" fill="${INK}"/><circle cx="${x + 6}" cy="${y}" r="2.8" fill="${INK}"/><path d="M${x - 4} ${y + 7}c2.5 2.5 5.5 2.5 8 0" ${SK} fill="none"/>`;
+
+const ART = {
+  book: `<g ${SK}>
+    <path d="M50 30c-8-6-20-6-30-2v50c10-4 22-4 30 2z" fill="${YELLOW}"/>
+    <path d="M50 30c8-6 20-6 30-2v50c-10-4-22-4-30 2z" fill="${MIZU}"/>
+    <path d="M28 42h14M28 52h14M58 42h14M58 52h14" fill="none"/></g>`,
+  star: `<g ${SK}><path d="M50 18l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z" fill="${YELLOW}"/></g>${FACE(50, 47)}`,
+  cloud: `<path d="M24 70c-8 0-12-6-10-12 2-6 8-8 13-6 1-10 10-16 20-14 7 1 12 7 13 13 7-2 14 3 14 10 0 5-4 9-10 9z" fill="#fff" ${SK}/>`,
+  sun: `<g ${SK}><circle cx="50" cy="50" r="18" fill="${YELLOW}"/>
+    <path d="M50 18v-8M50 90v-8M18 50h-8M90 50h-8M27 27l-6-6M79 79l-6-6M27 73l-6 6M79 21l-6 6" fill="none"/></g>`,
+  // 理化／自然：錐形瓶
+  flask: `<g ${SK}>
+    <path d="M43 18v22L24 76c-3 6 1 12 8 12h36c7 0 11-6 8-12L57 40V18z" fill="#fff"/>
+    <path d="M32.4 60h35.2L76 76c3 6-1 12-8 12H32c-7 0-11-6-8-12z" fill="${MIZU}"/>
+    <path d="M38 18h24" fill="none"/>
+    <circle cx="47" cy="50" r="3" fill="#fff"/><circle cx="54" cy="42" r="2.2" fill="#fff"/></g>${FACE(50, 72)}`,
+  // 歷史／社會：卷軸
+  scroll: `<g ${SK}>
+    <rect x="24" y="27" width="52" height="50" fill="${PAPER}"/>
+    <path d="M32 40h36M32 50h28M32 60h32" fill="none"/>
+    <rect x="18" y="22" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <rect x="18" y="72" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <circle cx="15" cy="27" r="5" fill="${YELLOW}"/><circle cx="85" cy="27" r="5" fill="${YELLOW}"/>
+    <circle cx="15" cy="77" r="5" fill="${YELLOW}"/><circle cx="85" cy="77" r="5" fill="${YELLOW}"/></g>`,
+  // 地理：地球儀
+  globe: `<g ${SK}>
+    <circle cx="50" cy="44" r="25" fill="${MIZU}"/>
+    <path d="M34 36c4-6 14-6 16 0s-4 10-10 10-10-4-6-10z" fill="${GREEN}"/>
+    <path d="M55 50c4-4 12-2 12 4s-6 10-12 8-4-8 0-12z" fill="${GREEN}"/>
+    <path d="M22 50a29 29 0 0 0 50 16M50 73v11M38 86h24" fill="none"/></g>`,
+  // 數學：三角尺
+  ruler: `<g ${SK}>
+    <path d="M20 84V20l64 64z" fill="${MIZU}"/>
+    <path d="M31 72V48l24 24z" fill="${PAPER}"/>
+    <path d="M20 32h7M20 42h5M20 52h7M20 62h5M20 72h7" fill="none"/></g>`,
+  // 英文：字母積木
+  blocks: `<g ${SK}>
+    <rect x="16" y="52" width="32" height="32" rx="6" fill="${CORAL}"/>
+    <rect x="52" y="52" width="32" height="32" rx="6" fill="${MIZU}"/>
+    <rect x="34" y="16" width="32" height="32" rx="6" fill="${YELLOW}"/></g>
+    <g fill="${INK}" font-family="Huninn, sans-serif" font-size="20" text-anchor="middle">
+    <text x="50" y="39">A</text><text x="32" y="75">B</text><text x="68" y="75">C</text></g>`,
+  // 國語：鉛筆
+  pencil: `<g transform="rotate(35 50 50)"><g ${SK}>
+    <path d="M41 12h18v8H41z" fill="${CORAL}"/>
+    <rect x="41" y="20" width="18" height="52" fill="${YELLOW}"/>
+    <path d="M41 72h18l-9 17z" fill="${PAPER}"/>
+    <path d="M50 20v52" fill="none"/></g>
+    <path d="M47 83.3 50 89l3-5.7z" fill="${INK}"/></g>`,
+  // 闖關結果：獎盃
+  trophy: `<g ${SK}>
+    <path d="M32 20h36v18c0 12-8 21-18 21s-18-9-18-21z" fill="${YELLOW}"/>
+    <path d="M32 26h-8c0 10 4 16 10 16M68 26h8c0 10-4 16-10 16M50 59v10" fill="none"/>
+    <path d="M38 69h24l4 15H34z" fill="${CORAL}"/></g>${FACE(50, 34)}`,
+  // 首頁吉祥物：書包
+  backpack: `<g ${SK}>
+    <path d="M38 27c0-10 24-10 24 0" fill="none"/>
+    <rect x="22" y="26" width="56" height="62" rx="16" fill="${CORAL}"/>
+    <rect x="33" y="58" width="34" height="22" rx="6" fill="${YELLOW}"/>
+    <path d="M33 66h34" fill="none"/></g>${FACE(50, 42)}
+    <circle cx="35" cy="47" r="3.4" fill="#fff" opacity=".7"/><circle cx="65" cy="47" r="3.4" fill="#fff" opacity=".7"/>`,
+};
+
+function art(name, cls) {
+  return `<svg class="art ${cls || ""}" viewBox="0 0 100 100" aria-hidden="true">${ART[name] || ART.book}</svg>`;
+}
+// 依科目挑主插圖；內容檔可用 art:"flask" 指定
+function subjArt(s) {
+  s = s || "";
+  return /理化|自然|生物|物理|化學|科學/.test(s) ? "flask" : /歷史|社會|公民/.test(s) ? "scroll" : /地理/.test(s) ? "globe"
+    : /數學|算/.test(s) ? "ruler" : /英/.test(s) ? "blocks" : /國語|國文|作文|閱讀/.test(s) ? "pencil" : "book";
+}
+if (typeof module !== "undefined") module.exports = { ART, art, subjArt, INK, CORAL, YELLOW, MIZU, GREEN, PAPER };
+
+const DATA={"id":"sci8a-w02","title":"理化週課 #2：彈回來的聲音 × 誰比較「密」","icon":"🦇","kid":"大女兒","grade":"國二","subject":"理化","version":"南一","range":"補 1-3 密度｜跟 3-3 聲波的反射","exam":"第 2 週 11/2","guide":{"ava":"👩‍🔬","name":"小P學姊"},"ranks":[[0,"🧪","實驗室新手"],[0.5,"🔬","見習研究員"],[0.7,"⚗️","小小科學家"],[0.9,"🏅","理化達人"],[1,"🚀","諾貝爾候選人"]],"home":{"intro":"嗨！又見面了。這週有兩個問題：蝙蝠在全黑的山洞裡，怎麼抓到小蟲？一大塊鐵切成一半，會不會比較容易浮起來？答案都藏在這週的課裡。一樣是三天、每次 <b>30 分鐘<\/b>：週日預習新課、週一補第一次段考的洞、週三動手練習。","cards":[{"h":"📅 這週三天，每次 30 分鐘","body":[{"t":"tiles","v":[{"em":"☀️","h":"週日・預習（30 分）","p":"看動畫 → 暖身三謎題 → 讀「日 回聲」「日 超聲波」兩站 → 翻記憶卡。"},{"em":"📘","h":"週一・補底（30 分）","p":"讀「一 密度」站：D＝M÷V、換單位、浮沉、排水法 → 玩排順序。"},{"em":"🧪","h":"週三・練習（30 分）","p":"雞蛋和紙筒實驗 → 闖關 25 題（越後面越難）→ 錯題本清空 → 手寫 2 題 → 出場券 → 📤 傳給爸爸。"}]},{"t":"guide","v":"不用每天讀！只要這三天，每次 30 分鐘，其他時間好好休息。"}]},{"h":"📝 第一次用？先看這裡：怎麼作答","body":[{"t":"tiles","v":[{"em":"🎬","h":"看動畫","p":"每一站最上面有動畫，按 ▶ 播放，看完再往下讀。"},{"em":"👆","h":"點選題","p":"看到一排 (A)(B)(C) 按鈕，<b>點一個<\/b>你覺得對的就好。"},{"em":"⌨️","h":"填空題","p":"在白色框框<b>打數字<\/b>，再按「對答案」。錯了會給提示，可以再試一次。"},{"em":"✍️","h":"手寫題","p":"用<b>手指或觸控筆<\/b>寫在白板上；寫在紙上的話按「📷 拍紙本」。"},{"em":"💬","h":"打字題","p":"在框框裡用<b>自己的話<\/b>打一兩句就好。"},{"em":"📤","h":"傳給爸爸","p":"週三最後按「📤 傳給爸爸」，選 LINE 傳出去，這週就完成了！"}]},{"t":"guide","v":"你寫的答案會自動存在這台平板（或手機）上，關掉再打開也還在。不用怕答錯，錯的地方正好是要練的！"}]},{"h":"🎬 本週動畫課（5 集）","body":[{"t":"tiles","v":[{"em":"☀️","h":"週日看 3 集","p":"第 1 集 山谷在學我講話／第 2 集 回聲要多遠才聽得到／第 3 集 蝙蝠的超能力"},{"em":"📘","h":"週一看 2 集","p":"第 4 集 一公斤的鐵和棉花／第 5 集 浮還是沉，看密度"}]},{"t":"guide","v":"動畫放在每一站的最上面。小P學姊和阿波會吵吵鬧鬧地把重點講完，看完再往下讀，會輕鬆很多！"},{"t":"tiles","v":[{"em":"📺","h":"換老師再講一次","p":"動畫下面有挑好的 YouTube 老師影片，很多已經剪好只播那一段。<b>看不懂、或想多聽一次再點<\/b>，不用全看。"},{"em":"⛶","h":"放大看","p":"影片右上角按「⛶ 放大看」會滿版播放，按「✕ 關閉」回來。"}]}]},{"h":"🗓️ 我的理化 12 週地圖","body":["每週日預習新課、週一補舊洞、週三練習。補底大約 6 週補完，之後全力衝期末。日期是那一週的週一，可能隨學校進度調整。",{"t":"table","head":["週","週一","📘 補底","☀️ 預習新課"],"rows":[["1","10/26","1-1、1-2 測量","3-1 波、3-2 聲音"],["⭐2","11/2","1-3 密度","3-3 聲波的反射"],["3","11/9","密度圖表題","3-4 多變的聲音"],["4","11/16","2-1 認識物質","4-1 光的傳播、4-2 反射"],["5","11/23","2-2 水溶液濃度","4-3 折射與透鏡（或二段衝刺）"],["6","11/30","2-3 空氣","4-4 光學儀器、4-5 光與顏色"],["7","12/7","前週回顧","5-1 溫度與溫度計"],["8","12/14","前週回顧","5-2 熱量與比熱"],["9","12/21","前週回顧","5-3 熱對物質、5-4 熱的傳播"],["10","12/28","前週回顧","6-1 純物質、6-2 元素"],["11","1/4","前週回顧","6-3 週期表、6-4 原子結構"],["12","1/11","期末衝刺","6-5 分子與化學式＋總複習"]]}]},{"h":"👨 給爸爸的陪讀小抄（不用會理化也能陪）","body":[{"t":"list","v":["週日：問她暖身三題<b>猜什麼<\/b>，先不要講答案。","週三做雞蛋實驗時可以一起看：加鹽前蛋沉在底，加到某一匙就浮起來，很有成就感。","週三最後 3 分鐘：請她看著「出場券」，<b>用自己的話<\/b>講給你聽；講得出來才是真的懂。","只排這三天、每次 30 分鐘，其他日子不追進度，壓力小才走得久。"]}]}]},"stations":[{"id":"warm","nav":"☀️日 暖身","intro":"週日預習：先看第 1 集動畫，再來猜！下面三題<b>點一個你猜的答案<\/b>就好，答案會在後面的站揭曉。猜錯完全沒關係。","cards":[{"h":"🤔 三個生活謎題（先猜再學）","body":[{"t":"ask","id":"g1","reveal":"「☀️日 回聲」那一站","how":"憑感覺點一個就好，猜錯沒關係！","q":"🏔️ 謎題 1：在山谷大喊會聽到回聲，在教室大喊卻聽不到。為什麼？","o":["教室的牆不會反射聲音","教室的牆太近，回聲和原聲黏在一起分不開","教室裡的空氣比較少"],"a":1},{"t":"ask","id":"g2","reveal":"「☀️日 超聲波」那一站","how":"憑感覺點一個就好！","q":"🦇 謎題 2：蝙蝠在全黑的山洞裡，靠什麼抓到小蟲？","o":["超強的夜視眼睛","發出人聽不到的聲音，再聽回聲","聞小蟲的味道"],"a":1},{"t":"ask","id":"g3","reveal":"週一「📘一 密度」那一站","how":"憑感覺點一個就好！","q":"🔪 謎題 3：一大塊鐵放進水裡會沉。把它切成很小的一塊，再放進水裡呢？","o":["小塊比較輕，會浮起來","還是會沉","會停在水的正中間"],"a":1},{"t":"guide","v":"三題都點完就可以往下一站「☀️日 回聲」囉！猜錯的地方，正好就是今天要學的。"}]}]},{"id":"s2","nav":"☀️日 回聲","intro":"你在山谷或空曠的體育館大喊過嗎？喊完之後，好像有人在遠方學你講話。其實是你自己的聲音被彈回來了。","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"韓斯老師這段前半是上週的複習，後半講回聲和超聲波，一次看完 5 分鐘。想看計算題怎麼解，選劉維老師；想要一堂課慢慢聽，選國中理化自學。挑一支就好。"},{"t":"yt","id":"LR-xGLb1eR8","title":"聲音、回聲、反射、超聲波","who":"韓斯頭殼","s":489,"e":813,"len":"約 5 分","tag":"重點"},{"t":"yt","id":"lU3QIoDFeZM","title":"回聲計算：海水深度、蝙蝠飛行","who":"劉維自然","len":"約 9 分","tag":"段考題"},{"t":"yt","id":"ptTANBdPcCc","title":"國二上 3-3 回聲（完整一堂課・第 1 段）","who":"國中理化自學","len":"18 分","tag":"完整版"}]},{"h":"🏓 聲音也會反彈","body":[{"t":"tiles","v":[{"em":"🏓","h":"乒乓球打牆","p":"球打到牆會彈回來。聲波碰到障礙物也一樣。"},{"em":"🏔️","h":"山谷回音","p":"聲音打到山壁彈回來，等一下才跑進你耳朵。"},{"em":"🚿","h":"浴室唱歌","p":"磁磚把聲音反射回來，聽起來比較大聲、比較好聽。"}]},"聲波碰到障礙物彈回來，叫做<b>聲波的反射<\/b>；反射回來、被你聽到的聲音就是<b>回聲<\/b>。",{"t":"svg","v":"<svg viewBox=\"0 0 470 218\" role=\"img\" aria-label=\"回聲是聲音來回各走一趟\"><defs><marker id=\"e1\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#C8553D\"/><\/marker><marker id=\"e2\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#2F7FA3\"/><\/marker><\/defs><rect x=\"0\" y=\"0\" width=\"470\" height=\"218\" rx=\"14\" fill=\"#FFFCF6\"/><g fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"3\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"62\" r=\"11\" fill=\"#F2A497\"/><path d=\"M50 73 V106 M50 82 L36 98 M50 82 L64 98 M50 106 L39 130 M50 106 L61 130\"/><\/g><rect x=\"404\" y=\"34\" width=\"44\" height=\"104\" rx=\"4\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"426\" y=\"92\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">山壁<\/text><line x1=\"78\" y1=\"70\" x2=\"396\" y2=\"70\" stroke=\"#C8553D\" stroke-width=\"3\" marker-end=\"url(#e1)\"/><text x=\"236\" y=\"60\" font-size=\"16\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">去程 d<\/text><line x1=\"396\" y1=\"106\" x2=\"78\" y2=\"106\" stroke=\"#2F7FA3\" stroke-width=\"3\" marker-end=\"url(#e2)\"/><text x=\"236\" y=\"128\" font-size=\"16\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">回程 d<\/text><text x=\"235\" y=\"168\" font-size=\"16\"  fill=\"#3E3A39\" text-anchor=\"middle\">聲音走的總路程 ＝ 2d ＝ 聲速 × 時間<\/text><text x=\"235\" y=\"200\" font-size=\"20\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">距離 d ＝ 聲速 × 時間 ÷ 2<\/text><\/svg>"},{"t":"chant","v":"回聲走兩趟，距離要除二"},{"t":"trap","v":"題目給的是「發出到聽到」的<b>來回時間<\/b>。直接 聲速 × 時間 算出來的是來回路程，一定要再除以 2 才是距離。"}]},{"h":"⏱️ 為什麼教室聽不到回聲？","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 244\" role=\"img\" aria-label=\"原聲和回聲相隔超過零點一秒才分得開\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"244\" rx=\"14\" fill=\"#FFFCF6\"/><line x1=\"180\" y1=\"26\" x2=\"180\" y2=\"174\" stroke=\"#C8553D\" stroke-width=\"2.5\" stroke-dasharray=\"6 5\"/><text x=\"180\" y=\"20\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">0.1 秒<\/text><text x=\"50\" y=\"50\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">站在 3 m 的牆前<\/text><line x1=\"50\" y1=\"76\" x2=\"440\" y2=\"76\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"43\" y=\"60\" width=\"14\" height=\"32\" rx=\"3\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><rect x=\"66.4\" y=\"60\" width=\"14\" height=\"32\" rx=\"3\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"442\" y=\"50\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"end\">黏在一起<\/text><text x=\"50\" y=\"124\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">站在 34 m 的牆前<\/text><line x1=\"50\" y1=\"150\" x2=\"440\" y2=\"150\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"43\" y=\"134\" width=\"14\" height=\"32\" rx=\"3\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><rect x=\"303\" y=\"134\" width=\"14\" height=\"32\" rx=\"3\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"442\" y=\"124\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"end\">分得開<\/text><text x=\"50\" y=\"190\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">0<\/text><text x=\"180\" y=\"190\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">0.1<\/text><text x=\"310\" y=\"190\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">0.2<\/text><text x=\"440\" y=\"190\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"middle\">0.3 秒<\/text><rect x=\"50\" y=\"218\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"70\" y=\"230\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">原聲<\/text><rect x=\"124\" y=\"218\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"144\" y=\"230\" font-size=\"14\"  fill=\"#3E3A39\" text-anchor=\"start\">回聲<\/text><text x=\"440\" y=\"230\" font-size=\"14\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"end\">要隔 0.1 秒以上才分得開<\/text><\/svg>"},"人的耳朵要原聲和回聲<b>相隔 0.1 秒以上<\/b>才分得開。空氣中聲速約 340 m/s，0.1 秒聲音走 34 m，來回各一半，所以離牆壁至少要 <b>17 m<\/b>。",{"t":"list","v":["340 × 0.1 ＝ 34 m（來回路程）","34 ÷ 2 ＝ <b>17 m<\/b>（到牆的距離）"]},{"t":"reveal","ref":"g1","v":"教室的牆也會反射聲音！只是牆太近，回聲不到 0.1 秒就回來，和原聲<b>黏在一起<\/b>，你只覺得聲音比較大，分不出回聲。"},{"t":"trap","v":"「教室沒有回聲」是錯的。正確說法是：教室也有反射，只是<b>分辨不出來<\/b>。"}]},{"h":"🧮 算算看山壁有多遠","body":[{"t":"h3","v":"看學姊做一次"},{"t":"list","v":["對著山壁大喊，3 秒後聽到回聲，聲速 340 m/s。","來回路程：340 × 3 ＝ 1020 m","到山壁的距離：1020 ÷ 2 ＝ <b>510 m<\/b>"]},{"t":"h3","v":"換你接著做：對著山壁拍手，2 秒後聽到回聲（聲速 340 m/s）"},{"t":"fill","id":"f4","q":"① 聲音來回總共走了幾公尺？","ans":["680"],"unit":"m","how":"打數字，再按「對答案」","hint":"聲速 × 時間 ＝ 340 × 2","e":"340 × 2 ＝ 680 m"},{"t":"fill","id":"f5","q":"② 山壁離你多遠？","ans":["340"],"unit":"m","hint":"來回路程要除以 2","e":"680 ÷ 2 ＝ 340 m"}]},{"h":"🎭 想要回聲或不想要回聲","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 180\" role=\"img\" aria-label=\"硬表面反射聲音，軟表面吸收聲音\"><defs><marker id=\"h1\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#C8553D\"/><\/marker><marker id=\"h2\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#2F7FA3\"/><\/marker><\/defs><rect x=\"0\" y=\"0\" width=\"470\" height=\"180\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"121\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">硬又光滑：磁磚、水泥<\/text><line x1=\"28\" y1=\"72\" x2=\"166\" y2=\"72\" stroke=\"#C8553D\" stroke-width=\"3\" marker-end=\"url(#h1)\"/><rect x=\"174\" y=\"40\" width=\"30\" height=\"96\" rx=\"3\" fill=\"#D8D4CC\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"166\" y1=\"108\" x2=\"36\" y2=\"108\" stroke=\"#2F7FA3\" stroke-width=\"3\" marker-end=\"url(#h2)\"/><text x=\"121\" y=\"164\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">反射多 → 回聲明顯<\/text><text x=\"353\" y=\"30\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">軟又多孔：地毯、布幕<\/text><line x1=\"260\" y1=\"72\" x2=\"398\" y2=\"72\" stroke=\"#C8553D\" stroke-width=\"3\" marker-end=\"url(#h1)\"/><rect x=\"402\" y=\"40\" width=\"36\" height=\"96\" rx=\"10\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\" stroke-dasharray=\"5 4\"/><line x1=\"398\" y1=\"108\" x2=\"360\" y2=\"108\" stroke=\"#2F7FA3\" stroke-width=\"2\" marker-end=\"url(#h2)\"/><text x=\"353\" y=\"164\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">吸收多 → 回聲變小<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🎼","h":"音樂廳","p":"牆面和座椅經過設計，保留適量反射，又不會太吵雜。"},{"em":"🎙️","h":"錄音室","p":"貼滿多孔吸音棉，幾乎沒有回聲，錄得才乾淨。"},{"em":"🩺","h":"聽診器","p":"聲音在管子裡一路反射，不容易散掉，傳到耳朵還很清楚。"}]},{"t":"chant","v":"硬又光滑反射多，軟又多孔吸收多"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["生活說法：「喊完聽到回音」。考卷寫法：「聲波遇到障礙物發生<b>反射<\/b>」。","考卷常問：「要聽到清楚的回聲，人距離障礙物<b>至少<\/b>多遠？」答案是 17 m，選 34 m 就是忘了除以 2。","考卷常問：「站在兩座山壁之間拍手，<b>先後<\/b>聽到兩次回聲」。兩次回聲分別來自近的和遠的山壁，各自除以 2 再相加才是兩山壁的距離。"]}]}]},{"id":"s3","nav":"☀️日 超聲波","intro":"蝙蝠的眼睛不算好，卻能在全黑的山洞裡飛來飛去還順便抓宵夜。它的祕密武器，是一種你完全聽不到的聲音。","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"陳宣老師這支是整節 3-3，觀念加計算一次講完。如果只想看兩端山壁的回聲題，33 秒的動畫一看就懂。"},{"t":"yt","id":"bZUU0r8_ZlA","title":"回聲題型：兩端有山壁（程式動畫）","who":"EZ-LAB 生蠔老師","len":"33 秒","tag":"有趣"},{"t":"yt","id":"O6xYQsbmfTI","title":"3-3 聲波的反射與超聲波（完整一堂課）","who":"陳宣理化","len":"40 分","tag":"完整版"},{"t":"yt","id":"_PhCTS-a1VA","title":"國二上 3-3 回聲（完整一堂課・第 2 段）","who":"國中理化自學","len":"26 分","tag":"完整版"}]},{"h":"🦇 人聽不到的聲音","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 214\" role=\"img\" aria-label=\"頻率範圍：次聲波、可聽聲、超聲波\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"214\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"235\" y=\"26\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">聲音的頻率（Hz）<\/text><rect x=\"24\" y=\"44\" width=\"72\" height=\"44\" fill=\"#D8D4CC\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"96\" y=\"44\" width=\"240\" height=\"44\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><rect x=\"336\" y=\"44\" width=\"110\" height=\"44\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><text x=\"60\" y=\"72\" font-size=\"14\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">次聲波<\/text><text x=\"216\" y=\"72\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">人耳聽得到<\/text><text x=\"391\" y=\"72\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">超聲波<\/text><text x=\"96\" y=\"108\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">20<\/text><text x=\"336\" y=\"108\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">20000<\/text><text x=\"24\" y=\"140\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">🦇 蝙蝠、🐬 海豚：發出超聲波，靠回聲找路和獵物<\/text><text x=\"24\" y=\"168\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"start\">🚢 聲納、🏥 超音波檢查：人類學會的同一招<\/text><text x=\"24\" y=\"198\" font-size=\"16\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"start\">「超」是頻率超過人耳上限，不是跑得比較快！<\/text><\/svg>"},{"t":"tiles","v":[{"em":"👂","h":"人耳","p":"大約聽得到 20～20000 Hz。"},{"em":"🔊","h":"超聲波","p":"頻率高於 20000 Hz，人耳聽不到。"},{"em":"🌊","h":"一樣是聲波","p":"超聲波也需要介質，真空中一樣不能傳。"}]},{"t":"reveal","ref":"g2","v":"蝙蝠發出<b>超聲波<\/b>，再聽小蟲和牆壁反射回來的回聲，就知道東西在哪裡。這叫<b>回聲定位<\/b>，海豚也會。"},{"t":"chant","v":"超聲波，超在頻率，不超速度"},{"t":"trap","v":"超聲波<b>不是<\/b>跑得比較快！在同一種介質、同樣溫度下，它和一般聲音的速度一樣，只是頻率比較高。"}]},{"h":"🚢 聲納：用回聲量海有多深","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 236\" role=\"img\" aria-label=\"聲納來回四秒，海深三千公尺\"><defs><marker id=\"s1\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#C8553D\"/><\/marker><marker id=\"s2\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#2F7FA3\"/><\/marker><\/defs><rect x=\"0\" y=\"0\" width=\"470\" height=\"236\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"0\" y=\"52\" width=\"470\" height=\"176\" fill=\"#A8D3E6\" opacity=\"0.55\"/><path d=\"M0 228 L0 200 Q120 186 235 198 T470 192 L470 228 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><path d=\"M86 30 H176 L162 54 H100 Z\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"3\"/><rect x=\"118\" y=\"14\" width=\"24\" height=\"16\" fill=\"#fff\" stroke=\"#3E3A39\" stroke-width=\"2.5\"/><line x1=\"118\" y1=\"60\" x2=\"118\" y2=\"186\" stroke=\"#C8553D\" stroke-width=\"3\" marker-end=\"url(#s1)\"/><line x1=\"146\" y1=\"186\" x2=\"146\" y2=\"60\" stroke=\"#2F7FA3\" stroke-width=\"3\" marker-end=\"url(#s2)\"/><text x=\"108\" y=\"128\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"end\">發出<\/text><text x=\"156\" y=\"128\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"start\">收到<\/text><text x=\"318\" y=\"92\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">來回共 4 秒<\/text><text x=\"318\" y=\"118\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">水中聲速 1500 m/s<\/text><text x=\"318\" y=\"150\" font-size=\"16\"  fill=\"#3E3A39\" text-anchor=\"middle\">1500 × 4 ÷ 2<\/text><text x=\"318\" y=\"176\" font-size=\"20\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">＝ 3000 m<\/text><text x=\"235\" y=\"218\" font-size=\"14\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">海底<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🚢","h":"聲納","p":"船往下發出超聲波，收到反射波，算出海深、找魚群。"},{"em":"🤰","h":"超音波檢查","p":"超聲波碰到不同組織會反射，可以看到肚子裡的寶寶。"},{"em":"🚗","h":"倒車雷達","p":"發出超聲波，回聲越快回來，代表障礙物越近。"},{"em":"👓","h":"超音波清洗機","p":"利用超聲波的振動，把眼鏡縫裡的髒東西震出來。這招不是靠回聲。"}]},{"t":"h3","v":"看學姊做一次"},{"t":"list","v":["聲納發出後 2 秒收到反射波，水中聲速 1500 m/s。","來回路程：1500 × 2 ＝ 3000 m","海深：3000 ÷ 2 ＝ <b>1500 m<\/b>"]},{"t":"h3","v":"換你接著做"},{"t":"fill","id":"f6","q":"聲納發出後 6 秒收到反射波，水中聲速 1500 m/s。海深是多少公尺？","ans":["4500"],"unit":"m","how":"打數字，再按「對答案」","hint":"1500 × 6 ÷ 2","e":"1500 × 6 ÷ 2 ＝ 4500 m"},{"t":"trap","v":"聲速要看介質！在海裡用 <b>1500 m/s<\/b>，不要順手代 340。"}]},{"h":"🌊 和上週的波速公式接起來","body":["超聲波也是波，v ＝ λ × f 一樣能用。頻率越高，波長就越短。",{"t":"list","v":["蝙蝠發出 34000 Hz 的超聲波，空氣中聲速 340 m/s。","λ ＝ v ÷ f ＝ 340 ÷ 34000 ＝ 0.01 m ＝ <b>1 cm<\/b>"]},{"t":"guide","v":"波長很短，才碰得到小小的蟲。這是段考喜歡混在一起考的地方，換單位時要小心。"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["生活說法：「人聽不到的高音」。考卷寫法：「頻率大於 <b>20000 Hz<\/b> 的聲波稱為超聲波」。","考卷常問「下列敘述何者<b>錯誤<\/b>」：「超聲波速率比可聽聲快」就是最常見的錯誤選項。","考卷常給一張表：幾個地點的來回時間，問「何處海水<b>最深<\/b>」。時間越長越深，連算都不用算。"]}]}]},{"id":"s1","nav":"📘一 密度","intro":"週一的 30 分鐘：第一次段考的密度題，我們換個方式再走一次。先問你一句：一公斤的鐵和一公斤的棉花，哪個重？","cards":[{"h":"📺 換老師再講一次","body":[{"t":"guide","v":"先看韓斯老師那 6 分鐘，兩題經典密度題。想挑戰就看震東老師的段考猜題，有混合密度和換液體，很好笑但有點難。整堂課的版本想從頭聽再看，挑一支就好。"},{"t":"yt","id":"t2FNENiSb2k","title":"八上一段猜題：密度兩題","who":"韓斯頭殼","s":7,"e":384,"len":"約 6 分","tag":"重點"},{"t":"yt","id":"E3lPA1btsVI","title":"段考猜題精華：MVD 作圖、換液體、合金混合密度","who":"震東老師","s":66,"e":977,"len":"約 15 分","tag":"段考題","cap":"M-V 圖下週會細講，先看過也可以"},{"t":"yt","id":"sPczbBdtQdI","title":"國二上 密度（完整一堂課・第 1 段）","who":"國中理化自學","len":"37 分","tag":"完整版"}]},{"h":"🧱 密度：擠得有多緊","body":["一公斤的鐵和一公斤的棉花<b>一樣重<\/b>！棉花只是佔的地方大很多。大小一樣的時候比重量，就是在比<b>密度<\/b>。",{"t":"tiles","v":[{"em":"🚌","h":"尖峰公車","p":"同一台車塞 100 個人和塞 10 個人，「擠的程度」不一樣。"},{"em":"🧱","h":"磚頭和保麗龍","p":"一樣大，拿起來重很多的是磚頭，它的密度比較大。"},{"em":"🛢️","h":"油浮在水上","p":"同樣大小的油比水輕，所以跑到上面。"}]},{"t":"svg","v":"<svg viewBox=\"0 0 470 232\" role=\"img\" aria-label=\"同體積的水鋁鐵金質量比較\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"232\" rx=\"14\" fill=\"#FFFCF6\"/><text x=\"235\" y=\"26\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">都是 1 cm³ 的方塊，一樣大，誰比較重？<\/text><rect x=\"26\" y=\"66\" width=\"90\" height=\"90\" rx=\"5\" fill=\"#A8D3E6\" stroke=\"#3E3A39\" stroke-width=\"3\"/><circle cx=\"48.5\" cy=\"88.5\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"48.5\" cy=\"133.5\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"93.5\" cy=\"88.5\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"93.5\" cy=\"133.5\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><text x=\"71\" y=\"56\" font-size=\"17\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">1 g<\/text><text x=\"71\" y=\"182\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">水<\/text><rect x=\"138\" y=\"66\" width=\"90\" height=\"90\" rx=\"5\" fill=\"#D8D4CC\" stroke=\"#3E3A39\" stroke-width=\"3\"/><circle cx=\"153\" cy=\"81\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"153\" cy=\"111\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"153\" cy=\"141\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"183\" cy=\"81\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"183\" cy=\"111\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"183\" cy=\"141\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"213\" cy=\"81\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"213\" cy=\"111\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"213\" cy=\"141\" r=\"8\" fill=\"#3E3A39\" opacity=\"0.72\"/><text x=\"183\" y=\"56\" font-size=\"17\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">2.7 g<\/text><text x=\"183\" y=\"182\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">鋁<\/text><rect x=\"250\" y=\"66\" width=\"90\" height=\"90\" rx=\"5\" fill=\"#B5B1AA\" stroke=\"#3E3A39\" stroke-width=\"3\"/><circle cx=\"259\" cy=\"75\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"259\" cy=\"93\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"259\" cy=\"111\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"259\" cy=\"129\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"259\" cy=\"147\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"277\" cy=\"75\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"277\" cy=\"93\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"277\" cy=\"111\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"277\" cy=\"129\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"277\" cy=\"147\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"295\" cy=\"75\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"295\" cy=\"93\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"295\" cy=\"111\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"295\" cy=\"129\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"295\" cy=\"147\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"313\" cy=\"75\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"313\" cy=\"93\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"313\" cy=\"111\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"313\" cy=\"129\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"313\" cy=\"147\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"331\" cy=\"75\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"331\" cy=\"93\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"331\" cy=\"111\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"331\" cy=\"129\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"331\" cy=\"147\" r=\"6.4799999999999995\" fill=\"#3E3A39\" opacity=\"0.72\"/><text x=\"295\" y=\"56\" font-size=\"17\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">7.9 g<\/text><text x=\"295\" y=\"182\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">鐵<\/text><rect x=\"362\" y=\"66\" width=\"90\" height=\"90\" rx=\"5\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\"/><circle cx=\"367.625\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"367.625\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"378.875\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"390.125\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"401.375\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"412.625\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"423.875\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"435.125\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"71.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"82.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"94.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"105.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"116.625\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"127.875\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"139.125\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><circle cx=\"446.375\" cy=\"150.375\" r=\"4.05\" fill=\"#3E3A39\" opacity=\"0.72\"/><text x=\"407\" y=\"56\" font-size=\"17\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">19.3 g<\/text><text x=\"407\" y=\"182\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">金<\/text><text x=\"235\" y=\"216\" font-size=\"18\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">密度 ＝ 每 1 cm³ 有幾 g　　D ＝ M ÷ V<\/text><\/svg>"},{"t":"chant","v":"密度就是：每 1 cm³ 有幾 g","sub":"D ＝ M ÷ V；D 密度、M 質量、V 體積"},{"t":"reveal","ref":"g3","v":"切得再小還是<b>沉<\/b>。質量和體積一起變小，密度完全不變，而浮沉看的是密度，不是大小。"},{"t":"trap","v":"「比較重」不等於「密度比較大」！一大桶水比一小塊鐵還重，但鐵的密度比較大。比密度要看<b>同樣體積<\/b>。"}]},{"h":"🧮 計算：三角形一蓋就會","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 192\" role=\"img\" aria-label=\"質量密度體積的公式三角形\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"192\" rx=\"14\" fill=\"#FFFCF6\"/><path d=\"M120 20 L216 176 L24 176 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\" stroke-linejoin=\"round\"/><line x1=\"62\" y1=\"112\" x2=\"178\" y2=\"112\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"120\" y1=\"112\" x2=\"120\" y2=\"176\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"120\" y=\"92\" font-size=\"30\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">M<\/text><text x=\"88\" y=\"158\" font-size=\"30\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">D<\/text><text x=\"152\" y=\"158\" font-size=\"30\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">V<\/text><text x=\"244\" y=\"56\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">求誰就蓋住誰：<\/text><text x=\"244\" y=\"92\" font-size=\"16\"  fill=\"#3E3A39\" text-anchor=\"start\">D ＝ M ÷ V（密度）<\/text><text x=\"244\" y=\"124\" font-size=\"16\"  fill=\"#3E3A39\" text-anchor=\"start\">M ＝ D × V（質量）<\/text><text x=\"244\" y=\"156\" font-size=\"16\"  fill=\"#3E3A39\" text-anchor=\"start\">V ＝ M ÷ D（體積）<\/text><\/svg>"},{"t":"h3","v":"看學姊做一次"},{"t":"list","v":["一塊金屬 54 g，體積 20 cm³，密度多少？","求 D，蓋住 D：D ＝ M ÷ V","D ＝ 54 ÷ 20 ＝ <b>2.7 g/cm³<\/b>（單位一定要寫）"]},{"t":"h3","v":"換你接著做"},{"t":"fill","id":"f1","q":"一顆石頭 30 g，體積 12 cm³，密度是多少 g/cm³？","ans":["2.5"],"unit":"g/cm³","how":"打數字，再按「對答案」","hint":"D ＝ M ÷ V ＝ 30 ÷ 12","e":"30 ÷ 12 ＝ 2.5 g/cm³"},{"t":"fill","id":"f2","q":"鐵的密度 7.9 g/cm³。10 cm³ 的鐵塊質量是多少 g？","ans":["79"],"unit":"g","hint":"求 M，蓋住 M：M ＝ D × V","e":"7.9 × 10 ＝ 79 g"},{"t":"h3","v":"單位換算"},{"t":"tiles","v":[{"em":"🔁","h":"1 g/cm³ ＝ 1000 kg/m³","p":"水的密度可以寫成 1 g/cm³，也可以寫成 1000 kg/m³。"},{"em":"✖️","h":"往 kg/m³ 走","p":"2.7 g/cm³ × 1000 ＝ 2700 kg/m³"},{"em":"➗","h":"往 g/cm³ 走","p":"8900 kg/m³ ÷ 1000 ＝ 8.9 g/cm³"}]},{"t":"table","head":["物質","約略密度（g/cm³）"],"rows":[["木頭（依種類不同）","約 0.4～0.8"],["油","約 0.9"],["冰","約 0.9"],["水","1"],["鋁","2.7"],["鐵","7.9"],["銅","8.9"],["金","19.3"]]},{"t":"trap","v":"代公式前先看單位。質量是 kg、體積是 cm³ 時，要先換成同一套（g 配 cm³）再除。"}]},{"h":"🔪 切一半，密度會變嗎？","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 204\" role=\"img\" aria-label=\"切一半後密度不變\"><defs><marker id=\"c1\" markerWidth=\"8\" markerHeight=\"8\" refX=\"5\" refY=\"4\" orient=\"auto-start-reverse\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#3E3A39\"/><\/marker><\/defs><rect x=\"0\" y=\"0\" width=\"470\" height=\"204\" rx=\"14\" fill=\"#FFFCF6\"/><rect x=\"30\" y=\"52\" width=\"150\" height=\"76\" rx=\"5\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"3\"/><line x1=\"105\" y1=\"40\" x2=\"105\" y2=\"140\" stroke=\"#C8553D\" stroke-width=\"3\" stroke-dasharray=\"6 5\"/><text x=\"105\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">切一半<\/text><text x=\"105\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">40 g ÷ 20 cm³<\/text><text x=\"105\" y=\"188\" font-size=\"17\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">D ＝ 2 g/cm³<\/text><line x1=\"192\" y1=\"90\" x2=\"256\" y2=\"90\" stroke=\"#3E3A39\" stroke-width=\"3\" marker-end=\"url(#c1)\"/><rect x=\"288\" y=\"52\" width=\"75\" height=\"76\" rx=\"5\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"326\" y=\"28\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">質量、體積都減半<\/text><text x=\"326\" y=\"162\" font-size=\"15\"  fill=\"#3E3A39\" text-anchor=\"middle\">20 g ÷ 10 cm³<\/text><text x=\"326\" y=\"188\" font-size=\"17\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">D ＝ 2 g/cm³<\/text><\/svg>"},"密度是物質的<b>特性<\/b>。同一種物質、同樣的溫度和狀態，不管大塊小塊，密度都一樣。所以可以用密度來<b>辨認<\/b>是什麼物質。",{"t":"vs","v":[{"h":"切一半：不變","p":"質量、體積一起減半。<br>密度不變。"},{"h":"水結成冰：會變","p":"質量不變、體積變大。<br>密度變小，冰才浮在水上。"}]},{"t":"chant","v":"同物質，同密度；切再小，也不變"}]},{"h":"🚢 浮還是沉，看誰的密度大","body":[{"t":"svg","v":"<svg viewBox=\"0 0 470 246\" role=\"img\" aria-label=\"物體與水比較密度決定浮沉\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"246\" rx=\"14\" fill=\"#FFFCF6\"/><path d=\"M70 26 V198 Q70 212 84 212 H386 Q400 212 400 198 V26\" fill=\"none\" stroke=\"#3E3A39\" stroke-width=\"4\"/><path d=\"M72 66 H398 V198 Q398 210 386 210 H84 Q72 210 72 198 Z\" fill=\"#A8D3E6\" opacity=\"0.65\"/><line x1=\"72\" y1=\"66\" x2=\"398\" y2=\"66\" stroke=\"#2F7FA3\" stroke-width=\"3\"/><rect x=\"112\" y=\"46\" width=\"62\" height=\"44\" rx=\"4\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"143\" y=\"40\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">木 0.6<\/text><rect x=\"204\" y=\"112\" width=\"62\" height=\"44\" rx=\"4\" fill=\"#B9DAA5\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"235\" y=\"136\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">1.0<\/text><rect x=\"298\" y=\"164\" width=\"62\" height=\"44\" rx=\"4\" fill=\"#9A9690\" stroke=\"#3E3A39\" stroke-width=\"3\"/><text x=\"329\" y=\"158\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">鐵 7.9<\/text><text x=\"143\" y=\"232\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"middle\">比水小→浮<\/text><text x=\"235\" y=\"232\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">一樣→懸浮<\/text><text x=\"329\" y=\"232\" font-size=\"15\" font-weight=\"700\" fill=\"#C8553D\" text-anchor=\"middle\">比水大→沉<\/text><text x=\"420\" y=\"74\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"start\">水<\/text><text x=\"420\" y=\"94\" font-size=\"15\" font-weight=\"700\" fill=\"#2F7FA3\" text-anchor=\"start\">1.0<\/text><\/svg>"},{"t":"tiles","v":[{"em":"🪵","h":"物體密度 ＜ 液體","p":"浮起來。木頭浮在水上。"},{"em":"⚖️","h":"物體密度 ＝ 液體","p":"懸浮，可以停在液體中間。"},{"em":"🪨","h":"物體密度 ＞ 液體","p":"沉下去。鐵塊沉到水底。"}]},{"t":"chant","v":"比液體小就浮，比液體大就沉"},{"t":"trap","v":"浮沉要看<b>是哪種液體<\/b>。同一顆蛋在清水會沉，在夠濃的鹽水會浮，因為鹽水的密度比較大。"}]},{"h":"🧪 排水法量密度：天平＋量筒","body":["形狀奇怪的石頭也能算密度。上週學的排水法派上用場了。",{"t":"tiles","v":[{"em":"1️⃣","h":"天平量質量","p":"先量石頭 M ＝ 60 g（要先量！沾水會變重）。"},{"em":"2️⃣","h":"排水法量體積","p":"水位 50.0 mL 升到 74.0 mL，V ＝ 24.0 cm³。"},{"em":"3️⃣","h":"相除","p":"D ＝ 60 ÷ 24 ＝ <b>2.5 g/cm³<\/b>"}]},{"t":"fill","id":"f3","q":"金屬塊 81 g，放入量筒後水位從 40.0 mL 升到 70.0 mL。它的密度是多少 g/cm³？","ans":["2.7"],"unit":"g/cm³","hint":"先算體積：70.0 − 40.0 ＝ 30.0 cm³，再用 D ＝ M ÷ V","e":"V ＝ 30.0 cm³，D ＝ 81 ÷ 30 ＝ 2.7 g/cm³"}]},{"h":"📝 考試會這樣問","body":[{"t":"list","v":["生活說法：「鐵比棉花重」。考卷寫法：「<b>相同體積<\/b>的鐵比棉花質量大，所以鐵的<b>密度<\/b>較大」。沒有「相同體積」就不能比。","考卷常問：「將物體切成兩半，下列何者<b>不變<\/b>？」質量、體積都變了，只有密度不變。","考卷常問：「空瓶 60 g，裝滿水 160 g，裝滿某液體 140 g，液體密度？」先用水算出瓶子的容積（100 cm³），再算液體質量（80 g），兩步才能算出 0.8 g/cm³。"]},{"t":"guide","v":"下週會練 M-V 圖，把密度畫成一條線。這週先把計算和浮沉弄熟就好。"}]}]},{"id":"s4","nav":"🧪三 練習","intro":"週三的 30 分鐘：先做實驗（8 分），再去上方「⚔️ 闖關」答 25 題、把錯題本清空（15～20 分，做不完下次接著做），最後手寫 2 題、講出場券（7 分）。","cards":[{"h":"🥚 讓雞蛋浮起來","body":[{"t":"lab","h":"實驗 1：液體的密度改變浮沉","steps":["杯子裝七分滿的水，輕輕放入一顆生雞蛋，看它沉在底部。","加一匙鹽，攪拌到溶解（小心別敲破蛋）。","繼續一匙一匙加鹽，每加一匙就攪拌、觀察。","記下加到第幾匙，蛋開始浮起來。"],"think":"雞蛋本身沒有變，是什麼變了？用「密度」說說看為什麼蛋會浮起來。"},{"t":"text","id":"x0","q":"加到第幾匙蛋浮起來？為什麼？","how":"做完實驗再打，一兩句就好"}]},{"h":"📄 紙筒傳聲實驗","body":[{"t":"lab","h":"實驗 2：什麼表面最會反射聲音","steps":["把兩張 A4 紙捲成兩支紙筒，用膠帶固定。","在桌上立一本硬皮書當牆，兩支紙筒排成 V 字，尖端朝書、距離約 3～5 公分。","手機用小音量放音樂，放在左邊紙筒的外端。","耳朵靠近右邊紙筒的外端（不要塞進耳朵），聽聲音。","把書換成折好的毛巾，再拿掉書，比較三次聽到的聲音。"],"think":"這個實驗中，你故意改變的是什麼（操縱變因）？跟著改變的是什麼（應變變因）？哪些要保持一樣（控制變因）？"},{"t":"text","id":"x5","q":"書、毛巾、什麼都沒放，哪一個聲音最大？為什麼？","how":"一兩句就好"}]},{"h":"⚔️ 接著去闖關（約 15 分鐘）","body":[{"t":"how","v":"點最上面一排的「⚔️ 闖關」，答完 25 題（🌱 看懂 → 📘 課本 → 🔥 段考挑戰，越後面越難）；答錯的到「📕 錯題」重做到全對。做完再回到這一站，繼續下面的手寫題和出場券。"}]},{"h":"✍️ 手寫 2 題（要寫出算式）","body":[{"t":"write","id":"w1","q":"① 聲納發出後 5 秒收到反射波，水中聲速 1500 m/s，海深多少公尺？寫出算式。"},{"t":"write","id":"w2","q":"② 金屬塊 54 g，放入量筒後水位從 30.0 mL 升到 50.0 mL，密度多少？寫出算式和單位。"}]},{"h":"🎟️ 出場券：用自己的話說","body":[{"t":"text","id":"x1","q":"1. 為什麼教室裡通常分辨不出回聲？"},{"t":"text","id":"x2","q":"2. 超聲波的「超」，超的是什麼？"},{"t":"text","id":"x3","q":"3. 算山壁距離或海深時，為什麼要除以 2？"},{"t":"text","id":"x4","q":"4. 一塊會浮在水上的木頭切成兩半，兩塊各會怎樣？為什麼？"},{"t":"guide","v":"講不出來的那一題，回去那一站再看一次動畫或卡片，再回來寫。"}]},{"h":"📤 最後一步：傳給爸爸","body":[{"t":"submit","how":"按下面的按鈕 → 選 <b>LINE<\/b> → 選爸爸 → 傳送。手機會把你這週的闖關成績、猜謎、填空、手寫和出場券整理成一張圖傳出去。"},{"t":"guide","v":"傳完這週就結束了，好好休息！下週日見 👋"}]}]}],"flash":[["聲波的反射","聲波碰到障礙物彈回來"],["回聲","反射回來、被人聽到的聲音"],["分辨回聲的條件","原聲和回聲相隔 0.1 秒以上"],["至少離牆多遠才分得出回聲","340 × 0.1 ÷ 2 ＝ 17 m（聲速 340 m/s 時）"],["回聲算距離","距離 ＝ 聲速 × 來回時間 ÷ 2"],["教室有沒有反射","有，只是回聲太快回來，和原聲分不開"],["什麼表面反射多","硬又光滑，例：磁磚、水泥"],["什麼表面吸收多","軟又多孔，例：地毯、布幕、吸音棉"],["人耳聽得到的範圍","約 20～20000 Hz"],["超聲波","頻率高於 20000 Hz 的聲波，人耳聽不到"],["超聲波跑得比較快嗎","不會，同介質同溫度下速度一樣，只是頻率高"],["超聲波需要介質嗎","需要，真空中不能傳"],["聲納","發出超聲波、接收反射波，用來測海深、找魚群"],["水中聲速","約 1500 m/s，比空氣快"],["密度","每單位體積的質量，D ＝ M ÷ V"],["密度的單位","g/cm³ 或 kg/m³"],["1 g/cm³ ＝ ? kg/m³","1000 kg/m³"],["水的密度","約 1 g/cm³"],["切一半後密度","不變，質量和體積一起減半"],["水結成冰","質量不變、體積變大、密度變小"],["什麼時候會浮","物體密度小於液體密度"],["排水法量密度","天平量質量 ＋ 排水法量體積 → 相除"]],"order":[{"t":"聲納測海深的步驟","items":["船往海底發出超聲波","超聲波在海水中往下傳","碰到海底發生反射","船收到反射波，記下來回時間","海深 ＝ 聲速 × 時間 ÷ 2"]},{"t":"用排水法量石頭的密度","items":["用天平量石頭的質量","量筒裝適量的水，讀出 V₁","用細線綁住石頭放進水裡，讀出 V₂","體積 ＝ V₂ − V₁","密度 ＝ 質量 ÷ 體積"]},{"t":"密度：由小到大","items":["木頭","水","鋁","鐵","金"]},{"t":"頻率：由低到高","items":["次聲波（低於 20 Hz）","人耳聽得到的聲音","超聲波（高於 20000 Hz）"]}],"quizHow":"📝 怎麼作答：每題<b>點一個<\/b>你覺得對的答案，馬上會告訴你對錯和原因，再按「下一關」。題目分三區：🌱 看懂區 → 📘 課本區 → 🔥 段考挑戰區，<b>越後面越難，最後幾題就是段考程度<\/b>，錯了很正常！錯的題目會自動放進「📕 錯題」，回去重做到全對就過關。做不完沒關係，進度會自動存起來，下次接著做。","quiz":[{"tag":"看懂","s":"在山谷大喊，過一下子聽到回聲。回聲是怎麼來的？","o":["山谷裡的空氣自己發出聲音","聲波碰到山壁反射回來","聲音繞著地球跑了一圈","原本的聲音變慢了才到"],"a":1,"e":"聲波碰到障礙物會反射，反射回來被你聽到的就是回聲。空氣不會自己發出聲音，聲音也不會繞地球一圈。"},{"tag":"看懂","s":"下列哪一種表面，最不容易產生明顯的回聲？","o":["磁磚牆","玻璃窗","厚地毯和布幕","水泥牆"],"a":2,"e":"軟又多孔的材質會吸收聲音，反射的少。磁磚、玻璃、水泥又硬又光滑，反射都很明顯。"},{"tag":"看懂","s":"人耳大約聽得到的聲音頻率範圍是？","o":["20～20000 Hz","0～100 Hz","20000 Hz 以上","340～1500 Hz"],"a":0,"e":"人耳大約聽得到 20～20000 Hz。340 和 1500 是聲音在空氣和水中的速度（m/s），單位不同，不要搞混。"},{"tag":"看懂","s":"「超聲波」的「超」，指的是什麼超過？","o":["跑的速度超過一般聲音","音量超過一般聲音","傳的距離超過一般聲音","頻率超過人耳聽得到的上限"],"a":3,"e":"超聲波是頻率高於 20000 Hz 的聲波。它的速度和一般聲音一樣，音量也不一定比較大。"},{"tag":"看懂","s":"同樣大小的鐵塊和保麗龍，拿起來鐵塊重很多。這是因為？","o":["鐵塊的體積比較大","鐵的密度比較大","保麗龍沒有質量","鐵塊受到的空氣比較多"],"a":1,"e":"題目說同樣大小，體積相同，質量大的密度就大。保麗龍也有質量，只是比較小。"},{"tag":"看懂","s":"把一塊蛋糕切成一半，下列哪一個<b>不會<\/b>改變？","o":["質量","體積","密度","全部都會變"],"a":2,"e":"質量和體積一起減半，相除的結果不變，所以密度不變。"},{"tag":"看懂","s":"水的密度約 1 g/cm³。一塊密度 0.6 g/cm³ 的木頭放進水裡，會怎樣？","o":["浮在水面","沉到水底","溶解在水中","停在水的正中間"],"a":0,"e":"物體密度比液體小就會浮。停在水中間（懸浮）要密度和水一樣才會發生。"},{"tag":"課本","s":"空氣中聲速約 340 m/s。要能分辨原聲和回聲（相隔 0.1 秒以上），人距離牆壁至少要多遠？","o":["34 m","340 m","3400 m","17 m"],"a":3,"e":"340 × 0.1 ＝ 34 m 是來回路程，再除以 2 才是到牆的距離：17 m。選 34 m 就是忘了除以 2。"},{"tag":"課本","s":"對著山壁大喊，2 秒後聽到回聲（聲速 340 m/s）。山壁距離多遠？","o":["680 m","170 m","340 m","1360 m"],"a":2,"e":"340 × 2 ＝ 680 m 是來回，除以 2 得 340 m。680 m 是忘了除以 2；170 m 是多除了一次。"},{"tag":"課本","s":"漁船的聲納發出超聲波，4 秒後收到反射波（水中聲速 1500 m/s）。海深是多少？","o":["3000 m","6000 m","1500 m","375 m"],"a":0,"e":"1500 × 4 ÷ 2 ＝ 3000 m。6000 m 是忘了除以 2。"},{"tag":"課本","s":"下列哪一個<b>不是<\/b>利用超聲波？","o":["蝙蝠捕捉小蟲","聲納測海深","超音波檢查胎兒","太空人用無線電通話"],"a":3,"e":"無線電是電磁波，不需要介質，才能在太空使用。其他三個都是利用超聲波和它的回聲。"},{"tag":"課本","s":"一塊金屬質量 20 g、體積 8 cm³，它的密度是多少？","o":["0.4 g/cm³","2.5 g/cm³","160 g/cm³","28 g/cm³"],"a":1,"e":"D ＝ M ÷ V ＝ 20 ÷ 8 ＝ 2.5 g/cm³。0.4 是除反了；160 是相乘；28 是相加。"},{"tag":"課本","s":"鋁的密度是 2.7 g/cm³，換算成 kg/m³ 是多少？","o":["27","270","2.7","2700"],"a":3,"e":"1 g/cm³ ＝ 1000 kg/m³，所以 2.7 × 1000 ＝ 2700 kg/m³。"},{"tag":"課本","s":"鐵的密度是 7.9 g/cm³。一塊 79 g 的鐵塊，體積是多少？","o":["10 cm³","624.1 cm³","0.1 cm³","86.9 cm³"],"a":0,"e":"V ＝ M ÷ D ＝ 79 ÷ 7.9 ＝ 10 cm³。624.1 是相乘；0.1 是除反了；86.9 是相加。"},{"tag":"課本","s":"石頭質量 60 g。放入量筒後，水位從 50.0 mL 升到 74.0 mL。石頭的密度是多少？","o":["1.2 g/cm³","0.81 g/cm³","2.5 g/cm³","0.4 g/cm³"],"a":2,"e":"先求體積：74.0 − 50.0 ＝ 24.0 cm³，再算 60 ÷ 24 ＝ 2.5 g/cm³。1.2 和 0.81 都是直接拿水位當體積。"},{"tag":"課本","s":"水結成冰的時候，下列哪一個敘述正確？","o":["質量變大","密度變小","體積變小","密度不變"],"a":1,"e":"水結冰時質量不變、體積變大，所以密度變小，冰才會浮在水上。寶特瓶裝滿水冰起來會脹破，也是這個原因。"},{"tag":"段考挑戰","s":"【題組】一艘船沿著航線，在 A、B、C、D 四個地點用聲納往海底測量，下圖是海底的樣子和測得的來回時間（水中聲速 1500 m/s）。","src":"<svg viewBox=\"0 0 470 228\" role=\"img\" aria-label=\"船沿航線在四個地點測得的聲納來回時間\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"228\" rx=\"14\" fill=\"#FFFFFF\"/><rect x=\"20\" y=\"42\" width=\"430\" height=\"134\" fill=\"#A8D3E6\" opacity=\"0.45\"/><line x1=\"20\" y1=\"42\" x2=\"450\" y2=\"42\" stroke=\"#2F7FA3\" stroke-width=\"3\"/><path d=\"M20 110.4 L118 124 L210 164.8 L302 90 L394 137.6 L450 117.2 L450 176 L20 176 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\" stroke-linejoin=\"round\"/><line x1=\"118\" y1=\"42\" x2=\"118\" y2=\"124\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"118\" cy=\"124\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"118\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">A<\/text><line x1=\"210\" y1=\"42\" x2=\"210\" y2=\"164.8\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"210\" cy=\"164.8\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"210\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">B<\/text><line x1=\"302\" y1=\"42\" x2=\"302\" y2=\"90\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"302\" cy=\"90\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"302\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">C<\/text><line x1=\"394\" y1=\"42\" x2=\"394\" y2=\"137.6\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"394\" cy=\"137.6\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"394\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">D<\/text><rect x=\"20\" y=\"184\" width=\"430\" height=\"34\" fill=\"#fff\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"36\" y=\"207\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">來回<\/text><text x=\"118\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">2.0 s<\/text><text x=\"210\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">3.2 s<\/text><text x=\"302\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">1.0 s<\/text><text x=\"394\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">2.4 s<\/text><\/svg>","s2":"哪一個地點的海水最淺？","o":["A","B","C","D"],"a":2,"e":"來回時間越短，代表海底越近。C 只要 1.0 秒，最短，所以最淺。B 的 3.2 秒最長，是最深的地方。"},{"tag":"段考挑戰","s":"【題組・承上圖】","src":"<svg viewBox=\"0 0 470 228\" role=\"img\" aria-label=\"船沿航線在四個地點測得的聲納來回時間\"><rect x=\"0\" y=\"0\" width=\"470\" height=\"228\" rx=\"14\" fill=\"#FFFFFF\"/><rect x=\"20\" y=\"42\" width=\"430\" height=\"134\" fill=\"#A8D3E6\" opacity=\"0.45\"/><line x1=\"20\" y1=\"42\" x2=\"450\" y2=\"42\" stroke=\"#2F7FA3\" stroke-width=\"3\"/><path d=\"M20 110.4 L118 124 L210 164.8 L302 90 L394 137.6 L450 117.2 L450 176 L20 176 Z\" fill=\"#F6D27A\" stroke=\"#3E3A39\" stroke-width=\"3\" stroke-linejoin=\"round\"/><line x1=\"118\" y1=\"42\" x2=\"118\" y2=\"124\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"118\" cy=\"124\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"118\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">A<\/text><line x1=\"210\" y1=\"42\" x2=\"210\" y2=\"164.8\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"210\" cy=\"164.8\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"210\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">B<\/text><line x1=\"302\" y1=\"42\" x2=\"302\" y2=\"90\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"302\" cy=\"90\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"302\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">C<\/text><line x1=\"394\" y1=\"42\" x2=\"394\" y2=\"137.6\" stroke=\"#C8553D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"394\" cy=\"137.6\" r=\"5\" fill=\"#F2A497\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"394\" y=\"30\" font-size=\"18\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">D<\/text><rect x=\"20\" y=\"184\" width=\"430\" height=\"34\" fill=\"#fff\" stroke=\"#3E3A39\" stroke-width=\"2\"/><text x=\"36\" y=\"207\" font-size=\"15\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"start\">來回<\/text><text x=\"118\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">2.0 s<\/text><text x=\"210\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">3.2 s<\/text><text x=\"302\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">1.0 s<\/text><text x=\"394\" y=\"207\" font-size=\"16\" font-weight=\"700\" fill=\"#3E3A39\" text-anchor=\"middle\">2.4 s<\/text><\/svg>","s2":"B 地點的海水深度是多少？","o":["4800 m","2400 m","1200 m","3200 m"],"a":1,"e":"1500 × 3.2 ÷ 2 ＝ 2400 m。4800 m 是忘了除以 2；1200 m 是多除了一次 2；3200 m 是把 3.2 秒看成 3.2 公里。"},{"tag":"段考挑戰","s":"小明站在兩座山壁之間拍一下手，1 秒後聽到第一次回聲，3 秒後聽到第二次回聲（聲速 340 m/s）。兩座山壁相距多遠？","o":["680 m","1360 m","340 m","510 m"],"a":0,"e":"兩步：近的山壁 340 × 1 ÷ 2 ＝ 170 m；遠的山壁 340 × 3 ÷ 2 ＝ 510 m；相加 680 m。選 510 m 是只算遠的那一座；1360 m 是都忘了除以 2。"},{"tag":"段考挑戰","s":"汽車以 20 m/s 朝山壁等速前進，鳴笛後 2 秒聽到回聲（聲速 340 m/s）。<b>鳴笛時<\/b>，汽車距離山壁多遠？","o":["320 m","340 m","380 m","360 m"],"a":3,"e":"聲音走 340 × 2 ＝ 680 m，車走 20 × 2 ＝ 40 m，兩者加起來剛好是鳴笛時距離的 2 倍：(680 ＋ 40) ÷ 2 ＝ 360 m。320 m 是「聽到回聲時」的距離（360 − 40）；340 m 是忘了車也在前進。先畫圖就不會亂。"},{"tag":"段考挑戰","s":"下列關於回聲與超聲波的敘述，何者<b>錯誤<\/b>？","o":["在同一種介質中，回聲和原聲速率相同","超聲波屬於聲波，也需要介質才能傳播","超聲波頻率比一般聲音高，所以在空氣中跑得比較快","站在很近的牆前說話，通常分辨不出回聲"],"a":2,"e":"聲速由介質和溫度決定，和頻率沒有關係，所以超聲波不會跑得比較快。其他三個都正確。"},{"tag":"段考挑戰","s":"小芸做紙筒傳聲實驗，把反射面依序換成硬皮書、毛巾、磁磚，其他條件都相同，比較聽到的聲音大小。這個實驗的「操縱變因」是什麼？","o":["反射面的材質","手機的音量","紙筒的長度","聽到的聲音大小"],"a":0,"e":"操縱變因是故意改變的東西：反射面的材質。聽到的聲音大小是跟著變的結果（應變變因）；手機音量、紙筒長度要保持一樣（控制變因）。"},{"tag":"段考挑戰","s":"一個空瓶質量 60 g，裝滿水後是 160 g，裝滿某液體後是 140 g（水的密度 1 g/cm³）。這種液體的密度是多少？","o":["1.4 g/cm³","0.8 g/cm³","1.25 g/cm³","0.875 g/cm³"],"a":1,"e":"三步：水的質量 160 − 60 ＝ 100 g，所以瓶子容積 100 cm³；液體質量 140 − 60 ＝ 80 g；密度 80 ÷ 100 ＝ 0.8 g/cm³。1.4 是忘了扣瓶子；1.25 是除反了。"},{"tag":"段考挑戰","s":"一塊密度 0.6 g/cm³ 的木塊，切成一大一小兩塊後一起放進水中。下列何者正確？","o":["大塊沉、小塊浮","兩塊都沉","大塊浮、小塊沉","兩塊都浮"],"a":3,"e":"切開後密度不變，兩塊都是 0.6 g/cm³，都比水小，所以都浮。浮沉和大小沒有關係。"},{"tag":"段考挑戰","s":"蝙蝠發出頻率 34000 Hz 的超聲波，空氣中聲速 340 m/s。這個超聲波的波長是多少？","o":["1 cm","10 cm","100 cm","0.1 cm"],"a":0,"e":"兩步：λ ＝ v ÷ f ＝ 340 ÷ 34000 ＝ 0.01 m，再換單位 0.01 m ＝ 1 cm。"}],"assets":[],"sources":[{"t":"彰化縣和美國中 115 學年度八年級自然課程計畫（南一版，章節與週次參考）","u":"https://www.curriculum.chc.edu.tw/years/115/plans/1392/views/5-8自然科學.pdf"},{"t":"EduBaania 教科書版本資料庫（115 學年版本參考）","u":"https://school.edubaania.com/textbooks/"}]};
+// 作答同步（學習小站 study-hub）：網頁 → ntfy.sh → Mac mini。renderPage／renderHome 會把整份檔案嵌進頁面。
+// 鑰匙：第一次用「網址#k=鑰匙」打開任何一頁就記在這台平板（同網域每頁共用），#k=off 取消；沒有鑰匙時完全不作用。
+// 頻道與加密鑰匙都由鑰匙推出（和 Mac 的 study_hub.py 同一套規則）：
+//   收件 sh-<sha256("in:"+鑰匙) 前 24 碼>、回條 sh-<sha256("st:"+鑰匙) 前 24 碼>、AES-GCM 鑰匙 sha256("enc:"+鑰匙)
+// 作答先排進本機佇列，送出後等 Mac 在回條頻道確認才刪；沒網路或 Mac 沒回，20 分鐘後重送（Mac 會去重）。
+const HUB = (() => {
+  const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
+  const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  // 首頁不清掉網址上的鑰匙：iPad「加入主畫面」的圖示和 Safari 分開存資料，網址帶著鑰匙，圖示打開時才會自己記住
+  const takeKey = () => {
+    const m = location.hash.match(/[#&]k=([\w-]+)/);
+    if (!m) return false;
+    put("hub_k", m[1] === "off" ? null : m[1]);
+    if (typeof DATA !== "undefined") history.replaceState(null, "", location.pathname + location.search);
+    return true;
+  };
+  takeKey();
+  addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
+  const KEY = get("hub_k"), ON = !!(KEY && window.crypto && crypto.subtle && window.fetch);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const sha = (s) => crypto.subtle.digest("SHA-256", enc.encode(s));
+  const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  let ch = null;
+  const chan = () => ch || (ch = Promise.all([sha("in:" + KEY), sha("st:" + KEY), sha("enc:" + KEY)]).then(async ([a, b, c]) =>
+    ({ tin: "sh-" + hex(a).slice(0, 24), tst: "sh-" + hex(b).slice(0, 24), k: await crypto.subtle.importKey("raw", c, "AES-GCM", false, ["encrypt", "decrypt"]) })));
+  async function seal(k, u8) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, u8));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  }
+  const open = async (k, u8) => new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8.slice(0, 12) }, k, u8.slice(12)));
+  const DEV = get("hub_dev") || (() => { const d = Math.random().toString(36).slice(2, 10); put("hub_dev", d); return d; })();
+  const queue = () => { try { return JSON.parse(get(QK) || "[]"); } catch (e) { return []; } };
+  const save = (a) => put(QK, JSON.stringify(a.slice(-500)));
+  const pg = () => (typeof DATA !== "undefined" && DATA && DATA.id) || "home";
+
+  // 記一筆作答；key 相同又還沒送出的舊筆會被取代（打字題只送最後的內容）。題目代號用 id2，id 是這筆事件自己的
+  let lastTs = 0;
+  function log(t, d = {}, wait = 2500) {
+    if (!ON) return;
+    const a = queue(), ts = lastTs = Math.max(Date.now(), lastTs + 1); // 同一毫秒連點兩下也要分得出先後
+    if (d.key) { const i = a.findIndex((e) => !e.s && e.key === d.key); if (i >= 0) a.splice(i, 1); }
+    a.push({ ...d, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts, pg: pg(), t, s: 0 });
+    save(a); soon(wait); ui();
+  }
+  let tm = null, busy = false;
+  const soon = (ms) => { clearTimeout(tm); tm = setTimeout(flush, ms); };
+  async function flush(keepalive) {
+    if (!ON || busy || navigator.onLine === false) return;
+    busy = true;
+    try {
+      const c = await chan(), now = Date.now(), todo = queue().filter((e) => !e.s || now - e.s > 20 * 60e3);
+      while (todo.length) {
+        const batch = []; let size = 0;
+        while (todo.length) {
+          const { s, key, ...ev } = todo[0], j = JSON.stringify(ev), n = enc.encode(j).length;
+          if (batch.length && size + n > MAXB) break;
+          batch.push({ id: ev.id, j }); size += n; todo.shift();
+        }
+        const body = b64u(await seal(c.k, enc.encode(`{"v":1,"dev":"${DEV}","ev":[${batch.map((x) => x.j).join(",")}]}`)));
+        const r = await fetch(NT + c.tin, { method: "POST", body, keepalive: !!keepalive });
+        if (!r.ok) break;
+        const ids = new Set(batch.map((x) => x.id)), t = Date.now(), cur = queue();
+        cur.forEach((e) => { if (ids.has(e.id)) e.s = t; }); save(cur);
+      }
+      if (!keepalive) { setTimeout(poll, 8000); setTimeout(poll, 30000); }
+    } catch (e) {} finally { busy = false; ui(); }
+  }
+  // 讀 Mac 的回條：確認收到的就從佇列刪掉
+  async function poll() {
+    if (!ON) return;
+    try {
+      const c = await chan(), r = await fetch(NT + c.tst + "/json?poll=1&since=" + (get("hub_since") || "12h"));
+      if (!r.ok) return;
+      const acked = new Set();
+      for (const ln of (await r.text()).split("\n")) {
+        let msg; try { msg = JSON.parse(ln); } catch (e) { continue; }
+        if (msg.event !== "message") continue;
+        put("hub_since", msg.id);
+        try { const o = JSON.parse(dec.decode(await open(c.k, unb64u(msg.message)))); (o.ack || []).forEach((x) => acked.add(x)); if (o.at) put("hub_last", o.at); } catch (e) {}
+      }
+      if (acked.size) save(queue().filter((e) => !acked.has(e.id)));
+    } catch (e) {} finally { ui(); }
+  }
+  // 整個檔案（作答報告圖）加密後當 ntfy 附件上傳；成功回 true
+  async function sendFile(u8, meta) {
+    if (!ON) return false;
+    try {
+      const c = await chan(), m2 = b64u(await seal(c.k, enc.encode(JSON.stringify({ v: 1, dev: DEV, pg: pg(), ts: Date.now(), ...meta }))));
+      const r = await fetch(NT + c.tin + "?filename=r.bin&message=" + m2, { method: "POST", body: new Blob([await seal(c.k, u8)], { type: "text/plain" }) });
+      return r.ok;
+    } catch (e) { return false; }
+  }
+  // 頁尾一行：讓孩子知道作答會傳給爸爸、同步到哪
+  function ui() {
+    const el = document.getElementById("hubst"); if (!el) return;
+    if (!ON) { el.textContent = ""; return; }
+    const n = queue().filter((e) => !e.s).length, last = get("hub_last");
+    el.textContent = "📡 你的作答會自動傳給爸爸" + (n ? `・有 ${n} 筆等網路，連上會自動補傳` : last ? `・已同步（${last}）` : "");
+  }
+  if (ON) {
+    addEventListener("online", () => flush());
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(true); else poll(); });
+    setInterval(() => { if (document.visibilityState === "visible") flush(); }, 60000);
+    setTimeout(() => { flush(); poll(); }, 1500);
+  }
+  return { on: ON, log, sendFile, ui };
+})();
+
+const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
+const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const mmss=t=>`${t/60|0}:${String(t%60).padStart(2,"0")}`;
+const CALM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
+if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
+document.title=DATA.title;$("ttl").textContent=DATA.title;$("logo").textContent=DATA.icon||"📚";
+const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
+S.inl=S.inl||{};S.first=S.first||{};S.round=S.round||1;
+let warned=false;
+const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){if(!warned){warned=true;toast("⚠️ 平板的空間不夠，作答可能存不起來，請跟爸爸說一聲")}}};
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),6000)}
+// 手寫與照片很大，改存 IndexedDB：全部週課共用同一個網域的 localStorage（約 5MB），放圖片幾週後就會撐爆，連作答都存不進去
+const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
+ const open=()=>p||(p=new Promise((ok,no)=>{try{const r=indexedDB.open("study-img",1);r.onupgradeneeded=()=>r.result.createObjectStore("i");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}));
+ const run=(m,f)=>open().then(d=>new Promise((ok,no)=>{const t=d.transaction("i",m),q=f(t.objectStore("i"));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>no(t.error)}));
+ return{get:(id,f)=>run("readonly",s=>s.get(k(id,f))).catch(()=>undefined).then(v=>v??S.inl[id]?.[f]),
+  set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
+   .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
+const INL={};const reg=b=>{INL[b.id]=b;return b};
+// 闖關、排順序的狀態一定要在這裡宣告：下面產生頁面（列印版會直接產生題目）時就會用到，宣告在後面會讀不到而中斷
+let QZ=null,cur=0,combo=0,oi=0,picked=[];
+function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
+const hero=()=>`<div class="hero"><div class="txt"><div class="chips">${[DATA.grade,DATA.subject,DATA.version].filter(Boolean).map(x=>`<span class="chip">${x}</span>`).join("")}${DATA.exam?`<span class="chip y">${DATA.exam}</span>`:""}</div><h2>${DATA.title}</h2>${DATA.range?`<div class="srcs">範圍：${DATA.range}</div>`:""}</div><div class="pics">${art("star","sm float d2 s1")}${art("cloud","md float d3 s2")}<span class="stamp">${art(DATA.art||subjArt(DATA.subject),"float")}</span></div></div>`;
+// ---------- blocks ----------
+function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
+ switch(b.t){
+ case"h3":return `<h3>${b.v}</h3>`;
+ case"p":return `<p>${b.v}</p>`;
+ case"list":return `<ul>${b.v.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ case"tiles":return `<div class="tiles">${b.v.map(x=>`<div class="tile"><div class="em">${x.em||""}</div><h4>${x.h}</h4><p>${x.p}</p></div>`).join("")}</div>`;
+ case"chant":return `<div class="chant">🎵 ${b.v}${b.sub?`<small>${b.sub}</small>`:""}</div>`;
+ case"trap":return `<div class="trap">${b.v}</div>`;
+ case"vs":return `<div class="vs">${b.v.map(x=>`<div><h4>${x.h}</h4>${x.p}</div>`).join("")}</div>`;
+ case"table":return `<div class="tw"><table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
+ case"svg":return `<div class="fig">${b.v}</div>`;
+ case"img":return `<img class="pic" src="${b.v}" alt="${b.alt||""}">`;
+ case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<div class="vbox"><video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video><button class="zoom" data-vbig>⛶ 放大看</button></div>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ // YouTube 名師影片：直接顯示影片畫面，點一下就地播放、按「放大看」滿版播放；s／e 是只播的片段（秒）
+ case"yt":{const seg=b.s||b.e?`・只看 ${mmss(b.s||0)}～${b.e?mmss(b.e):"結束"}`:"";
+  return PRINT?`<p>📺 ${b.title}（${b.who}${seg}）：youtu.be/${b.id}${b.s?"?t="+b.s:""}</p>`:
+  `<div class="yt" data-yt="${b.id}" data-s="${b.s||0}" data-e="${b.e||""}" data-title="${b.title}"><div class="scr" role="button" tabindex="0" data-ytplay aria-label="播放：${b.title}"><img loading="lazy" src="https://i.ytimg.com/vi/${b.id}/hqdefault.jpg" alt=""><span class="play">▶</span>${b.len?`<span class="dur">⏱ ${b.len}</span>`:""}<button class="zoom" data-ytbig>⛶ 放大看</button></div><div class="ytm"><h4>${b.tag?`<span class="tag">${b.tag}</span>`:""}${b.title}</h4><p>${b.who}${seg}</p>${b.cap?`<p>${b.cap}</p>`:""}</div></div>`}
+ case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
+ case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
+ case"guide":return guide(b.v);
+ case"how":return `<div class="how">📝 怎麼作答：${b.v}</div>`;
+ case"ask":reg(b);return PRINT?`<div class="ask"><div class="stem">${b.q}</div><p>${b.o.map((o,j)=>`（　）${L[j]}. ${o}`).join("<br>")}</p></div>`:
+  `<div class="ask" data-id="${b.id}"><div class="how">📝 ${b.how||"點一個你覺得對的答案"}</div><div class="stem">${b.q}</div>${b.o.map((o,j)=>`<button class="opt" data-ask="${b.id}" data-j="${j}">(${L[j]}) ${o}</button>`).join("")}<div class="fb"></div></div>`;
+ case"reveal":return PRINT?"":`<div class="reveal" data-ref="${b.ref}" data-v="${encodeURIComponent(b.v||"")}"></div>`;
+ case"fill":reg(b);return PRINT?`<div class="fill"><div class="stem">${b.q}</div><p>答：＿＿＿＿＿＿ ${b.unit||""}</p></div>`:
+  `<div class="fill" data-id="${b.id}"><div class="how">📝 ${b.how||"在框框裡打答案（只打數字就好），再按「對答案」"}</div><div class="stem">${b.q}</div><div class="row"><input inputmode="decimal" autocomplete="off" data-fill="${b.id}"> <span>${b.unit||""}</span><button class="btn" data-check="${b.id}">對答案</button></div><div class="fb"></div></div>`;
+ case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint"></div></div>`:
+  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍紙本」拍照"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍紙本<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片"></div>`;
+ case"text":reg(b);return PRINT?`<div class="tbox"><div class="stem">${b.q}</div><p>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p></div>`:
+  `<div class="tbox"><div class="how">📝 ${b.how||"用自己的話打一兩句就好，不用很長"}</div><div class="stem">${b.q}</div><textarea data-text="${b.id}" placeholder="在這裡打字…"></textarea></div>`;
+ case"submit":return PRINT?"":`<div class="sub"><div class="how">📝 ${HUB.on?"全部做完後按下面的按鈕，作答報告（含手寫）會自動傳給爸爸，不用開 LINE":b.how||"全部做完後按下面的按鈕，選 LINE 傳給爸爸"}</div><button class="btn" data-submit="1">📤 傳給爸爸</button><div class="fb" id="subfb"></div><img class="subimg" id="subimg" alt="作答報告"></div>`;
+ default:return "";}}
+const card=c=>`<div class="card">${c.h?`<h2>${c.h}</h2>`:""}${(c.body||[]).map(blk).join("")}</div>`;
+// ---------- pages ----------
+const pages=[];
+pages.push({id:"home",nav:"🗺️ 出發",html:()=>hero()+guide(DATA.home.intro)+(DATA.home.cards||[]).map(card).join("")});
+DATA.stations.forEach(s=>pages.push({id:s.id,nav:s.nav,html:()=>(s.intro?guide(s.intro):"")+s.cards.map(card).join("")}));
+if(DATA.flash?.length)pages.push({id:"flash",nav:"🃏 記憶卡",html:()=>PRINT?
+ `<div class="card"><h2>🃏 記憶卡（遮住右邊自我測驗）</h2><div class="cards">${DATA.flash.map(f=>`<div class="fc"><b>${f[0]}</b>：${f[1]}</div>`).join("")}</div></div>`:
+ guide("點一下卡片就會翻面。先自己說出答案，再翻過來對答案！")+`<div class="cards" id="fc"></div>`,init:initFlash});
+if(DATA.order?.length)pages.push({id:"order",nav:"🧩 排順序",html:()=>PRINT?
+ `<div class="card"><h2>🧩 排順序練習</h2>${DATA.order.map((g,i)=>`<h3>${g.t}</h3><p>${shuffle(g.items.map((v,k)=>k)).map(k=>"（　）"+g.items[k]).join("<br>")}</p>`).join("")}</div>`:
+ guide("請依照<b>正確順序</b>依序點選，全部排對可以拿到 ⭐×5！")+`<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div><button class="btn alt" id="oNext">換一組 🔄</button></div>`,init:initOrder});
+pages.push({id:"quiz",nav:"⚔️ 闖關",html:()=>PRINT?printQuiz():guide(DATA.quizHow||"📝 怎麼作答：每題<b>點一個</b>你覺得對的答案，馬上會告訴你對錯和原因，再按「下一關」。答錯沒關係，錯的題目會自動放進「📕 錯題」，最後回去重做到全對就過關！")+`<div class="qbox" id="qbox"></div>`,init:qStart});
+if(!PRINT)pages.push({id:"wrong",nav:"📕 錯題",html:()=>`<div id="wbox"></div>`,init:wRender});
+if(PRINT)pages.push({id:"key",nav:"",html:printKey});
+// ---------- render ----------
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const M=$("main"),N=$("nav");
+// 產生全部分頁：在檔尾才呼叫（見最後一行）。列印版會在這時直接產生題目，用到的 let／const 都要先宣告好，放前面會中斷、PDF 少掉練習題與解答
+function render(){pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;b.onclick=()=>show(p.id);N.appendChild(b)}});
+ if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+ if(!PRINT){const h=document.createElement("div");h.id="hubst";h.className="srcs";M.appendChild(h);HUB.ui()}}
+function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});bigClose();ytReset();
+ const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// ---------- 影片：YouTube 就地播放、放大看 ----------
+const ytSrc=y=>`https://www.youtube-nocookie.com/embed/${y.dataset.yt}?autoplay=1&playsinline=1&rel=0&modestbranding=1${+y.dataset.s?"&start="+y.dataset.s:""}${y.dataset.e?"&end="+y.dataset.e:""}`;
+const YTA=`allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen`;
+// 同時只播一支：開新的就把其他就地播放的換回縮圖（拿掉 iframe 才會停聲音）
+function ytReset(keep){if(!keep)ytStop();document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function ytPlay(y){const s=y.querySelector(".scr");if(s.classList.contains("live"))return;ytReset();document.querySelectorAll("video").forEach(v=>v.pause());
+ s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`;ytStart(y,"就地")}
+// 看片紀錄（送學習小站）：動畫課記「實際播放秒數」和「看到幾 %」；YouTube 是別人的播放器讀不到進度，只記點開幾次、開著多久（暫停也算，約略值）
+// 送的是這次打開網頁以來的累計，同一支影片未送出的舊筆會被新的取代（key），Mac 端同一次觀看（vw）取最大值
+const ACC={},acc=(t,k)=>ACC[t+k]||(ACC[t+k]={vw:Math.random().toString(36).slice(2,8),sec:0,n:0,pct:0,tag:""});
+const wSend=(t,k,g,r)=>HUB.log(t,{id2:String(k).slice(0,16),g:String(g||"").slice(0,30),vw:r.vw,sec:Math.round(r.sec),n:r.n,pct:Math.round(r.pct),tag:r.tag,key:t+":"+k},3000);
+let ytNow=null,ytBack=null;
+function ytStart(y,mode){ytStop();ytNow={y,mode,t0:Date.now(),max:(+y.dataset.e||0)-(+y.dataset.s||0)}}
+function ytStop(){if(!ytNow)return;const x=ytNow;ytNow=null;const len=x.max>0?x.max:3600,s=Math.min((Date.now()-x.t0)/1000,len);if(s<3)return;
+ const k=x.y.dataset.yt+(+x.y.dataset.s?"@"+x.y.dataset.s:""),r=acc("yt",k);/* 同一支影片在不同站播不同片段，用起始秒數分開 */r.sec+=s;r.n++;r.tag=x.mode;r.pct=x.max>0?Math.min(100,r.sec/x.max*100):0;wSend("yt",k,x.y.dataset.title,r)}
+const vKey=v=>(v.getAttribute("src")||"").split("?")[0].split("/").pop().replace(/\.\w+$/,"");
+const VP=new WeakMap();
+function vSend(v){if(!v||v.tagName!=="VIDEO")return;const k=vKey(v),r=ACC["vid"+k];if(!r||r.sec<2||r.sent===Math.round(r.sec))return;r.sent=Math.round(r.sec);wSend("vid",k,v.dataset.title,r)}
+document.addEventListener("timeupdate",e=>{const v=e.target;if(v.tagName!=="VIDEO")return;const p=VP.get(v),t=v.currentTime;VP.set(v,t);
+ if(p!==undefined&&t>p&&t-p<1.5){const r=acc("vid",vKey(v));r.sec+=t-p;if(v.duration)r.pct=Math.max(r.pct,Math.min(100,t/v.duration*100+(v.duration-t<1.5?100:0)))}},true);
+document.addEventListener("seeked",e=>{if(e.target.tagName==="VIDEO")VP.set(e.target,e.target.currentTime)},true);
+document.addEventListener("play",e=>{if(e.target.tagName==="VIDEO"){acc("vid",vKey(e.target)).n++;ytReset()}},true);
+["pause","ended"].forEach(n=>document.addEventListener(n,e=>vSend(e.target),true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){document.querySelectorAll("video").forEach(vSend);if(ytNow){ytBack=ytNow;ytStop()}}
+ else if(ytBack){const b=ytBack;ytBack=null;if(b.y.querySelector(".scr.live")||$("big")?.querySelector("iframe"))ytStart(b.y,b.mode)}});
+let bigFrom=null;
+function bigOpen(html,title){let d=$("big");if(!d){d=document.createElement("div");d.id="big";d.innerHTML=`<button class="x" data-bigx>✕ 關閉</button><div class="stage"></div><div class="bt"></div>`;document.body.appendChild(d);
+  d.addEventListener("click",e=>{if(e.target===d||e.target.closest("[data-bigx]"))bigClose()})}
+ d.querySelector(".stage").innerHTML=html;d.querySelector(".bt").textContent=title||"";d.classList.add("on");document.body.classList.add("big");
+ try{(d.requestFullscreen||d.webkitRequestFullscreen)?.call(d)?.catch?.(()=>{})}catch(e){}}
+function bigClose(){const d=$("big");if(!d||!d.classList.contains("on"))return;const nv=d.querySelector("video");
+ if(d.querySelector("iframe"))ytStop();if(nv)vSend(nv);
+ if(nv&&bigFrom){bigFrom.currentTime=nv.currentTime}bigFrom=null;d.querySelector(".stage").innerHTML="";d.classList.remove("on");document.body.classList.remove("big");
+ try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")bigClose()});
+document.addEventListener("click",e=>{
+ const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);ytStart(y,"放大");return}
+ const vb=e.target.closest("[data-vbig]");if(vb){const v=vb.closest(".vbox").querySelector("video");v.pause();bigFrom=v;ytReset();
+  bigOpen(`<video controls playsinline autoplay src="${v.getAttribute("src")}"${v.poster?` poster="${v.getAttribute("poster")}"`:""}></video>`,vb.closest(".card")?.querySelector("h2")?.textContent);
+  const nv=$("big").querySelector("video"),t=v.currentTime;if(t)nv.addEventListener("loadedmetadata",()=>{nv.currentTime=t},{once:true});return}
+ const p=e.target.closest("[data-ytplay]");if(p)ytPlay(p.closest(".yt"))});
+document.addEventListener("keydown",e=>{const p=e.target.closest?.("[data-ytplay]");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();ytPlay(p.closest(".yt"))}});
+// ---------- stars & confetti ----------
+function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
+$("xp").textContent="⭐ "+S.star;
+function boom(){if(CALM)return;const c=$("boom"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+ const P=[...Array(90)].map(()=>({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-10-3,c:["#F2A497","#F6D27A","#A8D3E6","#B9DAA5"][Math.random()*4|0],r:Math.random()*6+5}));
+ let f=0;x.lineWidth=1.5;x.strokeStyle="#3E3A39";(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r);x.strokeRect(p.x,p.y,p.r,p.r)});if(++f<90)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})()}
+// ---------- flash ----------
+function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
+ DATA.flash.forEach(([f,k,lang])=>{const d=document.createElement("div");d.className="flip";
+  d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
+  d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
+// ---------- order ----------
+function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
+ shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
+  li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
+   if(picked.length===g.items.length){const ok=picked.every((v,k)=>v===k);
+    HUB.log("order",{g:g.t.slice(0,30),ok});
+    $("oMsg").innerHTML=ok?"<p>🎉 全對！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' id='oRe'>再試一次</button>";
+    if(ok){star(5);boom()}else $("oRe").onclick=initOrder}};$("oList").appendChild(li)});
+ $("oNext").onclick=()=>{oi=(oi+1)%DATA.order.length;initOrder()}}
+// ---------- quiz（含隨機計算題 gen） ----------
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
+ if(g.op==="÷"){r=a;a=a*b} r=g.op==="+"?a+b:g.op==="-"?a-b:g.op==="×"?a*b:r;
+ if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
+ const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
+ const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
+// 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
+function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
+const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+// 難度階梯：tag 寫 看懂／課本／段考挑戰（國小用 挑戰）就會分區顯示
+const LV={看懂:["🌱","看懂區","先暖身，一步就能答","g"],課本:["📘","課本區","課本和習作的程度","m"],段考挑戰:["🔥","段考挑戰區","真正段考的題型，錯了很正常，錯題本重做到對就好","c"],挑戰:["🔥","挑戰區","最難的一區，錯了很正常，錯題本重做到對就好","c"]};
+const srcBox=q=>q.src?`<div class="src">${/^\s*</.test(q.src)?"":"📜 "}${q.src}</div>`:"";
+function qRender(){const Q=qList(),box=$("qbox");
+ if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
+  const lvs=[...new Set(Q.map(q=>q.tag).filter(t=>LV[t]))].map(t=>{const ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t),k=ix.filter(i=>S.ans[i]===Q[i].a).length;return{t,k,n:ix.length}});
+  const weak=lvs.filter(l=>l.k/l.n<.7).map(l=>LV[l.t][1]);
+  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p>${lvs.length?`<div class="lvsum">${lvs.map(l=>`<span class="lvchip lv-${LV[l.t][3]}">${LV[l.t][0]} ${LV[l.t][1]} ${l.k}/${l.n}</span>`).join("")}</div>`:""}<p>${rate>=.9?"太強了，考試穩穩的！":weak.length?`「${weak.join("」「")}」還要加油：去「📕 錯題」把錯的題目重做到全對，就能升級！`:"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p><button class="btn" id="again">重新闖關</button></div>`;
+  if(S.doneR!==S.round){S.doneR=S.round;save();HUB.log("done",{r:S.round,ok,n:Q.length,lv:lvs.map(l=>[l.t,l.k,l.n])},500)}
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};S.round++;save();QZ=null;cur=0;combo=0;qRender()};return}
+ const q=Q[cur],done=Object.keys(S.ans).length;
+ const lv=LV[q.tag],first=lv&&(cur===0||Q[cur-1].tag!==q.tag);
+ let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關${lv?`・${lv[0]} ${lv[1]}`:""}</span><span class="combo">${combo>=2?"🔥 連對 "+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
+ if(first)h+=`<div class="lvl lv-${lv[3]}"><b>${lv[0]} 進入${lv[1]}</b><small>${lv[2]}</small></div>`;
+ h+=`<div class="stem">${q.tag&&!lv?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+ q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
+ if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
+  const j=+b.dataset.j,ok=j===q.a,fst=S.first[cur]===undefined;if(fst)S.first[cur]=j;S.ans[cur]=j;save();HUB.log("q",{r:S.round,i:cur,j,ok,fst,tag:q.tag||""});
+  box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");combo=ok?combo+1:0;if(ok){star(combo>=3?2:1);if(combo%5===0)boom()}
+  const fb=$("fb");fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=(ok?["✅ 答對了！","✅ 太棒了！","✅ 完全正確！"][Math.random()*3|0]:"❌ 差一點！")+`<br>${q.e}<br><button class="btn" id="nx">下一關 ➜</button>`;
+  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}})}
+function qStart(){const Q=qList();cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
+function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v).map(([i])=>+i);
+ if(!wr.length){const any=Object.keys(S.ans).length;w.innerHTML=`<div class="card empty">${art(any?"star":"book","lg float")}${guide(any?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}</div>`;return}
+ w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
+ wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+  q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
+  d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
+   HUB.log("fix",{r:S.round,i,j,ok:j===q.a});
+   if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";fb.innerHTML="✅ 復仇成功！"+q.e;setTimeout(wRender,1600)}
+   else{b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
+// ---------- 作答區塊：點選猜、填空、手寫、打字、傳給爸爸 ----------
+const normNum=v=>String(v).trim().replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[，,\s]/g,"").replace(/[a-zA-Z³²μ％%]+$/,"");
+function fillOK(b,v){const x=normNum(v);if(!x)return false;return b.ans.some(a=>{const y=normNum(a);if(x===y)return true;const fx=x.includes("/")?x.split("/").reduce((p,q)=>p/q):+x,fy=+y;return isFinite(fx)&&isFinite(fy)&&Math.abs(fx-fy)<1e-9})}
+function askMark(box,b,j){box.querySelectorAll(".opt").forEach(x=>{x.classList.toggle("pick",+x.dataset.j===j)});const fb=box.querySelector(".fb");
+ if(b.reveal){fb.className="fb ok";fb.innerHTML=`✅ 已記下你的猜測：<b>${b.o[j]}</b><br>答案在${b.reveal}揭曉，讀到那裡記得看看猜對沒！`}
+ else{const ok=j===b.a;fb.className="fb "+(ok?"ok":"bad");fb.innerHTML=(ok?"✅ 答對了！":"❌ 再想想！")+(b.e?"<br>"+b.e:"")}}
+function initInline(sec){if(!sec||PRINT)return;
+ sec.querySelectorAll(".ask[data-id]").forEach(box=>{const b=INL[box.dataset.id],r=S.inl[b.id];if(r&&r.j!==undefined)askMark(box,b,r.j)});
+ sec.querySelectorAll(".reveal").forEach(d=>{const b=INL[d.dataset.ref],r=S.inl[d.dataset.ref],v=decodeURIComponent(d.dataset.v);if(!b)return;
+  d.innerHTML=(r&&r.j!==undefined?`🔎 你在暖身猜的是「${b.o[r.j]}」${r.j===b.a?"，<b>猜對了！</b>🎉":"，正確答案是「"+b.o[b.a]+"」，現在知道為什麼了吧！"}`:`🔎 正確答案是「${b.o[b.a]}」。（你還沒在「暖身」猜過，可以回去猜猜看！）`)+(v?"<br>"+v:"")});
+ sec.querySelectorAll("[data-fill]").forEach(i=>{const r=S.inl[i.dataset.fill];if(r&&r.v!==undefined&&!i.value){i.value=r.v;if(r.ok){const fb=i.closest(".fill").querySelector(".fb");fb.className="fb ok";fb.innerHTML="✅ 答對了！"+(INL[i.dataset.fill].e?"<br>"+INL[i.dataset.fill].e:"")}}});
+ sec.querySelectorAll("[data-text]").forEach(t=>{const r=S.inl[t.dataset.text];if(r&&r.v&&!t.value)t.value=r.v});
+ sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
+ sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
+function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
+ const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
+ let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
+ c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
+ c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
+ c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+// 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
+function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ask],[data-check],[data-wclear],[data-submit]");if(!t)return;
+ if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j,got=S.inl[b.id]?.got;S.inl[b.id]={j,got:got||j===b.a};save();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a&&!got)star(1);HUB.log("ask",{id2:b.id,j,ok:b.reveal?null:j===b.a})}
+ else if(t.dataset.check){const b=INL[t.dataset.check],box=t.closest(".fill"),v=box.querySelector("input").value,fb=box.querySelector(".fb"),r=S.inl[b.id]||{n:0};
+  r.n=(r.n||0)+1;r.v=v;const ok=fillOK(b,v);r.ok=ok;S.inl[b.id]=r;save();HUB.log("fill",{id2:b.id,v:String(v).slice(0,40),ok,n:r.n});fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=ok?"✅ 答對了！"+(b.e?"<br>"+b.e:""):(r.n<2?"❌ 再試一次！"+(b.hint?"<br>提示："+b.hint:""):"❌ 正確答案是 <b>"+b.ans[0]+" "+(b.unit||"")+"</b>"+(b.e?"<br>"+b.e:""));if(ok&&r.n===1)star(1)}
+ else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;IMG.set(t.dataset.wclear,"img",null).then(()=>initCanvas(c))}
+ else if(t.dataset.submit)makeReport()});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.text){S.inl[t.dataset.text]={v:t.value};save();HUB.log("text",{id2:t.dataset.text,v:t.value.slice(0,600),key:"text:"+t.dataset.text},15000)}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;IMG.set(id,"photo",u);const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
+function wrapTxt(x,s,w){const out=[];String(s).replace(/<[^>]+>/g,"").split("\n").forEach(p=>{let l="";for(const ch of p){if(x.measureText(l+ch).width>w){out.push(l);l=ch}else l+=ch}out.push(l)});return out}
+async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTML="⏳ 正在整理你的作答…";
+ const Q=qList(),W=1080,P=48,FN='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',items=[],INK="#3E3A39",HD="#B65544";
+ const T=(s,sz=30,c=INK,b=false)=>items.push({t:"t",s,sz,c,b});
+ const now=new Date(),ds=`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+ T(DATA.title,40,INK);T("作答報告　"+ds+"　⭐ "+S.star,28,"#7C7571");
+ const done=Object.keys(S.ans).length,first=Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a===v).length,wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v);
+ T("⚔️ 闖關",34,HD);T(`已作答 ${done}/${Q.length} 題，第一次就答對 ${first} 題，目前還錯 ${wr.length} 題`);
+ Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a!==v).forEach(([i,v])=>T(`　第 ${+i+1} 題第一次選 ${L[v]}（正解 ${L[Q[i].a]}）：${Q[i].s.replace(/<[^>]+>/g,"").slice(0,28)}`,26,"#5A5452"));
+ const asks=Object.values(INL).filter(b=>b.t==="ask"),fills=Object.values(INL).filter(b=>b.t==="fill"),texts=Object.values(INL).filter(b=>b.t==="text"),writes=Object.values(INL).filter(b=>b.t==="write");
+ if(asks.length){T("🤔 猜謎／點選",34,HD);asks.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.j!==undefined?b.o[r.j]+(r.j===b.a?" ✓":" ✗"):"（沒作答）"}`,26)})}
+ if(fills.length){T("⌨️ 填空",34,HD);fills.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.v?normNum(r.v)+" "+(b.unit||"")+(r.ok?" ✓":" ✗")+"（試了 "+r.n+" 次）":"（沒作答）"}`,26)})}
+ if(texts.length){T("💬 打字回答",34,HD);texts.forEach(b=>{const r=S.inl[b.id];T("Q："+b.q.replace(/<[^>]+>/g,""),26,"#7C7571");T("A："+(r&&r.v?r.v:"（沒作答）"),28)})}
+ const imgs=[];for(const b of writes){for(const f of ["img","photo"]){const u=await IMG.get(b.id,f);if(!u)continue;const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
+ const cv=document.createElement("canvas"),x=cv.getContext("2d");let H=P;x.font=`30px ${FN}`;
+ const lay=[];items.forEach(it=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;const ls=wrapTxt(x,it.s,W-2*P);lay.push({it,ls});H+=ls.length*it.sz*1.45+6});
+ imgs.forEach(o=>{H+=60+o.im.height*((W-2*P)/o.im.width)+20});if(imgs.length)H+=50;
+ cv.width=W;cv.height=H+P;x.fillStyle="#FFFCF6";x.fillRect(0,0,W,cv.height);x.strokeStyle=INK;x.lineWidth=6;x.strokeRect(14,14,W-28,cv.height-28);let y=P;
+ lay.forEach(({it,ls})=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;x.fillStyle=it.c;ls.forEach(l=>{y+=it.sz*1.45;x.fillText(l,P,y-it.sz*0.35)});y+=6});
+ if(imgs.length){y+=50;x.font=`34px ${FN}`;x.fillStyle=HD;x.fillText("✍️ 手寫",P,y-10)}
+ imgs.forEach(o=>{x.font=`26px ${FN}`;x.fillStyle="#7C7571";y+=40;x.fillText(wrapTxt(x,o.q,W-2*P)[0],P,y);y+=20;const h=o.im.height*((W-2*P)/o.im.width);x.drawImage(o.im,P,y,W-2*P,h);x.lineWidth=3;x.strokeStyle=INK;x.strokeRect(P,y,W-2*P,h);y+=h+20});
+ const url=cv.toDataURL("image/jpeg",0.82),img=$("subimg");img.src=url;img.style.display="block";
+ const blob=await (await fetch(url)).blob(),file=new File([blob],DATA.id+"-作答報告.jpg",{type:"image/jpeg"});
+ if(HUB.on){fb.innerHTML="⏳ 正在傳給爸爸…";if(await HUB.sendFile(new Uint8Array(await blob.arrayBuffer()),{t:"report",star:S.star})){fb.innerHTML="✅ 已經自動傳給爸爸了！謝謝你，這週辛苦了 🎉";star(3);boom();return}}
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:DATA.title,text:DATA.title+" 作答報告"});fb.innerHTML="✅ 傳好了！謝謝你，這週辛苦了 🎉";star(3);boom();return}catch(e){}}
+ fb.innerHTML=`📷 報告圖做好了（在下面）。<b>長按圖片</b>就能存起來或分享到 LINE 給爸爸。<br><a href="${url}" download="${DATA.id}-作答報告.jpg">或按這裡下載圖片</a>`}
+// ---------- print ----------
+function printQuiz(){const Q=qList();return `<div class="card"><h2>⚔️ 練習題</h2>${Q.map((q,i)=>`${LV[q.tag]&&(i===0||Q[i-1].tag!==q.tag)?`<h3>${LV[q.tag][0]} ${LV[q.tag][1]}：${LV[q.tag][2]}</h3>`:""}<div class="qbox"><div class="stem">${i+1}. ${q.tag&&!LV[q.tag]?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
+// ---------- 開始：一定放在檔尾，所有 let／const 都宣告好之後才產生頁面、開第一個分頁 ----------
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+render();
+if(!PRINT){show(pages.some(p=>p.id===S.tab)?S.tab:"home");HUB.log("open",{tab:S.tab||"home"},4000)}
+</script>
+</body>
+</html>
