@@ -173,7 +173,7 @@ body.big{overflow:hidden}
 .fill input,.tbox textarea{font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);outline:0}
 .fill input:focus,.tbox textarea:focus{box-shadow:0 0 0 3px var(--yellow)}
 .fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
-.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block}
+.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 .wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
 .wans{margin-top:10px}.wans summary{display:inline-block;list-style:none;cursor:pointer}.wans summary::-webkit-details-marker{display:none}.wans div{font-size:20px;margin-top:10px;line-height:1.7}
 .wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
@@ -612,10 +612,17 @@ function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)ret
  const G=+c.dataset.grid||0;if(G){const ch=c.clientHeight/Math.ceil(G/2),cw=w/2;x.strokeStyle="#D8D2C8";x.lineWidth=1.5;x.fillStyle="#9A928C";x.font='16px "Huninn",sans-serif';for(let i=0;i<G;i++){const cx=i%2*cw,cy=Math.floor(i/2)*ch;x.strokeRect(cx,cy,cw,ch);x.fillText(i+1,cx+8,cy+22)}}
  x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
  const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>G?x.drawImage(im,0,0,w,c.clientHeight):x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
- let dn=false,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
- c.onpointerdown=e=>{dn=true;c.setPointerCapture(e.pointerId);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
- c.onpointermove=e=>{if(!dn)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
- c.onpointerup=c.onpointercancel=()=>{if(!dn)return;dn=false;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+ let dn=false,pid=null,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
+ // iPad 會把筆尖停留當長按，選取旁邊文字、跳出拷貝選單，筆畫就斷了；白板上要全部擋掉
+ if(!c.dataset.guard){c.dataset.guard=1;["touchstart","touchmove"].forEach(n=>c.addEventListener(n,e=>{if(e.cancelable)e.preventDefault()},{passive:false}));["selectstart","contextmenu","dragstart"].forEach(n=>c.addEventListener(n,e=>e.preventDefault()))}
+ c.onpointerdown=e=>{
+  // 用過 Apple Pencil 之後，手掌和手指不算筆畫，也不會打斷正在寫的那一筆
+  if(e.pointerType==="pen")WPEN.seen=true;else if(WPEN.seen&&e.pointerType==="touch")return;
+  if(dn&&e.pointerType!=="pen")return;
+  e.preventDefault();getSelection()?.removeAllRanges();dn=true;pid=e.pointerId;c.setPointerCapture(pid);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
+ c.onpointermove=e=>{if(!dn||e.pointerId!==pid)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
+ c.onpointerup=c.onpointercancel=e=>{if(!dn||e.pointerId!==pid)return;dn=false;pid=null;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+const WPEN={seen:false};
 // 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
 let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
 function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
