@@ -10,7 +10,10 @@ const vid = (n, cap) => (EPS.includes(n) ? [{ h: `🎬 動畫課第 ${n} 集`, b
 const INK = "#3E3A39", BG = "#FFFCF6", CORAL = "#F2A497", YEL = "#F6D27A", MIZU = "#A8D3E6", GRN = "#B9DAA5", SOFT = "#FFF3D6", RED = "#B5533C", BLUE = "#2F6F8F", GRAY = "#9A9590";
 const yt =(id, title, o = {}) => ({ t: "yt", id, title, who: "市隱", ...o });
 const tube = (say, ...v) => ({ h: "📺 換老師再講一次", body: [{ t: "guide", v: say }, ...v] });
-const T = (x, y, s, o = {}) =>
+// 數光島只放連結（CC BY-NC-ND 不能改作），11/2 實測過的節才放；6.3 挑戰題用到內角和、1.4 只到六位數，所以不放
+const isle = (u, t, p) => `<a href="https://suuuuuhaooooo.github.io/math-Illustration/site/unit.html?u=${u}" target="_blank" rel="noopener"><b>${t}</b></a>：${p}`;
+const play = (...items) => ({ h: "🏝️ 想動手拖拖看（選看）", body: [{ t: "list", v: items }, "圖解來自數光島筆記本（蘇昊數理），會開新分頁，玩完關掉就回來了。第一次打開跳出教學，按「略過教學」就好。"] });
+const T =(x, y, s, o = {}) =>
   `<text x="${x}" y="${y}" font-size="${o.fs || 16}" ${o.b ? 'font-weight="700"' : ""} fill="${o.c || INK}" text-anchor="${o.a || "middle"}">${s}</text>`;
 const frame = (w, h, inner, label) =>
   `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${label}"><rect x="0" y="0" width="${w}" height="${h}" rx="14" fill="${BG}"/>${inner}</svg>`;
@@ -321,6 +324,7 @@ module.exports = {
     { id: "u1", nav: "🔢 大數字", intro: "第一單元：<b>一億以內的數</b>。臺灣大約有 2300 萬人，這種數字要怎麼讀、怎麼比、怎麼加減呢？只要學會<b>四個四個分</b>就不怕了。",
       cards: [
         ...vid(1, "四個四個分節、0 怎麼念、比大小、把萬當單位"),
+        play(isle("4u-1.2", "大數字怎麼念", "拖動數字，下面馬上寫出念法，自己先念再對答案。"), isle("4u-1.3", "比大小", "改兩個數，看是哪一位決定大小。")),
         tube("想再聽一次嗎？挑一支就好。第一支講位值，第二支講最容易錯的 0，第三支是考前練習。",
           yt("ArJXKHn2DYo", "課本 P4、P5：位值換算與億以內的位值", { tag: "位值" }),
           yt("iWF5INEY128", "課本 P11：0 的讀法與記法", { tag: "0 怎麼念" }),
@@ -371,6 +375,7 @@ module.exports = {
     { id: "u2", nav: "✖️ 乘法", intro: "第二單元：<b>乘法</b>。兩位數的乘法其實就是拆開來算兩次，再加起來。最重要的一件事：<b>乘十位的那一行要往左一格</b>！",
       cards: [
         ...vid(2, "拆成兩次乘、往左一格、用估算抓錯、兩步驟應用題"),
+        play(isle("4u-2.3", "三位數乘二位數", "換數字，直式跟著變，看第二行為什麼要補 0。")),
         tube("想再聽一次嗎？第一支講計算的步驟，第二支是考前練習。",
           yt("x2rha81hqrM", "乘法計算技巧與步驟（課本 P28、P29）", { tag: "步驟" }),
           yt("CZurFTp4xAs", "課本 P30、P31：練習二", { tag: "考前" })),
@@ -403,6 +408,7 @@ module.exports = {
     { id: "u3", nav: "📐 角度", intro: "第三單元：<b>角度</b>。拿出你的量角器！角的大小，看的是<b>兩條邊張開多少</b>，和邊畫得多長沒有關係。",
       cards: [
         ...vid(3, "量角器看哪一圈、角的種類、分針轉幾度、一直線和一整圈"),
+        play(isle("4u-3.1", "拖一拖角度", "看銳角、直角、鈍角怎麼變。注意：這裡的量角器只有<b>一圈</b>數字，你的量角器有兩圈，還是要看從 0 開始的那一圈。")),
         tube("想再聽一次嗎？第一支教量角器步驟，第二支講旋轉角，第三支是考前練習。",
           yt("KjK-6wJaCOI", "課本 P36：量角器量角度的步驟與技巧", { tag: "量角器" }),
           yt("s4YK43Ltpy8", "課本 P44：旋轉角", { tag: "旋轉角" }),
@@ -451,6 +457,7 @@ module.exports = {
     { id: "u4", nav: "➗ 除法", intro: "第四單元：<b>除法</b>。除以兩位數最難的是<b>猜商</b>。別怕，猜太大或太小都能改，老師教的「遮數字」很好用！",
       cards: [
         ...vid(4, "遮數字猜商、太大減一、商中間的 0、餘數和驗算、至少幾輛"),
+        play(isle("4u-4.1", "四位數除以一位數", "多拖幾次，找一題商中間有 0 的，看 0 是怎麼來的。"), isle("4u-4.3", "三位數除以二位數", "換數字，看每一步怎麼算。")),
         tube("想再聽一次嗎？第一支講遮數字，第二支講三位數除以二位數，第三支是考前練習。",
           yt("_Wlof4yT4lc", "課本 P56、P57：二位數除以二位數、遮數字", { tag: "遮數字" }),
           yt("lxPEqDsPRD4", "課本 P60：三位數除以二位數", { tag: "技巧" }),
@@ -495,6 +502,7 @@ module.exports = {
     { id: "u5", nav: "🔺 三角形", intro: "第五單元：<b>三角形</b>。三角形可以看<b>邊</b>來分，也可以看<b>角</b>來分，同一個三角形可以有兩個名字！",
       cards: [
         ...vid(5, "看邊分類、看角分類、畫不出兩個直角、等腰直角、全等"),
+        play(isle("4u-6.2", "拖三條邊", "看名字怎麼變，也會告訴你圍不圍得成三角形。"), isle("4u-6.5", "全等", "旋轉、翻轉一個三角形，它還是全等。")),
         tube("想再聽一次嗎？第一支講分類，第二支講畫三角形和等腰直角，第三支講全等。",
           yt("3ikjvdk7YWk", "課本 P66、P67：從邊和角來分類三角形", { tag: "分類" }),
           yt("gHLbiYv-NbY", "課本 P70：各種三角形", { tag: "分類" }),
@@ -598,6 +606,7 @@ module.exports = {
     { tag: "挑戰", s: "看圖回答：三角形 ABC 轉半圈，可以和三角形 DEF 完全疊合，A 對 D、B 對 E、C 對 F。", src: svgSame, s2: "角 C 是 70 度，角 F 是幾度？", o: ["50 度", "60 度", "70 度", "110 度"], a: 2, e: "全等的兩個三角形，對應角一樣大。C 對 F，所以角 F 也是 70 度。" },
   ],
   sources: [
+    { t: "數光島筆記本（蘇昊數理，CC BY-NC-ND 4.0，只放連結）", u: "https://suuuuuhaooooo.github.io/math-Illustration/" },
     { t: "市隱「115-1 南一 4 上數學」播放清單（確認單元與課本頁碼）", u: "https://www.youtube.com/@市隱/playlists" },
     { t: "臺北市博愛國小 112 學年度四年級數學教學計畫（南一版單元順序）", u: "https://www.baps.tp.edu.tw/uploads/1693831593482owxSujD0.pdf" },
     { t: "屏東縣 115 學年度四年級數學計畫（對照課綱 N-4-1、S-4-1、S-4-7）", u: "https://www.cp.ptc.edu.tw/storage/134617/134617_115_B-04_4A.pdf" } ],
