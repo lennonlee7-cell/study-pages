@@ -7,6 +7,8 @@ const EPS = [1, 2, 3, 4, 5].filter((n) => fs.existsSync(`${ANI}/w02-ep${n}.mp4`)
 const vid = (n, cap) => (EPS.includes(n) ? [{ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `w02-ep${n}.mp4?v=1101`, poster: `w02-ep${n}.jpg`, cap }] }] : []);
 const yt = (id, title, who, o = {}) => ({ t: "yt", id, title, who, ...o });
 const tube = (say, ...v) => ({ h: "📺 換老師再講一次", body: [{ t: "guide", v: say }, ...v] });
+// 見微理畫只放連結（CC BY-NC-ND 不能改作），11/2 看過這兩節的內容與計算
+const lab = (u, t, p) => ({ h: "🧪 想動手調調看（選看）", body: [`<a href="https://suuuuuhaooooo.github.io/science-Illustration/site/unit.html?u=${u}" target="_blank" rel="noopener"><b>${t}</b></a>：${p}`, "模擬實驗來自見微理畫（蘇昊數理），會開新分頁，節次編號和南一可能不同。頁面下方的「鑑往知來」有這節的會考常考題型和仿題。"] });
 
 const INK = "#3E3A39", BG = "#FFFCF6", CORAL = "#F2A497", YEL = "#F6D27A", MIZU = "#A8D3E6", GRN = "#B9DAA5", RED = "#C8553D", BLUE = "#2F7FA3", GRID = "#E8DFD2";
 const T = (x, y, s, o = {}) =>
@@ -241,6 +243,7 @@ module.exports = {
       cards: [
         ...vid(4, "一公斤的鐵和棉花：密度的意思、D＝M÷V、單位換算。"),
         ...vid(5, "浮還是沉，看密度：浮沉判斷、切一半、排水法。"),
+        lab("v3-1.2", "質量與密度的模擬實驗", "換材料、改體積，看 M-V 圖和密度怎麼變。"),
         tube("先看韓斯老師那 6 分鐘，兩題經典密度題。想挑戰就看震東老師的段考猜題，有混合密度和換液體，很好笑但有點難。整堂課的版本想從頭聽再看，挑一支就好。",
           yt("t2FNENiSb2k", "八上一段猜題：密度兩題", "韓斯頭殼", { s: 7, e: 384, len: "約 6 分", tag: "重點" }),
           yt("E3lPA1btsVI", "段考猜題精華：MVD 作圖、換液體、合金混合密度", "震東老師", { s: 66, e: 977, len: "約 15 分", tag: "段考題", cap: "M-V 圖下週會細講，先看過也可以" }),
@@ -301,6 +304,7 @@ module.exports = {
     { id: "s2", nav: "☀️日 回聲", intro: "你在山谷或空曠的體育館大喊過嗎？喊完之後，好像有人在遠方學你講話。其實是你自己的聲音被彈回來了。",
       cards: [
         ...vid(2, "回聲要多遠才聽得到：0.1 秒、17 公尺、距離要除以二。"),
+        lab("v3-3.3", "聲納測海深的模擬實驗", "改海的深度、按發射，看超聲波來回要幾秒，為什麼要除以二。"),
         tube("韓斯老師這段前半是上週的複習，後半講回聲和超聲波，一次看完 5 分鐘。想看計算題怎麼解，選劉維老師；想要一堂課慢慢聽，選國中理化自學。挑一支就好。",
           yt("LR-xGLb1eR8", "聲音、回聲、反射、超聲波", "韓斯頭殼", { s: 489, e: 813, len: "約 5 分", tag: "重點" }),
           yt("lU3QIoDFeZM", "回聲計算：海水深度、蝙蝠飛行", "劉維自然", { len: "約 9 分", tag: "段考題" }),
@@ -472,6 +476,7 @@ module.exports = {
   ],
   assets: EPS.flatMap((n) => ["mp4", "jpg"].map((x) => ({ from: `${ANI}/w02-ep${n}.${x}`, to: `w02-ep${n}.${x}` }))),
   sources: [
+    { t: "見微理畫（蘇昊數理，CC BY-NC-ND 4.0，只放連結）", u: "https://suuuuuhaooooo.github.io/science-Illustration/" },
     { t: "彰化縣和美國中 115 學年度八年級自然課程計畫（南一版，章節與週次參考）", u: "https://www.curriculum.chc.edu.tw/years/115/plans/1392/views/5-8自然科學.pdf" },
     { t: "EduBaania 教科書版本資料庫（115 學年版本參考）", u: "https://school.edubaania.com/textbooks/" },
   ],
