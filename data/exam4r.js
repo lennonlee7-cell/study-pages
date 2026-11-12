@@ -1,10 +1,11 @@
 // 四年級第一次段考後三科錯題講解（國語翰林、自然翰林、社會康軒），2026-11-12
 // 小女兒。依考卷照片的扣分題整理：月相、水邊生物、地名對位置／地形／氣候、傳統住屋與器物、詞性、讀題與字形
 // 動畫課 3 集（Mac ~/claude/videos/exam4r-ep1..3，模組 _lib/exam4r/）、白紙練習卷 PDF（附解答）
+// 主角 11/12 起改用生圖（Teddy 選 C：學者松鼠栗栗＋探險熊熊，_lib/cast/default/）
 const fs = require("fs");
 const DRIVE = fs.existsSync("G:/我的雲端硬碟") ? "G:/我的雲端硬碟" : "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟";
 const DIR = `${DRIVE}/codex/學習中心/小女兒/三科錯題`, ANI = `${DIR}/動畫`;
-const vid = (n, cap) => ({ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `exam4r-ep${n}.mp4?v=1112`, poster: `exam4r-ep${n}.jpg`, cap }] });
+const vid = (n, cap) => ({ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `exam4r-ep${n}.mp4?v=1112c`, poster: `exam4r-ep${n}.jpg`, cap }] });
 const yt = (id, title, who, o = {}) => ({ t: "yt", id, title, who, ...o });
 const tube = (say, ...v) => ({ h: "📺 換老師再講一次", body: [{ t: "guide", v: say }, ...v] });
 const INK = "#3E3A39", BG = "#FFFCF6", CORAL = "#F2A497", YEL = "#F6D27A", MIZU = "#A8D3E6", GRN = "#B9DAA5", RED = "#B5533C", BLUE = "#2F6F8F", NIGHT = "#3E4466", DARKM = "#646A80";
