@@ -5,7 +5,7 @@ const fs = require("fs");
 const DRIVE = fs.existsSync("G:/我的雲端硬碟") ? "G:/我的雲端硬碟" : "/Users/teddylee/Library/CloudStorage/GoogleDrive-lennonlee7@gmail.com/我的雲端硬碟";
 const ANI = `${DRIVE}/codex/學習中心/大女兒-理化/動畫`;
 const EPS = [1, 2, 3, 4, 5].filter((n) => fs.existsSync(`${ANI}/w04-ep${n}.mp4`));
-const vid = (n, cap) => (EPS.includes(n) ? [{ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `w04-ep${n}.mp4?v=1115`, poster: `w04-ep${n}.jpg`, cap }] }] : []);
+const vid = (n, cap) => (EPS.includes(n) ? [{ h: `🎬 動畫課第 ${n} 集`, body: [{ t: "video", v: `w04-ep${n}.mp4?v=1112`, poster: `w04-ep${n}.jpg`, cap }] }] : []);
 const yt = (id, title, who, o = {}) => ({ t: "yt", id, title, who, ...o });
 const tube = (say, ...v) => ({ h: "📺 換老師再講一次（選看）", body: [{ t: "guide", v: say }, ...v] });
 const PHET = (code, screen) => `https://phet.colorado.edu/sims/html/${code}/latest/${code}_all.html?locale=zh_TW&screens=${screen}`;
