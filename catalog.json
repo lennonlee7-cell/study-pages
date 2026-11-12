@@ -102,5 +102,18 @@
     "exam": "段考後訂正",
     "pdf": "math4r-practice.pdf",
     "updated": "2026-11-11"
+  },
+  {
+    "id": "sci8a-w04",
+    "title": "理化週課 #4：光與鏡子 × 聲音三兄弟",
+    "icon": "🪞",
+    "kid": "大女兒",
+    "grade": "國二",
+    "subject": "理化",
+    "version": "南一",
+    "range": "補 3-4 多變的聲音｜跟 4-1 光的傳播、4-2 光的反射與面鏡",
+    "exam": "第 4 週 11/16",
+    "pdf": null,
+    "updated": "2026-11-12"
   }
 ]
