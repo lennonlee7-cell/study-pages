@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>每日 15 分鐘練舞小站</title>
+<style>
+:root{
+  --bg:#12101c; --card:#1e1b2e; --card2:#272342; --line:#3a3459;
+  --text:#f4f1ff; --dim:#a79ec9; --hot:#ff6b9d; --hot2:#ffa36b;
+  --ok:#4ade80; --cool:#6bc5ff; --radius:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#2a2347,#12101c 60%);
+  color:var(--text);font-family:"PingFang TC","Noto Sans TC",-apple-system,sans-serif;
+  padding:16px 16px 48px;max-width:860px;margin:0 auto;}
+h1{font-size:26px;margin:4px 0 2px}
+.sub{color:var(--dim);font-size:14px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:16px}
+.row{display:flex;align-items:center;gap:12px}
+.between{justify-content:space-between}
+.streak{font-size:34px;font-weight:800;color:var(--hot)}
+.badge{background:var(--card2);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--dim)}
+button{font-family:inherit;border:0;cursor:pointer}
+.big{width:100%;padding:22px;border-radius:var(--radius);font-size:22px;font-weight:800;
+  background:linear-gradient(135deg,var(--hot),var(--hot2));color:#2a0f1d;box-shadow:0 8px 24px rgba(255,107,157,.25)}
+.big:active{transform:scale(.985)}
+.seg{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line)}
+.seg:last-child{border-bottom:0}
+.seg .n{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:var(--card2);
+  display:grid;place-items:center;font-weight:800;color:var(--hot)}
+.seg .t{font-weight:700}
+.seg .d{color:var(--dim);font-size:13px;margin-top:3px;line-height:1.5}
+.seg .m{color:var(--cool);font-weight:700;font-size:14px;white-space:nowrap}
+h2{font-size:17px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center}
+.week div{background:var(--card2);border-radius:14px;padding:10px 4px;font-size:12px;color:var(--dim)}
+.week div b{display:block;font-size:14px;color:var(--text);margin-bottom:4px}
+.week div.today{outline:2px solid var(--hot);color:var(--text)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal span{aspect-ratio:1;border-radius:9px;background:var(--card2);display:grid;place-items:center;
+  font-size:11px;color:var(--dim)}
+.cal span.on{background:linear-gradient(135deg,var(--hot),var(--hot2));color:#2a0f1d;font-weight:800}
+.cal span.today{outline:2px solid var(--cool)}
+input[type=range]{width:100%;accent-color:var(--hot)}
+.beat{display:flex;gap:6px;margin:12px 0}
+.beat i{flex:1;height:10px;border-radius:5px;background:var(--card2)}
+.beat i.on{background:var(--cool)}
+.beat i.acc.on{background:var(--hot)}
+.ghost{background:var(--card2);color:var(--text);padding:12px 18px;border-radius:14px;font-size:15px;font-weight:700}
+.link{display:block;background:var(--card2);color:var(--cool);text-decoration:none;padding:12px 14px;
+  border-radius:14px;margin-bottom:8px;font-size:15px}
+/* 練習模式 */
+#run{position:fixed;inset:0;background:#12101c;display:none;flex-direction:column;
+  align-items:center;justify-content:center;padding:24px;text-align:center;z-index:9}
+#run.show{display:flex}
+#ring{width:min(70vw,300px);height:min(70vw,300px);border-radius:50%;display:grid;place-items:center;
+  margin:18px 0;background:conic-gradient(var(--hot) 0deg,var(--card2) 0deg);position:relative}
+#ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:#12101c}
+#clock{position:relative;z-index:1;font-size:58px;font-weight:800;font-variant-numeric:tabular-nums}
+#title{font-size:28px;font-weight:800}
+#tip{color:var(--dim);font-size:16px;max-width:420px;line-height:1.7;margin-top:10px;min-height:84px}
+#ctr{display:flex;gap:12px;margin-top:20px}
+#done{font-size:20px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="row between">
+  <div>
+    <h1>每日 15 分鐘練舞小站</h1>
+    <div class="sub" id="today"></div>
+  </div>
+  <div style="text-align:center">
+    <div class="streak" id="streak">0</div>
+    <div class="badge">連續天數 🔥</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📋 今天的課表 <span class="badge" id="theme"></span></h2>
+  <div id="plan"></div>
+  <div style="height:14px"></div>
+  <button class="big" id="start">開始今天的 15 分鐘 ▶</button>
+</div>
+
+<div class="card">
+  <h2>🥁 節拍器（練數 8 拍）</h2>
+  <div class="beat" id="beats"></div>
+  <div class="row between" style="margin-bottom:8px">
+    <span class="badge">速度 <b id="bpmv">95</b> BPM</span>
+    <button class="ghost" id="metro">開始打拍</button>
+  </div>
+  <input type="range" id="bpm" min="70" max="120" value="95">
+  <div class="sub" style="margin:8px 0 0">跟著拍子數「1234 5678」，重音（粉紅）是第 1 拍。先會數拍，跳舞才會對到音樂。</div>
+</div>
+
+<div class="card">
+  <h2>🗓 一週重點</h2>
+  <div class="week" id="week"></div>
+</div>
+
+<div class="card">
+  <h2>🏆 本月打卡</h2>
+  <div class="cal" id="cal"></div>
+  <div class="row between" style="margin-top:14px">
+    <span class="badge">本月共 <b id="mcount">0</b> 天｜總共 <b id="tcount">0</b> 天</span>
+    <button class="ghost" id="undo">取消今天打卡</button>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎬 示範影片</h2>
+  <div id="vids"></div>
+  <div class="sub">影片在新分頁開啟。想換成別的影片，按下面編輯。</div>
+  <div style="height:10px"></div>
+  <button class="ghost" id="editv">編輯影片連結</button>
+</div>
+
+<div style="text-align:center;margin:24px 0 8px">
+  <a href="../" style="color:#a79ec9;text-decoration:none;font-size:15px">← 回學習小站</a>
+</div>
+
+<div id="run">
+  <div id="title"></div>
+  <div id="ring"><div id="clock">0:00</div></div>
+  <div id="tip"></div>
+  <div id="ctr">
+    <button class="ghost" id="pause">暫停</button>
+    <button class="ghost" id="skip">下一段 ⏭</button>
+    <button class="ghost" id="quit">結束</button>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const MEM={};
+const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);if(v!=null)return JSON.parse(v)}catch(e){}
+            return (k in MEM)?MEM[k]:d},
+          set:(k,v)=>{MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- 課表 ---------- */
+const WARM={t:"熱身",m:3,d:"頸肩繞環 → 手腕腳踝 → 左右側彎 → 開合跳 30 秒。身體熱了才不會受傷。"};
+const COOL={t:"收操伸展",m:2,d:"坐姿摸腳尖、蝴蝶開髖、肩膀後拉，每個動作停 20 秒，慢慢吐氣。"};
+const DAYS=[
+ {k:"日",name:"放鬆日",a:{t:"全身伸展",m:5,d:"大腿前後側、髖、腰、肩，每個停 30 秒。今天不練力量，只把身體拉開。"},
+  b:{t:"看影片找感覺",m:5,d:"挑一支喜歡的舞，看兩遍：第一遍看整體，第二遍只看膝蓋怎麼動。"}},
+ {k:"一",name:"節奏日",a:{t:"數 8 拍 + 拍手",m:5,d:"開節拍器 90 BPM，拍手數「1234 5678」，數到不用想為止。再試只在 2、4 拍拍手。"},
+  b:{t:"踩拍走路",m:5,d:"跟著拍子原地踏步，一拍一步；熟了改成兩拍一步，體會「慢一半」的感覺。"}},
+ {k:"二",name:"律動日 · Down",a:{t:"Down Bounce",m:5,d:"腳與肩同寬，膝蓋在「拍子上」微彎下沉，吐氣。上來時放鬆不用力。對鏡子看肩膀有沒有亂晃。"},
+  b:{t:"Down + 手自然擺",m:5,d:"加上手臂自然晃動，手不要刻意比動作。節拍器 95 BPM，連續 8 個 8 拍不停。"}},
+ {k:"三",name:"身體日",a:{t:"柔軟度",m:5,d:"開髖（青蛙趴）、劈腿前彎、腳背壓地，各停 30 秒 ×2。會痛就退回去一點。"},
+  b:{t:"核心",m:5,d:"平板撐 20 秒 ×3、仰躺抬腿 15 下、深蹲 15 下。核心穩，動作才乾淨。"}},
+ {k:"四",name:"律動日 · Up",a:{t:"Up Bounce",m:5,d:"和 Down 相反：在拍子上「往上提」胸口，膝蓋跟著輕輕伸直。先慢速 80 BPM。"},
+  b:{t:"Side Bounce 左右",m:5,d:"重心左右移動，每邊一拍，肩膀跟著自然晃。數 8 拍做滿 8 組。"}},
+ {k:"五",name:"舞步日 · Two Step",a:{t:"Two Step 分解",m:5,d:"右腳往右踏 → 左腳併過去 → 左腳往左踏 → 右腳併過去。先不配音樂，走對再加拍子。"},
+  b:{t:"Two Step 配律動",m:5,d:"加上 Down Bounce 一起做（這一步最難，慢慢來）。90 BPM 連續做 4 個 8 拍。"}},
+ {k:"六",name:"舞步日 · Kick",a:{t:"Kick Step",m:5,d:"踏一步、另一腳往前輕踢，左右交換。踢的時候膝蓋先出去，腳尖最後。"},
+  b:{t:"自由跳 + 錄影",m:5,d:"放最喜歡的歌自由跳 2 分鐘，用手機錄下來自己看一次。每週留一支，三個月後回頭看會很有成就感。"}}
+];
+function planOf(d){const x=DAYS[d];return [WARM,x.a,x.b,COOL];}
+
+const now=new Date();
+const dow=now.getDay();
+const plan=planOf(dow);
+const ymd=dt=>dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const TODAY=ymd(now);
+
+$("#today").textContent=`${now.getMonth()+1} 月 ${now.getDate()} 日 星期${DAYS[dow].k}`;
+$("#theme").textContent=DAYS[dow].name;
+$("#plan").innerHTML=plan.map((s,i)=>
+ `<div class="seg"><div class="n">${i+1}</div><div style="flex:1">
+   <div class="t">${s.t}</div><div class="d">${s.d}</div></div>
+   <div class="m">${s.m} 分</div></div>`).join("");
+
+$("#week").innerHTML=[1,2,3,4,5,6,0].map(i=>
+ `<div class="${i===dow?'today':''}"><b>${DAYS[i].k}</b>${DAYS[i].name.replace(/ · /,"<br>")}</div>`).join("");
+
+/* ---------- 打卡 ---------- */
+function marks(){return LS.get("dance.checkins",[])}
+function streak(){
+  const s=new Set(marks());let n=0;const d=new Date();
+  if(!s.has(ymd(d)))d.setDate(d.getDate()-1);
+  while(s.has(ymd(d))){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+function renderCal(){
+  const s=new Set(marks()),y=now.getFullYear(),m=now.getMonth();
+  const first=new Date(y,m,1).getDay(),len=new Date(y,m+1,0).getDate();
+  let h="";for(let i=0;i<first;i++)h+="<span style='background:transparent'></span>";
+  let mc=0;
+  for(let d=1;d<=len;d++){
+    const key=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const on=s.has(key);if(on)mc++;
+    h+=`<span class="${on?'on':''} ${key===TODAY?'today':''}">${on?"★":d}</span>`;
+  }
+  $("#cal").innerHTML=h;$("#mcount").textContent=mc;$("#tcount").textContent=s.size;
+  $("#streak").textContent=streak();
+}
+function checkin(){const a=marks();if(!a.includes(TODAY)){a.push(TODAY);LS.set("dance.checkins",a)}renderCal()}
+$("#undo").onclick=()=>{LS.set("dance.checkins",marks().filter(x=>x!==TODAY));renderCal()};
+renderCal();
+
+/* ---------- 聲音 ---------- */
+let AC=null;const ac=()=>AC||(AC=new (window.AudioContext||window.webkitAudioContext)());
+function tone(f,dur,vol){const c=ac(),o=c.createOscillator(),g=c.createGain();
+  o.frequency.value=f;o.connect(g);g.connect(c.destination);
+  g.gain.setValueAtTime(vol||.25,c.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,c.currentTime+(dur||.12));
+  o.start();o.stop(c.currentTime+(dur||.12));}
+
+/* ---------- 節拍器 ---------- */
+let mt=null,beat=0;
+$("#beats").innerHTML=Array.from({length:8},(_,i)=>`<i class="${i===0?'acc':''}"></i>`).join("");
+const bars=[...document.querySelectorAll("#beats i")];
+$("#bpm").oninput=e=>{$("#bpmv").textContent=e.target.value;if(mt){stopM();startM()}};
+function startM(){
+  const ms=60000/ +$("#bpm").value;beat=0;
+  const tick=()=>{bars.forEach(b=>b.classList.remove("on"));bars[beat].classList.add("on");
+    tone(beat===0?880:560,.07,beat===0?.3:.16);beat=(beat+1)%8;};
+  tick();mt=setInterval(tick,ms);$("#metro").textContent="停止";
+}
+function stopM(){clearInterval(mt);mt=null;bars.forEach(b=>b.classList.remove("on"));$("#metro").textContent="開始打拍"}
+$("#metro").onclick=()=>mt?stopM():startM();
+
+/* ---------- 練習模式 ---------- */
+let idx=0,left=0,tid=null,paused=false;
+function show(i){
+  idx=i;const s=plan[i];left=s.m*60;
+  $("#title").textContent=`${i+1}/${plan.length}　${s.t}`;
+  $("#tip").textContent=s.d;draw();
+}
+function draw(){
+  const s=plan[idx],total=s.m*60,p=((total-left)/total)*360;
+  $("#clock").textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");
+  $("#ring").style.background=`conic-gradient(var(--hot) ${p}deg, var(--card2) ${p}deg)`;
+}
+function tickRun(){
+  if(paused)return;left--;
+  if(left<=0){tone(880,.2,.3);setTimeout(()=>tone(1180,.25,.3),220);next();return}
+  if(left<=3)tone(660,.08,.2);
+  draw();
+}
+function next(){ if(idx+1<plan.length)show(idx+1); else finish(); }
+function finish(){
+  clearInterval(tid);tid=null;checkin();
+  $("#title").textContent="今天完成了！🎉";
+  $("#ring").style.background="conic-gradient(var(--ok) 360deg,var(--ok) 360deg)";
+  $("#clock").textContent="★";
+  $("#tip").innerHTML=`<div id="done">連續 <b style="color:var(--hot)">${streak()}</b> 天<br>明天是「${DAYS[(dow+1)%7].name}」</div>`;
+  [880,1046,1318].forEach((f,i)=>setTimeout(()=>tone(f,.25,.3),i*180));
+}
+$("#start").onclick=()=>{ac();$("#run").classList.add("show");paused=false;$("#pause").textContent="暫停";
+  show(0);clearInterval(tid);tid=setInterval(tickRun,1000);};
+$("#pause").onclick=()=>{paused=!paused;$("#pause").textContent=paused?"繼續":"暫停"};
+$("#skip").onclick=()=>next();
+$("#quit").onclick=()=>{clearInterval(tid);tid=null;$("#run").classList.remove("show")};
+
+/* ---------- 影片 ---------- */
+const DEFV=[
+ {t:"兒童街舞基礎班 播放清單（熱身→律動）",u:"https://www.youtube.com/playlist?list=PLrzhYQuqlwhlGCEP01xc36jvUFTHWREcm"},
+ {t:"Hip-Hop 基礎元素：DVS舞鄉 Class 4",u:"https://www.youtube.com/watch?v=lDcq7voD4z0"},
+ {t:"在 YouTube 搜「兒童街舞 基礎 律動」",u:"https://www.youtube.com/results?search_query=%E5%85%92%E7%AB%A5%E8%A1%97%E8%88%9E+%E5%9F%BA%E7%A4%8E+%E5%BE%8B%E5%8B%95"}
+];
+function renderV(){
+  const v=LS.get("dance.videos",DEFV);
+  $("#vids").innerHTML=v.map(x=>`<a class="link" href="${x.u}" target="_blank" rel="noopener">▶ ${x.t}</a>`).join("");
+}
+$("#editv").onclick=()=>{
+  const v=LS.get("dance.videos",DEFV);
+  const txt=prompt("一行一支，格式：名稱 | 網址",v.map(x=>x.t+" | "+x.u).join("\n"));
+  if(txt===null)return;
+  const nv=txt.split("\n").map(l=>l.split("|")).filter(p=>p.length>1)
+    .map(p=>({t:p[0].trim(),u:p[1].trim()}));
+  LS.set("dance.videos",nv.length?nv:DEFV);renderV();
+};
+renderV();
+</script>
+</body>
+</html>

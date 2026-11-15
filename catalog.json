@@ -128,5 +128,18 @@
     "exam": "段考後訂正",
     "pdf": "exam4r-practice.pdf",
     "updated": "2026-11-12"
+  },
+  {
+    "id": "dance",
+    "title": "每日 15 分鐘練舞小站",
+    "icon": "💃",
+    "kid": "小女兒",
+    "grade": "國小四年級",
+    "subject": "街舞",
+    "version": "",
+    "range": "熱身・律動・基本舞步・收操（每天 15 分鐘）",
+    "exam": "天天練",
+    "pdf": null,
+    "updated": "2026-11-15"
   }
 ]
