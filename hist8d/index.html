@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFCF6">
+<title>學習教材</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* 繪本風（和紙白、3px 墨灰框、珊瑚粉／山吹黃／水色／若竹綠平塗、Huninn 粉圓）。只用淺色底，不做深色模式。 */
+:root{--ink:#3E3A39;--paper:#FFFCF6;--coral:#F2A497;--yellow:#F6D27A;--mizu:#A8D3E6;--green:#B9DAA5;
+ --coral-soft:#FCE7E2;--yellow-soft:#FDF3D6;--mizu-soft:#E2F1F7;--green-soft:#E8F3E0;
+ --bg-2:#F5EEE2;--muted:#7C7571;--line:#E8DFD2;--accent-text:#B65544;--bw:3px;--r:24px;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.8 "Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+h1,h2,h3,h4,b,strong,th{font-weight:400}
+button{font-family:inherit}
+/* ---- 頂部 ---- */
+header{position:sticky;top:0;z-index:9;background:var(--paper);border-bottom:var(--bw) solid var(--ink)}
+.top{display:flex;align-items:center;gap:10px;max-width:880px;margin:0 auto;padding:10px 16px 4px}
+.logo{flex:none;width:42px;height:42px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:21px;line-height:1}
+.top h1{margin:0;font-size:19px;line-height:1.5;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xp{flex:none;background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:15px;white-space:nowrap}
+nav{display:flex;gap:8px;max-width:880px;margin:0 auto;padding:6px 16px 12px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer}
+nav button.on{background:var(--yellow);box-shadow:0 3px 0 var(--ink)}
+main{max-width:880px;margin:0 auto;padding:18px 16px 48px}
+section{display:none}section.on{display:block;animation:pop .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{0%{transform:scale(.97);opacity:0}60%{transform:scale(1.008);opacity:1}100%{transform:scale(1)}}
+/* ---- 插圖 ---- */
+.art{display:block;width:72px;height:72px;flex:none}
+.art.sm{width:40px;height:40px}.art.md{width:54px;height:54px}.art.lg{width:104px;height:104px}
+.stamp{display:grid;place-items:center;background:#fff;border:var(--bw) solid var(--ink);border-radius:50%}
+.float{animation:float 3.4s ease-in-out infinite;transform-origin:50% 90%}
+.float.d2{animation-delay:-1.2s}.float.d3{animation-delay:-2.3s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-2deg)}}
+/* ---- 首頁橫幅 ---- */
+.hero{display:flex;align-items:center;gap:12px;background:var(--yellow-soft);border:var(--bw) solid var(--ink);border-radius:28px;padding:16px 18px;margin:0 0 18px}
+.hero .txt{flex:1;min-width:0}
+.hero h2{font-size:25px;line-height:1.4;margin:8px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;font-size:13.5px;line-height:1.7;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px}
+.chip.y{background:var(--yellow)}.chip.c{background:var(--coral)}
+.pics{flex:none;position:relative;width:140px;height:124px}
+.pics .stamp{position:absolute;right:4px;bottom:0;width:104px;height:104px}
+.pics .stamp .art{width:80px;height:80px}
+.pics .s1{position:absolute;left:0;top:0}.pics .s2{position:absolute;right:-6px;top:-10px}
+/* ---- 卡片與文字 ---- */
+.card{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px 20px;margin:0 0 18px}
+h2{font-size:23px;line-height:1.45;margin:0 0 8px}
+h3{font-size:19px;line-height:1.5;margin:16px 0 6px;display:flex;align-items:center;gap:8px}
+h3:before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--coral);border:2px solid var(--ink)}
+b{box-shadow:inset 0 -.42em 0 var(--yellow);padding:0 2px}/* 用 box-shadow 畫螢光筆：透明漸層在 PDF 會多一條黑線 */
+.card ul,.card ol{padding-left:1.4em}li::marker{color:var(--accent-text)}
+.guide{display:flex;gap:12px;align-items:flex-start;margin:4px 0 16px}
+.who{flex:none;width:60px;text-align:center}
+.ava{width:58px;height:58px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:30px;line-height:1;animation:float 3.4s ease-in-out infinite}
+.who small{display:block;font-size:12px;line-height:1.3;margin-top:4px;color:var(--muted)}
+.bubble{background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;position:relative;min-width:0;flex:1}
+.bubble:before{content:"";position:absolute;left:-10px;top:19px;width:14px;height:14px;background:#fff;border-left:var(--bw) solid var(--ink);border-bottom:var(--bw) solid var(--ink);transform:rotate(45deg)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.tile{border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 14px;background:var(--coral-soft)}
+.tile:nth-child(4n+2){background:var(--mizu-soft)}.tile:nth-child(4n+3){background:var(--yellow-soft)}.tile:nth-child(4n){background:var(--green-soft)}
+.tile .em{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:25px;line-height:1;margin-bottom:6px}
+.tile .em:empty{display:none}
+.tile h4{margin:0 0 2px;font-size:18px;line-height:1.5}.tile p{margin:0;font-size:15.5px}
+.chant{background:var(--yellow);border:var(--bw) solid var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0 18px;font-size:19px;text-align:center;box-shadow:0 4px 0 var(--ink)}
+.chant small{display:block;font-size:14.5px;opacity:.85}
+.chant b{box-shadow:inset 0 -.42em 0 #fff}
+.trap{background:var(--coral-soft);border:var(--bw) dashed var(--ink);border-radius:18px;padding:10px 14px;margin:12px 0;font-size:15.5px}
+.trap:before{content:"⚠️ 陷阱題注意";display:inline-block;background:var(--coral);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin:0 8px 4px 0;font-size:14px;line-height:1.7}
+.lab{background:var(--mizu-soft);border:var(--bw) solid var(--ink);border-radius:20px;padding:10px 16px;margin:12px 0}
+.lab h4{margin:2px 0 4px;font-size:18px}
+.fig{max-width:580px;margin:10px auto;background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden}
+.fig svg{width:100%;height:auto;display:block}
+main svg:not(.art){max-width:100%;height:auto}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:10px 0}
+.vs>div{border:var(--bw) solid var(--ink);border-radius:18px;padding:10px 14px;font-size:15.5px;background:var(--coral-soft)}
+.vs>div:nth-child(2n){background:var(--mizu-soft)}
+.vs h4{margin:0 0 4px;font-size:18px;line-height:1.5}
+.tw{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:15.5px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;overflow:hidden}
+th,td{padding:7px 10px;vertical-align:top;text-align:left;border-bottom:2px solid var(--line)}
+th{background:var(--yellow-soft);border-bottom:2px solid var(--ink)}
+td+td,th+th{border-left:2px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.tl{position:relative;padding-left:32px;margin:10px 0}
+.tl:before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:var(--ink);border-radius:2px}
+.tl div{position:relative;margin:0 0 12px}
+.tl div:before{content:"";position:absolute;left:-31px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink)}
+.tl span{display:inline-block;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-right:6px;font-size:15px}
+.vid{width:100%;display:block;background:var(--ink);border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 影片放大、YouTube 名師影片 ---- */
+.vbox{position:relative}
+.zoom{position:absolute;right:10px;top:10px;z-index:2;font-size:15px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:3px 12px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+.yt{border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden;background:#fff;margin:12px 0}
+.yt .scr{position:relative;display:block;width:100%;aspect-ratio:16/9;background:var(--ink);cursor:pointer;overflow:hidden}
+.yt .scr img{width:100%;height:100%;object-fit:cover;display:block}
+.yt .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:var(--coral);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:28px;line-height:1;box-shadow:0 4px 0 var(--ink);padding-left:5px}
+.yt .dur{position:absolute;left:10px;bottom:10px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:14px;line-height:1.7}
+.yt .scr .zoom{top:auto;bottom:10px}.yt .scr.live .zoom{top:10px;bottom:auto}
+.ytm{padding:10px 16px 12px;border-top:var(--bw) solid var(--ink)}
+.ytm h4{margin:0;font-size:17.5px;line-height:1.5}
+.ytm p{margin:2px 0 0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ytm .tag{color:var(--ink)}
+#big{position:fixed;inset:0;z-index:200;background:rgba(40,36,35,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:56px 12px 16px}
+#big.on{display:flex}
+#big .stage{width:min(100%,calc((100vh - 120px)*16/9));aspect-ratio:16/9;background:#000;border:var(--bw) solid #fff;border-radius:16px;overflow:hidden}
+#big .stage iframe,#big .stage video{width:100%;height:100%;border:0;display:block;background:#000}
+#big .bt{color:#fff;font-size:16px;text-align:center;max-width:880px}
+#big .x{position:absolute;top:10px;right:12px;font-size:18px;line-height:1.5;border:2px solid var(--ink);background:var(--coral);color:var(--ink);border-radius:999px;padding:4px 16px;box-shadow:0 3px 0 var(--ink);cursor:pointer}
+body.big{overflow:hidden}
+.pic{max-width:100%;border:var(--bw) solid var(--ink);border-radius:20px}
+/* ---- 記憶卡 ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.flip{perspective:900px;height:140px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .k{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--bw) solid var(--ink);border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:auto}
+.flip .f{background:var(--mizu);font-size:19px}
+.flip:nth-child(4n+2) .f{background:var(--coral)}.flip:nth-child(4n+3) .f{background:var(--green)}.flip:nth-child(4n) .f{background:var(--yellow)}
+.flip .k{background:#fff;font-size:15.5px;transform:rotateY(180deg)}
+/* ---- 闖關 ---- */
+.qbox{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.prog{height:16px;background:var(--bg-2);border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--yellow);border-right:2px solid var(--ink);transition:width .4s}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--muted)}
+.stem{font-size:19px;white-space:pre-line;margin:8px 0}
+.src{background:var(--mizu-soft);border:2px solid var(--ink);border-radius:14px;padding:8px 14px;margin:10px 0;font-size:16px}
+.opt{display:block;width:100%;text-align:left;font-size:17px;line-height:1.6;border:var(--bw) solid var(--ink);background:#fff;color:var(--ink);border-radius:18px;padding:10px 16px;margin:10px 0;box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.opt:disabled{cursor:default}.opt:disabled:not(.ok):not(.bad){opacity:.55}
+.opt.ok{background:var(--green)}
+.opt.bad{background:var(--coral);animation:shake .3s}
+.opt.pick{background:var(--yellow-soft);box-shadow:0 0 0 3px var(--yellow),0 3px 0 var(--ink)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{display:none;border:2px solid var(--ink);border-radius:16px;padding:10px 14px;margin-top:10px;font-size:16px}
+.fb.ok{display:block;background:var(--green-soft)}.fb.bad{display:block;background:var(--coral-soft)}
+.btn{display:inline-block;font-size:16px;line-height:1.5;border:var(--bw) solid var(--ink);background:var(--coral);color:var(--ink);border-radius:16px;padding:8px 20px;margin-top:12px;box-shadow:0 4px 0 var(--ink);cursor:pointer;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--mizu)}
+.say{font-size:14px;line-height:1.5;border:2px solid var(--ink);background:var(--yellow);color:var(--ink);border-radius:999px;padding:0 10px;margin-left:6px;vertical-align:middle;cursor:pointer}
+.combo{background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;color:var(--ink)}
+.combo:empty{display:none}
+.rank{text-align:center;padding:6px 4px}
+.rank .deco{display:flex;align-items:flex-end;justify-content:center;gap:10px}
+.rank .big{width:116px;height:116px;border-radius:50%;background:var(--yellow);border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:58px;line-height:1}
+.empty{text-align:center}.empty .art{margin:4px auto 0}
+.lvl{border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:2px 0 10px;background:var(--yellow-soft)}
+.lvl b{display:block;font-size:18px;box-shadow:none;padding:0}.lvl small{display:block;font-size:14.5px;color:var(--muted);line-height:1.5}
+.lv-g{background:var(--green-soft)}.lv-m{background:var(--mizu-soft)}.lv-c{background:var(--coral-soft)}
+.lvsum{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0}
+.lvchip{border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:15px}
+.src svg{display:block;width:100%;max-width:520px;margin:4px auto}
+.order{padding:0;margin:8px 0}
+.order li{list-style:none;display:flex;align-items:center;border:var(--bw) solid var(--ink);background:#fff;border-radius:16px;padding:8px 14px;margin:10px 0;cursor:pointer;box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.order li.pick{background:var(--yellow-soft);box-shadow:0 0 0 var(--ink);transform:translateY(3px)}
+.order li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;margin-right:10px;font-size:15px;line-height:1}
+.order li.pick .n{background:var(--yellow)}
+.tag{display:inline-block;font-size:13px;line-height:1.6;background:var(--mizu-soft);border:2px solid var(--ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
+.srcs{font-size:13px;color:var(--muted);margin-top:8px}.srcs a{color:var(--accent-text)}
+#boom{position:fixed;inset:0;pointer-events:none;z-index:99}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:100;width:max-content;max-width:calc(100% - 32px);background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);padding:10px 16px;font-size:16px}
+/* ---- 作答區塊 ---- */
+.how{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:10px 0 8px;font-size:15px}
+.ask,.fill,.wbox,.tbox,.sub{background:var(--paper);border:var(--bw) dashed var(--ink);border-radius:20px;padding:12px 16px;margin:14px 0}
+.fill .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.fill .row .btn{margin-top:0}
+.fill input,.tbox textarea{font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);outline:0}
+.fill input:focus,.tbox textarea:focus{box-shadow:0 0 0 3px var(--yellow)}
+.fill input{width:9em}.tbox textarea{width:100%;min-height:80px;resize:vertical}
+.wcan{width:100%;height:300px;background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;touch-action:none;display:block;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.wtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.wtools .btn{margin-top:0}
+.wans{margin-top:10px}.wans summary{display:inline-block;list-style:none;cursor:pointer}.wans summary::-webkit-details-marker{display:none}.wans div{font-size:20px;margin-top:10px;line-height:1.7}
+.wphoto,.subimg{max-width:100%;border:var(--bw) solid var(--ink);border-radius:16px;margin-top:10px;display:none}
+.reveal{background:var(--green-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:12px 0}
+/* ---- 音效開關 ---- */
+.snd{flex:none;font-size:17px;line-height:1.5;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:0 8px;cursor:pointer}
+/* ---- 互動模擬（PhET 等） ---- */
+.sim{border:var(--bw) solid var(--ink);border-radius:20px;overflow:hidden;background:#fff;margin:12px 0}
+.sim .scr{position:relative;width:100%;aspect-ratio:4/3;max-height:78vh;background:var(--mizu-soft);display:grid;place-items:center;text-align:center;padding:16px}
+.sim .scr.live{padding:0;background:#000;aspect-ratio:1024/618}
+.sim .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sim .simic{width:84px;height:84px;margin:0 auto 4px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:42px;line-height:1}
+.sim .scr .btn{margin-top:8px}
+.zoom.zl{right:auto;left:10px;background:var(--coral)}
+.simm{padding:10px 16px 12px;border-top:var(--bw) solid var(--ink)}
+.simm h4{margin:0;font-size:17.5px;line-height:1.5}.simm .srcs{margin-top:0}
+.mis{list-style:none;padding:0;margin:8px 0 0}
+.mis li{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--ink);border-radius:14px;padding:6px 12px;margin:8px 0;background:var(--paper);cursor:pointer;font-size:16px}
+.mis li.on{background:var(--green-soft)}
+.mis .bx{flex:none;width:26px;height:26px;margin-top:2px;border:2px solid var(--ink);border-radius:8px;background:#fff;display:grid;place-items:center;font-size:16px;line-height:1}
+#big .stage.sim{width:100%;max-width:1180px;aspect-ratio:auto;flex:1 1 auto;min-height:0;background:#000}
+#big .bt .bm{display:inline-block;margin:2px 8px;font-size:15px}
+/* ---- 故事闖關：對手血條、過場 ---- */
+.foe{display:flex;align-items:center;gap:12px;background:var(--coral-soft);border:var(--bw) solid var(--ink);border-radius:18px;padding:8px 14px;margin:0 0 12px}
+.fava{flex:none;width:56px;height:56px;border-radius:50%;background:#fff;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-size:30px;line-height:1}
+.foe .fi{flex:1;min-width:0}.foe .fn{font-size:16px;line-height:1.4}
+.hp{height:14px;background:#fff;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin:3px 0}
+.hp i{display:block;height:100%;background:var(--coral);border-right:2px solid var(--ink);transition:width .5s}
+.foe small{display:block;font-size:13px;line-height:1.4;color:var(--muted)}
+.foe.hit .fava{animation:hit .45s}.foe.dodge .fava{animation:dodge .45s}
+@keyframes hit{30%{transform:scale(.78) rotate(-14deg);background:var(--coral)}}
+@keyframes dodge{40%{transform:translateX(10px) rotate(8deg)}}
+.scene p{text-align:left;margin:8px 0}
+.story{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:16px;padding:8px 14px;margin:10px 0;text-align:left}
+/* ---- 今日複習、這週幾次 ---- */
+.goal{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--green-soft);border:var(--bw) solid var(--ink);border-radius:18px;padding:8px 14px;margin:0 0 18px;font-size:16px}
+.gs{width:32px;height:32px;border-radius:50%;border:2px solid var(--ink);background:#fff;display:grid;place-items:center;font-size:15px;line-height:1;color:var(--muted)}
+.gs.on{background:var(--yellow);color:var(--ink)}
+.goal small{color:var(--muted);font-size:14px}
+#rev{scroll-margin-top:118px}
+.rv{background:var(--mizu-soft)}.qbox.rv{background:#fff;box-shadow:0 0 0 4px var(--mizu)}
+@media (max-width:520px){
+ body{font-size:16.5px}.card{padding:16px}.qbox{padding:16px}
+ .hero{padding:14px}.hero h2{font-size:21px}
+ .pics{width:96px;height:100px}.pics .stamp{width:84px;height:84px;right:0}.pics .stamp .art{width:62px;height:62px}
+ .pics .s1{width:34px;height:34px}.pics .s2{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ section.on,.float,.ava,.opt.bad,.foe .fava{animation:none}
+ .flip .in,.btn,.opt,.order li,.prog i{transition:none}
+}
+/* ---- 列印（PDF） ---- */
+.print body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.print header{position:static}.print nav,.print .xp,.print .snd{display:none}
+.print .top h1{white-space:normal}
+.print section{display:block;animation:none}
+.print .float,.print .ava{animation:none}
+.print .card{break-inside:auto}
+.print h2,.print h3{break-after:avoid}
+.print .qbox,.print .tile,.print .fig,.print .chant,.print .trap,.print .vs,.print table,.print .hero{break-inside:avoid}
+.print .chant,.print .btn,.print .opt{box-shadow:none}
+.print .pbreak{break-before:page}
+.print .cards{grid-template-columns:1fr 1fr}
+.print .fc{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-size:15px}
+.print .wcan,.print .wtools,.print .sub{display:none}.print .wprint{height:220px;border:2px solid var(--ink);border-radius:12px;background:#fff}.print .wgrid{height:auto;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}.print .wgrid span{height:70px;border:1px solid #D8D2C8;padding:2px 6px;font-size:13px;color:#7C7571}.print .wansp{transform:rotate(180deg);font-size:13px;color:#7C7571;margin:8px 0 0}
+@page{size:A4;margin:12mm}
+</style>
+</head>
+<body>
+<canvas id="boom"></canvas>
+<header><div class="top"><span class="logo" id="logo">📚</span><h1 id="ttl"></h1><button class="snd" id="snd" aria-label="音效開關">🔊</button><span class="xp" id="xp">⭐ 0</span></div><nav id="nav"></nav></header>
+<main id="main"></main>
+<script>
+// 繪本風插圖（原創 SVG）：墨灰 3px 線框＋四色平塗，不用漸層。
+// 網頁範本（renderPage 會把整份檔案嵌進 page.html）與首頁目錄（node require）共用這一份。
+const INK = "#3E3A39", CORAL = "#F2A497", YELLOW = "#F6D27A", MIZU = "#A8D3E6", GREEN = "#B9DAA5", PAPER = "#FFFCF6";
+const SK = `stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+const FACE = (x, y) => `<circle cx="${x - 6}" cy="${y}" r="2.8" fill="${INK}"/><circle cx="${x + 6}" cy="${y}" r="2.8" fill="${INK}"/><path d="M${x - 4} ${y + 7}c2.5 2.5 5.5 2.5 8 0" ${SK} fill="none"/>`;
+
+const ART = {
+  book: `<g ${SK}>
+    <path d="M50 30c-8-6-20-6-30-2v50c10-4 22-4 30 2z" fill="${YELLOW}"/>
+    <path d="M50 30c8-6 20-6 30-2v50c-10-4-22-4-30 2z" fill="${MIZU}"/>
+    <path d="M28 42h14M28 52h14M58 42h14M58 52h14" fill="none"/></g>`,
+  star: `<g ${SK}><path d="M50 18l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z" fill="${YELLOW}"/></g>${FACE(50, 47)}`,
+  cloud: `<path d="M24 70c-8 0-12-6-10-12 2-6 8-8 13-6 1-10 10-16 20-14 7 1 12 7 13 13 7-2 14 3 14 10 0 5-4 9-10 9z" fill="#fff" ${SK}/>`,
+  sun: `<g ${SK}><circle cx="50" cy="50" r="18" fill="${YELLOW}"/>
+    <path d="M50 18v-8M50 90v-8M18 50h-8M90 50h-8M27 27l-6-6M79 79l-6-6M27 73l-6 6M79 21l-6 6" fill="none"/></g>`,
+  // 理化／自然：錐形瓶
+  flask: `<g ${SK}>
+    <path d="M43 18v22L24 76c-3 6 1 12 8 12h36c7 0 11-6 8-12L57 40V18z" fill="#fff"/>
+    <path d="M32.4 60h35.2L76 76c3 6-1 12-8 12H32c-7 0-11-6-8-12z" fill="${MIZU}"/>
+    <path d="M38 18h24" fill="none"/>
+    <circle cx="47" cy="50" r="3" fill="#fff"/><circle cx="54" cy="42" r="2.2" fill="#fff"/></g>${FACE(50, 72)}`,
+  // 歷史／社會：卷軸
+  scroll: `<g ${SK}>
+    <rect x="24" y="27" width="52" height="50" fill="${PAPER}"/>
+    <path d="M32 40h36M32 50h28M32 60h32" fill="none"/>
+    <rect x="18" y="22" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <rect x="18" y="72" width="64" height="10" rx="5" fill="${CORAL}"/>
+    <circle cx="15" cy="27" r="5" fill="${YELLOW}"/><circle cx="85" cy="27" r="5" fill="${YELLOW}"/>
+    <circle cx="15" cy="77" r="5" fill="${YELLOW}"/><circle cx="85" cy="77" r="5" fill="${YELLOW}"/></g>`,
+  // 地理：地球儀
+  globe: `<g ${SK}>
+    <circle cx="50" cy="44" r="25" fill="${MIZU}"/>
+    <path d="M34 36c4-6 14-6 16 0s-4 10-10 10-10-4-6-10z" fill="${GREEN}"/>
+    <path d="M55 50c4-4 12-2 12 4s-6 10-12 8-4-8 0-12z" fill="${GREEN}"/>
+    <path d="M22 50a29 29 0 0 0 50 16M50 73v11M38 86h24" fill="none"/></g>`,
+  // 數學：三角尺
+  ruler: `<g ${SK}>
+    <path d="M20 84V20l64 64z" fill="${MIZU}"/>
+    <path d="M31 72V48l24 24z" fill="${PAPER}"/>
+    <path d="M20 32h7M20 42h5M20 52h7M20 62h5M20 72h7" fill="none"/></g>`,
+  // 英文：字母積木
+  blocks: `<g ${SK}>
+    <rect x="16" y="52" width="32" height="32" rx="6" fill="${CORAL}"/>
+    <rect x="52" y="52" width="32" height="32" rx="6" fill="${MIZU}"/>
+    <rect x="34" y="16" width="32" height="32" rx="6" fill="${YELLOW}"/></g>
+    <g fill="${INK}" font-family="Huninn, sans-serif" font-size="20" text-anchor="middle">
+    <text x="50" y="39">A</text><text x="32" y="75">B</text><text x="68" y="75">C</text></g>`,
+  // 國語：鉛筆
+  pencil: `<g transform="rotate(35 50 50)"><g ${SK}>
+    <path d="M41 12h18v8H41z" fill="${CORAL}"/>
+    <rect x="41" y="20" width="18" height="52" fill="${YELLOW}"/>
+    <path d="M41 72h18l-9 17z" fill="${PAPER}"/>
+    <path d="M50 20v52" fill="none"/></g>
+    <path d="M47 83.3 50 89l3-5.7z" fill="${INK}"/></g>`,
+  // 闖關結果：獎盃
+  trophy: `<g ${SK}>
+    <path d="M32 20h36v18c0 12-8 21-18 21s-18-9-18-21z" fill="${YELLOW}"/>
+    <path d="M32 26h-8c0 10 4 16 10 16M68 26h8c0 10-4 16-10 16M50 59v10" fill="none"/>
+    <path d="M38 69h24l4 15H34z" fill="${CORAL}"/></g>${FACE(50, 34)}`,
+  // 首頁吉祥物：書包
+  backpack: `<g ${SK}>
+    <path d="M38 27c0-10 24-10 24 0" fill="none"/>
+    <rect x="22" y="26" width="56" height="62" rx="16" fill="${CORAL}"/>
+    <rect x="33" y="58" width="34" height="22" rx="6" fill="${YELLOW}"/>
+    <path d="M33 66h34" fill="none"/></g>${FACE(50, 42)}
+    <circle cx="35" cy="47" r="3.4" fill="#fff" opacity=".7"/><circle cx="65" cy="47" r="3.4" fill="#fff" opacity=".7"/>`,
+};
+
+function art(name, cls) {
+  return `<svg class="art ${cls || ""}" viewBox="0 0 100 100" aria-hidden="true">${ART[name] || ART.book}</svg>`;
+}
+// 依科目挑主插圖；內容檔可用 art:"flask" 指定
+function subjArt(s) {
+  s = s || "";
+  return /理化|自然|生物|物理|化學|科學/.test(s) ? "flask" : /歷史|社會|公民/.test(s) ? "scroll" : /地理/.test(s) ? "globe"
+    : /數學|算/.test(s) ? "ruler" : /英/.test(s) ? "blocks" : /國語|國文|作文|閱讀/.test(s) ? "pencil" : "book";
+}
+if (typeof module !== "undefined") module.exports = { ART, art, subjArt, INK, CORAL, YELLOW, MIZU, GREEN, PAPER };
+
+const DATA={"id":"hist8d","title":"歷史段考模擬卷第二回：絲路 → 宋元 → 明清","icon":"🐪","kid":"大女兒","grade":"國二","subject":"歷史","version":"翰林","range":"2-2～4-3（含兩個歷史探查）","exam":"第二次段考 11/25（三）","guide":{"ava":"🧙‍♀️","name":"小史"},"theme":{"main":"#c8462f"},"ranks":[[0,"🧑‍🌾","小書生"],[0.5,"📜","秀才"],[0.7,"🎓","舉人"],[0.9,"🏅","進士"],[1,"👑","狀元"]],"goal":3,"story":{"title":"絲路商隊大冒險","ava":"🐪","intro":["上次修好的時光機又出狀況了，這次把你和小史丟進一支從長安出發的絲路商隊。","商隊要一路走過宋元的海港、明清的紫禁城，才能把你送回 2026 年。每答對一題，駱駝就多走一步；打倒三個攔路的考官就能到家！"],"acts":{"看懂":{"name":"沙漠守門人","ava":"🏜️","intro":"守在玉門關的守門人，只問最基本的事，看一眼就會。","win":"守門人揮揮手放行，商隊穿過大漠，來到了宋朝的泉州港。"},"課本":{"name":"泉州港稅官","ava":"⚓","intro":"市舶司的稅官要你回答課本上的問題才肯蓋章。想清楚：這是哪一朝的事？","win":"稅官蓋下大印，商隊換乘大船北上，直奔明清的北京城。"},"段考挑戰":{"name":"軍機處大學士","ava":"🧑‍⚖️","intro":"最後一關要讀史料、想兩步，和段考一樣。答錯不要緊，還能去錯題本補刀。","win":"大學士點點頭：「准你回家應考！」時光機的燈全亮了。"}},"end":"三個考官都過關了！從胡床、交子到番薯和利瑪竇，這一趟你又把一千年走了一遍。星期三，穩穩的去考吧！","cont":"還有考官躲進「📕 錯題」了，去把錯的題目重做到對，就能補上最後一刀。"},"home":{"intro":"嗨！我是時光嚮導<b>小史<\/b>。這是<b>第二回模擬卷<\/b>，範圍和第一回一樣（<b>2-2 到 4-3<\/b>），40 題<b>全部是新題目<\/b>，換了角度考同樣的重點。三站重點和記憶卡跟第一回相同，可以直接到「⚔️ 闖關」作答；錯的題目會留在錯題本，重做到全對就過關！","cards":[{"h":"📋 這份模擬卷怎麼用（分兩次做就好）","body":[{"t":"tiles","v":[{"em":"1️⃣","h":"先複習（可跳過）","p":"第一回看過重點的話，直接作答；沒把握再翻三站與記憶卡、玩新的排順序。"},{"em":"2️⃣","h":"第二次：作答（約 40 分）","p":"到「⚔️ 闖關」答 40 題：🌱 看懂 8 題 → 📘 課本 16 題 → 🔥 段考挑戰 16 題。"},{"em":"📕","h":"考前一晚：錯題本","p":"把「📕 錯題」裡的題目重做到全對。錯題也會出現在首頁的「🔁 今日複習」。"}]},{"t":"guide","v":"一次做不完沒關係，關掉再打開，進度都還在。"}]},{"h":"🗺️ 範圍地圖（翰林 2 上 第二本 目次）","body":[{"t":"table","head":["課","一句話","段考最愛考"],"rows":[["2-2 文化交流","胡人和漢人互相學，唐朝文化傳到東亞","胡床、佛教傳入、遣唐使、大化革新"],["🔎 大唐風情","長安是國際大都市","從史料判斷「這是唐朝」"],["3-1 對抗與征服","宋、遼、夏、金、元輪流登場","澶淵之盟、靖康之禍、四等人、行省"],["3-2 經濟貿易","宋代城市和海港超熱鬧","坊市打破、交子、市舶司、泉州"],["3-3 文化交流","理學和三大發明","朱熹、三大發明西傳、伊斯蘭曆法"],["4-1 明清帝國","明朝建立、清朝入關","鄭和、薙髮令、康雍乾盛世"],["4-2 全球貿易","白銀從美洲、日本流進中國","朝貢、海禁、白銀、美洲作物"],["4-3 東西交流","傳教士帶來西學，歐洲流行中國熱","利瑪竇、禮儀之爭、雍正禁教、蘭學"]]}]},{"h":"🧪 三份模擬卷比對出的考點","body":[{"t":"vs","v":[{"h":"🔥 三份卷子都考（最高機率）","p":"<b>澶淵之盟、靖康之禍、交子、市舶司、蘇湖熟天下足、朱熹理學、三大發明（指南針）、鄭和下西洋、美洲作物、白銀流入、利瑪竇與徐光啟、禮儀之爭<\/b>"},{"h":"📌 兩份卷子考","p":"<b>四等人、行省、海禁與倭寇、畢昇活字印刷、一條鞭法、明成祖遷都北京、玄奘取經、東亞文化圈<\/b>"}]},{"t":"list","v":["<b>一條鞭法<\/b>：明代把多項賦役合併、主要折成白銀繳納，和白銀大量流入有關","<b>年代排序題<\/b>很愛考：遼→北宋→西夏→金→南宋；後金→清（國號）→李自成攻陷北京→清軍入關","<b>唐宋比較<\/b>：經濟重心唐在北方、宋南移到江南；唐坊市分離有宵禁、宋坊市打破有夜市","<b>只有一份卷子考到、請對照課本有沒有講<\/b>：怛羅斯之役與造紙術西傳、廢宰相與錦衣衛東廠、八股文、一口通商（廣州）、商幫、坤輿萬國全圖。課本有寫再背，沒有就略過"]}]},{"h":"🎯 老師最愛考的六件事","body":[{"t":"list","v":["宋代的<b>重文輕武<\/b>：好處是沒有軍人割據，壞處是<b>軍力弱<\/b>","宋「聯金滅遼」→ 反而被金滅掉（<b>靖康之禍<\/b>）","元代<b>四等人<\/b>：蒙古人 ＞ 色目人 ＞ 漢人 ＞ 南人","宋代經濟三寶：<b>坊市打破、交子、市舶司<\/b>","明清的<b>白銀<\/b>從哪來（美洲、日本）、<b>美洲作物<\/b>讓人口暴增","東西交流為什麼中斷：<b>禮儀之爭 → 雍正禁教<\/b>"]}]},{"h":"👨 給爸爸的陪讀小抄","body":[{"t":"list","v":["看「⚔️ 3 宋元」那張<b>年表圖<\/b>，請她指著說：哪幾個國家同時存在？誰先亡？（遼 → 北宋 → 西夏 → 金 → 南宋）","隨口考她：「交子是哪一朝？」「鄭和是哪個皇帝派的？」「利瑪竇和誰翻譯《幾何原本》？」","她答完闖關後，首頁和錯題本會顯示等級和錯幾題；錯題重做到全對就好，不用整份重寫。"]}]}]},"stations":[{"id":"s22","nav":"🐫 2-2 大唐","intro":"第一站：長城兩邊的人不只打仗，也<b>互相學東西<\/b>。漢人學會坐椅子、穿窄袖衣服；唐朝的文字、制度也一路傳到日本、朝鮮和越南。","cards":[{"h":"🔄 胡人教漢人的事","body":[{"t":"tiles","v":[{"em":"🪑","h":"胡床 → 椅子","p":"游牧民族的折疊坐具「胡床」傳入，漢人從<b>席地而坐<\/b>，慢慢變成<b>垂足而坐<\/b>（坐椅子）。"},{"em":"👘","h":"胡服","p":"窄袖、長靴，方便騎馬。戰國時趙武靈王就推行「胡服騎射」；唐代連仕女都流行穿胡服。"},{"em":"🎵","h":"胡樂、胡食","p":"琵琶等樂器、胡餅；葡萄、苜蓿等作物也經由絲路傳進來。"},{"em":"🏇","h":"打馬球","p":"從西方傳入的騎馬運動，唐代貴族非常流行。"}]}]},{"h":"🙏 外來宗教傳進中國","body":[{"t":"tl","v":[["東漢","<b>佛教<\/b>從天竺（印度）經西域傳入"],["魏晉南北朝","天下大亂，人民想找心靈寄託 → 佛教<b>盛行<\/b>；北魏開鑿<b>雲岡、龍門石窟<\/b>"],["唐","佛教<b>鼎盛<\/b>：<b>玄奘<\/b>西行天竺取經，寫《大唐西域記》"],["唐","<b>伊斯蘭教<\/b>由大食（阿拉伯）商人帶入；長安也有祆教、景教（基督教的一支）、摩尼教的寺院"]]},{"t":"chant","v":"東漢傳入、南北朝盛行、唐朝鼎盛","sub":"佛教三階段"},{"t":"trap","v":"<b>玄奘<\/b>是「往西」去印度取經；<b>鑑真<\/b>是「往東」渡海到日本傳佛法。方向別弄反！"}]},{"h":"🌏 唐朝文化傳到東亞","body":[{"t":"tiles","v":[{"em":"🗾","h":"日本","p":"派<b>遣唐使<\/b>、留學生、學問僧來唐；推行仿唐的<b>大化革新<\/b>；參考漢字創造自己的文字；首都仿長安規劃。"},{"em":"🏯","h":"朝鮮半島（新羅）","p":"派留學生到長安，學習儒學、漢字和唐朝制度。"},{"em":"🌴","h":"越南","p":"唐朝設<b>安南都護府<\/b>，漢字、儒學傳入。"}]},{"t":"chant","v":"漢字、儒學、佛教、律令","sub":"東亞文化圈的四個共同元素"}]},{"h":"🔎 歷史探查：世界一家的大唐風情","body":["<b>長安<\/b>是當時世界級的國際大都市：西市有胡人商隊和駱駝，國子監有日本、新羅留學生，街上有佛寺、祆教寺、景教寺。",{"t":"vs","v":[{"h":"🤔 為什麼唐朝這麼開放？","p":"國力強盛、交通發達（陸上絲路＋海路）、皇室本身有胡人血統，對外來文化很包容。"},{"h":"🧩 史料線索怎麼認？","p":"看到<b>胡人、駱駝、唐三彩、遣唐使、西市、天可汗<\/b> → 大多是唐朝。"}]}]}]},{"id":"s3","nav":"⚔️ 3 宋元","intro":"第二站：唐朝滅亡後，中國不再只有一個政權。<b>宋、遼、西夏、金、蒙古<\/b>同時存在，有時打仗、有時簽和約。最後蒙古一統天下，建立元朝。","cards":[{"h":"🗓️ 先看年表：誰和誰同時存在？","body":[{"t":"svg","v":"<svg viewBox=\"0 0 420 240\" role=\"img\" aria-label=\"宋遼夏金元並立年表\">\n<rect x=\"0\" y=\"0\" width=\"420\" height=\"240\" rx=\"14\" fill=\"#fbf4e6\"/>\n<text x=\"210\" y=\"17\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#c8462f\">多民族並立：誰和誰同時存在？<\/text>\n<line x1=\"30.0\" y1=\"24\" x2=\"30.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"30.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">900<\/text><line x1=\"104.0\" y1=\"24\" x2=\"104.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"104.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">1000<\/text><line x1=\"178.0\" y1=\"24\" x2=\"178.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"178.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">1100<\/text><line x1=\"252.0\" y1=\"24\" x2=\"252.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"252.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">1200<\/text><line x1=\"326.0\" y1=\"24\" x2=\"326.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"326.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">1300<\/text><line x1=\"400.0\" y1=\"24\" x2=\"400.0\" y2=\"214\" stroke=\"#d8cbb4\" stroke-dasharray=\"3 4\"/><text x=\"400.0\" y=\"232\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b5e55\">1400<\/text>\n<rect x=\"41.8\" y=\"34\" width=\"154.7\" height=\"22\" rx=\"6\" fill=\"#f5d9a8\"/><text x=\"119.2\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">遼（契丹）<\/text>\n<rect x=\"74.4\" y=\"64\" width=\"123.6\" height=\"22\" rx=\"6\" fill=\"#f7c6b9\"/><text x=\"136.2\" y=\"80\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">北宋<\/text>\n<rect x=\"132.1\" y=\"94\" width=\"139.9\" height=\"22\" rx=\"6\" fill=\"#e6d3f0\"/><text x=\"202.1\" y=\"110\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">西夏（党項）<\/text>\n<rect x=\"189.1\" y=\"124\" width=\"88.1\" height=\"22\" rx=\"6\" fill=\"#bfe0d6\"/><text x=\"233.1\" y=\"140\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">金（女真）<\/text>\n<rect x=\"198.0\" y=\"154\" width=\"112.5\" height=\"22\" rx=\"6\" fill=\"#f7c6b9\"/><text x=\"254.2\" y=\"170\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">南宋<\/text>\n<rect x=\"256.4\" y=\"184\" width=\"119.9\" height=\"22\" rx=\"6\" fill=\"#cfe0f5\"/><text x=\"316.4\" y=\"200\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3b2f2a\">蒙古 → 元<\/text>\n<\/svg>"},{"t":"chant","v":"遼、北宋、西夏、金、南宋","sub":"滅亡順序（1125 → 1127 → 1227 → 1234 → 1279）"}]},{"h":"🏛️ 3-1 北宋：重文輕武","body":["唐亡（907）→ 五代十國，武人當家、政權換得很快 → 960 年<b>趙匡胤<\/b>發動陳橋兵變，建立宋朝，首都<b>汴京（開封）<\/b>。",{"t":"vs","v":[{"h":"👍 好處","p":"收回將領兵權（杯酒釋兵權），由文官治國，<b>不再有軍人割據<\/b>。"},{"h":"👎 壞處","p":"軍隊戰力弱，<b>國防不振<\/b>，常打不贏北方民族。"}]}]},{"h":"⚔️ 3-1 宋和北方民族的關係","body":[{"t":"tl","v":[["936","石敬瑭把<b>燕雲十六州<\/b>割給契丹 → 中原北方門戶大開"],["1004","<b>澶淵之盟<\/b>：宋遼約為兄弟之國，宋每年給遼<b>歲幣（銀、絹）<\/b>，維持百餘年和平"],["1038","党項人李元昊建立<b>西夏<\/b>"],["1125","女真人建立的<b>金<\/b>和宋聯合，滅了遼"],["1127","<b>靖康之禍<\/b>：金兵攻破汴京，俘虜徽、欽二帝，北宋滅亡 → 宋室南遷，建立<b>南宋<\/b>，都城<b>臨安（杭州）<\/b>"],["1206","<b>鐵木真<\/b>統一蒙古，被尊為<b>成吉思汗<\/b>；蒙古三次西征，建立橫跨歐亞的帝國（四大汗國）"],["1271","<b>忽必烈<\/b>定國號為<b>元<\/b>，1279 年滅南宋"]]},{"t":"trap","v":"宋朝「<b>聯金滅遼<\/b>」，結果金反過來滅了北宋；後來又「聯蒙滅金」，結果蒙古滅了南宋。"}]},{"h":"👑 3-1 元朝怎麼統治？","body":[{"t":"tiles","v":[{"em":"🪜","h":"四等人制","p":"<b>蒙古人 ＞ 色目人<\/b>（中亞、西亞各族）<b>＞ 漢人<\/b>（原金朝統治區）<b>＞ 南人<\/b>（原南宋統治區）。"},{"em":"🗺️","h":"行省制度","p":"中央設中書省，地方設<b>行中書省<\/b>，是今天「<b>省<\/b>」的由來。"},{"em":"💥","h":"元朝滅亡","p":"民族歧視、財政混亂、天災，各地起兵 → 1368 年朱元璋建立明朝。"}]}]},{"h":"💰 3-2 宋元的經濟貿易","body":[{"t":"tiles","v":[{"em":"🌾","h":"農業","p":"從越南引進耐旱、早熟的<b>占城稻<\/b>；經濟重心移到江南：「<b>蘇湖熟，天下足<\/b>」。"},{"em":"🏮","h":"城市商業","p":"<b>坊市制度被打破<\/b>，商店可以沿街開，還有<b>夜市<\/b>（汴京、臨安）。"},{"em":"💴","h":"紙幣","p":"北宋四川出現<b>交子<\/b>，是世界上最早的紙幣；元朝也大量使用紙幣（交鈔）。"},{"em":"🚢","h":"海外貿易","p":"設<b>市舶司<\/b>管理海外貿易；<b>廣州、泉州<\/b>是大港。指南針開始用在航海。"},{"em":"🐎","h":"元代陸路","p":"帝國橫跨歐亞，<b>驛站<\/b>遍布，商旅暢通；馬可波羅來到中國。"}]},{"t":"vs","v":[{"h":"🚢 宋代","p":"北方陸路被遼、夏、金擋住 → 以<b>海路貿易<\/b>為主。"},{"h":"🐫 元代","p":"蒙古帝國打通歐亞 → <b>海路、陸路<\/b>都很興盛。"}]}]},{"h":"📚 3-3 宋元的文化交流","body":[{"t":"tiles","v":[{"em":"📖","h":"理學","p":"<b>朱熹<\/b>集大成，寫《四書章句集注》；從<b>元代<\/b>起成為<b>科舉標準教材<\/b>，也影響朝鮮、日本。"},{"em":"🧭","h":"三大發明西傳","p":"<b>火藥、指南針、印刷術<\/b>（畢昇發明活字印刷）在宋元時經阿拉伯人傳到歐洲。"},{"em":"🌙","h":"伊斯蘭文化傳入","p":"天文曆法（郭守敬《授時曆》有參考）、醫藥、數學傳進來；伊斯蘭教在中國廣泛傳布。"},{"em":"✍️","h":"仿漢字造字","p":"契丹文、西夏文、女真文都參考漢字創造。"}]}]}]},{"id":"s4","nav":"🏯 4 明清","intro":"第三站：明朝把蒙古趕回草原，清朝又從東北入關。這時候歐洲人開著大船來到東亞，<b>白銀、玉米、傳教士<\/b>一起進到中國，東西方開始「你來我往」。","cards":[{"h":"🏯 4-1 明朝","body":[{"t":"tl","v":[["1368","<b>朱元璋<\/b>建立明朝，都南京；廢除丞相，皇帝權力更大"],["明成祖","<b>遷都北京<\/b>、修長城、北伐蒙古；派<b>鄭和下西洋<\/b>（1405–1433，共七次）"],["中後期","「北虜南倭」：北方蒙古侵擾、東南沿海有<b>倭寇<\/b>；朝政腐敗"],["1644","<b>流寇<\/b>（李自成）攻陷北京，明朝滅亡"]]}]},{"h":"🐎 4-1 清朝","body":[{"t":"tl","v":[["1616","女真人<b>努爾哈赤<\/b>建立後金（八旗制度）"],["1636","皇太極改族名為<b>滿洲<\/b>（1635），改國號為<b>清<\/b>（1636）"],["1644","清兵入關，定都北京"],["康雍乾盛世","康熙平三藩、<b>收臺灣（1683）<\/b>、和俄國簽尼布楚條約；雍正設軍機處；乾隆時把<b>蒙古、西藏、新疆<\/b>都納入版圖"]]},{"t":"vs","v":[{"h":"🔨 高壓","p":"<b>薙髮令<\/b>（剃髮留辮）、<b>文字獄<\/b>（因文字獲罪）。"},{"h":"🤝 懷柔","p":"<b>尊孔崇儒、沿用科舉<\/b>、滿漢官員並用，拉攏讀書人。"}]}]},{"h":"🚢 4-2 朝貢與海禁","body":[{"t":"tiles","v":[{"em":"🎁","h":"朝貢＋冊封（天朝體制）","p":"外國國王派使臣來<b>進貢<\/b>，中國皇帝<b>冊封<\/b>他當國王，再給豐厚的賞賜。朝鮮、琉球、越南都是朝貢國。"},{"em":"⛵","h":"鄭和下西洋","p":"目的是<b>宣揚國威、招徠各國來朝貢<\/b>，最遠到<b>非洲東岸<\/b>。不是去找新大陸，也沒有建殖民地。"},{"em":"🚫","h":"海禁","p":"明初禁止人民私自出海（防倭寇、海盜）→ <b>走私盛行<\/b>，出現武裝的<b>海商集團<\/b>；明中葉以後才部分開放。"}]}]},{"h":"💰 4-2 白銀與新作物：全球經濟網","body":[{"t":"svg","v":"<svg viewBox=\"0 0 420 210\" role=\"img\" aria-label=\"明清白銀流入中國示意圖\">\n<defs><marker id=\"ag\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#8a6d1f\"/><\/marker>\n<marker id=\"ak\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8z\" fill=\"#2f8f7a\"/><\/marker><\/defs>\n<rect x=\"0\" y=\"0\" width=\"420\" height=\"210\" rx=\"14\" fill=\"#eaf3f7\"/>\n<rect x=\"150\" y=\"70\" width=\"110\" height=\"60\" rx=\"12\" fill=\"#f7c6b9\"/><text x=\"205\" y=\"97\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"700\" fill=\"#3b2f2a\">🏯 明清中國<\/text><text x=\"205\" y=\"119\" text-anchor=\"middle\" font-size=\"12\" fill=\"#3b2f2a\">絲綢・瓷器・茶<\/text>\n<rect x=\"300\" y=\"20\" width=\"105\" height=\"44\" rx=\"10\" fill=\"#f5d9a8\"/><text x=\"352\" y=\"47\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#3b2f2a\">🗾 日本白銀<\/text>\n<rect x=\"300\" y=\"140\" width=\"105\" height=\"50\" rx=\"10\" fill=\"#f5d9a8\"/><text x=\"352\" y=\"162\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#3b2f2a\">🌎 美洲白銀<\/text><text x=\"352\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#3b2f2a\">經馬尼拉（西班牙）<\/text>\n<rect x=\"12\" y=\"75\" width=\"110\" height=\"50\" rx=\"10\" fill=\"#d9e8c4\"/><text x=\"67\" y=\"97\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#2a3b35\">🇪🇺 歐洲人<\/text><text x=\"67\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2a3b35\">搶著買中國貨<\/text>\n<line x1=\"300\" y1=\"50\" x2=\"262\" y2=\"78\" stroke=\"#8a6d1f\" stroke-width=\"4\" marker-end=\"url(#ag)\"/>\n<line x1=\"300\" y1=\"160\" x2=\"262\" y2=\"124\" stroke=\"#8a6d1f\" stroke-width=\"4\" marker-end=\"url(#ag)\"/>\n<line x1=\"150\" y1=\"100\" x2=\"125\" y2=\"100\" stroke=\"#2f8f7a\" stroke-width=\"4\" marker-end=\"url(#ak)\"/>\n<text x=\"205\" y=\"160\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#8a6d1f\">💰 白銀流進來<\/text>\n<text x=\"205\" y=\"180\" text-anchor=\"middle\" font-size=\"12\" fill=\"#3b2f2a\">→ 白銀變成主要貨幣<\/text>\n<\/svg>"},{"t":"tiles","v":[{"em":"🪙","h":"白銀","p":"新航路開通後，歐洲人用<b>美洲白銀<\/b>（經馬尼拉）和<b>日本白銀<\/b>來買中國的絲綢、瓷器、茶 → 白銀取代貶值的紙幣，成為主要貨幣。"},{"em":"🌽","h":"美洲作物","p":"<b>玉米、番薯、馬鈴薯<\/b>、花生、辣椒傳入，可以種在山坡旱地 → 糧食變多 → <b>清代人口大增<\/b>（乾隆末年約三億）。"},{"em":"🏺","h":"手工業","p":"<b>景德鎮<\/b>瓷器、江南絲織很有名，出現專業市鎮；商人組成同鄉的<b>商幫<\/b>（晉商、徽商）。"}]},{"t":"trap","v":"<b>占城稻<\/b>是宋代從越南來的；<b>玉米、番薯、馬鈴薯<\/b>是明清從美洲來的。不要搞混！"}]},{"h":"⛪ 4-3 東亞世界與西方的文化交流","body":[{"t":"tiles","v":[{"em":"📐","h":"利瑪竇","p":"耶穌會士，明末來華。穿儒服、學中文、允許教徒祭祖祭孔（適應中國文化）。畫〈坤輿萬國全圖〉，和<b>徐光啟<\/b>合譯《<b>幾何原本<\/b>》。"},{"em":"🔭","h":"湯若望、南懷仁","p":"替明清朝廷修<b>曆法<\/b>、製造天文儀器和火炮。"},{"em":"🫖","h":"中國熱","p":"歐洲流行中國的<b>瓷器、茶、絲綢、園林<\/b>；啟蒙思想家伏爾泰推崇儒家。"},{"em":"🇳🇱","h":"日本：鎖國＋蘭學","p":"江戶（德川）幕府<b>鎖國<\/b>，只准中國、<b>荷蘭<\/b>在長崎貿易 → 透過荷蘭書學西方學問＝<b>蘭學<\/b>。"}]},{"t":"h3","v":"💔 交流為什麼中斷？"},"教宗禁止中國教徒<b>祭祖、祭孔<\/b> → 引發「<b>禮儀之爭<\/b>」→ 康熙限制傳教 → <b>雍正全面禁教<\/b> → 東西交流中斷。",{"t":"chant","v":"祭祖祭孔吵起來，康熙限教、雍正禁教","sub":"禮儀之爭三步驟"}]},{"h":"🔎 歷史探查：你來我往－東亞與西方的交流","body":[{"t":"vs","v":[{"h":"➡️ 西方傳到東亞","p":"天文曆法、數學（幾何原本）、世界地圖、火炮、自鳴鐘；日本的蘭學（醫學、解剖）。"},{"h":"⬅️ 東亞傳到西方","p":"瓷器、茶、絲綢、園林、儒家經典 → 歐洲的「中國熱」。"}]}]}]}],"flash":[["胡床","游牧民族的坐具，讓漢人從席地而坐變成坐椅子"],["佛教三階段","東漢傳入、魏晉南北朝盛行、唐朝鼎盛"],["玄奘","唐代往西到天竺取經，寫《大唐西域記》"],["鑑真","唐代往東渡海到日本傳佛法"],["遣唐使","日本派到唐朝學習的使節團"],["大化革新","日本仿唐朝制度的改革"],["東亞文化圈","漢字、儒學、佛教、律令"],["唐代長安","國際大都市：胡商、留學生、各種宗教"],["陳橋兵變","960 年趙匡胤建立宋朝"],["重文輕武","防止軍人割據，但國防軍力弱"],["燕雲十六州","石敬瑭割給契丹，北方門戶大開"],["澶淵之盟","1004 年宋遼兄弟之國，宋給遼歲幣"],["靖康之禍","1127 年金攻破汴京，北宋滅亡"],["南宋都城","臨安（今杭州）"],["成吉思汗","鐵木真，1206 年統一蒙古"],["四等人制","蒙古人＞色目人＞漢人＞南人"],["行中書省","元朝地方制度，今日「省」的由來"],["占城稻","宋代從越南引進，耐旱早熟"],["蘇湖熟，天下足","宋代經濟重心已在江南"],["坊市制度打破","商店沿街開、出現夜市"],["交子","北宋四川，世界最早的紙幣"],["市舶司","宋元管理海外貿易的機構"],["理學","朱熹集大成，《四書章句集注》成為科舉教材"],["三大發明西傳","火藥、指南針、印刷術，宋元時經阿拉伯傳到歐洲"],["鄭和下西洋","明成祖派遣，宣揚國威、招徠朝貢，最遠到非洲東岸"],["朝貢與冊封","外國進貢，中國皇帝冊封、賞賜（天朝體制）"],["海禁","明初禁止人民出海 → 走私、海商集團"],["白銀來源","美洲（經馬尼拉）、日本"],["美洲作物","玉米、番薯、馬鈴薯 → 清代人口大增"],["薙髮令","清朝要漢人男子剃髮留辮（高壓）"],["清代懷柔","尊孔崇儒、沿用科舉、滿漢並用"],["利瑪竇","明末耶穌會士，和徐光啟合譯《幾何原本》"],["中國熱","歐洲流行中國瓷器、茶、園林"],["蘭學","日本鎖國時透過荷蘭學西方學問"],["禮儀之爭","能不能祭祖祭孔 → 雍正禁教，交流中斷"]],"order":[{"t":"🧩 第一組：唐到北宋","items":["佛教從天竺傳入中國","北魏開鑿雲岡石窟","玄奘西行取經","趙匡胤陳橋兵變","宋遼簽訂澶淵之盟"]},{"t":"🧩 第二組：蒙古到明初","items":["成吉思汗統一蒙古","忽必烈定國號為元","元朝滅南宋","朱元璋建立明朝","鄭和第一次下西洋"]},{"t":"🧩 第三組：清朝怎麼來的","items":["努爾哈赤建立後金","皇太極改國號為清","李自成攻陷北京","清兵入關","康熙收臺灣"]},{"t":"🧩 第四組：東西交流人物","items":["日本推行大化革新","鑑真東渡日本","馬可波羅來到中國","利瑪竇來華傳教","雍正全面禁教"]}],"quizHow":"📝 怎麼作答：每題<b>點一個<\/b>你覺得對的答案，答對就打中考官一下，馬上會告訴你原因，再按「下一關」。三個考官：🌱 西市駱駝大王 → 📘 汴京夜市說書人 → 🔥 紫禁城出題官，<b>越後面越難，最後一個就是段考程度<\/b>。沒答對的題目會放進「📕 錯題」，回去重做到對就能補刀。","quiz":[{"tag":"看懂","s":"漢人從「席地而坐」慢慢變成「坐椅子」，是受到哪一項外來器物的影響？","o":["胡床","交子","指南針","景德鎮瓷器"],"a":0,"e":"游牧民族的折疊坐具「胡床」傳入，漢人慢慢改成垂足而坐。"},{"tag":"看懂","s":"唐代往「東」渡海到日本傳佛法的高僧是誰？","o":["玄奘","鑑真","利瑪竇","朱熹"],"a":1,"e":"鑑真東渡日本；玄奘是往西去天竺取經。"},{"tag":"看懂","s":"北宋滅亡後，宋室南遷建立南宋，都城在哪裡？","o":["長安","汴京","臨安","北京"],"a":2,"e":"南宋都城是臨安（今杭州）。汴京（開封）是北宋的首都。"},{"tag":"看懂","s":"1206 年統一蒙古、被尊為「成吉思汗」的是誰？","o":["忽必烈","努爾哈赤","朱元璋","鐵木真"],"a":3,"e":"鐵木真統一蒙古，被尊為成吉思汗；忽必烈是他的孫子，定國號為元。"},{"tag":"看懂","s":"1368 年推翻元朝、建立明朝的是誰？","o":["朱元璋","明成祖","趙匡胤","皇太極"],"a":0,"e":"朱元璋建立明朝，都南京。明成祖是後來遷都北京的皇帝。"},{"tag":"看懂","s":"宋代從越南引進一種耐旱、早熟的稻米，它叫什麼？","o":["小米","占城稻","番薯","馬鈴薯"],"a":1,"e":"占城稻來自越南（占城），宋代引進。番薯、馬鈴薯是明清才從美洲傳入。"},{"tag":"看懂","s":"清朝要求漢人男子「剃髮留辮」，這道命令叫什麼？","o":["海禁令","禁教令","薙髮令","一條鞭法"],"a":2,"e":"薙髮令是清朝的高壓手段之一。"},{"tag":"看懂","s":"日本江戶幕府鎖國時，透過荷蘭的書籍學習西方學問，這叫什麼？","o":["國學","理學","漢學","蘭學"],"a":3,"e":"透過荷蘭（和蘭）學西方的醫學、科學，稱為蘭學。"},{"tag":"課本","s":"魏晉南北朝時佛教「盛行」，主要原因是什麼？","o":["天下大亂，人民想找心靈寄託","皇帝下令全國人民信佛","鄭和從印度帶回大量佛經","傳教士在各地大力推廣"],"a":0,"e":"魏晉南北朝戰亂不斷，人民生活痛苦，佛教成為心靈寄託。鄭和、傳教士都是明代以後的事。"},{"tag":"課本","s":"北魏時開鑿、留下大量佛教雕像的著名石窟是哪一組？","o":["兵馬俑、萬里長城","雲岡石窟、龍門石窟","泉州清淨寺、景教碑","紫禁城、天壇"],"a":1,"e":"北魏開鑿雲岡石窟、龍門石窟，是佛教盛行的證據。"},{"tag":"課本","s":"唐代長安除了佛寺，還有「景教」的寺院。景教是哪一個宗教的一支？","o":["伊斯蘭教","佛教","基督教","道教"],"a":2,"e":"景教是基督教的一支，唐代傳入中國。"},{"tag":"課本","s":"唐朝在越南一帶設立什麼機構來管理當地？","o":["市舶司","行中書省","軍機處","安南都護府"],"a":3,"e":"唐朝設安南都護府管理越南一帶，漢字、儒學在當地更加普及。市舶司是宋元管海貿、行中書省是元朝、軍機處是清朝。"},{"tag":"課本","s":"五代時石敬瑭把「燕雲十六州」割給契丹，對後來的宋朝有什麼影響？","o":["北方門戶大開，難以防守北方民族","宋朝因此得到大量戰馬","契丹從此不再南下","宋朝得以設立行省"],"a":0,"e":"燕雲十六州是北方屏障，割給契丹後，中原北方門戶大開，宋朝很難防守。"},{"tag":"課本","s":"宋太祖「杯酒釋兵權」的主要目的是什麼？","o":["擴大海外貿易","收回將領兵權，避免軍人割據","鼓勵人民出海經商","推廣朱熹的理學"],"a":1,"e":"五代武人當家、政權換得很快，宋太祖收回兵權、改由文官治國。"},{"tag":"課本","s":"建立「西夏」的是哪一個民族？","o":["契丹","女真","党項","蒙古"],"a":2,"e":"党項人李元昊建立西夏。契丹建遼、女真建金、蒙古建元。"},{"tag":"課本","s":"元朝四等人中的「南人」，指的是哪些人？","o":["中亞、西亞各族","蒙古各部族","原本金朝統治區的人","原本南宋統治區的人"],"a":3,"e":"南人＝原南宋統治區；漢人＝原金朝統治區；色目人＝中亞、西亞各族。"},{"tag":"課本","s":"元朝也大量發行紙幣，它叫什麼？","o":["交鈔","五銖錢","白銀","貝殼"],"a":0,"e":"元朝的紙幣叫交鈔；北宋四川的交子是最早的紙幣。"},{"tag":"課本","s":"元代來到中國、寫下遊記讓歐洲人嚮往東方的義大利人是誰？","o":["利瑪竇","馬可波羅","郎世寧","湯若望"],"a":1,"e":"馬可波羅元代來華。利瑪竇、湯若望、郎世寧都是明清的傳教士或畫家。"},{"tag":"課本","s":"契丹文、西夏文、女真文有什麼共同點？","o":["都是從阿拉伯傳入的拼音文字","都是傳教士幫忙創造的","都是參考漢字創造的","都是元朝規定的官方文字"],"a":2,"e":"北方民族建國後，都參考漢字創造自己的文字。"},{"tag":"課本","s":"宋元時期，從哪裡傳入的天文曆法、醫藥、數學，影響了中國？","o":["歐洲耶穌會士","日本蘭學","印度佛教","伊斯蘭世界（阿拉伯）"],"a":3,"e":"宋元時伊斯蘭世界（阿拉伯）的天文曆法、醫藥、數學傳入中國；耶穌會士是明末才來，蘭學是日本的事。"},{"tag":"課本","s":"明成祖派鄭和下西洋，主要目的是什麼？","o":["宣揚國威、招徠各國來朝貢","尋找新大陸","在海外建立殖民地","把白銀運到歐洲"],"a":0,"e":"鄭和是為了宣揚國威、招徠朝貢，沒有建立殖民地，也沒到美洲。"},{"tag":"課本","s":"明朝中後期的「北虜南倭」，指的是什麼？","o":["北方女真、南方荷蘭人","北方蒙古侵擾、東南沿海倭寇","北方俄國、南方西班牙人","北方流寇、南方三藩"],"a":1,"e":"北虜＝北方的蒙古，南倭＝東南沿海的倭寇。"},{"tag":"課本","s":"清朝雍正皇帝設立了哪一個機構？","o":["行中書省","市舶司","軍機處","安南都護府"],"a":2,"e":"雍正設軍機處，讓皇帝更能掌握軍政大權。"},{"tag":"課本","s":"下列哪一項是清朝拉攏漢人的「懷柔」手段？","o":["大興文字獄","頒布薙髮令","廢除科舉","尊孔崇儒、滿漢官員並用"],"a":3,"e":"懷柔：尊孔崇儒、沿用科舉、滿漢並用。文字獄、薙髮令是高壓。清朝沒有廢除科舉（直到清末）。"},{"tag":"段考挑戰","s":"唐代詩人元稹寫道：「女為胡婦學胡妝，伎進胡音務胡樂。」這兩句詩反映了什麼現象？","o":["朝廷實施海禁","佛教剛從天竺傳入","胡人的服飾、音樂流行於唐代社會","經濟重心移到江南"],"a":2,"e":"「胡妝」「胡音」「胡樂」：唐代社會流行胡人的打扮與音樂。"},{"tag":"段考挑戰","s":"一位日本人說：「我隨船渡海到長安，學習漢字和唐朝的律令，回國後要幫朝廷仿照唐朝制度改革。」他的身分與日本的這場改革，哪一組最正確？","o":["遣唐使（留學生）；大化革新","耶穌會士；明治維新","蘭學者；江戶鎖國","倭寇；明朝海禁"],"a":0,"e":"到唐朝學習的是遣唐使、留學生；日本仿唐制的改革是大化革新。"},{"tag":"段考挑戰","s":"宋朝先「聯金滅遼」，後來又「聯蒙滅金」。這兩次結盟的結果有什麼共同點？","o":["宋朝都收回了燕雲十六州","宋朝都向盟友收取歲幣","宋朝都成為各國朝貢的中心","新的盟友反過來成為大患，北宋、南宋先後被它滅掉"],"a":3,"e":"聯金滅遼 → 金滅北宋（靖康之禍）；聯蒙滅金 → 蒙古（元）滅南宋。"},{"tag":"段考挑戰","s":"一位商人的日記：「我從泉州出海，靠指南針在海上辨認方向，回港後向市舶司繳稅。北方的陸路受金國阻隔，所以對外貿易多走海路。皇上住在臨安。」他最可能生活在哪個朝代？","o":["唐朝","南宋","元朝","明朝"],"a":1,"e":"市舶司、指南針航海＝宋元；被金擋住、首都臨安＝南宋。"},{"tag":"段考挑戰","s":"一位歐洲旅行者寫道：「大汗在帝國各地設立驛站，使者騎馬一天可跑數百里；我在大都住了好幾年，還替大汗辦事。」這位「大汗」最可能是誰？","o":["忽必烈","趙匡胤","明成祖","康熙"],"a":0,"e":"大汗、驛站、大都 → 元朝；這是馬可波羅筆下的忽必烈。"},{"tag":"段考挑戰","s":"閱讀下列元朝某地官員名單後回答：","o":["蒙古人、漢人","漢人、南人","色目人、南人","色目人、漢人"],"a":2,"e":"中亞來的回回人屬色目人；原南宋統治區（江南）的人屬南人。","src":"・最高長官：蒙古人<br>・管財政：來自中亞的回回人<br>・地方小吏：原金朝地區的人<br>・江南讀書人：大多很難當官","s2":"名單中「來自中亞的回回人」和「江南讀書人」，分別屬於四等人的哪兩等？"},{"tag":"段考挑戰","s":"《東京夢華錄》描寫北宋汴京：「夜市直至三更盡，纔五更又復開張。」這段記載最能反映什麼？","o":["政府實施嚴格宵禁","坊市制度被打破，商業繁榮、夜市熱鬧","元朝驛站發達","白銀成為主要貨幣"],"a":1,"e":"夜市開到半夜、天沒亮又開張，說明宋代坊市限制被打破，商業很興盛。"},{"tag":"段考挑戰","s":"北宋四川通行很重的鐵錢，商人買一匹布要背上一大袋錢，非常不方便。這個困擾最直接促成了什麼？","o":["一條鞭法","市舶司設立","占城稻引進","交子出現"],"a":3,"e":"為了解決鐵錢笨重、攜帶不便，四川出現了交子，是世界最早的紙幣。"},{"tag":"段考挑戰","s":"朝鮮、日本的讀書人也要熟讀朱熹注解的《四書》。這說明了什麼？","o":["禮儀之爭擴及朝鮮、日本","蘭學從朝鮮傳入日本","伊斯蘭文化傳入東亞","理學影響東亞其他國家"],"a":3,"e":"理學由朱熹集大成，不只成為中國科舉教材，也影響朝鮮、日本。"},{"tag":"段考挑戰","s":"宋代畢昇用一個個可以重複排列的字模來印書，這項技術是什麼？","o":["火藥","活字印刷術","指南針","瓷器燒製"],"a":1,"e":"畢昇發明活字印刷術；印刷術和火藥、指南針一樣，在宋元時期陸續西傳。"},{"tag":"段考挑戰","s":"將下列四件事依發生先後排列：\n甲、康熙收臺灣\n乙、雍正設軍機處\n丙、清兵入關\n丁、明成祖遷都北京","o":["丁→丙→甲→乙","丙→丁→甲→乙","丁→甲→丙→乙","丙→甲→丁→乙"],"a":0,"e":"明成祖遷都北京（明初，1421）→ 清兵入關（1644）→ 康熙收臺灣（1683）→ 雍正設軍機處（雍正年間）。"},{"tag":"段考挑戰","s":"清代許多人搬到山區開墾，種了一種耐旱、能長在山坡地，而且「原產地在美洲」的作物。它最可能是？","o":["占城稻","苜蓿","番薯","小麥"],"a":2,"e":"番薯是美洲作物，明清傳入。占城稻來自越南（宋代），苜蓿是漢唐經絲路傳入。"},{"tag":"段考挑戰","s":"比較明朝鄭和下西洋與歐洲人開闢新航路，下列敘述何者正確？","o":["鄭和出發的時間比哥倫布晚","鄭和為了宣揚國威、招徠朝貢，沒有建立殖民地","鄭和的船隊曾到達美洲","兩者都是為了把白銀運回本國"],"a":1,"e":"鄭和第一次出海是 1405 年，比哥倫布（1492）早；目的在宣揚國威與朝貢，沒到美洲、沒建殖民地。"},{"tag":"段考挑戰","s":"清朝統治漢人的手段如下：\n甲、文字獄　乙、沿用科舉　丙、薙髮令　丁、尊孔崇儒\n哪些屬於「懷柔」？","o":["甲丙","甲丁","乙丙","乙丁"],"a":3,"e":"沿用科舉、尊孔崇儒是懷柔；文字獄、薙髮令是高壓。"},{"tag":"段考挑戰","s":"明末利瑪竇在中國改穿儒服、學中文，還允許中國教徒祭祖、祭孔。他這樣做最主要的用意是什麼？","o":["尊重中國文化，讓士大夫比較容易接受天主教","教宗命令所有傳教士都要這樣做","明朝規定外國人一律要穿儒服","他想參加科舉考試當官"],"a":0,"e":"利瑪竇採取適應中國文化的方式傳教。後來教宗反而禁止祭祖祭孔，才引發禮儀之爭。"},{"tag":"段考挑戰","s":"閱讀下文後回答：","o":["蘭學","禮儀之爭","中國熱","東亞文化圈"],"a":2,"e":"歐洲人推崇儒家、喜愛中國的瓷器、茶與園林，就是 17～18 世紀的「中國熱」。","src":"十八世紀，法國思想家伏爾泰稱讚孔子的道德學說；英國貴族在花園裡蓋中國式的亭子，用中國瓷器喝茶。","s2":"這段文字描述的現象稱為什麼？"}],"sources":[{"t":"翰林版 國中社會 2 上 第二本 歷史（課本目次，Teddy 拍照）；本卷為第二回，題目全新、範圍同第一回 hist8c","u":"https://www.hle.com.tw/"},{"t":"嘉義縣六嘉國中 114 學年八年級歷史教學計畫（翰林版第 3 冊，章節重點參考）","u":"https://course.cyc.edu.tw/upfile/course114/sub1/15936323330212913.pdf"}]};
+// 作答同步（學習小站 study-hub）：網頁 → ntfy.sh → Mac mini。renderPage／renderHome 會把整份檔案嵌進頁面。
+// 鑰匙：第一次用「網址#k=鑰匙」打開任何一頁就記在這台平板（同網域每頁共用），#k=off 取消；沒有鑰匙時完全不作用。
+// 頻道與加密鑰匙都由鑰匙推出（和 Mac 的 study_hub.py 同一套規則）：
+//   收件 sh-<sha256("in:"+鑰匙) 前 24 碼>、回條 sh-<sha256("st:"+鑰匙) 前 24 碼>、AES-GCM 鑰匙 sha256("enc:"+鑰匙)
+// 作答先排進本機佇列，送出後等 Mac 在回條頻道確認才刪；沒網路或 Mac 沒回，20 分鐘後重送（Mac 會去重）。
+const HUB = (() => {
+  const NT = "https://ntfy.sh/", QK = "hub_q", MAXB = 2700; // 一則訊息的明文上限（加密＋base64 後要在 4096 以內）
+  const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const put = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  // 首頁不清掉網址上的鑰匙：iPad「加入主畫面」的圖示和 Safari 分開存資料，網址帶著鑰匙，圖示打開時才會自己記住
+  const takeKey = () => {
+    const m = location.hash.match(/[#&]k=([\w-]+)/);
+    if (!m) return false;
+    put("hub_k", m[1] === "off" ? null : m[1]);
+    if (typeof DATA !== "undefined") history.replaceState(null, "", location.pathname + location.search);
+    return true;
+  };
+  takeKey();
+  addEventListener("hashchange", () => { if (takeKey()) location.reload(); }); // 頁面已開著時點連結只會換 # 後面，不會重新載入
+  const KEY = get("hub_k"), ON = !!(KEY && window.crypto && crypto.subtle && window.fetch);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = (b) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const sha = (s) => crypto.subtle.digest("SHA-256", enc.encode(s));
+  const b64u = (u8) => { let s = ""; for (let i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+  const unb64u = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  let ch = null;
+  const chan = () => ch || (ch = Promise.all([sha("in:" + KEY), sha("st:" + KEY), sha("enc:" + KEY)]).then(async ([a, b, c]) =>
+    ({ tin: "sh-" + hex(a).slice(0, 24), tst: "sh-" + hex(b).slice(0, 24), k: await crypto.subtle.importKey("raw", c, "AES-GCM", false, ["encrypt", "decrypt"]) })));
+  async function seal(k, u8) {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k, u8));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;
+  }
+  const open = async (k, u8) => new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8.slice(0, 12) }, k, u8.slice(12)));
+  const DEV = get("hub_dev") || (() => { const d = Math.random().toString(36).slice(2, 10); put("hub_dev", d); return d; })();
+  const queue = () => { try { return JSON.parse(get(QK) || "[]"); } catch (e) { return []; } };
+  const save = (a) => put(QK, JSON.stringify(a.slice(-500)));
+  const pg = () => (typeof DATA !== "undefined" && DATA && DATA.id) || "home";
+
+  // 記一筆作答；key 相同又還沒送出的舊筆會被取代（打字題只送最後的內容）。題目代號用 id2，id 是這筆事件自己的
+  let lastTs = 0;
+  function log(t, d = {}, wait = 2500) {
+    if (!ON) return;
+    const a = queue(), ts = lastTs = Math.max(Date.now(), lastTs + 1); // 同一毫秒連點兩下也要分得出先後
+    if (d.key) { const i = a.findIndex((e) => !e.s && e.key === d.key); if (i >= 0) a.splice(i, 1); }
+    a.push({ ...d, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts, pg: pg(), t, s: 0 });
+    save(a); soon(wait); ui();
+  }
+  let tm = null, busy = false;
+  const soon = (ms) => { clearTimeout(tm); tm = setTimeout(flush, ms); };
+  async function flush(keepalive) {
+    if (!ON || busy || navigator.onLine === false) return;
+    busy = true;
+    try {
+      const c = await chan(), now = Date.now(), todo = queue().filter((e) => !e.s || now - e.s > 20 * 60e3);
+      while (todo.length) {
+        const batch = []; let size = 0;
+        while (todo.length) {
+          const { s, key, ...ev } = todo[0], j = JSON.stringify(ev), n = enc.encode(j).length;
+          if (batch.length && size + n > MAXB) break;
+          batch.push({ id: ev.id, j }); size += n; todo.shift();
+        }
+        const body = b64u(await seal(c.k, enc.encode(`{"v":1,"dev":"${DEV}","ev":[${batch.map((x) => x.j).join(",")}]}`)));
+        const r = await fetch(NT + c.tin, { method: "POST", body, keepalive: !!keepalive });
+        if (!r.ok) break;
+        const ids = new Set(batch.map((x) => x.id)), t = Date.now(), cur = queue();
+        cur.forEach((e) => { if (ids.has(e.id)) e.s = t; }); save(cur);
+      }
+      if (!keepalive) { setTimeout(poll, 8000); setTimeout(poll, 30000); }
+    } catch (e) {} finally { busy = false; ui(); }
+  }
+  // 讀 Mac 的回條：確認收到的就從佇列刪掉
+  async function poll() {
+    if (!ON) return;
+    try {
+      const c = await chan(), r = await fetch(NT + c.tst + "/json?poll=1&since=" + (get("hub_since") || "12h"));
+      if (!r.ok) return;
+      const acked = new Set();
+      for (const ln of (await r.text()).split("\n")) {
+        let msg; try { msg = JSON.parse(ln); } catch (e) { continue; }
+        if (msg.event !== "message") continue;
+        put("hub_since", msg.id);
+        try { const o = JSON.parse(dec.decode(await open(c.k, unb64u(msg.message)))); (o.ack || []).forEach((x) => acked.add(x)); if (o.at) put("hub_last", o.at); } catch (e) {}
+      }
+      if (acked.size) save(queue().filter((e) => !acked.has(e.id)));
+    } catch (e) {} finally { ui(); }
+  }
+  // 整個檔案（作答報告圖）加密後當 ntfy 附件上傳；成功回 true
+  async function sendFile(u8, meta) {
+    if (!ON) return false;
+    try {
+      const c = await chan(), m2 = b64u(await seal(c.k, enc.encode(JSON.stringify({ v: 1, dev: DEV, pg: pg(), ts: Date.now(), ...meta }))));
+      const r = await fetch(NT + c.tin + "?filename=r.bin&message=" + m2, { method: "POST", body: new Blob([await seal(c.k, u8)], { type: "text/plain" }) });
+      return r.ok;
+    } catch (e) { return false; }
+  }
+  // 頁尾一行：讓孩子知道作答會傳給爸爸、同步到哪
+  function ui() {
+    const el = document.getElementById("hubst"); if (!el) return;
+    if (!ON) { el.textContent = ""; return; }
+    const n = queue().filter((e) => !e.s).length, last = get("hub_last");
+    el.textContent = "📡 你的作答會自動傳給爸爸" + (n ? `・有 ${n} 筆等網路，連上會自動補傳` : last ? `・已同步（${last}）` : "");
+  }
+  if (ON) {
+    addEventListener("online", () => flush());
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(true); else poll(); });
+    setInterval(() => { if (document.visibilityState === "visible") flush(); }, 60000);
+    setTimeout(() => { flush(); poll(); }, 1500);
+  }
+  return { on: ON, log, sendFile, ui };
+})();
+
+const PRINT=!!DATA.__print;if(PRINT)document.documentElement.classList.add("print");
+const $=id=>document.getElementById(id),L="ABCD",esc=s=>String(s??"");
+const mmss=t=>`${t/60|0}:${String(t%60).padStart(2,"0")}`;
+const CALM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const G=DATA.guide||{ava:"🧙‍♀️",name:"小嚮導"};
+if(DATA.theme)Object.entries(DATA.theme).forEach(([k,v])=>document.documentElement.style.setProperty("--"+k,v));
+document.title=DATA.title;$("ttl").textContent=DATA.title;$("logo").textContent=DATA.icon||"📚";
+const ST="study_"+DATA.id;let S={ans:{},star:0};try{S=Object.assign(S,JSON.parse(localStorage.getItem(ST)||"{}"))}catch(e){}
+S.inl=S.inl||{};S.first=S.first||{};S.round=S.round||1;
+let warned=false;
+const save=()=>{try{localStorage.setItem(ST,JSON.stringify(S))}catch(e){if(!warned){warned=true;toast("⚠️ 平板的空間不夠，作答可能存不起來，請跟爸爸說一聲")}}};
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),6000)}
+// 手寫與照片很大，改存 IndexedDB：全部週課共用同一個網域的 localStorage（約 5MB），放圖片幾週後就會撐爆，連作答都存不進去
+const IMG=(()=>{let p=null;const k=(id,f)=>DATA.id+"/"+id+"/"+f;
+ const open=()=>p||(p=new Promise((ok,no)=>{try{const r=indexedDB.open("study-img",1);r.onupgradeneeded=()=>r.result.createObjectStore("i");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}}));
+ const run=(m,f)=>open().then(d=>new Promise((ok,no)=>{const t=d.transaction("i",m),q=f(t.objectStore("i"));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>no(t.error)}));
+ return{get:(id,f)=>run("readonly",s=>s.get(k(id,f))).catch(()=>undefined).then(v=>v??S.inl[id]?.[f]),
+  set:(id,f,v)=>run("readwrite",s=>v?s.put(v,k(id,f)):s.delete(k(id,f))).then(()=>{const r=S.inl[id];if(r&&f in r){delete r[f];save()}})
+   .catch(()=>{const r=S.inl[id]=S.inl[id]||{};if(v)r[f]=v;else delete r[f];save()})}})();
+const INL={};const reg=b=>{INL[b.id]=b;return b};
+// 闖關、排順序的狀態一定要在這裡宣告：下面產生頁面（列印版會直接產生題目）時就會用到，宣告在後面會讀不到而中斷
+let QZ=null,cur=0,combo=0,oi=0,picked=[];
+function say(t,lang){try{const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,""));u.lang=lang||DATA.ttsLang||"zh-TW";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+// 音效：用 WebAudio 現場合成（不用音檔）。右上角 🔊 可關，設定全部教材共用
+const SFX=(()=>{let ac=null,mute=false;try{mute=localStorage.getItem("study_mute")==="1"}catch(e){}
+ const N={ok:[[660,0,.12],[880,.09,.2]],bad:[[196,0,.24,"sawtooth",.06]],hit:[[330,0,.07,"square",.07],[660,.06,.1],[990,.13,.2]],win:[[523,0,.13],[659,.11,.13],[784,.22,.13],[1047,.33,.34]],tick:[[784,0,.07]]};
+ function tone(f,at,d,type,v){const t=ac.currentTime+at,o=ac.createOscillator(),g=ac.createGain();o.type=type||"triangle";o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v||.12,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d+.03)}
+ const ui=()=>{const b=$("snd");if(b){b.textContent=mute?"🔇":"🔊";b.setAttribute("aria-pressed",String(!mute))}};
+ function play(n){if(mute||PRINT)return;try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;ac=ac||new A();if(ac.state==="suspended")ac.resume();(N[n]||[]).forEach(a=>tone(...a))}catch(e){}}
+ return{play,ui,toggle(){mute=!mute;try{localStorage.setItem("study_mute",mute?"1":"0")}catch(e){}ui();if(!mute)play("tick")}}})();
+SFX.ui();$("snd").onclick=()=>SFX.toggle();
+const guide=t=>`<div class="guide"><div class="who"><div class="ava">${G.ava}</div>${G.name?`<small>${G.name}</small>`:""}</div><div class="bubble">${t}</div></div>`;
+const hero=()=>`<div class="hero"><div class="txt"><div class="chips">${[DATA.grade,DATA.subject,DATA.version].filter(Boolean).map(x=>`<span class="chip">${x}</span>`).join("")}${DATA.exam?`<span class="chip y">${DATA.exam}</span>`:""}</div><h2>${DATA.title}</h2>${DATA.range?`<div class="srcs">範圍：${DATA.range}</div>`:""}</div><div class="pics">${art("star","sm float d2 s1")}${art("cloud","md float d3 s2")}<span class="stamp">${art(DATA.art||subjArt(DATA.subject),"float")}</span></div></div>`;
+// ---------- blocks ----------
+function blk(b){if(typeof b==="string")return `<p>${b}</p>`;
+ switch(b.t){
+ case"h3":return `<h3>${b.v}</h3>`;
+ case"p":return `<p>${b.v}</p>`;
+ case"list":return `<ul>${b.v.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ case"tiles":return `<div class="tiles">${b.v.map(x=>`<div class="tile"><div class="em">${x.em||""}</div><h4>${x.h}</h4><p>${x.p}</p></div>`).join("")}</div>`;
+ case"chant":return `<div class="chant">🎵 ${b.v}${b.sub?`<small>${b.sub}</small>`:""}</div>`;
+ case"trap":return `<div class="trap">${b.v}</div>`;
+ case"vs":return `<div class="vs">${b.v.map(x=>`<div><h4>${x.h}</h4>${x.p}</div>`).join("")}</div>`;
+ case"table":return `<div class="tw"><table><tr>${b.head.map(h=>`<th>${h}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table></div>`;
+ case"svg":return `<div class="fig">${b.v}</div>`;
+ case"img":return `<img class="pic" src="${b.v}" alt="${b.alt||""}">`;
+ case"video":return PRINT?`<p>🎬 動畫：${b.cap||"請用平板開網頁觀看"}</p>`:`<div class="vbox"><video class="vid" controls playsinline preload="metadata"${b.poster?` poster="${b.poster}"`:""} src="${b.v}"></video><button class="zoom" data-vbig>⛶ 放大看</button></div>${b.cap?`<p class="srcs">${b.cap}</p>`:""}`;
+ // YouTube 名師影片：直接顯示影片畫面，點一下就地播放、按「放大看」滿版播放；s／e 是只播的片段（秒）
+ case"yt":{const seg=b.s||b.e?`・只看 ${mmss(b.s||0)}～${b.e?mmss(b.e):"結束"}`:"";
+  return PRINT?`<p>📺 ${b.title}（${b.who}${seg}）：youtu.be/${b.id}${b.s?"?t="+b.s:""}</p>`:
+  `<div class="yt" data-yt="${b.id}" data-s="${b.s||0}" data-e="${b.e||""}" data-title="${b.title}"><div class="scr" role="button" tabindex="0" data-ytplay aria-label="播放：${b.title}"><img loading="lazy" src="https://i.ytimg.com/vi/${b.id}/hqdefault.jpg" alt=""><span class="play">▶</span>${b.len?`<span class="dur">⏱ ${b.len}</span>`:""}<button class="zoom" data-ytbig>⛶ 放大看</button></div><div class="ytm"><h4>${b.tag?`<span class="tag">${b.tag}</span>`:""}${b.title}</h4><p>${b.who}${seg}</p>${b.cap?`<p>${b.cap}</p>`:""}</div></div>`}
+ // 互動模擬：點「打開模擬」才載入 iframe（PhET 一個約 2～4MB），missions 是動手任務清單，做到一項點一下打勾
+ case"sim":{reg(b);const ms=b.missions||[];
+  return PRINT?`<div class="lab"><h4>🕹️ 互動模擬：${b.title}</h4><p>用平板開網頁操作${b.who?`（${b.who}）`:""}。</p>${ms.length?`<ol>${ms.map(m=>`<li>${m}</li>`).join("")}</ol>`:""}</div>`:
+  `<div class="sim" data-sim="${b.id}"><div class="scr"><div><div class="simic">🕹️</div><button class="btn" data-simgo="${b.id}">▶ 打開模擬</button><p class="srcs">${b.note||"第一次打開要等幾秒鐘；可以按「⛶ 放大玩」"}</p></div></div><div class="simm"><h4>${b.title}</h4>${b.who?`<p class="srcs">${b.who}</p>`:""}${ms.length?`<div class="how">📝 ${b.how||"照下面的任務動手調調看，做到一項就點一下打勾"}</div><ul class="mis">${ms.map((m,k)=>`<li data-mis="${b.id}" data-k="${k}"><span class="bx"></span><span>${m}</span></li>`).join("")}</ul>`:""}</div></div>`}
+ case"tl":return `<div class="tl">${b.v.map(([k,v])=>`<div><span>${k}</span>${v}</div>`).join("")}</div>`;
+ case"lab":return `<div class="lab"><h4>🧪 ${b.h}</h4><ol>${b.steps.map(s=>`<li>${s}</li>`).join("")}</ol>${b.think?`<p>🤔 ${b.think}</p>`:""}</div>`;
+ case"guide":return guide(b.v);
+ case"how":return `<div class="how">📝 怎麼作答：${b.v}</div>`;
+ case"ask":reg(b);return PRINT?`<div class="ask"><div class="stem">${b.q}</div><p>${b.o.map((o,j)=>`（　）${L[j]}. ${o}`).join("<br>")}</p></div>`:
+  `<div class="ask" data-id="${b.id}"><div class="how">📝 ${b.how||"點一個你覺得對的答案"}</div><div class="stem">${b.q}</div>${b.o.map((o,j)=>`<button class="opt" data-ask="${b.id}" data-j="${j}">(${L[j]}) ${o}</button>`).join("")}<div class="fb"></div></div>`;
+ case"reveal":return PRINT?"":`<div class="reveal" data-ref="${b.ref}" data-v="${encodeURIComponent(b.v||"")}"></div>`;
+ case"fill":reg(b);return PRINT?`<div class="fill"><div class="stem">${b.q}</div><p>答：＿＿＿＿＿＿ ${b.unit||""}</p></div>`:
+  `<div class="fill" data-id="${b.id}"><div class="how">📝 ${b.how||"在框框裡打答案（只打數字就好），再按「對答案」"}</div><div class="stem">${b.q}</div><div class="row"><input inputmode="decimal" autocomplete="off" data-fill="${b.id}"> <span>${b.unit||""}</span><button class="btn" data-check="${b.id}">對答案</button></div><div class="fb"></div></div>`;
+ case"write":reg(b);return PRINT?`<div class="wbox"><div class="stem">${b.q}</div><div class="wprint${b.grid?" wgrid":""}">${b.grid?Array.from({length:b.grid},(_,i)=>`<span>${i+1}</span>`).join(""):""}</div>${b.ans?`<p class="wansp">${b.ans}</p>`:""}</div>`:
+  `<div class="wbox" data-id="${b.id}"><div class="how">📝 ${b.how||"用手指或觸控筆直接寫在下面白板；寫在紙上的話，按「📷 拍照交」拍下來"}</div><div class="stem">${b.q}</div><canvas class="wcan" data-w="${b.id}"${b.grid?` data-grid="${b.grid}" style="height:${Math.ceil(b.grid/2)*100}px"`:""}></canvas><div class="wtools"><button class="btn alt" data-wclear="${b.id}">🧽 清除重寫</button><label class="btn alt">📷 拍照交<input type="file" accept="image/*" capture="environment" data-wphoto="${b.id}" hidden></label></div><img class="wphoto" data-wimg="${b.id}" alt="紙本照片">${b.ans?`<details class="wans"><summary class="btn alt">✅ 寫完了，對答案</summary><div>${b.ans}</div></details>`:""}</div>`;
+ case"text":reg(b);return PRINT?`<div class="tbox"><div class="stem">${b.q}</div><p>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</p></div>`:
+  `<div class="tbox"><div class="how">📝 ${b.how||"用自己的話打一兩句就好，不用很長"}</div><div class="stem">${b.q}</div><textarea data-text="${b.id}" placeholder="在這裡打字…"></textarea></div>`;
+ case"submit":return PRINT?"":`<div class="sub"><div class="how">📝 ${HUB.on?"全部做完後按下面的按鈕，作答報告（含手寫）會自動傳給爸爸，不用開 LINE":b.how||"全部做完後按下面的按鈕，選 LINE 傳給爸爸"}</div><button class="btn" data-submit="1">📤 傳給爸爸</button><div class="fb" id="subfb"></div><img class="subimg" id="subimg" alt="作答報告"></div>`;
+ default:return "";}}
+const card=c=>`<div class="card">${c.h?`<h2>${c.h}</h2>`:""}${(c.body||[]).map(blk).join("")}</div>`;
+// ---------- pages ----------
+const pages=[];
+pages.push({id:"home",nav:"🗺️ 出發",html:()=>hero()+guide(DATA.home.intro)+(PRINT?"":`<div id="rev"></div>`)+(DATA.home.cards||[]).map(card).join(""),init:()=>REV.render()});
+DATA.stations.forEach(s=>pages.push({id:s.id,nav:s.nav,html:()=>(s.intro?guide(s.intro):"")+s.cards.map(card).join("")}));
+if(DATA.flash?.length)pages.push({id:"flash",nav:"🃏 記憶卡",html:()=>PRINT?
+ `<div class="card"><h2>🃏 記憶卡（遮住右邊自我測驗）</h2><div class="cards">${DATA.flash.map(f=>`<div class="fc"><b>${f[0]}</b>：${f[1]}</div>`).join("")}</div></div>`:
+ guide("點一下卡片就會翻面。先自己說出答案，再翻過來對答案！")+`<div class="cards" id="fc"></div>`,init:initFlash});
+if(DATA.order?.length)pages.push({id:"order",nav:"🧩 排順序",html:()=>PRINT?
+ `<div class="card"><h2>🧩 排順序練習</h2>${DATA.order.map((g,i)=>`<h3>${g.t}</h3><p>${shuffle(g.items.map((v,k)=>k)).map(k=>"（　）"+g.items[k]).join("<br>")}</p>`).join("")}</div>`:
+ guide("請依照<b>正確順序</b>依序點選，全部排對可以拿到 ⭐×5！")+`<div class="card"><h2 id="oTitle"></h2><ul class="order" id="oList"></ul><div id="oMsg"></div><button class="btn alt" id="oNext">換一組 🔄</button></div>`,init:initOrder});
+pages.push({id:"quiz",nav:"⚔️ 闖關",html:()=>PRINT?printQuiz():guide(DATA.quizHow||"📝 怎麼作答：每題<b>點一個</b>你覺得對的答案，馬上會告訴你對錯和原因，再按「下一關」。答錯沒關係，錯的題目會自動放進「📕 錯題」，最後回去重做到全對就過關！")+`<div class="qbox" id="qbox"></div>`,init:qStart});
+if(!PRINT)pages.push({id:"wrong",nav:"📕 錯題",html:()=>`<div id="wbox"></div>`,init:wRender});
+if(PRINT)pages.push({id:"key",nav:"",html:printKey});
+// ---------- render ----------
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const M=$("main"),N=$("nav");
+// 產生全部分頁：在檔尾才呼叫（見最後一行）。列印版會在這時直接產生題目，用到的 let／const 都要先宣告好，放前面會中斷、PDF 少掉練習題與解答
+function render(){pages.forEach((p,i)=>{const sec=document.createElement("section");sec.id=p.id;sec.innerHTML=p.html();if(PRINT&&i>0)sec.classList.add("pbreak");M.appendChild(sec);
+ if(!PRINT){const b=document.createElement("button");b.textContent=p.nav;b.dataset.s=p.id;b.onclick=()=>show(p.id);N.appendChild(b)}});
+ if(DATA.sources?.length){const d=document.createElement("div");d.className="srcs";d.innerHTML="資料來源："+DATA.sources.map(s=>`<a href="${s.u}">${s.t}</a>`).join("、");M.appendChild(d)}
+ if(!PRINT){const h=document.createElement("div");h.id="hubst";h.className="srcs";M.appendChild(h);HUB.ui()}}
+function show(id){document.querySelectorAll("#nav button").forEach(x=>{const on=x.dataset.s===id;x.classList.toggle("on",on);if(on)x.scrollIntoView({block:"nearest",inline:"center",behavior:CALM?"auto":"smooth"})});
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("video").forEach(v=>{if(!v.closest("section.on"))v.pause()});bigClose();ytReset();simReset();
+ const p=pages.find(p=>p.id===id);p&&p.init&&p.init();initInline(document.getElementById(id));scrollTo(0,0);if(S.tab!==id){S.tab=id;save()}}
+// ---------- 影片：YouTube 就地播放、放大看 ----------
+const ytSrc=y=>`https://www.youtube-nocookie.com/embed/${y.dataset.yt}?autoplay=1&playsinline=1&rel=0&modestbranding=1${+y.dataset.s?"&start="+y.dataset.s:""}${y.dataset.e?"&end="+y.dataset.e:""}`;
+const YTA=`allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen`;
+// 同時只播一支：開新的就把其他就地播放的換回縮圖（拿掉 iframe 才會停聲音）
+function ytReset(keep){if(!keep)ytStop();document.querySelectorAll(".yt .scr.live").forEach(s=>{if(s===keep)return;s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function ytPlay(y){const s=y.querySelector(".scr");if(s.classList.contains("live"))return;ytReset();simReset();document.querySelectorAll("video").forEach(v=>v.pause());
+ s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=`<iframe src="${ytSrc(y)}" title="${y.dataset.title}" ${YTA}></iframe><button class="zoom" data-ytbig>⛶ 放大看</button>`;ytStart(y,"就地")}
+// 看片紀錄（送學習小站）：動畫課記「實際播放秒數」和「看到幾 %」；YouTube 是別人的播放器讀不到進度，只記點開幾次、開著多久（暫停也算，約略值）
+// 送的是這次打開網頁以來的累計，同一支影片未送出的舊筆會被新的取代（key），Mac 端同一次觀看（vw）取最大值
+const ACC={},acc=(t,k)=>ACC[t+k]||(ACC[t+k]={vw:Math.random().toString(36).slice(2,8),sec:0,n:0,pct:0,tag:""});
+const wSend=(t,k,g,r)=>HUB.log(t,{id2:String(k).slice(0,16),g:String(g||"").slice(0,30),vw:r.vw,sec:Math.round(r.sec),n:r.n,pct:Math.round(r.pct),tag:r.tag,key:t+":"+k},3000);
+let ytNow=null,ytBack=null;
+function ytStart(y,mode){ytStop();ytNow={y,mode,t0:Date.now(),max:(+y.dataset.e||0)-(+y.dataset.s||0)}}
+function ytStop(){if(!ytNow)return;const x=ytNow;ytNow=null;const len=x.max>0?x.max:3600,s=Math.min((Date.now()-x.t0)/1000,len);if(s<3)return;
+ const k=x.y.dataset.yt+(+x.y.dataset.s?"@"+x.y.dataset.s:""),r=acc("yt",k);/* 同一支影片在不同站播不同片段，用起始秒數分開 */r.sec+=s;r.n++;r.tag=x.mode;r.pct=x.max>0?Math.min(100,r.sec/x.max*100):0;wSend("yt",k,x.y.dataset.title,r)}
+const vKey=v=>(v.getAttribute("src")||"").split("?")[0].split("/").pop().replace(/\.\w+$/,"");
+const VP=new WeakMap();
+function vSend(v){if(!v||v.tagName!=="VIDEO")return;const k=vKey(v),r=ACC["vid"+k];if(!r||r.sec<2||r.sent===Math.round(r.sec))return;r.sent=Math.round(r.sec);wSend("vid",k,v.dataset.title,r)}
+document.addEventListener("timeupdate",e=>{const v=e.target;if(v.tagName!=="VIDEO")return;const p=VP.get(v),t=v.currentTime;VP.set(v,t);
+ if(p!==undefined&&t>p&&t-p<1.5){const r=acc("vid",vKey(v));r.sec+=t-p;if(v.duration)r.pct=Math.max(r.pct,Math.min(100,t/v.duration*100+(v.duration-t<1.5?100:0)))}},true);
+document.addEventListener("seeked",e=>{if(e.target.tagName==="VIDEO")VP.set(e.target,e.target.currentTime)},true);
+document.addEventListener("play",e=>{if(e.target.tagName==="VIDEO"){acc("vid",vKey(e.target)).n++;ytReset();if(!e.target.closest("#big"))simReset()}},true);
+["pause","ended"].forEach(n=>document.addEventListener(n,e=>vSend(e.target),true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){document.querySelectorAll("video").forEach(vSend);if(ytNow){ytBack=ytNow;ytStop()}if(simNow){simBack=simNow;simStop()}}
+ else{if(ytBack){const b=ytBack;ytBack=null;if(b.y.querySelector(".scr.live")||$("big")?.querySelector("iframe"))ytStart(b.y,b.mode)}
+  if(simBack){const b=simBack;simBack=null;if(document.querySelector(".sim .scr.live,#big .stage.sim iframe"))simNow={...b,t0:Date.now()}}}});
+// ---------- 互動模擬：一次只開一個；記開了幾次、開著多久（約略值）、任務做了幾項 ----------
+let simNow=null,simBack=null;
+const simFrame=b=>`<iframe src="${b.src}" title="${b.title}" allow="fullscreen" allowfullscreen></iframe>`;
+function simSend(b){const r=acc("sim",b.id),m=(S.inl[b.id]?.m||[]).length,n=(b.missions||[]).length;r.pct=n?m/n*100:0;wSend("sim",b.id,b.title,r)}
+function simStop(){if(!simNow)return;const x=simNow;simNow=null;const s=Math.min((Date.now()-x.t0)/1000,3600);if(s<3)return;const r=acc("sim",x.id);r.sec+=s;r.n++;r.tag=x.mode;simSend(INL[x.id])}
+function simReset(){simStop();document.querySelectorAll(".sim .scr.live").forEach(s=>{s.innerHTML=s.dataset.html;s.classList.remove("live")})}
+function simOpen(id,big){const b=INL[id];simReset();ytReset();document.querySelectorAll("video").forEach(v=>v.pause());
+ if(big){bigOpen(simFrame(b),b.title,"sim");if((b.missions||[]).length)$("big").querySelector(".bt").innerHTML=`<b>${b.title}</b>${b.missions.map((m,i)=>`<span class="bm">${"①②③④⑤⑥"[i]||i+1} ${m}</span>`).join("")}`}
+ else{const s=document.querySelector(`.sim[data-sim="${id}"] .scr`);s.dataset.html=s.innerHTML;s.classList.add("live");s.innerHTML=simFrame(b)+`<button class="zoom" data-simbig="${id}">⛶ 放大玩</button><button class="zoom zl" data-simx="1">✕ 收起來</button>`}
+ simNow={id,t0:Date.now(),mode:big?"放大":"就地"}}
+function misMark(el,b){const m=S.inl[b.id]?.m||[];el.querySelectorAll("[data-mis]").forEach(li=>{const on=m.includes(+li.dataset.k);li.classList.toggle("on",on);li.querySelector(".bx").textContent=on?"✓":""})}
+let bigFrom=null;
+function bigOpen(html,title,cls){let d=$("big");if(!d){d=document.createElement("div");d.id="big";d.innerHTML=`<button class="x" data-bigx>✕ 關閉</button><div class="stage"></div><div class="bt"></div>`;document.body.appendChild(d);
+  d.addEventListener("click",e=>{if(e.target===d||e.target.closest("[data-bigx]"))bigClose()})}
+ d.querySelector(".stage").className="stage"+(cls?" "+cls:"");d.querySelector(".stage").innerHTML=html;d.querySelector(".bt").textContent=title||"";d.classList.add("on");document.body.classList.add("big");
+ try{(d.requestFullscreen||d.webkitRequestFullscreen)?.call(d)?.catch?.(()=>{})}catch(e){}}
+function bigClose(){const d=$("big");if(!d||!d.classList.contains("on"))return;const nv=d.querySelector("video");
+ if(d.querySelector(".stage.sim"))simStop();else if(d.querySelector("iframe"))ytStop();if(nv)vSend(nv);
+ if(nv&&bigFrom){bigFrom.currentTime=nv.currentTime}bigFrom=null;d.querySelector(".stage").innerHTML="";d.classList.remove("on");document.body.classList.remove("big");
+ try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")bigClose()});
+document.addEventListener("click",e=>{
+ const sg=e.target.closest("[data-simgo],[data-simbig]");if(sg){simOpen(sg.dataset.simgo||sg.dataset.simbig,!!sg.dataset.simbig);return}
+ if(e.target.closest("[data-simx]")){simReset();return}
+ const mi=e.target.closest("[data-mis]");if(mi){const b=INL[mi.dataset.mis],k=+mi.dataset.k,r=S.inl[b.id]=S.inl[b.id]||{};r.m=r.m||[];const at=r.m.indexOf(k);
+  if(at>=0)r.m.splice(at,1);else{r.m.push(k);r.got=r.got||{};if(!r.got[k]){r.got[k]=1;star(1)}SFX.play("tick")}save();mark();misMark(mi.closest(".sim"),b);simSend(b);return}
+ const zb=e.target.closest("[data-ytbig]");if(zb){e.stopPropagation();const y=zb.closest(".yt");ytReset();simReset();bigOpen(`<iframe src="${ytSrc(y)}" ${YTA}></iframe>`,y.dataset.title);ytStart(y,"放大");return}
+ const vb=e.target.closest("[data-vbig]");if(vb){const v=vb.closest(".vbox").querySelector("video");v.pause();bigFrom=v;ytReset();simReset();
+  bigOpen(`<video controls playsinline autoplay src="${v.getAttribute("src")}"${v.poster?` poster="${v.getAttribute("poster")}"`:""}></video>`,vb.closest(".card")?.querySelector("h2")?.textContent);
+  const nv=$("big").querySelector("video"),t=v.currentTime;if(t)nv.addEventListener("loadedmetadata",()=>{nv.currentTime=t},{once:true});return}
+ const p=e.target.closest("[data-ytplay]");if(p)ytPlay(p.closest(".yt"))});
+document.addEventListener("keydown",e=>{const p=e.target.closest?.("[data-ytplay]");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();ytPlay(p.closest(".yt"))}});
+// ---------- stars & confetti ----------
+function star(n){S.star+=n;save();$("xp").textContent="⭐ "+S.star;if(!CALM)$("xp").animate?.([{transform:"scale(1.4)"},{transform:"scale(1)"}],300)}
+$("xp").textContent="⭐ "+S.star;
+function boom(){if(CALM)return;const c=$("boom"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+ const P=[...Array(90)].map(()=>({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-10-3,c:["#F2A497","#F6D27A","#A8D3E6","#B9DAA5"][Math.random()*4|0],r:Math.random()*6+5}));
+ let f=0;x.lineWidth=1.5;x.strokeStyle="#3E3A39";(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r);x.strokeRect(p.x,p.y,p.r,p.r)});if(++f<90)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})()}
+// ---------- flash ----------
+function initFlash(){const w=$("fc");if(!w||w.childElementCount)return;
+ DATA.flash.forEach(([f,k,lang])=>{const d=document.createElement("div");d.className="flip";
+  d.innerHTML=`<div class="in"><div class="f">${f}${lang?` <button class="say">🔊</button>`:""}</div><div class="k">${k}</div></div>`;
+  d.onclick=e=>{if(e.target.classList.contains("say")){e.stopPropagation();say(f,lang);return}d.classList.toggle("on")};w.appendChild(d)})}
+// ---------- order ----------
+function initOrder(){const g=DATA.order[oi];$("oTitle").textContent=g.t;picked=[];$("oMsg").innerHTML="";$("oList").innerHTML="";
+ shuffle(g.items.map((v,i)=>i)).forEach(i=>{const li=document.createElement("li");li.innerHTML=`<span class="n"></span>${g.items[i]}`;
+  li.onclick=()=>{if(li.classList.contains("pick"))return;li.classList.add("pick");picked.push(i);li.querySelector(".n").textContent=picked.length;
+   if(picked.length===g.items.length){const ok=picked.every((v,k)=>v===k);
+    HUB.log("order",{g:g.t.slice(0,30),ok});
+    mark();SFX.play(ok?"win":"bad");
+    $("oMsg").innerHTML=ok?"<p>🎉 全對！⭐×5</p>":"<p>😅 順序不對喔！正確順序：<br>"+g.items.map((v,k)=>`${k+1}. ${v}`).join("<br>")+"</p><button class='btn' id='oRe'>再試一次</button>";
+    if(ok){star(5);boom()}else $("oRe").onclick=initOrder}};$("oList").appendChild(li)});
+ $("oNext").onclick=()=>{oi=(oi+1)%DATA.order.length;initOrder()}}
+// ---------- quiz（含隨機計算題 gen） ----------
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function genQ(g){let a=rnd(...g.a),b=rnd(...g.b),r;
+ if(g.op==="÷"){r=a;a=a*b} r=g.op==="+"?a+b:g.op==="-"?a-b:g.op==="×"?a*b:r;
+ if(g.op==="-"&&r<0){[a,b]=[b,a];r=a-b}
+ const set=new Set([r]);while(set.size<4){const d=r+rnd(-Math.max(3,Math.abs(r)*.15|0),Math.max(3,Math.abs(r)*.15|0));if(d!==r&&d>=0)set.add(d)}
+ const o=shuffle([...set]);return{s:(g.s||"計算：")+`${a} ${g.op} ${b} = ？`,o:o.map(String),a:o.indexOf(r),e:`${a} ${g.op} ${b} = ${r}`,tag:g.tag||"計算"}}
+// 隨機計算題產生一次就存起來，重新開網頁時題目和作答紀錄才對得上
+function qList(){if(!QZ){S.gq=S.gq||{};let n=0;QZ=DATA.quiz.map((q,i)=>q.gen?(S.gq[i]||(n++,S.gq[i]=genQ(q.gen))):q);if(n&&!PRINT)save()}return QZ}
+const ranks=DATA.ranks||[[0,"🌱","新手"],[.5,"🥉","銅牌"],[.75,"🥈","銀牌"],[.9,"🥇","金牌"],[1,"👑","滿分王"]];
+// 難度階梯：tag 寫 看懂／課本／段考挑戰（國小用 挑戰）就會分區顯示
+const LV={看懂:["🌱","看懂區","先暖身，一步就能答","g"],課本:["📘","課本區","課本和習作的程度","m"],段考挑戰:["🔥","段考挑戰區","真正段考的題型，錯了很正常，錯題本重做到對就好","c"],挑戰:["🔥","挑戰區","最難的一區，錯了很正常，錯題本重做到對就好","c"]};
+const srcBox=q=>q.src?`<div class="src">${/^\s*</.test(q.src)?"":"📜 "}${q.src}</div>`:"";
+// 故事闖關（內容檔有 story 才開）：每一區是一個對手，答對扣牠一滴血；沒打完的逃進錯題本，訂正就是補刀
+const STORY=!PRINT&&DATA.story||null;
+const act=t=>STORY&&STORY.acts&&STORY.acts[t]||null;
+function zone(t){const Q=qList(),ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t);return{n:ix.length,hit:ix.filter(i=>S.ans[i]===Q[i].a).length}}
+function foeBar(t,cls){const a=act(t);if(!a)return "";const z=zone(t),left=z.n-z.hit;
+ return `<div class="foe ${cls||""}" id="foe"><span class="fava">${left?a.ava||"👾":"🏳️"}</span><div class="fi"><div class="fn">${a.name}</div><div class="hp"><i style="width:${left/z.n*100}%"></i></div><small>${left?`還剩 ${left} / ${z.n} 滴血`:"被你打倒了！"}</small></div></div>`}
+function scene(box,o){box.innerHTML=`<div class="rank scene"><div class="deco"><div class="big">${o.ava}</div></div><h2>${o.h}</h2>${o.sub?`<div class="lvsum"><span class="lvchip">${o.sub}</span></div>`:""}${[].concat(o.p||[]).map(x=>`<p>${x}</p>`).join("")}<button class="btn" id="scgo">${o.btn}</button></div>`;
+ $("scgo").onclick=()=>{S.sc[o.k]=1;save();qRender();scrollTo(0,0)}}
+function qRender(){const Q=qList(),box=$("qbox");S.sc=S.sc||{};
+ if(STORY){const pt=cur>0?Q[cur-1].tag:null,nt=cur<Q.length?Q[cur].tag:null;
+  if(!S.sc.in&&STORY.intro){if(Object.keys(S.ans).length)S.sc.in=1;else return scene(box,{k:"in",ava:STORY.ava||G.ava,h:STORY.title||"故事開始",p:STORY.intro,btn:"出發 ➜"})}
+  if(pt&&pt!==nt&&act(pt)&&!S.sc["o:"+pt]){const a=act(pt),z=zone(pt),win=z.hit===z.n;if(win){SFX.play("win");boom()}
+   return scene(box,{k:"o:"+pt,ava:win?"🏆":a.ava||"👾",h:win?`打倒了${a.name}！`:`${a.name}逃走了！`,sub:win?`${z.n} 題全對`:`還剩 ${z.n-z.hit} 滴血`,
+    p:win?a.win:(a.flee||`牠帶著最後 ${z.n-z.hit} 滴血躲進「📕 錯題」。等一下去那裡把錯的題目重做到對，就能補上最後一刀。`),btn:cur<Q.length?"繼續前進 ➜":"看結果 ➜"})}
+  if(nt&&nt!==pt&&act(nt)&&!S.sc["i:"+nt]){const a=act(nt),z=zone(nt);
+   return scene(box,{k:"i:"+nt,ava:a.ava||"👾",h:`${a.name}出現了！`,sub:`${LV[nt]?LV[nt][0]+" "+LV[nt][1]+"・":""}${z.n} 滴血`,p:a.intro,btn:"⚔️ 開戰"})}}
+ if(cur>=Q.length){const ok=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a===v).length,rate=ok/Q.length;const r=ranks.filter(r=>rate>=(r[0]>1?r[0]/Q.length:r[0])).pop();
+  const lvs=[...new Set(Q.map(q=>q.tag).filter(t=>LV[t]))].map(t=>{const ix=Q.map((q,i)=>i).filter(i=>Q[i].tag===t),k=ix.filter(i=>S.ans[i]===Q[i].a).length;return{t,k,n:ix.length}});
+  const weak=lvs.filter(l=>l.k/l.n<.7).map(l=>LV[l.t][1]);
+  box.innerHTML=`<div class="rank"><div class="deco">${art("star","md float")}<div class="big">${r[1]}</div>${art("trophy","md float d2")}</div><h2>你的等級：${r[2]}</h2><p>${Q.length} 題答對 ${ok} 題</p>${lvs.length?`<div class="lvsum">${lvs.map(l=>`<span class="lvchip lv-${LV[l.t][3]}">${LV[l.t][0]} ${LV[l.t][1]} ${l.k}/${l.n}</span>`).join("")}</div>`:""}<p>${rate>=.9?"太強了，考試穩穩的！":weak.length?`「${weak.join("」「")}」還要加油：去「📕 錯題」把錯的題目重做到全對，就能升級！`:"去「📕 錯題」把錯的題目重做到全對，就能升級！"}</p>${STORY&&(STORY.end||STORY.cont)?`<div class="story">📖 ${ok===Q.length?STORY.end||"":STORY.cont||"故事還沒結束：去「📕 錯題」把逃走的對手一個一個補刀，就能看到結局。"}</div>`:""}<button class="btn" id="again">重新闖關</button></div>`;
+  if(S.doneR!==S.round){S.doneR=S.round;save();HUB.log("done",{r:S.round,ok,n:Q.length,lv:lvs.map(l=>[l.t,l.k,l.n])},500)}
+  if(rate>=.8)boom();$("again").onclick=()=>{S.ans={};S.first={};S.gq={};S.sc={};S.round++;save();QZ=null;cur=0;combo=0;qRender()};return}
+ const q=Q[cur],done=Object.keys(S.ans).length;
+ const lv=LV[q.tag],foe=act(q.tag),first=lv&&!foe&&(cur===0||Q[cur-1].tag!==q.tag);
+ let h=`<div class="qhead"><span>第 ${cur+1} / ${Q.length} 關${lv?`・${lv[0]} ${lv[1]}`:""}</span><span class="combo">${combo>=2?(foe?"⚡ 連擊 ":"🔥 連對 ")+combo:""}</span></div><div class="prog"><i style="width:${done/Q.length*100}%"></i></div>`;
+ if(foe)h+=foeBar(q.tag);
+ if(first)h+=`<div class="lvl lv-${lv[3]}"><b>${lv[0]} 進入${lv[1]}</b><small>${lv[2]}</small></div>`;
+ h+=`<div class="stem">${q.tag&&!lv?`<span class="tag">${q.tag}</span>`:""}${q.s}${DATA.tts?` <button class="say" id="sy">🔊</button>`:""}</div>`;
+ if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+ q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb" id="fb"></div>`;box.innerHTML=h;
+ if(DATA.tts)$("sy").onclick=()=>say(q.s+"。"+(q.src||"")+(q.s2||"")+"。"+q.o.map((o,j)=>L[j]+"，"+o).join("。"));
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;
+  const j=+b.dataset.j,ok=j===q.a,fst=S.first[cur]===undefined;if(fst){S.first[cur]=j;if(!DATA.quiz[cur].gen)REV.add(REV.me,cur,q,ok)}S.ans[cur]=j;save();mark();HUB.log("q",{r:S.round,i:cur,j,ok,fst,tag:q.tag||""});
+  box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");combo=ok?combo+1:0;if(ok){star(combo>=3?2:1);if(combo%5===0)boom()}
+  SFX.play(ok?(foe?"hit":"ok"):"bad");if(foe&&$("foe"))$("foe").outerHTML=foeBar(q.tag,ok?"hit":"dodge");
+  const fb=$("fb");fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=(ok?(foe?["💥 命中！","💥 打中了！","💥 漂亮的一擊！"]:["✅ 答對了！","✅ 太棒了！","✅ 完全正確！"])[Math.random()*3|0]:foe?"💨 被牠躲開了！":"❌ 差一點！")+`<br>${q.e}<br><button class="btn" id="nx">下一關 ➜</button>`;
+  $("nx").onclick=()=>{cur++;delete box.dataset.lock;qRender();scrollTo(0,0)}})}
+function qStart(){const Q=qList();cur=0;while(cur<Q.length&&S.ans[cur]!==undefined)cur++;qRender()}
+function wRender(){const Q=qList(),w=$("wbox"),wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v).map(([i])=>+i);
+ if(!wr.length){const any=Object.keys(S.ans).length,all=any>=Q.length;w.innerHTML=`<div class="card empty">${art(any?"star":"book","lg float")}${guide(any?"錯題本是空的，全部都會了！🎉":"還沒有錯題，先去「⚔️ 闖關」吧！")}${STORY&&STORY.end&&all?`<div class="story">📖 ${STORY.end}</div>`:""}</div>`;return}
+ w.innerHTML=guide(`還有 <b>${wr.length}</b> 題要復仇！答對的題目會自動移出錯題本。`);
+ wr.forEach(i=>{const q=Q[i],d=document.createElement("div");d.className="qbox";
+  let h=`<div class="stem">${q.s}</div>`;if(q.src)h+=srcBox(q)+`<div class="stem">${q.s2||""}</div>`;
+  q.o.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`);h+=`<div class="fb"></div>`;d.innerHTML=h;
+  d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,fb=d.querySelector(".fb");
+   HUB.log("fix",{r:S.round,i,j,ok:j===q.a});
+   mark();
+   if(j===q.a){d.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("ok");S.ans[i]=j;save();star(1);fb.className="fb ok";
+    const a=act(q.tag),z=a&&zone(q.tag),dead=z&&z.hit===z.n;SFX.play(dead?"win":a?"hit":"ok");if(dead)boom();
+    fb.innerHTML=(a?(dead?`🏆 補上最後一刀，打倒了${a.name}！`:`💥 補刀成功！${a.name}還剩 ${z.n-z.hit} 滴血。`):"✅ 復仇成功！")+"<br>"+q.e;setTimeout(wRender,dead?2600:1600)}
+   else{SFX.play("bad");b.classList.add("bad");fb.className="fb bad";fb.innerHTML="❌ 再想想！提示：回去看看這題相關的那一站。"}});w.appendChild(d)})}
+// ---------- 作答區塊：點選猜、填空、手寫、打字、傳給爸爸 ----------
+const normNum=v=>String(v).trim().replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[，,\s]/g,"").replace(/[a-zA-Z³²μ％%]+$/,"");
+function fillOK(b,v){const x=normNum(v);if(!x)return false;return b.ans.some(a=>{const y=normNum(a);if(x===y)return true;const fx=x.includes("/")?x.split("/").reduce((p,q)=>p/q):+x,fy=+y;return isFinite(fx)&&isFinite(fy)&&Math.abs(fx-fy)<1e-9})}
+function askMark(box,b,j){box.querySelectorAll(".opt").forEach(x=>{x.classList.toggle("pick",+x.dataset.j===j)});const fb=box.querySelector(".fb");
+ if(b.reveal){fb.className="fb ok";fb.innerHTML=`✅ 已記下你的猜測：<b>${b.o[j]}</b><br>答案在${b.reveal}揭曉，讀到那裡記得看看猜對沒！`}
+ else{const ok=j===b.a;fb.className="fb "+(ok?"ok":"bad");fb.innerHTML=(ok?"✅ 答對了！":"❌ 再想想！")+(b.e?"<br>"+b.e:"")}}
+function initInline(sec){if(!sec||PRINT)return;
+ sec.querySelectorAll(".ask[data-id]").forEach(box=>{const b=INL[box.dataset.id],r=S.inl[b.id];if(r&&r.j!==undefined)askMark(box,b,r.j)});
+ sec.querySelectorAll(".reveal").forEach(d=>{const b=INL[d.dataset.ref],r=S.inl[d.dataset.ref],v=decodeURIComponent(d.dataset.v);if(!b)return;
+  d.innerHTML=(r&&r.j!==undefined?`🔎 你在暖身猜的是「${b.o[r.j]}」${r.j===b.a?"，<b>猜對了！</b>🎉":"，正確答案是「"+b.o[b.a]+"」，現在知道為什麼了吧！"}`:`🔎 正確答案是「${b.o[b.a]}」。（你還沒在「暖身」猜過，可以回去猜猜看！）`)+(v?"<br>"+v:"")});
+ sec.querySelectorAll("[data-fill]").forEach(i=>{const r=S.inl[i.dataset.fill];if(r&&r.v!==undefined&&!i.value){i.value=r.v;if(r.ok){const fb=i.closest(".fill").querySelector(".fb");fb.className="fb ok";fb.innerHTML="✅ 答對了！"+(INL[i.dataset.fill].e?"<br>"+INL[i.dataset.fill].e:"")}}});
+ sec.querySelectorAll("[data-text]").forEach(t=>{const r=S.inl[t.dataset.text];if(r&&r.v&&!t.value)t.value=r.v});
+ sec.querySelectorAll(".sim[data-sim]").forEach(el=>misMark(el,INL[el.dataset.sim]));
+ sec.querySelectorAll("canvas[data-w]").forEach(initCanvas);
+ sec.querySelectorAll("img[data-wimg]").forEach(img=>IMG.get(img.dataset.wimg,"photo").then(u=>{if(u){img.src=u;img.style.display="block"}}))}
+function initCanvas(c){if(c.dataset.ready)return;const w=c.clientWidth;if(!w)return;c.dataset.ready=1;const R=devicePixelRatio||1;c.width=w*R;c.height=c.clientHeight*R;
+ const x=c.getContext("2d");x.scale(R,R);x.fillStyle="#fff";x.fillRect(0,0,w,c.clientHeight);
+ // 編號格子直接畫在白板上，傳給爸爸的報告圖才看得出哪個字是第幾題
+ const G=+c.dataset.grid||0;if(G){const ch=c.clientHeight/Math.ceil(G/2),cw=w/2;x.strokeStyle="#D8D2C8";x.lineWidth=1.5;x.fillStyle="#9A928C";x.font='16px "Huninn",sans-serif';for(let i=0;i<G;i++){const cx=i%2*cw,cy=Math.floor(i/2)*ch;x.strokeRect(cx,cy,cw,ch);x.fillText(i+1,cx+8,cy+22)}}
+ x.lineCap=x.lineJoin="round";x.lineWidth=3.2;x.strokeStyle="#1d2b4f";
+ const id=c.dataset.w;IMG.get(id,"img").then(u=>{if(!u)return;const im=new Image();im.onload=()=>G?x.drawImage(im,0,0,w,c.clientHeight):x.drawImage(im,0,0,im.width/R,im.height/R);im.src=u});
+ let dn=false,pid=null,lx=0,ly=0;const pos=e=>{const b=c.getBoundingClientRect();return[e.clientX-b.left-c.clientLeft,e.clientY-b.top-c.clientTop]};
+ // iPad 會把筆尖停留當長按，選取旁邊文字、跳出拷貝選單，筆畫就斷了；白板上要全部擋掉
+ if(!c.dataset.guard){c.dataset.guard=1;["touchstart","touchmove"].forEach(n=>c.addEventListener(n,e=>{if(e.cancelable)e.preventDefault()},{passive:false}));["selectstart","contextmenu","dragstart"].forEach(n=>c.addEventListener(n,e=>e.preventDefault()))}
+ c.onpointerdown=e=>{
+  // 用過 Apple Pencil 之後，手掌和手指不算筆畫，也不會打斷正在寫的那一筆
+  if(e.pointerType==="pen")WPEN.seen=true;else if(WPEN.seen&&e.pointerType==="touch")return;
+  if(dn&&e.pointerType!=="pen")return;
+  e.preventDefault();getSelection()?.removeAllRanges();dn=true;pid=e.pointerId;c.setPointerCapture(pid);[lx,ly]=pos(e);x.beginPath();x.arc(lx,ly,1.5,0,7);x.fillStyle="#1d2b4f";x.fill()};
+ c.onpointermove=e=>{if(!dn||e.pointerId!==pid)return;const[nx,ny]=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(nx,ny);x.stroke();lx=nx;ly=ny};
+ c.onpointerup=c.onpointercancel=e=>{if(!dn||e.pointerId!==pid)return;dn=false;pid=null;IMG.set(id,"img",c.toDataURL("image/jpeg",0.7))}}
+const WPEN={seen:false};
+// 平板轉向、視窗變寬窄時重建白板（照原比例把字畫回去），不然筆跡會和手指位置對不上
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>document.querySelectorAll("canvas[data-w]").forEach(c=>{if(c.dataset.ready&&c.clientWidth&&Math.abs(c.clientWidth*(devicePixelRatio||1)-c.width)>2){delete c.dataset.ready;initCanvas(c)}}),250)});
+function shrink(file,cb){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*k;cv.height=im.height*k;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.72))};im.src=fr.result};fr.readAsDataURL(file)}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ask],[data-check],[data-wclear],[data-submit]");if(!t)return;
+ if(t.dataset.ask){const b=INL[t.dataset.ask],j=+t.dataset.j,got=S.inl[b.id]?.got;S.inl[b.id]={j,got:got||j===b.a};save();mark();askMark(t.closest(".ask"),b,j);if(!b.reveal&&j===b.a&&!got)star(1);SFX.play(b.reveal?"tick":j===b.a?"ok":"bad");HUB.log("ask",{id2:b.id,j,ok:b.reveal?null:j===b.a})}
+ else if(t.dataset.check){const b=INL[t.dataset.check],box=t.closest(".fill"),v=box.querySelector("input").value,fb=box.querySelector(".fb"),r=S.inl[b.id]||{n:0};
+  r.n=(r.n||0)+1;r.v=v;const ok=fillOK(b,v);r.ok=ok;S.inl[b.id]=r;save();mark();SFX.play(ok?"ok":"bad");HUB.log("fill",{id2:b.id,v:String(v).slice(0,40),ok,n:r.n});fb.className="fb "+(ok?"ok":"bad");
+  fb.innerHTML=ok?"✅ 答對了！"+(b.e?"<br>"+b.e:""):(r.n<2?"❌ 再試一次！"+(b.hint?"<br>提示："+b.hint:""):"❌ 正確答案是 <b>"+b.ans[0]+" "+(b.unit||"")+"</b>"+(b.e?"<br>"+b.e:""));if(ok&&r.n===1)star(1)}
+ else if(t.dataset.wclear){const c=document.querySelector(`canvas[data-w="${t.dataset.wclear}"]`);delete c.dataset.ready;IMG.set(t.dataset.wclear,"img",null).then(()=>initCanvas(c))}
+ else if(t.dataset.submit)makeReport()});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.text){S.inl[t.dataset.text]={v:t.value};save();HUB.log("text",{id2:t.dataset.text,v:t.value.slice(0,600),key:"text:"+t.dataset.text},15000)}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.wphoto&&t.files[0]){shrink(t.files[0],u=>{const id=t.dataset.wphoto;IMG.set(id,"photo",u);const img=document.querySelector(`img[data-wimg="${id}"]`);img.src=u;img.style.display="block"})}});
+function wrapTxt(x,s,w){const out=[];String(s).replace(/<[^>]+>/g,"").split("\n").forEach(p=>{let l="";for(const ch of p){if(x.measureText(l+ch).width>w){out.push(l);l=ch}else l+=ch}out.push(l)});return out}
+async function makeReport(){const fb=$("subfb");fb.className="fb ok";fb.innerHTML="⏳ 正在整理你的作答…";
+ const Q=qList(),W=1080,P=48,FN='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',items=[],INK="#3E3A39",HD="#B65544";
+ const T=(s,sz=30,c=INK,b=false)=>items.push({t:"t",s,sz,c,b});
+ const now=new Date(),ds=`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+ T(DATA.title,40,INK);T("作答報告　"+ds+"　⭐ "+S.star,28,"#7C7571");
+ const done=Object.keys(S.ans).length,first=Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a===v).length,wr=Object.entries(S.ans).filter(([i,v])=>Q[i]&&Q[i].a!==v);
+ T("⚔️ 闖關",34,HD);T(`已作答 ${done}/${Q.length} 題，第一次就答對 ${first} 題，目前還錯 ${wr.length} 題`);
+ Object.entries(S.first).filter(([i,v])=>Q[i]&&Q[i].a!==v).forEach(([i,v])=>T(`　第 ${+i+1} 題第一次選 ${L[v]}（正解 ${L[Q[i].a]}）：${Q[i].s.replace(/<[^>]+>/g,"").slice(0,28)}`,26,"#5A5452"));
+ const asks=Object.values(INL).filter(b=>b.t==="ask"),fills=Object.values(INL).filter(b=>b.t==="fill"),texts=Object.values(INL).filter(b=>b.t==="text"),writes=Object.values(INL).filter(b=>b.t==="write");
+ if(asks.length){T("🤔 猜謎／點選",34,HD);asks.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.j!==undefined?b.o[r.j]+(r.j===b.a?" ✓":" ✗"):"（沒作答）"}`,26)})}
+ if(fills.length){T("⌨️ 填空",34,HD);fills.forEach(b=>{const r=S.inl[b.id];T(`${b.q.replace(/<[^>]+>/g,"")}　→　${r&&r.v?normNum(r.v)+" "+(b.unit||"")+(r.ok?" ✓":" ✗")+"（試了 "+r.n+" 次）":"（沒作答）"}`,26)})}
+ if(texts.length){T("💬 打字回答",34,HD);texts.forEach(b=>{const r=S.inl[b.id];T("Q："+b.q.replace(/<[^>]+>/g,""),26,"#7C7571");T("A："+(r&&r.v?r.v:"（沒作答）"),28)})}
+ const imgs=[];for(const b of writes){for(const f of ["img","photo"]){const u=await IMG.get(b.id,f);if(!u)continue;const im=new Image();await new Promise(ok=>{im.onload=ok;im.onerror=ok;im.src=u});imgs.push({q:b.q,im})}}
+ const cv=document.createElement("canvas"),x=cv.getContext("2d");let H=P;x.font=`30px ${FN}`;
+ const lay=[];items.forEach(it=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;const ls=wrapTxt(x,it.s,W-2*P);lay.push({it,ls});H+=ls.length*it.sz*1.45+6});
+ imgs.forEach(o=>{H+=60+o.im.height*((W-2*P)/o.im.width)+20});if(imgs.length)H+=50;
+ cv.width=W;cv.height=H+P;x.fillStyle="#FFFCF6";x.fillRect(0,0,W,cv.height);x.strokeStyle=INK;x.lineWidth=6;x.strokeRect(14,14,W-28,cv.height-28);let y=P;
+ lay.forEach(({it,ls})=>{x.font=`${it.b?"bold ":""}${it.sz}px ${FN}`;x.fillStyle=it.c;ls.forEach(l=>{y+=it.sz*1.45;x.fillText(l,P,y-it.sz*0.35)});y+=6});
+ if(imgs.length){y+=50;x.font=`34px ${FN}`;x.fillStyle=HD;x.fillText("✍️ 手寫",P,y-10)}
+ imgs.forEach(o=>{x.font=`26px ${FN}`;x.fillStyle="#7C7571";y+=40;x.fillText(wrapTxt(x,o.q,W-2*P)[0],P,y);y+=20;const h=o.im.height*((W-2*P)/o.im.width);x.drawImage(o.im,P,y,W-2*P,h);x.lineWidth=3;x.strokeStyle=INK;x.strokeRect(P,y,W-2*P,h);y+=h+20});
+ const url=cv.toDataURL("image/jpeg",0.82),img=$("subimg");img.src=url;img.style.display="block";
+ const blob=await (await fetch(url)).blob(),file=new File([blob],DATA.id+"-作答報告.jpg",{type:"image/jpeg"});
+ if(HUB.on){fb.innerHTML="⏳ 正在傳給爸爸…";if(await HUB.sendFile(new Uint8Array(await blob.arrayBuffer()),{t:"report",star:S.star})){fb.innerHTML="✅ 已經自動傳給爸爸了！謝謝你，這週辛苦了 🎉";star(3);boom();return}}
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:DATA.title,text:DATA.title+" 作答報告"});fb.innerHTML="✅ 傳好了！謝謝你，這週辛苦了 🎉";star(3);boom();return}catch(e){}}
+ fb.innerHTML=`📷 報告圖做好了（在下面）。<b>長按圖片</b>就能存起來或分享到 LINE 給爸爸。<br><a href="${url}" download="${DATA.id}-作答報告.jpg">或按這裡下載圖片</a>`}
+// ---------- 今日複習（間隔複習） ----------
+// 闖關第一次答錯的題目隔天再考，答對就拉長到 3、7、14、30 天，連對到最後才畢業；課本區、挑戰區第一次就答對的，7 天後抽考一次。
+// 題庫存在 study_pool，同一個網域的全部教材共用；每份教材只複習同一個孩子、同一科的題目，一天最多 5 題。
+const REV=(()=>{const K="study_pool",GAP=[1,3,7,14,30],MAXQ=5,KEEP=90,today=()=>Math.floor((Date.now()+288e5)/864e5); // 以台灣時間換日
+ let P={q:{},imp:{},day:0,n:0},run=null;try{P=Object.assign(P,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
+ const put=()=>{try{localStorage.setItem(K,JSON.stringify(P))}catch(e){}};
+ const me={pg:DATA.id,t:DATA.title,subj:DATA.subject||"",kid:DATA.kid||""};
+ function add(m,i,q,ok,base){const k=m.pg+":"+i;if(P.q[k]||!q||!q.o)return false;
+  if(ok&&!/課本|挑戰/.test(q.tag||""))return false; // 一步就答的暖身題，答對就不再考
+  if(q.src&&q.src.length>9000)return false; // 圖太大的題目不收，免得把平板的儲存空間吃光
+  P.q[k]={pg:m.pg,t:m.t,subj:m.subj,kid:m.kid,s:q.s,src:q.src,s2:q.s2,o:q.o,a:q.a,e:q.e,box:ok?2:0,due:(base||today())+GAP[ok?2:0]};
+  const ks=Object.keys(P.q);if(ks.length>KEEP)ks.sort((a,b)=>P.q[b].box-P.q[a].box||P.q[b].due-P.q[a].due).slice(0,ks.length-KEEP).forEach(x=>delete P.q[x]);
+  put();return true}
+ const did=()=>P.day===today()?P.n:0;
+ const due=()=>Object.keys(P.q).filter(k=>{const x=P.q[k];return x.subj===me.subj&&x.kid===me.kid&&x.due<=today()}).sort((a,b)=>P.q[a].box-P.q[b].box||P.q[a].due-P.q[b].due);
+ // 這台平板上其他教材以前答錯的題目也收進來（那些網頁當時還沒有題庫）：讀她的作答紀錄，再去抓那一頁的題目
+ async function importOld(){if(PRINT||!/^https?:/.test(location.protocol))return;const keys=[];for(let n=0;n<localStorage.length;n++)keys.push(localStorage.key(n));let got=0;
+  for(const key of keys){const id=(key.match(/^study_([a-z0-9][a-z0-9-]*)$/)||[])[1];if(!id||id===DATA.id||id==="pool"||id==="mute")continue;
+   let st;try{st=JSON.parse(localStorage.getItem(key))}catch(e){continue}
+   const cnt=Object.keys(st&&st.first||{}).length;if(!cnt||P.imp[id]===cnt)continue;
+   try{const h=await (await fetch("../"+id+"/",{cache:"no-store"})).text(),a=h.indexOf("const DATA=")+11,d=JSON.parse(h.slice(a,h.indexOf("\n",a)).replace(/;\s*$/,"")); // 整份內容在同一行；Windows 產的檔案行尾是 \r\n
+    if((d.subject||"")===me.subj&&(d.kid||"")===me.kid)Object.entries(st.first).forEach(([i,j])=>{const q=d.quiz[i];if(q&&!q.gen&&j!==q.a&&add({pg:id,t:d.title,subj:me.subj,kid:me.kid},+i,q,false,today()-1))got++});
+    P.imp[id]=cnt;put()}catch(e){}}
+  if(got)render()}
+ const goal=()=>{if(!DATA.goal||PRINT)return "";const n=Math.min((S.days||[]).length,DATA.goal);
+  return `<div class="goal"><span>🎯 這週的 ${DATA.goal} 次</span>${Array.from({length:DATA.goal},(_,i)=>`<span class="gs${i<n?" on":""}">${i<n?"✓":i+1}</span>`).join("")}<small>${n>=DATA.goal?"全部完成，這週收工！":n?"已經完成 "+n+" 次":"今天做一點就算一次"}</small></div>`};
+ function render(){const el=$("rev");if(!el||run)return; // 複習到一半不要重畫
+  const D=due().slice(0,Math.max(0,MAXQ-did()));
+  el.innerHTML=goal()+(D.length?`<div class="card rv"><h2>🔁 今日複習：${D.length} 題</h2><p>以前答錯、或隔了一陣子的題目，再考一次才會真的記住。大約 2 分鐘，做完再開始今天的課。</p><button class="btn" id="rvgo">開始複習 ➜</button></div>`:
+   did()?`<div class="card rv"><h2>🔁 今日複習做完了 ✅</h2><p>今天複習了 ${did()} 題。還不熟的過幾天會再出現。</p></div>`:"");
+  if(D.length)$("rvgo").onclick=()=>{run={D,i:0,ok:0};step()}}
+ function step(){const el=$("rev"),r=run;
+  if(r.i>=r.D.length){run=null;HUB.log("rvd",{ok:r.ok,n:r.D.length},500);const all=r.ok===r.D.length;if(all){star(2);boom();SFX.play("win")}
+   el.innerHTML=goal()+`<div class="card rv"><h2>🔁 複習完成：${r.D.length} 題答對 ${r.ok} 題</h2><p>${all?"全部都記得，很穩！":"沒答對的過幾天會再出現，不用擔心。"}現在開始今天的課吧！</p></div>`;return}
+  const k=r.D[r.i],q=P.q[k];
+  el.innerHTML=goal()+`<div class="qbox rv"><div class="qhead"><span>🔁 今日複習 ${r.i+1} / ${r.D.length}</span><span class="tag">${q.t}</span></div><div class="stem">${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}${q.o.map((o,j)=>`<button class="opt" data-j="${j}">(${L[j]}) ${o}</button>`).join("")}<div class="fb"></div></div>`;
+  el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j,ok=j===q.a;el.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add("ok")});if(!ok)b.classList.add("bad");
+   if(ok){q.box++;r.ok++;star(1);if(q.box>=GAP.length)delete P.q[k];else q.due=today()+GAP[q.box]}else{q.box=0;q.due=today()+GAP[0]}
+   if(P.day!==today()){P.day=today();P.n=0}P.n++;put();mark();SFX.play(ok?"ok":"bad");HUB.log("rv",{id2:k.slice(0,24),j,ok,n:ok?q.box:0});
+   const fb=el.querySelector(".fb");fb.className="fb "+(ok?"ok":"bad");
+   fb.innerHTML=(ok?"✅ 還記得！":"❌ 這題還要再練，下次再考你一次。")+`<br>${q.e}<br><button class="btn" id="rvnx">${r.i+1<r.D.length?"下一題 ➜":"完成 ➜"}</button>`;
+   $("rvnx").onclick=()=>{r.i++;step();$("rev").scrollIntoView({block:"start"})}})}
+ return{me,add,render,importOld,goal,today,pending:()=>did()===0&&due().length>0}})();
+// 「這週幾次」：內容檔有 goal（例 3）才顯示；當天有作答就算一次，不要求每天都做
+function mark(){if(!DATA.goal||PRINT)return;const d=REV.today();S.days=S.days||[];if(S.days.includes(d))return;S.days.push(d);save();
+ const g=document.querySelector(".goal");if(g)g.outerHTML=REV.goal();if(S.days.length===DATA.goal){toast("🎯 這週的 "+DATA.goal+" 次全部完成！");boom();SFX.play("win")}}
+// ---------- print ----------
+function printQuiz(){const Q=qList();return `<div class="card"><h2>⚔️ 練習題</h2>${DATA.story&&DATA.story.intro?`<p>📖 ${[].concat(DATA.story.intro).join(" ")}</p>`:""}${Q.map((q,i)=>`${LV[q.tag]&&(i===0||Q[i-1].tag!==q.tag)?`<h3>${LV[q.tag][0]} ${LV[q.tag][1]}：${LV[q.tag][2]}</h3>`:""}<div class="qbox"><div class="stem">${i+1}. ${q.tag&&!LV[q.tag]?`<span class="tag">${q.tag}</span>`:""}${q.s}</div>${q.src?srcBox(q)+`<div class="stem">${q.s2||""}</div>`:""}<div>${q.o.map((o,j)=>`(${L[j]}) ${o}`).join("　")}</div></div>`).join("")}</div>`}
+function printKey(){return `<div class="card"><h2>✅ 解答與解析</h2>${qList().map((q,i)=>`<p><b>${i+1}. (${L[q.a]})</b> ${q.e}</p>`).join("")}${(DATA.order||[]).map(g=>`<p><b>${g.t}</b>：${g.items.join(" → ")}</p>`).join("")}</div>`}
+// ---------- 開始：一定放在檔尾，所有 let／const 都宣告好之後才產生頁面、開第一個分頁 ----------
+// 記住上次的分頁：iPad 常在背景把網頁重新載入，不記的話每次都跳回「出發」
+render();
+// 有到期的複習題時，當天第一次打開先回「出發」頁（只跳一次，之後照樣記住分頁）
+if(!PRINT){const home1=REV.pending()&&S.rvDay!==REV.today();if(home1){S.rvDay=REV.today();save()}
+ show(!home1&&pages.some(p=>p.id===S.tab)?S.tab:"home");HUB.log("open",{tab:S.tab||"home"},4000);REV.importOld()}
+</script>
+</body>
+</html>
